@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include global/meta.html %>
+    <% include global/top-css.html %>
+    <title>yuscms</title>
+</head>
+  <body>
+
+        <main class="main" data-info="<%=admin.permission%>">
+            <div class="ys-admin-pos c-a1a3aa">
+                首页<span class="f-sum">></span><span class="c-565b6d">单页栏目管理</span><span class="f-sum">></span><span class="c-565b6d">新增</span>
+              </div>
+          
+              <div class="ys-admin-tablist">
+                  <div class="ys-admin-tab-header row justify-content-b">
+                      <p class="f-14 c-565b6d pl-8 pt-6"></p>
+                  </div>
+          
+                  <div class="mr-10 ml-10 overflow-h pb-20">
+                      <form @submit.prevent="checkForm" name="form">
+                      <ul>
+                          
+                          <li class="row pd-10 f-14">
+                              <div class="col-hd">
+                                  <label class="label">上级栏目</label>
+                              </div>
+                              
+                              <div class="col-10">
+                                   <div class="select flex row">
+                                      <select class="flex" name="pid" v-model="params.pid" v-html="optionRender()">
+                                      </select>
+                                   </div>
+                              </div>
+                             
+                          </li>
+                              
+                          <li class="row  pd-10 f-14">
+                              <div class="col-hd">
+                                  <label class="label">栏目名称</label>
+                              </div>
+                              <div class="col-10">
+                                  <input type="text" name="nav_name"  class="input" v-model="params.nav_name" />
+                              </div>
+                             
+                          </li>
+          
+                          <li class="row  pd-10 f-14">
+                              <div class="col-hd">
+                                  <label class="label">栏目描述</label>
+                              </div>
+                              <div class="col-10">
+                                  <input type="text" name="nav_info" v-model="params.nav_info"  class="input" />
+                              </div>
+                          </li>
+          
+                          <li class="row  pd-10 f-14">
+                              <div class="col-hd">
+                                  <label class="label">栏目排序</label>
+                              </div>
+                              <div class="col-10">
+                                  <input type="text" name="nav_sort" v-model="params.sort"  class="input" />
+                              </div>
+                          </li>
+          
+                          <li class="row pd-10 f-14">
+                              <div class="col-hd">
+                                  <label class="label">标　　题</label>
+                              </div>
+                              <div class="col-10">
+                                  <input type="text" name="title" v-model="params.title" class="input" value="" />
+                              </div>
+                          </li>
+          
+                          <li class="row pd-10 f-14">
+                              <div class="col-hd">
+                                  <label class="label">来　　源</label>
+                              </div>
+                              <div class="col-10">
+                                  <input type="text" name="source" v-model="params.source" class="input" value="" />
+                              </div>
+                          </li>
+          
+                          <li class="row pd-10 f-14">
+                              <div class="col-hd">
+                                  <label class="label">作　　者</label>
+                              </div>
+                              <div class="col-10">
+                                  <input type="text" name="author" v-model="params.author" class="input" value="" />
+                              </div>
+                          </li>
+          
+                          <li class="row pd-10 f-14">
+                              <div class="col-hd">
+                                  <label class="label">发布时间</label>
+                              </div>
+                              
+                              <div class="col-10">
+                                  <el-date-picker v-model="params.date" type="datetime" placeholder="选择日期时间"  format="yyyy-MM-dd HH:mm:ss" >
+                                  </el-date-picker>
+                              </div>
+                          </li>
+          
+                          <li class="row pd-10 f-14">
+                              <div class="col-hd">
+                                  <label class="label">栏目内容</label>
+                              </div>
+                              
+                              <div class="col-bd c-666">
+                                  <div id="editor" class="pos-r z1">
+                                      <p>欢迎使用 <b>yuscms</b> 系统!</p>
+                                  </div>
+                                  <input type="hidden" name="content" value="" v-model="params.content">
+                              </div>
+                          </li>
+                          
+          
+                          <li class="pd-10 mt-10">
+                              <div class="col-hd">
+                              &nbsp;&nbsp;&nbsp;&nbsp;
+                              </div>
+                              <div class="col-10 row ml-35">
+                                  <input name="send" class="btn btn-sure ml-35" type="submit" value="确定发布"/>
+                                  <input name="send" class="btn btn-reset ml-35" type="reset" value="重置"/>
+                              </div>
+                          </li>
+              
+                      </ul>
+                   </form>
+                  </div>
+                 
+              </div>
+        </main>
+    
+	<% include global/all-js.html %>
+	<script>
+		var vm = new Vue({
+			el:'.main',
+			data:{
+        list: [],
+        params: {
+          nav_name: "",
+          nav_info: "",
+          sort: 1,
+          pid: "0",
+          level: 1,
+          title: "",
+          source: "yuscms",
+          author: "admin",
+          date: new Date(),
+          content: ""
+        }
+			},
+			methods:{
+			
+        getData() {
+      var _this = this;
+      axios
+        .get("/api/admin/category")
+        .then(data => {
+          var filterData = data.data;
+          if (filterData.success) {
+            _this.list = filterData.data;
+          } else {
+            location.href = "/admin/login";
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+
+    optionRender: function() {
+      let list = this.list;
+      let str = '<option selected="selected" value="0">顶部导航</option>';
+
+      function option(list) {
+        for (var item of list) {
+          if (item.pid != 0) {
+            str += `<option value="${item.id}${"," +
+              item.level}">${"&nbsp;&nbsp;".repeat(
+              item.level
+            )}|-${item.nav_name}</option>`;
+          } else {
+            str += `<option value="${item.id}${"," +
+              item.level}">${item.nav_name}</option>`;
+          }
+          if (item.children) {
+            option(item.children);
+          }
+        }
+      }
+
+      option(list);
+
+      return str;
+    },
+
+    isRepeat: function(fm) {
+      let _this = this;
+      axios
+        .get("/api/admin/category/isrepeat", {
+          params: {
+            nav_name: _this.params.nav_name
+          }
+        })
+        .then(data => {
+          let filterData = data.data;
+          if (filterData.success) {
+            if (filterData.data.length == 0) {
+              _this.categoryAdd();
+            } else {
+              tipsWarn(_this, "此栏目已存在^_^");
+              fm.focus();
+              return false;
+            }
+          } else {
+            location.href = "/admin/login";
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+
+    editor: function() {
+      var _this = this;
+
+      var editor = new wangEditor("#editor");
+      editor.customConfig.debug = true;
+      editor.customConfig.uploadImgServer = "/api/admin/upload/img"; //上传到服务器API地址
+      editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
+      editor.customConfig.uploadImgMaxLength = 5;
+      editor.customConfig.linkCheck = function(text, link) {
+        return true;
+      };
+      editor.create();
+      $(".w-e-text").on("input", function() {
+        _this.params.content = editor.txt.html();
+      });
+    },
+
+    categoryAdd() {
+      let _this = this;
+      let params;
+
+      if (_this.params.pid.includes(",")) {
+        params = {
+          nav_name: _this.params.nav_name,
+          nav_info: _this.params.nav_info,
+          sort: 1,
+          pid: _this.params.pid.split(",")[0],
+          level: parseInt(_this.params.pid.split(",")[1]) + 1
+        };
+      } else {
+        params = _this.params;
+      }
+
+      params.title = _this.params.title;
+      params.source = _this.params.source;
+      params.author = _this.params.author;
+      params.date = _this.params.date;
+      params.content = _this.params.content;
+      axios
+        .post("/api/admin/category/page-add", params)
+        .then(data => {
+          let filterData = data.data;
+          if (filterData.data.affectedRows === 1) {
+            tips(_this, "添加成功！");
+            _this.$router.go(-1);
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    checkForm: function() {
+      var _this = this;
+      if (!hasPermission("3")) {
+        tipsWarn(_this, "对不起,您没有操作权限^_^");
+        return;
+      }
+      var fm = document.form;
+
+      if (_this.params.nav_name == "") {
+        tipsWarn(_this, "栏目名称不能为空");
+        fm.nav_name.focus();
+        return false;
+      }
+
+      if (_this.params.sort == "") {
+        tipsWarn(_this, "排序不能为空");
+        fm.sort.focus();
+        return false;
+      }
+
+      if (_this.params.title == "") {
+        tipsWarn(_this, "标题不能为空");
+        fm.title.focus();
+        return false;
+      }
+
+      if (_this.params.content == "") {
+        tipsWarn(_this, "内容不能为空");
+        fm.content.focus();
+        return false;
+      }
+
+      if (_this.params.date == "") {
+        tipsWarn(_this, "日期不能为空");
+        fm.date.focus();
+        return false;
+      }
+
+      _this.isRepeat(fm);
+    }
+  },
+
+  created: function() {
+    this.getData();
+  },
+  mounted: function() {
+    this.editor();
+  }
+		});
+	</script>	
+	</body>
+</html>

@@ -1,0 +1,33 @@
+<header class="header">
+    <div class="row">
+        <h1 class="logo col-6 pl-10 pt-10 pb-10 mt-10">
+          
+            <a href="/"><img src="/static/logo.png" title=""alt="yuscms logo"></a>
+        </h1>
+        <div class="col-12">
+            <nav class="nav overflow-h mt-10 ml-30">
+                <ul>
+                    <%for(let i=0,navs;i<nav.length;i++){%>
+                        <%navs=nav[i];%>
+                        <%if(navs.type==1){%>
+                            <li><a href="/list/<%=navs.id%>"><%=navs.nav_name%></a></li>
+                        <%}else{%>
+                            <li><a href="/page/<%=navs.id%>"><%=navs.nav_name%></a></li>
+                        <%}%>    
+                    <%}%>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-6 text-r mt-25 pt-16 mr-15">
+                <%if(typeof(user)=="undefined"){%>
+                    
+                <a class="f-14" href="/user/reg">注册</a>
+                <a class="f-14" href="/user/login">登录</a>
+                
+                <%}else{%>
+                    <a class="f-14" href="/user/index"><%=user%></a>
+                    <a class="f-14" href="/user/login/logout">退出</a>
+                <%}%>
+        </div>
+    </div>
+</header>

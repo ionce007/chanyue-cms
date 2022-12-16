@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include global/meta.html %>
+        <% include global/top-css.html %>
+            <title>yuscms</title>
+</head>
+
+<body>
+
+                        <main class="main" data-info="<%=admin.permission%>">
+                            <div class="ys-admin-pos c-a1a3aa">
+                                首页
+                                <span class="f-sum">></span>
+                                <span class="c-565b6d">订单管理</span>
+                                <span class="f-sum">></span>
+                                <span class="c-565b6d">新增</span>
+                            </div>
+
+                            <div class="ys-admin-tablist">
+                                <div class="ys-admin-tab-header row justify-content-b">
+                                    <p class="f-14 c-565b6d pl-8 pt-6"></p>
+                                </div>
+
+                                <div class="mr-10 ml-10">
+                                    <form @submit.prevent="checkForm" name="form">
+                                        <ul>
+
+                                            <li class="row pd-10 f-14">
+                                                <div class="col-hd">
+                                                    <label class="label">用&nbsp; 户&nbsp; 名</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input type="text" name="username" class="input" v-model="params.username" placeholder="可以会员列表中查找会员用户名" />
+                                                </div>
+                                            </li>
+
+                                            <li class="row pd-10 f-14">
+                                                <div class="col-hd">
+                                                    <label class="label">名　　称</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input type="text" name="product_name" class="input" v-model="params.product_name" placeholder="请填写产品名称，如：农夫山泉" />
+                                                </div>
+                                            </li>
+
+                                            <li class="row pd-10 f-14">
+                                                <div class="col-hd">
+                                                    <label class="label">容　　量</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input type="number" name="capacity" class="input" v-model="params.capacity" placeholder="请填写容量，如：500ml" />
+                                                </div>
+                                            </li>
+
+                                            <li class="row pd-10 f-14">
+                                                <div class="col-hd">
+                                                    <label class="label">价&nbsp; 格&nbsp;(元)</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input type="number" name="product_price" class="input" v-model="params.product_price" placeholder="请填写价格，如：35" />
+                                                </div>
+                                            </li>
+
+                                            <li class="row pd-10 f-14">
+                                                <div class="col-hd">
+                                                    <label class="label">数&nbsp; 量(桶)&nbsp;</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input type="number" name="buy_number" class="input" v-model="params.buy_number" placeholder="请填写数量，如：1" />
+                                                </div>
+                                            </li>
+
+                                            <li class="row pd-10 f-14">
+                                                <div class="col-hd">
+                                                    <label class="label">配送时间</label>
+                                                </div>
+                                                <div class="col-10 row">
+                                                    <el-date-picker v-model="params.time" class="flex" type="datetime" placeholder="选择日期时间" format="yyyy-MM-dd HH:mm:ss">
+                                                    </el-date-picker>
+                                                </div>
+                                            </li>
+
+                                            <li class="row pd-10 f-14">
+                                                <div class="col-hd">
+                                                    <label class="label">配&nbsp; 送&nbsp; 人</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input type="text" name="ps_person" class="input" v-model="params.ps_person" placeholder="请填写配送人姓名，如：张三" />
+                                                </div>
+                                            </li>
+
+                                            <li class="row pd-10 f-14">
+                                                <div class="col-hd">
+                                                    <label class="label">配送电话</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input type="tel" name="ps_tel" class="input" v-model="params.ps_tel" placeholder="请填写配送人电话" />
+                                                </div>
+                                            </li>
+
+                                            <li class="row pd-10 f-14">
+                                                <div class="col-hd">
+                                                    <label class="label">积　　分</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input type="text" name="score" class="input" v-model="params.score" placeholder="请填写购买数量对应的积分" />
+                                                </div>
+                                            </li>
+
+                                            <li class="pd-10 mt-35">
+                                                <div class="col-hd">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                                </div>
+                                                <div class="col-bd row ml-35">
+                                                    <input name="send" class="btn btn-sure ml-35" type="submit" value="确定发布" />
+                                                    <input name="send" class="btn btn-reset ml-35" type="reset" value="重置" />
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </form>
+                                </div>
+                            </div>
+                        </main>
+           
+    <% include global/all-js.html %>
+        <script>
+            var vm = new Vue({
+                el: '.main',
+                data: {
+                    level: [],
+                    params: {
+                        username: '',
+                        product_name: '',
+                        capacity: '',
+                        product_price: '',
+                        buy_number: '',
+                        time: new Date(),
+                        ps_person: '',
+                        ps_tel: '',
+                        score: '35'
+                    }
+                },
+                methods: {
+
+                    orderAdd() {
+                        let _this = this;
+                        axios.post('/api/admin/order/add', _this.params)
+                            .then((data) => {
+                                let filterData = data.data;
+                                if (filterData.success && filterData.data.affectedRows === 1) {
+                                    tips(_this, '添加成功！');
+                                    _this.$router.go(-1);
+                                } else {
+                                    tipsWarn(_this, filterData.msg)
+                                }
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
+                    }
+                    ,
+                    checkForm: function () {
+                        var _this = this;
+                        if (!hasPermission('8')) {
+                            tipsWarn(_this, '对不起,您没有操作权限^_^');
+                            return
+                        }
+                        var fm = document.form;
+
+                        if (_this.params.username == '') {
+                            tipsWarn(_this, '会员名称不能为空^_^');
+                            fm.username.focus();
+                            return false;
+                        }
+                        if (_this.params.product_name == '') {
+                            tipsWarn(_this, '产品名称不能为空!^_^');
+                            fm.product_name.focus();
+                            return false;
+                        }
+
+                        if (_this.params.capacity == '') {
+                            tipsWarn(_this, '容量不能为空!^_^');
+                            fm.capacity.focus();
+                            return false;
+                        }
+
+                        if (_this.params.product_price == '') {
+                            tipsWarn(_this, '价格不能为空^_^');
+                            fm.product_price.focus();
+                            return false;
+                        }
+
+                        if (_this.params.buy_number == '') {
+                            tipsWarn(_this, '购买数量不能为空^_^');
+                            fm.buy_number.focus();
+                            return false;
+                        }
+
+                        if (_this.params.time == '') {
+                            tipsWarn(_this, '请选择配送时间^_^');
+                            fm.time.focus();
+                            return false;
+                        }
+
+                        if (_this.params.ps_person == '') {
+                            tipsWarn(_this, '请输入配送人信息^_^');
+                            fm.ps_person.focus();
+                            return false;
+                        }
+                        if (_this.params.ps_tel == '') {
+                            tipsWarn(_this, '请正确填写手机号码^_^');
+                            fm.ps_tel.focus();
+                            return false;
+                        }
+                        if (_this.params.score == '') {
+                            tipsWarn(_this, '请输入积分^_^');
+                            fm.score.focus();
+                            return false;
+                        }
+
+                        _this.orderAdd();
+                    }
+
+                },
+
+                created: function () {
+
+                },
+                mounted: function () {
+                }
+            });
+        </script>
+</body>
+
+</html>

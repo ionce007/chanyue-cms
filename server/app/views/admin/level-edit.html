@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include global/meta.html %>
+    <% include global/top-css.html %>
+    <title>yuscms</title>
+</head>
+  <body>
+   
+        <main class="main" data-info="<%=admin.permission%>">
+          <div class="ys-admin-pos c-a1a3aa">
+            首页<span class="f-sum">></span><span class="c-565b6d">管理员等级</span><span class="f-sum">></span><span class="c-565b6d">更新</span>
+          </div>
+      
+          <div class="ys-admin-tablist">
+              <div class="ys-admin-tab-header row justify-content-b">
+                  <p class="f-14 c-565b6d pl-8 pt-6"></p>
+              </div>
+      
+              <div class="mr-10 ml-10" v-loading="loading">
+                  <form @submit.prevent="checkForm" name="form">
+                  <ul class="overflow-h pb-20">
+                    
+                    <li class="row pd-10 f-14">
+                      <div class="col-hd">
+                        <label class="label">等级名称</label>
+                      </div>
+                      
+                      <div class="col-10">
+                        <input type="text" name="level_name" class="input" disabled="disabled" v-model="params.level_name" />
+                      </div>
+                      
+                    </li>
+                     
+                    <li class="row  pd-10 f-14">
+                      <div class="col-hd">
+                        <label class="label">等级信息</label>
+                      </div>
+                      <div class="col-10">
+                        <input type="text" name="level_info" class="input" v-model="params.level_info" />
+                      </div>
+                      
+                    </li>
+      
+                    <li class="row  pd-10 f-14">
+                      <div class="col-hd">
+                        <label class="label">等级权限</label>
+                      </div>
+                      <div class="col-bd">
+                          <template v-for="item in permission">
+                            <span :key="item.id" class="mr-15 mb-10 c-3b4364">
+                              <input type="checkbox" class="checkbox pos-r mr-5" :key="item.id" v-model="params.permission" name="permission" :value="item.mark">
+                              <span class="inline-b">{{item.name}}</span>
+                            </span>
+                          </template>
+                      </div>
+                    </li>
+      
+                    <li class="pd-10 mt-35">
+                      <div class="col-hd">
+                       &nbsp;&nbsp;&nbsp;&nbsp;
+                      </div>
+                      <div class="col-bd row ml-35">
+                        <input name="send" class="btn btn-sure ml-35" type="submit" value="确定发布"/>
+                        <input name="send" class="btn btn-reset ml-35" type="reset" value="重置"/>
+                      </div>
+                    </li>
+              
+                  </ul>
+               </form>
+              </div>
+             
+          </div>
+        </main>
+     
+	<% include global/all-js.html %>
+	<script>
+		var vm = new Vue({
+			el:'.main',
+			data:{
+        permission:[], // 所有权限
+        loading:true,
+        params:{
+          id:$m.getParams('id'),
+          level_name:'',
+          level_info:'',
+          permission:[]  //选择权限
+        }
+			},
+			methods:{
+			
+ 
+      //获取修改内容
+      queryById(){
+         let _this = this;
+          axios.get('/api/admin/level/queryById',{
+            params:{id:_this.params.id}
+          }).then((data)=>{
+          let filterData = data.data;
+          if(filterData.success){
+             _this.params = filterData.data[0];
+             _this.params.permission = filterData.data[0].permission.split(',');
+             _this.loading = false;
+          }
+        }).catch((error)=>{
+            console.error(error)
+        })
+      },
+      //获取所有权限checkbox列表
+      getData(){
+        let _this = this;
+        axios.get('/api/admin/permission').then((data)=>{
+          let filterData = data.data;
+          if(filterData.success){
+            _this.permission = filterData.data;
+          }
+        }).catch((error)=>{
+            console.error(error)
+        })
+      },
+        //修改
+        levelEdit(){
+          let _this = this;
+           if(!hasPermission('12')){
+                tipsWarn(_this,'对不起,您没有操作权限^_^');
+                return
+            }
+            axios.post('/api/admin/level/edit', _this.params)
+            .then((data)=>{
+              let filterData = data.data;
+              if(filterData.data.affectedRows===1){
+                 tips(_this,'更新成功！');
+                 _this.$router.go(-1);
+                 _this.$emit('refresh');
+              }
+            })
+            .catch((error)=>{
+              console.error(error);
+            });
+        },
+        //form验证
+				checkForm:function(){
+					this.levelEdit();
+				}
+    },
+ 
+    created: function(){
+      this.getData();
+      this.queryById();
+    },
+    mounted:function(){ 
+    }
+		});
+	</script>	
+	</body>
+</html>

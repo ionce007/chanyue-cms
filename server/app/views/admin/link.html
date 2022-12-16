@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include global/meta.html %>
+    <% include global/top-css.html %>
+      <title>yuscms</title>
+</head>
+
+<body>
+
+            <main class="main" data-info="<%=admin.permission%>">
+              <div class="ys-admin-pos c-a1a3aa">
+                首页
+                <span class="f-sum">></span>
+                <span class="c-565b6d">友情链接</span>
+              </div>
+              <div class="ys-admin-tablist">
+                <div class="ys-admin-tab-header row justify-content-b">
+                  <p class="f-14 c-565b6d pl-8 pt-6">友情链接</p>
+                  <a href="/admin/link/add" class="btn-add">
+                    <i class="ico ico-plus f-16 pos-r">+</i>新增</a>
+                </div>
+               
+                <div class="mr-10 ml-10" v-loading="loading">
+                  <table class="table table-hover ml-10">
+                    <thead class="table-th">
+                      <tr>
+                        <th></th>
+                        <th>编号</th>
+                        <th>标题</th>
+                        <th>链接</th>
+                        <th>图片</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                      </tr>
+                    </thead>
+
+                    <tbody class="table-border">
+                      <tr v-for="item in list" :key="item.id">
+                        <td>
+                          <input type="checkbox" :value="item.id" v-model="checkbox" class="checkbox">
+                        </td>
+                        <td>{{item.id}}</td>
+                        <td>
+                          <a :href="item.url">{{item.title}}</a>
+                        </td>
+                        <td>{{item.url}}</td>
+                        <td :data-id="item.id">{{item.img}}</td>
+                        <td v-if="item.state==1">开启</td>
+                        <td v-else>关闭</td>
+                        <td>
+                          <a :href="'/admin/slide/edit?id='+item.id">
+                            <i class="ico ico-edit mr-10 pos-r t-4"></i>
+                          </a>
+                          <a href="javascript:;" @click="del(item.id,item.img)">
+                            <i class="ico ico-del pos-r t-4"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="row justify-content-b">
+                    <span class="mt-15 mb-35 c-3b4364" v-if="list.length>0">{{checkbox}}{{img}}
+                      <input type="checkbox" v-model="checked" @click="checkedAll" class="checkbox ml-17 mr-15 c-3b4364">
+                      <el-button type="text" @click="confirm">批量删除</el-button>
+                    </span>
+                    <div v-else class="f-14 flex text-c mt-20 c-a1a3aa"> 暂无内容</div>
+
+                    <div id="page" class="mt-15 row mr-25">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+       
+  <% include global/all-js.html %>
+    <script>
+      var vm = new Vue({
+        el: '.main',
+        data: {
+          loading: true,
+          totalCounts: 0,
+          pageNo: $m.getParams('page') || 1,
+          totalPage: 0,
+          list: [], //渲染页面的列表数据
+          checked: false, //全选
+          checkbox: [], //选择的数据
+          img: []
+        },
+        methods: {
+
+          totalCount() {
+            var _this = this;
+            //获取所有数量
+            axios
+              .get("/api/admin/link/count")
+              .then(data => {
+                let filterData = data.data;
+                if (filterData.success) {
+                  _this.totalCounts = filterData.data[0].count;
+                  _this.queryLink();
+                }
+              })
+              .catch(error => {
+                console.error(error);
+              });
+          },
+
+          queryLink() {
+            var _this = this;
+            //获取所有数量
+            axios
+              .get("/api/admin/link/query", {
+                params: {
+                  pageNo: _this.pageNo,
+                  count: _this.totalCounts
+                }
+              })
+              .then(data => {
+                let filterData = data.data;
+                if (filterData.success) {
+                  //清空数据
+                  _this.list.splice(0);
+                  _this.checked = false;
+                  _this.checkbox = [];
+
+                  _this.list = filterData.data;
+                  _this.totalPage = filterData.totalPage;
+
+                  _this.page();
+                  _this.loading = false;
+                }
+              })
+              .catch(error => {
+                console.error(error);
+              });
+          },
+
+          page: function () {
+            var _this = this;
+            if (_this.pageNo <= 0) {
+              _this.pageNo = 1;
+            }
+            if (_this.pageNo > _this.totalPage) {
+              _this.pageNo = _this.totalPage;
+            }
+            document.querySelector("#page").innerHTML = "";
+            Page({
+              num: parseInt(_this.totalPage), //页码数
+              startnum: _this.pageNo, //指定页码
+              elem: $("#page"), //指定的元素
+              callback: function (n) {
+                //回调函数
+                _this.pageNo = n;
+                location.hash = "/link?page=" + n;
+                _this.querySlide();
+              }
+            });
+          },
+
+          del(id, img) {
+            let _this = this;
+            if (!hasPermission("4")) {
+              tipsWarn(_this, "对不起,您没有操作权限^_^");
+              return;
+            }
+            axios
+              .post("/api/admin/link/del", {
+                id: id,
+                img: img
+              })
+              .then(data => {
+                let filterData = data.data;
+                if (filterData.success && filterData.data.affectedRows >= 1) {
+                  tips(_this, "删除成功！");
+                  //清空全选
+                  _this.checked = false;
+                  _this.checkbox = [];
+                  _this.totalCount();
+                  _this.querySlide();
+                }
+              })
+              .catch(error => {
+                console.error(error);
+              });
+          },
+          checkedAll: function () {
+            var _this = this;
+            if (this.checked) {
+              _this.checkbox = [];
+              _this.img = [];
+            } else {
+              _this.checkbox = [];
+              _this.img = [];
+              _this.list.forEach(function (item) {
+                _this.checkbox.push(item.id);
+                _this.img.push(item.img);
+              });
+            }
+          },
+
+          confirm() {
+            let _this = this;
+
+            if (_this.checkbox.length == 0) {
+              tipsWarn(_this, "未选择任何数据！");
+              return;
+            }
+
+            this.$confirm("确定删除选择该文件, 是否继续?", "提示", {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning"
+            })
+              .then(() => {
+                _this.del(_this.checkbox, _this.img);
+              })
+              .catch(() => {
+                tipsInfo(_this, "已取消删除！");
+              });
+          }
+        },
+        beforeRouteUpdate(to, from, next) {
+          this.pageNo = to.query.page;
+          this.querySlide();
+          next();
+        },
+        computed: {},
+
+        watch: {
+          checkbox: {
+            handler: function (val, oldval) {
+              if (this.checkbox.length === this.list.length) {
+                this.checked = true;
+              } else {
+                this.checked = false;
+              }
+
+              //绑定对应图片路径
+              var arr = [];
+              for (let i = 0; i < this.checkbox.length; i++) {
+                arr.push(
+                  document.querySelector('[data-id="' + this.checkbox[i] + '"]')
+                    .innerText
+                );
+              }
+              this.img = arr;
+            },
+            deep: true
+          },
+          list: {
+            //对数组和对象属性修改 监听无效 需要单独设置 https://cn.vuejs.org/v2/guide/list.html#数组更新检测
+            handler: function (val, oldval) { },
+            deep: true
+          }
+        },
+        created: function () {
+          this.totalCount();
+        },
+        mounted: function () { }
+      });
+    </script>
+</body>
+
+</html>

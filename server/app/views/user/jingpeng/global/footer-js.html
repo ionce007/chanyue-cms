@@ -1,0 +1,24 @@
+<script src="/static/lib/js/jquery-2.2.4.js"></script>
+<script src="/static/lib/js/jquery.page.js"></script>
+<script src="/static/lib/js/mkui0.1.js"></script>
+<script src="/static/lib/js/vue.js"></script>
+<script src="https://cdn.bootcss.com/element-ui/2.2.1/index.js"></script>
+
+<script>
+    var path = location.pathname;
+    
+   $('[href="'+path+'"]').parent().parent().addClass('current').siblings().removeClass('current');
+   
+   if(path == '/user/index'){
+        $('[href="/user/index"]').parent().parent().addClass('current').siblings().removeClass('current');
+   }
+
+   if(path.includes('/user/')){
+     $('[href="/user/index"]').parent().addClass('current').siblings().removeClass('current');
+   }
+
+   if(path.includes('/user/msg')){
+        $('[href="/user/msg"]').parent().parent().addClass('current').siblings().removeClass('current');
+   }
+   
+</script>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include global/meta.html %>
+    <% include global/top-css.html %>
+    <title>yuscms</title>
+</head>
+  <body>
+
+        <main class="main" data-info="<%=admin.permission%>">
+          <div class="ys-admin-pos c-a1a3aa">
+            首页<span class="f-sum">></span>
+            <span class="c-565b6d">管理员列表</span>
+            <span class="f-sum">></span>
+            <span class="c-565b6d">新增</span>
+          </div>
+      
+          <div class="ys-admin-tablist">
+              <div class="ys-admin-tab-header row justify-content-b">
+                  <p class="f-14 c-565b6d pl-8 pt-6"></p>
+              </div>
+      
+              <div class="mr-10 ml-10">
+                  <form @submit.prevent="checkForm" name="form">
+                  <ul>
+                    
+                    <li class="row pd-10 f-14">
+                      <div class="col-hd">
+                        <label class="label">用&nbsp;户&nbsp; 名</label>
+                      </div>
+                      
+                      <div class="col-10">
+                        <input type="text" name="admin_user" class="input" v-model="params.admin_user" />
+                      </div>
+                     
+                    </li>
+                     
+                    <li class="row  pd-10 f-14">
+                      <div class="col-hd">
+                        <label class="label">密　　码</label>
+                      </div>
+                      <div class="col-10">
+                        <input type="text" name="admin_pass" class="input" v-model="params.admin_pass" />
+                      </div>
+                      
+                    </li>
+      
+                    <li class="row  pd-10 f-14">
+                      <div class="col-hd">
+                        <label class="label">确认密码</label>
+                      </div>
+                      <div class="col-10">
+                        <input type="text" name="admin_repeatpass" v-model="params.admin_repeatpass"  class="input" />
+                      </div>
+                      
+                    </li>
+      
+                    <li class="row pd-10 f-14">
+                        <div class="col-hd">
+                          <label class="label">等　　级</label>
+                        </div>
+                                          
+                        <div class="col-10">
+                          <div class="select flex row">
+                            <select class="flex" name="level" v-model="params.level" >
+                                <option v-for="item in level" :key="item.id" :value="item.id">{{item.level_name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                       
+                    </li>
+      
+                    <li class="pd-10 mt-35">
+                      <div class="col-hd">
+                       &nbsp;&nbsp;&nbsp;&nbsp;
+                      </div>
+                      <div class="col-bd row ml-35">
+                        <input name="send" class="btn btn-sure ml-35" type="submit" value="确定发布"/>
+                        <input name="send" class="btn btn-reset ml-35" type="reset" value="重置"/>
+                      </div>
+                    </li>
+              
+                  </ul>
+               </form>
+              </div>
+          </div>
+        </main>
+     
+	<% include global/all-js.html %>
+	<script>
+		var vm = new Vue({
+			el:'.main',
+			data:{
+        level: [],
+      params: {
+        admin_user: "",
+        admin_pass: "",
+        admin_repeatpass: "",
+        level: ""
+      }
+			},
+			methods:{
+			
+        adminLevel() {
+      let _this = this;
+      axios
+        .get("/api/admin/level")
+        .then(data => {
+          let filterData = data.data.data;
+          if (filterData.length>0) {
+            _this.level = filterData;
+            _this.params.level = _this.level[0].id;
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+
+    isRepeat: function(fm, username) {
+      let _this = this;
+      axios
+        .get("/api/admin/isrepeat", {
+          params: {
+            admin_user: _this.params.admin_user
+          }
+        })
+        .then(data => {
+          let filterData = data.data;
+          if (filterData.data) {
+            if (filterData.data.length == 0) {
+              _this.adminAdd();
+            } else {
+              tipsWarn(_this, "用户名已占用，请重新填写！");
+              fm.focus();
+              return false;
+            }
+          } else {
+            location.href = "/admin/login";
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+
+    adminAdd() {
+      let _this = this;
+      axios
+        .post("/api/admin/add", _this.params)
+        .then(data => {
+          let filterData = data.data;
+          if (filterData.data.affectedRows >= 1) {
+            tips(_this, "添加成功！");
+            setTimeout(function(){
+                history.go(-1)
+            },1000)
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    checkForm: function() {
+      var _this = this;
+      if (!hasPermission("11")) {
+        tipsWarn(_this, "对不起,您没有操作权限^_^");
+        return;
+      }
+      var fm = document.form;
+
+      if (_this.params.admin_user == "" || _this.params.admin_user.length < 2) {
+        tipsWarn(_this, "用户名不得为空且不能小于两位！");
+        fm.admin_user.focus();
+        return false;
+      }
+
+      if (_this.params.admin_pass == "" || _this.params.admin_pass.length < 6) {
+        tipsWarn(_this, "密码不得为空且不能小于六位！");
+        fm.admin_pass.focus();
+        return false;
+      }
+
+      if (_this.params.admin_pass != _this.params.admin_repeatpass) {
+        tipsWarn(_this, "两次密码不一致！");
+        fm.admin_repeatpass.focus();
+        return false;
+      }
+
+      _this.isRepeat(fm);
+    }
+  },
+
+  created: function() {
+    this.adminLevel();
+  },
+  mounted: function() {}
+		});
+	</script>	
+	</body>
+</html>

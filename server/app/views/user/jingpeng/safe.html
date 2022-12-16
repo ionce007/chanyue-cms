@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../../web/jingpeng/meta.html %>
+        <% include global/top-css.html %>
+        <title></title>
+</head>
+
+<body>
+
+    <% include ../../web/jingpeng/header.html %>
+        <section class="row">
+            <img class="wauto" src="/static/web/jingpeng/img/news.jpg" alt="">
+        </section>
+        <div class="row wrap-content page-c mt-30">
+            <% include global/nav-aside.html %>
+                <div class="flex pd-10 flex">
+                    <% include global/user-info.html %>
+                        <div>
+                            <h3 class="tab-safe f-16 c-333 mt-30 mb-15 lh-30">
+                                <span @click="tabIsTel=!tabIsTel" class="pl-3 pr-3" :class="{'current':tabIsTel}">修改手机号</span>
+                                <span @click="tabIsTel=!tabIsTel" class="pl-3 pr-3" :class="{'current':!tabIsTel}">修改密码</span>
+                            </h3>
+
+                            <div class="tab-c">
+                                <form action="/user/safe/updatePass" v-if="!tabIsTel" method="post" name="updatePass" @submit.prevent="checkUpdatePass">
+                                    <ul class="col-12 mt-30">
+                                        <li class="row f-14 mb-22">
+                                            <div>
+                                                <label class="label mt-4  c-666 f-14" for="#">新&nbsp; 密&nbsp; 码：</label>
+                                            </div>
+                                            <div>
+                                                <input type="text" name="pass" v-model="params.pass" id="" class="input" placeholder="6-20位字符，可由英文、数字或符号组成" class="input" value="" />
+                                            </div>
+                                        </li>
+                                        <li class="row f-14">
+                                            <div class="col-hd">
+                                                <label class="label mt-4  c-666 f-14" for="#">验&nbsp; 证&nbsp; 码：</label>
+                                            </div>
+                                            <div class="mr-10">
+                                                <input type="number" class="input w-200"  v-model="params.smscode" name="smscode" placeholder="请输入验证码">
+                                            </div>
+                                            <div class="col-ft pd-10 btn-yzmx" style="height:40px;" @click="getSmsCode($event)">获取验证码</div>
+                                        </li>
+                                        <li class="pd-10 mt-35">
+                                            <div class="col-hd">
+                                                <label class="label c-999" for="#">　　　　</label>
+                                            </div>
+                                            <div class="col-bd">
+                                                <input name="send" class="submit cursor mr-30" type="submit" value="确定" />
+                                                <input name="send" class="reset cursour f-16" type="reset" value="取消" />
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </form>
+
+                                <form action="/user/safe/updateTel" v-else method="post" name="updateTel" @submit.prevent="checkUpdateTel">
+                                    <ul class="col-12 mt-30">
+                                        <li class="row mb-22 f-14">
+                                            <div>
+                                                <label class="label mt-4 c-666 f-14" for="#">新手机号：</label>
+                                            </div>
+
+                                            <div>
+                                                <input type="text" name="tel" id="" placeholder="请输入新手机号" v-model="tel" class="input" />
+                                            </div>
+
+                                        </li>
+                                        <li class="row f-14">
+                                            <div class="col-hd">
+                                                <label class="label mt-4  c-666 f-14">
+                                                    验&nbsp; 证&nbsp; 码：
+                                                </label>
+                                            </div>
+                                            <div class="mr-10">
+                                                <input type="number" class="input w-200" v-model="params.smscode" name="smscode" placeholder="请输入验证码">
+                                            </div>
+                                            <div class="col-ft pd-10 btn-yzmx" @click="getSmsCode($event)">获取验证码</div>
+                                        </li>
+                                        <li class="pd-10 mt-35">
+                                            <div class="col-hd">
+                                                <label class="label c-999" for="#">　　　　</label>
+                                            </div>
+                                            <div class="col-bd">
+                                                <input name="send" class="submit cursor mr-30" type="submit" value="确定" />
+                                                <input name="send" class="reset cursour f-16" type="reset" value="取消" />
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+
+                </div>
+        </div>
+        <% include global/footer.html %>
+            <% include global/footer-js.html %>
+                <script>
+                    var vm = new Vue({
+                        el: '.wrap-content',
+                        data: {
+                            img: '',
+                            tel: '',
+                            tabIsTel: true,
+                            params:{
+                                pass:'',
+                                smscode:''
+                            },
+                            sending: false //判断是否正在发送中
+                        },
+                        methods: {
+                            tab: function () {
+
+                                var th = $('.tab-safe').children('span');
+                                th.on('click', function () {
+                  
+                                    $(this).addClass('current').siblings().removeClass('current');
+                                    $('.tab-c').children('form').eq($(this).index()).show().siblings().hide()
+                                })
+                            },
+                            checkUpdateTel: function () {
+                                var _this = this;
+                                var fm = document.updateTel;
+                                   
+                                if (fm.tel.value == '') {
+                                    _this.$message('手机号码不能为空^_^');
+                                    fm.tel.focus();
+                                    return false;
+                                }
+
+                                if (fm.smscode.value.length !== 4) {
+                                    _this.$message('验证码不能为空！');
+                                    fm.smscode.focus();
+                                    return false;
+                                }
+
+                                 $.ajax({
+									url: "/user/safe/updateTel",
+									data: {'tel':fm.tel.value,'smscode':fm.smscode.value},
+									cache: false,
+									type: "post",
+									dataType: 'json',
+									success: function (data) {
+										if (data.success) {
+											_this.$message('更新手机号成功，2s后自动跳转个人资料页面');
+											setTimeout(function () {
+												location.href = "/user/my"
+											}, 2000)
+										} else {
+											_this.$message(data.msg)
+										}
+									}
+								});
+
+                            },
+
+                            smsCodeTime: function (el, time) {
+                                var _this = this;
+                                var _time = time;
+                                _this.sending = true;
+                                var timer = setInterval(function () {
+                                    if (_time <= 0) {
+
+                                        el.innerText = '获取验证码';
+                                        clearInterval(timer);
+                                        _this.sending = false;
+                                        return false;
+                                    }
+                                    _time--
+                                    el.innerText = '剩余' + _time + 's';
+                                }, 1000);
+                            },
+
+                            checkUpdatePass: function () {
+                                var _this = this;
+                                var fm = document.updatePass;
+
+                                if (fm.pass.value.length < 6) {
+                                    _this.$message('密码不能为空且不能少于6位^_^');
+                                    fm.pass.focus();
+                                    return false;
+                                }
+
+                                if (fm.smscode.value.length !== 4) {
+                                    _this.$message('验证码不能为空！');
+                                    fm.smscode.focus();
+                                    return false;
+                                }
+                                
+                                $.ajax({
+									url: "/user/safe/updatePass",
+									data: _this.params,
+									cache: false,
+									type: "post",
+									dataType: 'json',
+									success: function (data) {
+										if (data.success) {
+											_this.$message('更新密码成功，2s后自动跳转到登录界面');
+											setTimeout(function () {
+												location.href = "/user/index"
+											}, 2000)
+										} else {
+											_this.$message(data.msg)
+										}
+									}
+								});
+
+                                //fm.submit();
+                            },
+                            getSmsCode: function (event) {
+
+                                var _this = this;
+                                if (_this.sending) {
+                                    return;
+                                }
+                                if (_this.tabIsTel && !$m.isTel('<%=data.tel%>'||_this.tel)) {
+                                    _this.$message('请正确输入手机号!');
+                                    return;
+                                }
+
+                                if (!_this.tabIsTel && document.updatePass.pass.value.length < 6) {
+                                    _this.$message('新密码不能少于6位!');
+                                    return;
+                                }
+
+                                _this.smsCodeTime(event.srcElement, 60);
+
+                                //给旧的手机号发送验证码
+                                $.ajax({
+                                    url: "/api/sms-code",
+                                    data: { "tel": '<%=data.tel%>'|| _this.tel},
+                                    cache: false,
+                                    type: "get",
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (data.Code == 'OK') {
+                                            _this.$message('验证码发送成功，请注意查收！');
+                                        } else {
+                                            _this.$message(data.Message);
+                                        }
+                                    }
+                                });
+                            }
+                        },
+                        created: function () {
+                            this.tab()
+                        },
+                        mounted: function () {
+
+                        },
+                        updated: function () {
+
+                        }
+                    });
+
+                </script>
+</body>
+
+</html>
