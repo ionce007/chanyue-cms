@@ -1,0 +1,12 @@
+<%if(nav && nav.length>0){%>
+    <nav class="nav center w-1200 bg-fff pd-15 mt-20">
+        <ul class="overflow-h">
+            <%for(let i=0,item;i<nav.length;i++){%>
+            <%item = nav[i]%>
+            <li>
+                <a href="/list/<%=item.id%>?page=1"><%= item.nav_name%></a>
+            </li>
+            <%}%>
+        </ul>
+    </nav>
+<%}%>    

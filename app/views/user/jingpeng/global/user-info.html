@@ -1,0 +1,30 @@
+﻿<div class="userinfo row mt-10 pd-18">
+        <div class="col-8 border-r">
+            <div class="ml-45">
+                <div class="ico-u fl mt-10 mr-20 radius-circle overflow-h">
+                     <img class="img-responsive" src="<%=face || '/static/web/jingpeng/img/ico-huiyuan.png'%>" alt="">
+                </div>
+
+                <p class="pt-19 c-333 f-18"><%=user%></p>
+                <a href="/user/login/quit" class="c-666 btn-quit">安全退出</a>
+            </div>
+        </div>
+        <div class="col-8 border-r">
+            <div class="ml-45">
+                <div class="ico-u fl mt-10 mr-20">
+                    <img class="img-responsive" src="/static/web/jingpeng/img/ico-water.png" alt="">
+                </div>
+                <p class="f-16 pt-14"><span class="f-28 c-e11a6f"><%=water%></span>桶水</p>
+                <p class="f-13 c-999">剩余水量</p>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="ml-45">
+                <div class="ico-u fl mt-10 mr-20">
+                    <img class="img-responsive" src="/static/web/jingpeng/img/ico-jifen.png" alt="">
+                </div>
+                <p class="pt-14"><span class="f-28 c-e11a6f"><%=score || 0%></span>分</p>
+                <p class="f-13 c-999">累计积分</p>
+            </div>
+        </div>
+    </div>

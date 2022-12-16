@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../../web/jingpeng/meta.html %>
+    <% include global/top-css.html %>
+    <title></title>
+</head>
+<body>
+        
+    <% include ../../web/jingpeng/header.html %>
+    <section class="row">
+        <img class="wauto" src="/static/web/jingpeng/img/news.jpg" alt="">
+    </section>
+        <div class="row wrap-content  page-c mt-30">
+            <% include global/nav-aside.html %>
+            <div class="flex pd-10 flex">
+                <div class="title">
+                    <div class="h3 text-c mb-20">
+                        <h3 class="f-18 c-666"><%=data.msg.title%></h3>
+                        <time class="f-14 c-999 mb-10">2015-07-20  18:24:34</time>
+                    </div>
+                    <div class="content f-14 c-666">
+                        <%=data.msg.content%>
+                    </div>
+                </div>
+                <div class="page text-c">
+                   <ul class="pagination" id="page2"></ul>
+                </div>
+            </div>
+        </div>
+        
+         <% include global/footer.html %>
+         <% include global/footer-js.html %>
+         <script>  
+                    
+    </script>
+</body>
+</html>

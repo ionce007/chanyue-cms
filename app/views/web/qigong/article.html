@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include meta.html %>
+    <meta name="keywords" content="气功" />
+    <meta name="description" content="世界气功网" />
+    <title>世界气功网|官网</title>
+    <% include css.html %>
+</head>
+
+<body class="bg-f8f8f8">
+    <% include header.html %>
+    <% include nav.html %>
+
+    <div class="position center w-1200 bg-fff pd-15 mt-20 f-14 c-999">
+        <i class="ico-20 ico-home pos-r t-3"></i> 
+        <a class="" href="">首页</a> >
+        <%for(let i=0,pos;i<data.position.length;i++){%>
+                <%pos = data.position[i]%>
+                <a lass="c-666" href="/list/<%=pos.id%>">
+                    <%=pos.nav_name%> &gt;  
+                </a>
+            <%}%>
+            <%=data.article.title%>
+    </div>
+    
+    <main class="center w-1200 mt-20 mb-20 overflow-h row">
+        <div class="main-left flex">
+            <div class="content bg-fff pd-25">
+               <header class="border-b pos-r">
+                    <h2 class="f-16 c-333 text-c bold mt-10"><%=data.article.title%></h2>
+                    <p class="f-12 c-999 mt-5 mb-26 text-c">
+                        <span>
+                            <i class="ico-20 ico-time pos-r t-4"></i> <%=data.article.date%>
+                            <i class="ico-20 ico-admin pos-r t-4 ml-4"></i> <%=data.article.author%>
+                            <i class="ico-20 ico-view pos-r t-5 ml-4"></i> 阅读（<%=data.article.count%>） 
+                            <!-- <i class="ico-20 ico-zan pos-r t-4 ml-4"></i>点赞（95） -->
+                        </span>
+                    </p>
+               </header>
+               <article>
+                    <%-data.article.content%>
+               </article>
+                 
+            </div>
+            
+            <footer class="pd-25 bg-fff mt-25 f-14 c-333">
+                <%if(data.pre){%>
+                <p>上一篇：<a href="/article/<%=data.pre.id%>" class="c-666"><%=data.pre.title%></a></p>
+                <%}%>
+                <%if(data.next){%>
+                <p class="mt-14">下一篇：<a href="/article/<%=data.next.id%>"  class="c-666"><%=data.next.title%></a></p>
+                <%}%>
+            </footer>
+            
+        </div>
+        
+        <% include aside_right.html %>
+    </main>
+
+    <% include footer.html %>
+    <% include js.html %>
+   
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include global/meta.html %>
+    <% include global/top-css.html %>
+    <title>yuscms</title>
+</head>
+  <body>
+ 
+        <main class="main" data-info="<%=admin.permission%>">
+          <div class="ys-admin-pos c-a1a3aa">
+            首页<span class="f-sum">></span><span class="c-565b6d">管理员列表</span>
+          </div>
+      
+          <div class="ys-admin-tablist">
+      
+              <div class="ys-admin-tab-header row justify-content-b">
+                  <p class="f-14 c-565b6d pl-8 pt-6">管理员列表</p>
+                  <a href="/admin/admin/add" class="btn-add"><i class="ico ico-plus f-16 pos-r">+</i>新增</a>
+              </div>
+      
+              <div class="mr-10 ml-10" v-loading="loading">
+      
+                  <table class="table table-hover ml-10">
+                      <thead class="table-th">
+                          <tr>
+                          
+                              <th>编号</th>
+                              <th>用户名</th>
+                              <th>等级</th>
+                              <th>登录次数</th>
+                              <th>最近登录ip</th>
+                              <th>最近登录时间</th>
+                              <th>操作</th>
+                          </tr>
+                      </thead>
+                      
+                      <tbody class="table-border">
+                          <tr v-for="item in list" :key="item.id">
+                              
+                              <td>{{item.id}}</td>
+                              <td>{{item.admin_user}}</td>
+                              <td>{{item.level_name}}</td>
+                              <td>{{item.login_count}}</td>
+                              <td>{{item.last_ip || '127.0.0.1'}}</td>
+                              <td>{{item.last_time}}</td>
+                              <td>
+                                  <a :href="'/admin/admin/edit?id='+item.id"><i class="ico ico-edit mr-10 pos-r t-4"></i></a>
+                                  <a href="javascript:;" @click="del(item.id)"><i class="ico ico-del pos-r t-4"></i></a>　　
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+      
+                  <div class="row justify-content-b">
+                      <span class="mt-15 mb-35 c-3b4364"></span>
+                      <div id="page" class="mt-15 row mr-25">
+                      </div>      
+                  </div>
+      
+              </div>
+      
+          </div>
+        </main>
+     
+	<% include global/all-js.html %>
+	<script>
+		var vm = new Vue({
+			el:'.main',
+			data:{
+        loading: true,
+      totalPage: 0,
+      pageNo:$m.getParams('page') || 1,
+      list: [] //渲染页面的列表数据
+			},
+			methods:{
+			
+        getData() {
+      var _this = this;
+
+      axios
+        .get("/api/admin/admin", {
+          params: { page: _this.pageNo }
+        })
+        .then(data => {
+          //清空数据
+          _this.list.splice(0);
+          //清空全选
+          _this.checked = false;
+          //清空选择的数据
+          _this.checkbox = [];
+
+          var filterData = data.data;
+          _this.list = filterData.data.adminList;
+          _this.totalPage = filterData.data.totalPage;
+
+          _this.page();
+
+          _this.loading = false;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+
+    page: function() {
+      var _this = this;
+      if (_this.pageNo <= 0) {
+        _this.pageNo = 1;
+      }
+      if (_this.pageNo > _this.totalPage) {
+        _this.pageNo = _this.totalPage;
+      }
+      Page({
+        num: parseInt(_this.totalPage), //页码数
+        startnum: _this.pageNo, //指定页码
+        elem: $("#page"), //指定的元素
+        callback: function(n) {
+          //回调函数
+          _this.pageNo = n;
+          location.hash = "/admin?page=" + n;
+          _this.getData();
+        }
+      });
+    },
+
+    del(id) {
+      let _this = this;
+      if (!hasPermission("11")) {
+        tipsWarn(_this, "对不起,您没有操作权限^_^");
+        return;
+      }
+      axios
+        .get("/api/admin/del", {
+          params: { id: id }
+        })
+        .then(data => {
+          let filterData = data.data;
+          if (filterData.success && filterData.data.affectedRows === 1) {
+            tips(_this, "删除成功！");
+            //清空全选
+            _this.checked = false;
+            //清空选择的数据
+            _this.checkbox = [];
+            _this.getData();
+          } else {
+            location.href = "/admin/login";
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  },
+
+  beforeRouteUpdate(to, from, next) {
+    this.pageNo = to.query.page;
+    this.getData();
+    next();
+  },
+  created: function() {
+    this.getData();
+  },
+  mounted: function() {}
+		});
+	</script>	
+	</body>
+</html>

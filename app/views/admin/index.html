@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include global/meta.html %>
+    <% include global/top-css.html %>
+    <title>yuscms</title>
+</head>
+  <body>
+    <div id="app" class="row">
+      <div class="row">
+      <% include global/aside.html %>
+      <section class="ys-admin-right">
+        <% include global/top.html %>
+        <!--main-->
+          <div class="ys-admin-cont">
+            <iframe src="/admin/info" width="100%" height="100%" frameborder="0"></iframe>
+          </div>
+      </section>
+      </div>
+	</div>
+  <% include global/all-js.html %>
+	<script>
+		var vm = new Vue({
+			el:'.ys-admin-cont',
+			data:{
+        adminNum:0,
+        articleNum:0,
+        commentNum:0,
+        userNum:0,
+        info:{},
+			},
+			methods:{
+      getData(){
+        var _this = this;
+        axios.get('/api/admin/index').then((data)=>{
+          var filterData = data.data;
+          if(filterData.success){
+              _this.adminNum = filterData.data.adminNum[0].count;
+              _this.articleNum = filterData.data.articleNum[0].count;
+              _this.commentNum = filterData.data.commentNum[0].count;
+              _this.userNum = filterData.data.userNum[0].count;
+              _this.info = filterData.data.info[0];
+          }
+        }).catch((error)=>{
+          console.error(error)
+        });
+      }
+			},
+			created:function(){
+        this.getData();
+			},
+			mounted:function(){
+			},
+			updated:function(){
+			}
+    });
+	</script>	
+	</body>
+</html>
