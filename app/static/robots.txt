@@ -1,3 +1,0 @@
-Disallow: /user
-Disallow: /admin
-
