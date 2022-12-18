@@ -4,14 +4,24 @@ moment
 nvm node版本管理
 cheerio，jQuery核心选择器的实现，可跑在server端，类似jsdom，但比jsdom轻量很多
 shortid，url友好的unique id
-log4js，日志记录，稳健的系统离不开日志记录
-moment，强大的日期处理库
+log4js/morgan，日志记录，稳健的系统离不开日志记录
+moment/dayjs，强大的日期处理库
 node-inspector node调试
 node-dev 自动重启
 deepmerge: js对象深度合并
 superagent：类似request，使用风格跟jQuery神似。
 mobile-agent: 判断是手机浏览器的访问还是pc端的访问，对做web很有用哦
+body-parser 解析http请求
+compression 压缩http响应
+cookie-parser 解析cookie
+cors 处理跨域资源请求
 
+// orm
+npm install mysql
+npm install mysql2
+npm install sequelize
+
+loopBack,sails,nestjs
 
 2.输入数据库字符串过滤
 3.表单发送send字段
@@ -24,6 +34,11 @@ mobile-agent: 判断是手机浏览器的访问还是pc端的访问，对做web�
 11.所有的需要判断id是否存在
 12 后台的增删改查成功之后跳转到page处理
 
+
+### 错误处理
+res.status(500).json({
+    error:err.message
+})
 
 公告管理
 
@@ -496,3 +511,33 @@ function logger(req,res,next){
     console.log('%s %s',req.method,req.url);
     next()
 }
+
+
+### 开发环境
+nodemon 
+
+### 部署
+pm2
+### 技术栈选型
+express msyql sequelize ejs jwt rbac
+vue3 element-ui pina vue-router 
+富文本编辑器 Postgres
+
+
+express-validator
+
+### 文档 p17
+sequelize https://www.sequelize.cn/other-topics/transactions 
+
+
+app.engine('html',require('express-art-template'))
+app.set('view options',{
+    debug:process.env.NODE_ENV !== 'production'
+})
+app.set('views',path.join(__dirname,'views'))
+app.set('view engine','html');
+
+
+nodemon
+
+http-error

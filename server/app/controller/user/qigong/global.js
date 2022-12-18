@@ -10,7 +10,12 @@ const index = require('./index');
 const my = require('./my');
 const safe = require('./safe');
 const msg = require('./msg');
-
+//会员登录状态
+router.use((req, res, next)=>{
+	res.locals.user = req.signedCookies.user;
+	res.locals.uid = req.signedCookies.uid;
+	next();
+});
 
 //必须登录才能进入会员中心
 router.use((req, res, next)=>{

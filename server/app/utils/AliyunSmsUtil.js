@@ -48,7 +48,7 @@ var AliyunSmsUtil = {
             'AccessKeyId': that.config.AccessKeyId, //阿里短信服务所用的密钥ID
             'SignatureMethod': that.config.SignatureMethod,  //签名方式，目前支持HMAC-SHA1
             'SignatureVersion': that.config.SignatureVersion, //签名算法版本，目前版本是1.0
-            'SignatureNonce': ""+Math.random(), //唯一随机数，用于防止网络重放攻击。用户在不同请求间要使用不同的随机数值
+            'SignatureNonce': "" + Math.random(), //唯一随机数，用于防止网络重放攻击。用户在不同请求间要使用不同的随机数值
             'Timestamp': new Date().toISOString(), //日期格式按照ISO8601标准表示，并需要使用UTC时间。格式为YYYY-MM-DDThh:mm:ssZ
             'RecNum': data.phone, //接受短信的手机号
             'ParamString': "{\"code\":\"" + data.code + "\",\"product\":\"买短信找淡定哥\"}",//验证码模板里的变量
@@ -74,7 +74,7 @@ var AliyunSmsUtil = {
      * @param AccessKeySecret 阿里短信服务所用的密钥值
      */
     signParameters: function (param, AccessKeySecret) {
-        var param2 = {}, data=[];
+        var param2 = {}, data = [];
         var oa = Object.keys(param).sort();
         for (var i = 0; i < oa.length; i++) {
             var key = oa[i];
@@ -92,9 +92,9 @@ var AliyunSmsUtil = {
     /**
      * 阿里云短信发送，测试函数
      */
-    test:function(){
-        var data={code:"1234", phone:"13062706593"};
-        this.sendMessage(data, function(err, response, data){
+    test: function () {
+        var data = { code: "1234", phone: "13062706593" };
+        this.sendMessage(data, function (err, response, data) {
             console.log(err, data);
         })
     }

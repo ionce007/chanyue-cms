@@ -82,7 +82,7 @@ router.get('/:id(\\d+)',async(req,res,next)=>{
 			res.render(config.template +'article',api);
 			
 	}catch(error){
-		console.error(error);
+		next(error);
 	}		
 });
 
