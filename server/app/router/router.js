@@ -11,16 +11,16 @@ const express = require('express');
 var router = express.Router();
 
 //前台
-router.use('/',web);
+// router.use('/',web);
 
-//会员中心
-router.use('/user',user);
+// //会员中心
+// router.use('/user',user);
 
-//后台
-router.use('/admin',admin);
+// //后台
+// router.use('/admin',admin);
 
-//接口
-router.use('/api',api);
+// //接口
+// router.use('/api',api);
 
 //404处理
 router.use((req,res,next)=>{

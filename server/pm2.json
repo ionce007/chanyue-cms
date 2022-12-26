@@ -23,8 +23,8 @@
           "node_args": [],
           "args": [],
           "env": {
-              "EGG_SERVER_ENV": "prod",
-              "NODE_ENV": "prod"
+              "EGG_SERVER_ENV": "prd",
+              "NODE_ENV": "prd"
           },
           "instances": 1,
           "cron_restart": "0 0 * * *",

@@ -4,7 +4,7 @@
   "description": "\"chanyue-cms\"",
   "main": "app.js",
   "scripts": {
-    "dev": "node app.js",
+    "dev": "nodemon app.js",
     "clear": "node timer.js",
     "prd": "pm2 start pm2.json"
   },
