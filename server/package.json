@@ -4,9 +4,9 @@
   "description": "\"mkcms\"",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev node index.js",
+    "dev": "node index.js",
     "clear": "node timer.js",
-    "prd": "cross-env NODE_ENV=prd pm2 start pm2.json"
+    "prd": "pm2 start pm2.json"
   },
   "keywords": [
     "\"cms\""
@@ -15,14 +15,12 @@
   "license": "ISC",
   "dependencies": {
     "@alicloud/sms-sdk": "^1.0.2",
-    "art-template": "^4.12.2",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.1",
     "cross-env": "^5.2.0",
     "ejs": "^2.5.6",
     "express": "^4.16.2",
-    "express-art-template": "^1.0.1",
     "express-session": "^1.15.6",
     "formidable": "^1.1.1",
     "morgan": "^1.10.0",
