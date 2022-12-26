@@ -1,6 +1,6 @@
 ﻿const express = require('express');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
+
 const favicon = require('serve-favicon');
 const fs = require('fs');
 const path = require('path');
@@ -13,13 +13,7 @@ app.use(morgan('tiny' || 'dev'));
 app.use(favicon(path.join(__dirname, './app/static', 'favicon.ico')));
 //解析cookie 签名
 app.use(cookieParser(config.cookieKey));
-//使用session store制定存储数据库 secure为true 特别消耗性能
-app.use(session({
-	secret: config.sessionKey(),
-	resave: false,
-	saveUninitialized: true,
-	cookie: { secure: false, maxAge: 20 * 60 * 1000 }
-}));
+
 //配置解析表单请求体：application/json
 // function json(options){
 // 	return (req,res,next)=>{
