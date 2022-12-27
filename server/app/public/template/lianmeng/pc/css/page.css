@@ -1,0 +1,28 @@
+.page {
+    background-color: #fff;
+}
+
+.page ul li {
+    float: left;
+    border: 1px solid #e3e3e3;
+    padding: 10px 18px;
+    margin-right: 10px;
+    color: #666;
+    border-radius: 2px;
+}
+
+.page ul li a {
+    color: #666;
+}
+.page ul li a:hover {
+    cursor: pointer;
+}
+.page ul li.active {
+    border: none;
+    background-color: #10c55b;
+    color: #fff;
+}
+
+.page ul li.active a {
+    color: #fff;
+}
