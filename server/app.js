@@ -1,5 +1,4 @@
-﻿const fs = require('fs');
-const path = require('path');
+﻿const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const favicon = require('serve-favicon');
@@ -12,7 +11,7 @@ const router = require('./app/router/router');
 const app = express();
 
 app.use(morgan('tiny' || 'dev'));
-app.use(favicon(path.join(__dirname, './app/static', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, './app/public', 'favicon.ico')));
 
 app.use(cookieParser(config.cookieKey));
 app.use(express.json());
@@ -24,12 +23,6 @@ app.engine('.html', ejs.__express);
 
 //使用静态资源
 app.use('/public', express.static(path.join(__dirname, './app/public')));
-
-//机器人抓取
-app.get('/robots.txt', function (req, res, next) {
-	let stream = fs.createReadStream(path.join(__dirname, './app/static/robots.txt'), { flags: 'r' });
-	stream.pipe(res);
-});
 
 //路由
 app.use(router);

@@ -23,6 +23,23 @@ npm install sequelize
 
 loopBack,sails,nestjs
 
+shelljs
+qr-image
+moment
+mariadb
+mammoth
+await-stream-ready
+stream-wormhole
+iconv-lite  
+jsonwebtoken
+trek-captcha
+validator
+xss
+
+
+var compression = require('compression');
+app.use(compression());
+
 2.输入数据库字符串过滤
 3.表单发送send字段
 5.开启后台用户名密码 转为cookie 减少服务器压力
