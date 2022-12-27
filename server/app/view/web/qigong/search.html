@@ -2,48 +2,48 @@
 <html>
 
 <head>
-    <% include meta.html %>
-    <meta name="keywords" content="气功" />
+   <%- include('meta.html') %>
+    <meta name="keywordss" content="气功" />
     <meta name="description" content="世界气功网" />
     <title>世界气功网|官网</title>
-    <% include css.html %>
+   <%- include('css.html') %>
 </head>
 
 <body class="bg-f8f8f8">
-    <% include header.html %>
-    <% include nav.html %>
+   <%- include('header.html') %>
+   <%- include('nav.html') %>
 
     <div class="position center w-1200 bg-fff pd-15 mt-20 f-14 c-999">
         <i class="ico-20 ico-home pos-r t-3"></i> 
         <a class="" href="">首页</a> >
-        搜索词：<span class="c-red"><%=keyword%></span>
+        搜索词：<span class="c-red"><%=keywords%></span>
     </div>
 
     <main class="center w-1200 mt-20 mb-20 overflow-h row">
         <div class="main-left flex">
             <div class="list bg-fff pd-25 mh-163">
-                    <%if(data.articlelist.length>0){%>
+                    <%if(list.list.length>0){%>
                 <ul>
-                        <%for(var i=0,list;i<data.articlelist.length;i++){%>
-                                <%list = data.articlelist[i];%>
+                        <%for(var i=0,item;i<list.list.length;i++){%>
+                                <%item = list.list[i];%>
                     <li class="row border-b pt-20 pb-20">
-                        <%if(list.thumbnail){%>
+                        <%if(item.img){%>
                         <figure class="figure overflow-h mr-20">
-                            <a href="/article/<%=list.id%>">
-                            <img src="<%=list.thumbnail%>" class="w-p100" alt="">
+                            <a href="/a<%=item.path%>/<%=item.id%>.html">
+                            <img src="<%=item.img%>" class="w-p100" alt="">
                             </a>
                         </figure>
                         <%}%>
                         <div class="flex">
-                            <h3 class="f-16 c-333 bold mt-10"><a href="/article/<%=list.id%>">[<%=list.nav_name%>]  <%-list.title.replace(new RegExp(keyword),'<span class="c-red">'+keyword+'</span>')%></a></h3>
+                            <h3 class="f-16 c-333 bold mt-10"><a  <a href="/a<%=item.path%>/<%=item.id%>.html">[<%=item.name%>]  <%-item.title.replace(new RegExp(keywords),'<span class="c-red">'+keywords+'</span>')%></a></h3>
                             <p class="f-12 c-999 mt-5 mb-15">
-                                <i class="ico-20 ico-time pos-r t-4"></i> <%=list.date%>
+                                <i class="ico-20 ico-time pos-r t-4"></i> <%=item.createdAt%>
                                 <i class="ico-20 ico-admin pos-r t-4 ml-4"></i> admin
-                                <i class="ico-20 ico-view pos-r t-5 ml-4"></i> 阅读（<%=list.count%>） 
+                                <i class="ico-20 ico-view pos-r t-5 ml-4"></i> 阅读（<%=item.pv%>） 
                                 <!-- <i class="ico-20 ico-zan pos-r t-4 ml-4"></i>点赞（95） -->
                             </p>
-                            <%if(list.info){%>
-                            <p class="lh-22 c-666 f-14"><a href="/article/<%=list.id%>"><%=list.info%></a></p>
+                            <%if(item.description){%>
+                            <p class="lh-22 c-666 f-14"><a  <a href="/a<%=item.path%>/<%=item.id%>.html"><%=item.description%></a></p>
                             <%}%>
                         </div>
                     </li>
@@ -55,65 +55,40 @@
                 <%}%>
             </div>
             
+            <%if(list.total.length>1){%>
             <div class="page mt-25 bg-fff pd-25 row">
                 <ul class="overflow-h center" id="page">
                 </ul>
             </div>
-
+            <%}%>
 
         </div>
 
     </main>
 
-    <% include footer.html %>
+   <%- include('footer.html') %>
     <script src="<%=base_url%>js/mkui-0.5.js"></script>
-    <script src="http://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
-  <script src="<%=base_url%>js/paging.js"></script>
-  <script src="http://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
-    <script>
-    var vm = new Vue({
-            el:'.content',
-            data:{
-                level:{}
-            },
-            methods:{
-                page:function(){
-                    var pageNo = $m.getParams('page');
-                    if(pageNo<=0){
-                        pageNo = 1;
-                    }
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="/public/template/qigong/js/jquery.page.js"></script>
+  <script>
+    var pageNo =  '<%=list.current%>';
+    if (pageNo <= 0) {
+        pageNo = 1;
+    }
+    if (pageNo > parseInt('<%=list.total%>')) {
+        pageNo = parseInt('<%=list.total%>');
+    }
+    Page({
+        num: parseInt('<%=list.total%>'),	//页码数
+        startnum: pageNo,				//指定页码
+        elem: $('#page'),		//指定的元素
+        callback: function (n) {	//回调函数
+            location.href=`/search/<%=keywords%>/index${n}.html`
+        }
+    });
 
-                    if(pageNo>parseInt('<%=pageTotal%>')){
-                        pageNo = parseInt('<%=pageTotal%>');
-                    }
-                    var p = new Paging();
-                    p.init({
-                        target:'#page',
-                        pagesize:10,
-                        current:pageNo,
-                        count:parseInt('<%=pageTotal%>'),
-                        callback:function(n){	//回调函数
-                            console.log(n);
-                            location.href=location.pathname+"?page="+n
-                        }
-                        });
-                }
-            },
-            created:function(){
-                this.page();
-                
-            },
-            mounted:function(){
-                
-            },
-            updated:function(){
-                
-            }
-        });
-        
-    </script>
+</script>
+   
 </body>
 
 </html>

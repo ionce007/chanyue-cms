@@ -6,4 +6,5 @@ const map = new Map();
 map.set('dev', dev);
 map.set('prd', prd);
 
-export let config = map.get( 'dev' || process.env.NODE_ENV );
+let config = map.get( 'dev' || process.env.NODE_ENV );
+module.exports = config;

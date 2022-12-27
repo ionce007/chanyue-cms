@@ -1,32 +1,14 @@
 ﻿const path = require('path');
 const express = require('express');
-const cookieParser = require('cookie-parser');
-const favicon = require('serve-favicon');
-const morgan = require('morgan');
-const ejs = require('ejs');
-//配置文件
 const config = require('./app/config/config');
 const router = require('./app/router/router');
-
+const run = require('./app/middleware/run.js');
 const app = express();
-
-app.use(morgan('tiny' || 'dev'));
-app.use(favicon(path.join(__dirname, './app/public', 'favicon.ico')));
-
-app.use(cookieParser(config.cookieKey));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-//配置模板引擎
-app.set('view engine', 'html');
-app.set('views', path.join(__dirname, './app/view'));
-app.engine('.html', ejs.__express);
-
-//使用静态资源
-app.use('/public', express.static(path.join(__dirname, './app/public')));
-
+app.config = config;
+//通用配置
+run(app);
 //路由
 app.use(router);
-
 app.listen(config.port, () => {
 	console.log(`server started at localhost:${config.port}`)
 });

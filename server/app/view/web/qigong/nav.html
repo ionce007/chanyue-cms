@@ -3,9 +3,11 @@
         <ul class="overflow-h">
             <%for(let i=0,item;i<nav.length;i++){%>
             <%item = nav[i]%>
-            <li>
-                <a href="/list/<%=item.id%>?page=1"><%= item.nav_name%></a>
-            </li>
+                <%if(item.status == 0){%>
+                <li>
+                    <a href="/c<%=item.path%>/index.html"><%= item.name%></a>
+                </li>
+                <%}%>
             <%}%>
         </ul>
     </nav>

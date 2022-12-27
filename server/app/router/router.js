@@ -3,15 +3,15 @@
 const fs = require('fs');
 const path = require('path');
 const config = require('../config/config');
-const web = require(`../controller/web/${config.controller_web}/global`);
-const user = require(`../controller/user/${config.controller_web}/global`);
-const admin = require('../controller/admin/global');
-const api = require('../controller/api/global');
+// const web = require(`../controller/web/${config.controller_web}/global`);
+// const user = require(`../controller/user/${config.controller_web}/global`);
+// const admin = require('../controller/admin/global');
+// const api = require('../controller/api/global');
 const express = require('express');
-
 const router = express.Router();
+
 //前台
-// router.use('/',web);
+ router.use('/',web);
 
 // //会员中心
 // router.use('/user',user);

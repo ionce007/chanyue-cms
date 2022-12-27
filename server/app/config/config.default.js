@@ -5,9 +5,11 @@ const path = require('path');
 const config = {};
 config.version = 'v0.1';
 config.appName = 'chanyue-cms';
+config.appRoot = path.join(__dirname, '../');
 
 // cookie sign key
 config.keys = 'chanyue-cms_1539507495248_1368';
+config.port = '81';
 
 // add mysql config
 config.mysql = {
@@ -75,7 +77,7 @@ config.static = {
 
 // 日志
 config.logger = {
-    level: 'INFO',
+    level: 'dev',
 };
 
 // add your user config here
