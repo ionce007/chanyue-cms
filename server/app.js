@@ -1,5 +1,4 @@
-﻿const path = require('path');
-const express = require('express');
+﻿const express = require('express');
 const config = require('./app/config/config');
 const router = require('./app/router/router');
 const run = require('./app/middleware/run.js');
