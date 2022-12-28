@@ -1,60 +1,25 @@
 'use strict';
+const knex = require('../../config/config.knex.js');
+class BaseService {
+	constructor(props) {
+		this.model = props
+	}
 
-const Service = require('egg').Service;
+	all() {
+		return knex(this.model).select()
+	}
 
-class BaseService extends Service {
+	insert(params) {
+		return knex(this.model).insert(params)
+	}
 
-  // 列表
-  async list(pageNum, pageSize) {
-    const { app } = this;
-    try {
-      const offset = parseInt((pageNum - 1) * pageSize);
-      const result = await app.mysql.select(`${this.model}`, {
-        orders: [[ 'id', 'desc' ]],
-        offset,
-        limit: parseInt(pageSize),
-      });
-      return result;
-    } catch (error) {
-     console.error(error)
-    }
-  }
+	update(id, params) {
+		return knex(this.model).where('id', '=', id).update(params)
+	}
 
-  // 新增
-  async create(body) {
-    const { app } = this;
-    try {
-      const result = await app.mysql.insert(`${this.model}`, body);
-      const affectedRows = result.affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
-    } catch (error) {
-     console.error(error)
-    }
-  }
-
-  // 更新
-  async update(body) {
-    const { app } = this;
-    try {
-      const result = await app.mysql.update(`${this.model}`, body);
-      const affectedRows = result.affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
-    } catch (error) {
-     console.error(error)
-    }
-  }
-
-  // 删除
-  async destroy(id) {
-    const { app } = this;
-    try {
-      const result = await app.mysql.delete(`${this.model}`, { id });
-      const affectedRows = result.affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
-    } catch (error) {
-     console.error(error)
-    }
-  }
+	delete(id) {
+		return knex(this.model).where('id', '=', id).del()
+	}
 }
 
 module.exports = BaseService;

@@ -1,6 +1,7 @@
 ﻿sequelize
 moment
-
+http-errors"
+\ "node-uuid": "^1.4.8"
 nvm node版本管理
 cheerio，jQuery核心选择器的实现，可跑在server端，类似jsdom，但比jsdom轻量很多
 shortid，url友好的unique id

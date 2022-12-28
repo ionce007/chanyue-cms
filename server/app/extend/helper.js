@@ -1,14 +1,10 @@
 'use strict';
-const moment = require('moment');
-moment.locale('zh-cn');
 
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
 // this.ctx.helper.relative  <%=helper.relative(item.time)%>
-exports.relative = function(time) {
-  return moment(time).fromNow();
-};
+
 
 
 exports.md5 = str => {

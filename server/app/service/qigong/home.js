@@ -1,21 +1,22 @@
 'use strict';
+const knex = require('../../config/config.knex.js');
+
 const BaseService = require('./base');
 
 class HomeService extends BaseService {
-  constructor(...args) {
-    super(...args);
-    this.model = 'home';
-  }
+
+  constructor(props) {
+		super(props)
+	}
+
+   
 
   // 网站栏目
   async category() {
-    const {
-      app,
-    } = this;
+   
     try {
-      const navStr = 'SELECT id,pid,name,pinyin,path,sort,target,status,type FROM category';
-      const nav = await app.mysql.query(navStr);
-      return nav;
+      let res  = await knex('category').select(['id','pid','name','pinyin','path','sort','target','status','type']);
+      return res;
     } catch (err) {
       console.error(err);
     }
@@ -250,4 +251,4 @@ class HomeService extends BaseService {
   }
 }
 
-module.exports = HomeService;
+module.exports = new HomeService();
