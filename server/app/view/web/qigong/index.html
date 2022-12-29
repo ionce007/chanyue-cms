@@ -24,6 +24,8 @@
                         <div class="swiper bg-fff overflow-h">
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
+
+                                    <%if(slide && slide.length>0){%>
                                     <%for(let i=0,item;i<slide.length;i++){%>
                                         <%item=slide[i]%>
                                             <div class="swiper-slide">
@@ -32,6 +34,7 @@
                                                 </a>
                                             </div>
                                             <%}%>
+                                     <%}%>       
                                 </div>
 
                                 <!-- 如果需要导航按钮 -->

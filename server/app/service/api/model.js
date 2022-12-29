@@ -16,7 +16,7 @@ class ModelService extends BaseService {
     try {
       const { model_name, table_name, status } = body;
       // 新建表
-      const sql_create = `CREATE TABLE ${table_name} (aid int(11) NOT NULL) ENGINE=MyISAM DEFAULT CHARSET=utf8`;
+      const sql_create = `CREATE TABLE ${table_name} (aid int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8`;
       const createTableStatus = await conn.query(sql_create);
       // 新增内容
       const sql_insert = `INSERT INTO ${this.model} (model_name,table_name,status) VALUES(?,?,?)`;

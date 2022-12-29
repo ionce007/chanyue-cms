@@ -1,5 +1,5 @@
 'use strict';
-const BaseService = require('./base');
+
 const path = require('path');
 async function getImgsByArticleId(id, conn, arr, ctx) {
   const imgStr = ` SELECT img,content FROM article WHERE id=${id}`;
@@ -14,11 +14,21 @@ async function getImgsByArticleId(id, conn, arr, ctx) {
     }
   }
 }
+
+const knex = require('../../config/config.knex.js');
+
+const BaseService = require('./base');
+
+
+
 class ArticleService extends BaseService {
-  constructor(...args) {
-    super(...args);
-    this.model = 'article';
+
+
+  constructor(props) {
+    super(props)
+    this.model = 'article'
   }
+
 
   // 增
   async create(body) {
@@ -243,7 +253,7 @@ class ArticleService extends BaseService {
     const {
       app,
     } = this;
- 
+
     try {
       // 查询个数
       let sql;
@@ -290,35 +300,26 @@ class ArticleService extends BaseService {
 
   // 查
   async detail(id) {
-    const {
-      ctx,
-      app,
-    } = this;
     try {
-      
       // 查询文章
-      const data = await app.mysql.get(`${this.model}`, {
-        id,
-      });
-      console.log('id-->',id)
+      const data = await knex(this.model).where('id', '=', id).select()
+      console.log('id-->', data)
       //兼容mysql错误
-      if (!data || !data.cid) {
-        console.log(`id->${id} data->${JSON.stringify(data)}`)
+      if (!data[0] || !data[0].cid) {
+        console.log(`id->${id} data->${JSON.stringify(data[0])}`)
         return false;
       }
       // 通过栏目id查找模型id
-      const modIdStr = `SELECT mid FROM category WHERE id=${data.cid} LIMIT 0,1`;
-      const modId = await app.mysql.query(modIdStr);
+      const modId = await knex.raw(`SELECT mid FROM category WHERE id=? LIMIT 0,1`, [data[0].cid]);
+
       let field = [];
-      if (modId.length > 0 && modId[0].mid !== '0') {
+      if (modId[0].length > 0 && modId[0][0].mid !== '0') {
         // 通过模型查找表名
-        const tableNameStr = `SELECT table_name FROM model WHERE id=${modId[0].mid} LIMIT 0,1`;
-        const tableName = await app.mysql.query(tableNameStr);
+        const tableName = await knex.raw(`SELECT table_name FROM model WHERE id=?`, [modId[0][0].mid]);
         // 通过表名查找文章
-        const fieldStr = `SELECT * FROM ${tableName[0].table_name} WHERE aid=${id} LIMIT 0,1`;
-        field = await app.mysql.query(fieldStr);
+        field = await knex.raw(`SELECT * FROM ? WHERE aid=? LIMIT 0,1`, [tableName[0][0].table_name, id]);
       }
-      return { ...data, field: field[0] || {} };
+      return { ...data[0], field: field[0] || {} };
     } catch (err) {
       console.error(err);
     }
@@ -326,41 +327,39 @@ class ArticleService extends BaseService {
 
   // 搜索
   async search(key = '', cur = 1, pageSize = 10, cid = 0) {
-    const {
-      app,
-    } = this;
+
     // 初始化事务
-    
+
     try {
       // 查询个数
       let sql;
-      const countSql = 'SELECT COUNT(*) as count FROM  article a LEFT JOIN category c ON a.cid=c.id';
-      const keyStr = ` WHERE a.title LIKE '%${key}%'`;
-      const cidStr = `  AND c.id=${+cid}`;
+      const countSql = `SELECT COUNT(*) as count FROM  article a LEFT JOIN category c ON a.cid=c.id`;
+      const keyStr = ` WHERE a.title LIKE \'%${key}%\'`;
+      const cidStr = `  AND c.id=?`;
 
-      if (+cid === 0) {
+      if (cid === 0) {
         sql = countSql + keyStr;
       } else {
         sql = countSql + keyStr + cidStr;
       }
-      const total = await app.mysql.query(sql);
-
+      const total = cid ? await knex.raw(sql, [cid]) : await knex.raw(sql, []);
       // 翻页
       const offset = parseInt((cur - 1) * pageSize);
       let sql_list = '';
-      const listStart = `SELECT a.id,a.title,a.attr,a.tag_id,a.description,a.cid,a.pv,a.updatedAt,a.status,c.name,c.path FROM ${this.model} a LEFT JOIN category c ON a.cid=c.id WHERE a.title LIKE '%${key}%' `;
+      const listStart = `SELECT a.id,a.title,a.attr,a.tag_id,a.description,a.cid,a.pv,a.updatedAt,a.status,c.name,c.path FROM ${this.model} a LEFT JOIN category c ON a.cid=c.id WHERE a.title LIKE  \'%${key}%\' `;
       const listEnd = `ORDER BY a.updatedAt desc LIMIT ${offset},${parseInt(pageSize)}`;
-      if (+cid === 0) {
+      if (cid === 0) {
         sql_list = listStart + listEnd;
       } else {
-        sql_list = listStart + `AND c.id=${cid} ` + listEnd;
+        sql_list = listStart + `AND c.id=? ` + listEnd;
       }
-      const list = await app.mysql.query(sql_list);
+
+      const list = cid ? await knex.raw(sql_list, [cid]) : await knex.raw(sql_list, []);
       return {
-        count: total[0].count,
-        total: Math.ceil(total[0].count / pageSize),
+        count: total[0][0].count,
+        total: Math.ceil(total[0][0].count / pageSize),
         current: Number(cur),
-        list,
+        list: list[0],
       };
     } catch (err) {
       console.error(err);
@@ -371,9 +370,12 @@ class ArticleService extends BaseService {
   async count(id) {
     const { app } = this;
     try {
-      const sql = `UPDATE article SET pv=pv+1 WHERE id=${id} LIMIT 1`;
-      const result = await app.mysql.query(sql);
-      const affectedRows = result.affectedRows;
+
+      const result = await knex.raw(`UPDATE article SET pv=pv+1 WHERE id=${id} LIMIT 1`, [id]);
+
+
+      console.log('count--->', result)
+      const affectedRows = result[0].affectedRows;
       return affectedRows > 0 ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
@@ -383,10 +385,14 @@ class ArticleService extends BaseService {
   // 上一篇文章
   async pre(id, cid) {
     try {
-      const { app } = this;
-      const sql = `SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id  WHERE a.id<${id} AND a.cid=${cid} ORDER BY id DESC LIMIT 1`;
-      const result = await app.mysql.query(sql);
+      // const { app } = this;
+      // const sql = `SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id  WHERE a.id<${id} AND a.cid=${cid} ORDER BY id DESC LIMIT 1`;
+      // const result = await app.mysql.query(sql);
+
+
+      const result = await knex.raw(`SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id  WHERE a.id<? AND a.cid=? ORDER BY id DESC LIMIT 1`, [id, cid]);
       return result[0];
+
     } catch (error) {
       console.error(error)
     }
@@ -397,9 +403,13 @@ class ArticleService extends BaseService {
     const { app } = this;
     try {
 
-      const sql = `SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id WHERE a.id>${id} AND a.cid=${cid} LIMIT 1`;
-      const result = await app.mysql.query(sql);
+      // const sql = `SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id WHERE a.id>${id} AND a.cid=${cid} LIMIT 1`;
+      // const result = await app.mysql.query(sql);
+      // return result[0];
+
+      const result = await knex.raw(`SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id WHERE a.id>? AND a.cid=? LIMIT 1`, [id, cid]);
       return result[0];
+
     } catch (error) {
       console.error(error)
     }
@@ -410,7 +420,7 @@ class ArticleService extends BaseService {
     const {
       app,
     } = this;
-    
+
     try {
       // 查询个数
       const mid = `SELECT mid FROM category WHERE id=${cid} AND mid IS NOT NULL`;
@@ -477,4 +487,4 @@ class ArticleService extends BaseService {
 
 }
 
-module.exports = ArticleService;
+module.exports = new ArticleService();

@@ -1,12 +1,11 @@
 'use strict';
+const knex = require('../../config/config.knex.js');
 const BaseService = require('./base');
-
 class FriendlinkService extends BaseService {
-  constructor(...args) {
-    super(...args);
-    this.model = 'friendlink';
-  }
-
+  constructor(props) {
+		super(props)
+    this.model = 'friendlink'
+	}
   // 新增
   async create({
     title,
@@ -83,36 +82,12 @@ class FriendlinkService extends BaseService {
 
 
   // 文章列表
-  async list(current = 1, pageSize = 10) {
-    const {
-      app,
-    } = this;
-    const conn = await app.mysql.beginTransaction(); // 初始化事务
+  async list( ) {
     try {
-      // 查询个数
-      const sql = `SELECT COUNT(id) as count FROM ${this.model}`;
-      const total = await conn.query(sql);
-
-      const offset = parseInt((current - 1) * pageSize);
-      const list = await conn.select(`${this.model}`, {
-        orders: [
-          ['id', 'desc'],
-        ],
-        offset,
-        limit: parseInt(pageSize),
-      });
-
-      await conn.commit(); // 提交事务
-      return {
-        count: total[0].count,
-        total: Math.ceil(total[0].count / pageSize),
-        current: Number(current),
-        list,
-      };
+      let res  = await this.all();
+      return res;
     } catch (err) {
       console.error(err);
-      await conn.rollback();
-      throw err;
     }
   }
 
@@ -171,4 +146,4 @@ class FriendlinkService extends BaseService {
 
 }
 
-module.exports = FriendlinkService;
+module.exports = new FriendlinkService();
