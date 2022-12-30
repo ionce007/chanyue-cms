@@ -1,7 +1,11 @@
 'use strict';
 const BaseController = require('./base');
 const dayjs = require('dayjs');
+
+const path = require('path');
+
 class ArticleController extends BaseController {
+
 
   constructor(...args) {
     super(...args);
@@ -121,12 +125,10 @@ class ArticleController extends BaseController {
   }
 
   // 上传图片
-  async upload() {
+  async upload(req,res,next) {
     try {
-      const { ctx } = this;
-      const res = await this.uploadFile();
-      const link = { link: res.link.replace(/\\/g, '/') };
-      ctx.body = { link: link.link, domain: '//' + ctx.host };
+      let file = req.file;
+      ctx.body = { link: file.path, domain: '//' + ctx.host };
     } catch (error) {
       this.fail(error);
     }

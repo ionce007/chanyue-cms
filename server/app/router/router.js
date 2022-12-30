@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const config = require('../config/config');
-// const api = require('./api/index.js');
+ const api = require('./api/index.js');
 const web = require(`./web/default/index.js`);
 const express = require('express');
 const router = express.Router();
@@ -12,7 +12,7 @@ const router = express.Router();
 router.use('/', web);
 
 //接口
-// router.use('/api', api);
+ router.use('/api', api);
 
 //机器人抓取
 router.get('/robots.txt', function (req, res, next) {

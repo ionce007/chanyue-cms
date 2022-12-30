@@ -19,16 +19,12 @@ const knex = require('../../config/config.knex.js');
 
 const BaseService = require('./base');
 
-
-
 class ArticleService extends BaseService {
-
 
   constructor(props) {
     super(props)
     this.model = 'article'
   }
-
 
   // 增
   async create(body) {
@@ -327,9 +323,7 @@ class ArticleService extends BaseService {
 
   // 搜索
   async search(key = '', cur = 1, pageSize = 10, cid = 0) {
-
     // 初始化事务
-
     try {
       // 查询个数
       let sql;
@@ -370,10 +364,7 @@ class ArticleService extends BaseService {
   async count(id) {
     const { app } = this;
     try {
-
       const result = await knex.raw(`UPDATE article SET pv=pv+1 WHERE id=${id} LIMIT 1`, [id]);
-
-
       console.log('count--->', result)
       const affectedRows = result[0].affectedRows;
       return affectedRows > 0 ? 'success' : 'fail';
@@ -385,14 +376,8 @@ class ArticleService extends BaseService {
   // 上一篇文章
   async pre(id, cid) {
     try {
-      // const { app } = this;
-      // const sql = `SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id  WHERE a.id<${id} AND a.cid=${cid} ORDER BY id DESC LIMIT 1`;
-      // const result = await app.mysql.query(sql);
-
-
       const result = await knex.raw(`SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id  WHERE a.id<? AND a.cid=? ORDER BY id DESC LIMIT 1`, [id, cid]);
       return result[0];
-
     } catch (error) {
       console.error(error)
     }
@@ -403,9 +388,7 @@ class ArticleService extends BaseService {
     const { app } = this;
     try {
 
-      // const sql = `SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id WHERE a.id>${id} AND a.cid=${cid} LIMIT 1`;
-      // const result = await app.mysql.query(sql);
-      // return result[0];
+
 
       const result = await knex.raw(`SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id WHERE a.id>? AND a.cid=? LIMIT 1`, [id, cid]);
       return result[0];

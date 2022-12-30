@@ -4,6 +4,7 @@ const config = require('../../../config/config.js');
 const HomeService = require('../../../service/qigong/home.js');
 const {getChildrenId,treeById} = require('../../../extend/helper.js');
 const ArticleService = require('../../../service/api/article.js');
+const PageService = require('../../../service/api/page.js');
 
 class HomeController{
 
@@ -282,9 +283,12 @@ class HomeController{
   // 单页
   async page(req,res,next) {
     try {
-     
       const id = req.params.id;
-
+      if (!id) {
+        console.log(`page_id${id}`);
+        res.redirect('/');
+        return;
+      }
       // 广告
       let ad = await HomeService.ad(1, 3);
       const obj = {};
@@ -294,16 +298,18 @@ class HomeController{
       ad = obj;
 
       // 文章列表
-      const article = await service[this.config.apiService].page.article(id);
+      const article = await PageService.article(id);
+      article.createdAt = dayjs(article.createdAt).format('YYYY-MM-DD HH:mm:ss');
+      article.updatedAt = dayjs(article.updatedAt).format('YYYY-MM-DD HH:mm:ss');
 
       // 当前栏目和当前栏目下所有子导航
       const navSub = getChildrenId(article.cid, res.locals.category);
 
       // 当前位置
-      const position =treeById(article.cid, res.locals.category);
+      const position = treeById(article.cid, res.locals.category);
 
       // 点击数量
-      await service[this.config.apiService].page.count(id);
+      await PageService.count(id);
 
       await res.render(`web/${config.template}/page.html`, { article, navSub, ad, position });
 
@@ -311,6 +317,7 @@ class HomeController{
       console.error(error);
     }
   }
+
 
   // 搜索页
   async search(req,res,next) {

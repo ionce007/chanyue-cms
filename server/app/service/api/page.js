@@ -1,5 +1,7 @@
 'use strict';
+const knex = require('../../config/config.knex.js');
 const BaseService = require('./base');
+
 const path = require('path');
 async function getImgsByPageId(id, conn, arr, ctx) {
   const imgStr = ` SELECT content FROM page WHERE id=${id}`;
@@ -11,10 +13,14 @@ async function getImgsByPageId(id, conn, arr, ctx) {
     }
   }
 }
+
+
+
+
 class PageService extends BaseService {
-  constructor(...args) {
-    super(...args);
-    this.model = 'page';
+  constructor(props) {
+    super(props)
+    this.model = 'page'
   }
 
   // 新增
@@ -35,7 +41,7 @@ class PageService extends BaseService {
       app,
     } = this;
     try {
-    
+
       const result = await app.mysql.insert(`${this.model}`, {
         cid,
         title,
@@ -49,11 +55,11 @@ class PageService extends BaseService {
         pv,
         createdAt,
       });
-  
+
       const affectedRows = result.affectedRows;
       return affectedRows > 0 ? 'success' : 'fail';
     } catch (error) {
-     console.error(error)
+      console.error(error)
     }
   }
 
@@ -94,8 +100,8 @@ class PageService extends BaseService {
       return affectedRows > 0 ? 'success' : 'fail';
     } catch (err) {
       console.error(err);
-       await conn.rollback(); 
-throw err; 
+      await conn.rollback();
+      throw err;
     }
 
   }
@@ -120,7 +126,7 @@ throw err;
       app,
     } = this;
     try {
-    
+
       const result = await app.mysql.update(`${this.model}`, {
         cid,
         title,
@@ -141,7 +147,7 @@ throw err;
       const affectedRows = result.affectedRows;
       return affectedRows > 0 ? 'success' : 'fail';
     } catch (error) {
-     console.error(error)
+      console.error(error)
     }
   }
 
@@ -160,7 +166,7 @@ throw err;
       const offset = parseInt((current - 1) * pageSize);
       const list = await conn.select(`${this.model}`, {
         orders: [
-          [ 'id', 'desc' ],
+          ['id', 'desc'],
         ],
         offset,
         limit: parseInt(pageSize),
@@ -175,8 +181,8 @@ throw err;
       };
     } catch (err) {
       console.error(err);
-       await conn.rollback(); 
-throw err; 
+      await conn.rollback();
+      throw err;
     }
   }
 
@@ -188,30 +194,25 @@ throw err;
       app,
     } = this;
     try {
-    
+
       const id = ctx.query.id;
       const data = await app.mysql.get(`${this.model}`, {
         id,
       });
       return data;
     } catch (error) {
-     console.error(error)
+      console.error(error)
     }
   }
 
   // 文章内容
   async article(cid) {
-    const {
-      ctx,
-      app,
-    } = this;
     try {
-    
-      const sql = 'SELECT * FROM page WHERE cid=? ORDER BY id LIMIT 1';
-      const data = await this.app.mysql.query(sql, [ cid ]);
-      return data[0];
+      // 通过栏目id查找模型id
+      const res = await knex.raw(`SELECT * FROM page WHERE cid=? ORDER BY id LIMIT 1`, [cid]);
+      return res[0];
     } catch (error) {
-     console.error(error)
+      console.error(error)
     }
   }
 
@@ -220,13 +221,11 @@ throw err;
   async count(id) {
     const { app } = this;
     try {
-    
-      const sql = `UPDATE page SET pv=pv+1 WHERE id=${id} LIMIT 1`;
-      const result = await app.mysql.query(sql);
-      const affectedRows = result.affectedRows;
+      const res = await knex.raw(`UPDATE page SET pv=pv+1 WHERE id=? LIMIT 1`, [id]);
+      const affectedRows = res[0].affectedRows;
       return affectedRows > 0 ? 'success' : 'fail';
     } catch (error) {
-     console.error(error)
+      console.error(error)
     }
   }
 
@@ -259,12 +258,12 @@ throw err;
       };
     } catch (err) {
       console.error(err);
-       await conn.rollback(); 
-throw err; 
+      await conn.rollback();
+      throw err;
     }
 
   }
 
 }
 
-module.exports = PageService;
+module.exports = new PageService();
