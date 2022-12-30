@@ -7,7 +7,6 @@ const ArticleService = require('../../../service/api/article.js');
 
 class HomeController{
 
-
   // 首页
   async index(req,res,next) {
     try {
