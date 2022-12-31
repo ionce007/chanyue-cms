@@ -100,7 +100,7 @@ export default {
     async checkCaptcha() {
       try {
         let res = await checkCaptcha(this.code);
-        if (res.data.data) {
+        if (res.code===200 && res.data) {
           return true;
         } else {
           this.$message({

@@ -3,135 +3,127 @@
 const BaseController = require('./base');
 const dayjs = require('dayjs');
 const svgCaptcha = require('svg-captcha');
-const {success,fail} = require('../../extend/api.js');
+const { success, fail } = require('../../extend/api.js');
+const { md5, setToken } = require('../../extend/helper.js');
+const config = require('../../config/config.js');
+const AdminService = require('../../service/api/admin');
+
 class AdminController extends BaseController {
 
   constructor(props) {
     super(props);
-   
     this.model = 'admin';
   }
 
   // 登录
-  async login() {
+  async login(req, res, next) {
     try {
-      const { ctx, app, service } = this;
-      let { username, password } = ctx.request.body;
-      password = ctx.helper.md5(password + app.config.md5.key);
-      const res = await service.api[this.model].find(username, password);
-      if (res) {
-        const { id, status } = res;
-        // 设置token data, key, time username, uid
-        const token = this.ctx.helper.setToken({ uid: id, username },
-          this.config.token.KEY,
-          this.config.token.TIME);
-        // this.ctx.cookies.set('token', token, {
-        //   httpOnly: false,
-        // });
+      let { username, password } = req.body;
+      const pass = md5(password + config.md5.key);
+      const result = await AdminService.find(username, pass);
+      if (result) {
+        const { id, status } = result;
+        // 设置token
+        const token = setToken({ uid: id, username },
+          config.token.KEY,
+          config.token.TIME);
         const data = { id, status, username, token };
-        this.success(data);
+        res.json({ ...success, data: data })
       } else {
-        this.fail('用户名或密码错误');
+        res.json({ ...success, data: false })
       }
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 增
-  async create() {
+  async create(req, res, next) {
     try {
-      const { ctx, app, service } = this;
-      const body = ctx.request.body;
-      body.password = ctx.helper.md5(body.password + app.config.md5.key);
+      const body = req.body;
+      body.password = md5(body.password + config.md5.key);;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
       body.updatedAt = dayjs(body.updatedAt).format('YYYY-MM-DD HH:mm:ss');
-      const data = await service[this.config.apiService][this.model].create(body);
-      this.success(data);
+      const data = await AdminService.create(body);
+      res.json({ ...success, data: data })
     } catch (error) {
-      this.fail(error);
+      next(error)
     }
   }
 
   // 删除
-  async delete() {
+  async delete(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].delete(id);
-      this.success(data);
+      const id = req.query.id;
+      const data = await AdminService.delete(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error)
     }
   }
 
   // 改
-  async update() {
+  async update(req, res, next) {
     try {
-      const { ctx, app, service } = this;
-      const body = ctx.request.body;
-      body.password = ctx.helper.md5(body.password + app.config.md5.key);
+      const body = req.body;
+      body.password = md5(body.password + config.md5.key);
+
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
       body.updatedAt = dayjs(body.updatedAt).format('YYYY-MM-DD HH:mm:ss');
-      const data = await service[this.config.apiService][this.model].update({ ...body });
-      this.success(data);
+      const data = await AdminService.update(body);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
-
   // 查
-  async detail() {
+  async detail(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].detail(id);
-      this.success(data);
+      const id = req.query.id;
+      const data = await AdminService.detail(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
 
   // 搜索
-  async search() {
+  async search(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const cur = ctx.query.cur;
-      const key = ctx.query.keyword;
+      const cur = req.query.cur;
+      const key = req.query.keyword;
       const pageSize = 10;
-      const data = await service[this.config.apiService][this.model].search(key, cur, pageSize);
+      const data = await AdminService.search(key, cur, pageSize);
       data.list.forEach(ele => {
         ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:MM');
       });
-      this.success(data);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 列表
-  async list() {
+  async list(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const cur = ctx.query.cur;
+      const cur = req.query.cur;
       const pageSize = 10;
-      const data = await service[this.config.apiService][this.model].list(cur, pageSize);
+      const data = await AdminService.list(cur, pageSize);
       data.list.forEach(ele => {
         ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:MM');
       });
-      this.success(data);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
 
   // 获取验证码
-  async captcha(req,res,next) {
+  async captcha(req, res, next) {
     try {
-      console.log('success',this)
       const captcha = svgCaptcha.create({
         size: 4,
         fontSize: 50,
@@ -141,39 +133,26 @@ class AdminController extends BaseController {
         noise: 5,
         // background: '#cc9966',
       });
-      res.cookie("captcha",captcha.text);
+      res.cookie("captcha", captcha.text);
       res.type = 'image/svg+xml'; // 知道你个返回的类型
       res.end(captcha.data); // 返回一张图片
     } catch (error) {
-      console.error(error);
       next(error);
     }
   }
 
   // 校验验证码
-  async checkCaptcha(req,res,next) {
-   try {
-    const { captcha } = req.body;
-    console.log('req-->',req.cookies)
-    if ((req.cookies.captcha.toLowerCase() === captcha.toLowerCase()) || (captcha.toLowerCase()==='yanyutao')) {
-      res.json({
-        ...success,
-        data:true
-      })
-    } else {
-      this.success(res,{ data: false });
-      res.json({
-        ...success,
-        data:false
-      })
+  async checkCaptcha(req, res, next) {
+    try {
+      const { captcha } = req.body;
+      if ((req.cookies.captcha.toLowerCase() === captcha.toLowerCase()) || (captcha.toLowerCase() === 'yanyutao')) {
+        res.json({ ...success, data: true })
+      } else {
+        res.json({ ...success, data: false })
+      }
+    } catch (error) {
+      next(error);
     }
-   } catch (error) {
-    res.json({
-      ...fail,
-      data:error
-    })
-   }
-    
   }
 
 

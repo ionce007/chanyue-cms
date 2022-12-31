@@ -3,6 +3,9 @@ const router = express.Router();
 const upload = require('../../extend/upload.js');
 const AdminController = require('../../controller/api/admin.js');
 const ArticleController = require('../../controller/api/article.js');
+
+const auth = require('../../middleware/auth.js');
+
 // 验证码
 router.get('/captcha', AdminController.captcha); // 验证码
 router.post('/checkCaptcha', AdminController.checkCaptcha);
@@ -12,14 +15,14 @@ router.post('/checkCaptcha', AdminController.checkCaptcha);
 // router.get('/copy/ruiwen', controller.copy.home.ruiwen);
 
 // 登录
-// router.post('/admin/login', controller.api.admin.login);
-// router.post('/admin/create', controller.api.admin.create);
-// router.get('/admin/list', controller.api.admin.list);
-// router.get('/admin/search', controller.api.admin.search);
-// router.get('/admin/detail', controller.api.admin.detail);
-// router.post('/admin/create', auth, controller.api.admin.create);
-// router.get('/admin/delete', auth, controller.api.admin.delete);
-// router.post('/admin/update', auth, controller.api.admin.update);
+router.post('/admin/login', AdminController.login);
+router.post('/admin/create', AdminController.create);
+router.get('/admin/list', AdminController.list);
+router.get('/admin/search', AdminController.search);
+router.get('/admin/detail', AdminController.detail);
+router.post('/admin/create', auth(), AdminController.create);
+router.get('/admin/delete', auth(), AdminController.delete);
+router.post('/admin/update', auth(), AdminController.update);
 
 // 站点信息
 // router.get('/site/find', auth, controller.api.site.find);

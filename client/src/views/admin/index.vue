@@ -141,7 +141,7 @@ export default {
             let res = await del(id);
             if (res.code === 200) {
               this.$message({
-                message: "标签删除成功 ^_^",
+                message: "删除成功 ^_^",
                 type: "success",
               });
               this.list();

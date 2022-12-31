@@ -1,18 +1,20 @@
 'use strict';
 const BaseService = require('./base');
-
+const knex = require('../../config/config.knex.js');
 class AdminService extends BaseService {
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
     this.model = 'admin';
   }
 
   // 登录
   async find(username, password) {
-    const { app } = this;
     try {
-      const result = await app.mysql.get(`${this.model}`, { username, password });
-      return result;
+      const res = await knex(`${this.model}`).where({
+        username: `${username}`,
+        password: `${password}`
+      }).select(['id', 'username', 'status']);
+      return res[0];
     } catch (error) {
       console.error(error)
     }
@@ -20,11 +22,9 @@ class AdminService extends BaseService {
 
   // 增加
   async create(body) {
-    const { app } = this;
     try {
-      const result = await app.mysql.insert(`${this.model}`, { ...body });
-      const affectedRows = result.affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
+      const result = await this.insert(body);
+      return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
     }
@@ -32,97 +32,54 @@ class AdminService extends BaseService {
 
   // 删
   async delete(id) {
-    const {
-      app,
-    } = this;
     try {
-      const result = await app.mysql.delete(`${this.model}`, {
-        id,
-      });
-      const affectedRows = result.affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
+      const result = await knex(this.model).where('id', '=', id).del()
+      return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
     }
-
   }
 
   // 修改
-  async update({
-    id,
-    password,
-    createdAt,
-    updatedAt,
-    status,
-  }) {
-    const {
-      app,
-    } = this;
+  async update(body) {
+    const {id} = body;
+    delete body.id;
     try {
-      const result = await app.mysql.update(`${this.model}`, {
-        password,
-        createdAt,
-        updatedAt,
-        status,
-      }, {
-        where: {
-          id,
-        },
-      });
-      const affectedRows = result.affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
+      const result = await knex(this.model).where('id', '=', id).update(body)
+      return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
     }
-
   }
 
   // 列表
   async list(current = 1, pageSize = 10) {
-    const {
-      app,
-    } = this;
-    const conn = await app.mysql.beginTransaction(); // 初始化事务
     try {
       // 查询个数
-      const sql = `SELECT COUNT(id) as count FROM ${this.model}`;
-      const total = await conn.query(sql);
+      const total = await knex(this.model).count('id', {as: 'count'});
       const offset = parseInt((current - 1) * pageSize);
-      const list = await conn.select(`${this.model}`, {
-        orders: [
-          ['id', 'desc'],
-        ],
-        offset,
-        limit: parseInt(pageSize),
-      });
+      const list = await knex.select('*')
+        .from(this.model)
+        .limit(pageSize)
+        .offset(offset)
+        .orderBy('id', 'desc');
 
-      await conn.commit(); // 提交事务
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
         current: +current,
-        list,
+        list: list,
       };
     } catch (err) {
       console.error(err);
-      await conn.rollback();
-      throw err;
     }
   }
 
 
   // 查
-  async detail() {
-    const {
-      ctx,
-      app,
-    } = this;
+  async detail(id) {
     try {
-      const id = ctx.query.id;
-      const data = await app.mysql.select(`${this.model}`, {
-        columns: ['id', 'username', 'createdAt', 'updatedAt', 'status'],
-        where: { id },
-      });
+      const data = await knex(this.model).where('id', '=', id).select(['id', 'username', 'createdAt', 'updatedAt', 'status'])
       return data[0];
     } catch (error) {
       console.log(error)
@@ -131,39 +88,25 @@ class AdminService extends BaseService {
 
   // 搜索
   async search(key = '', cur = 1, pageSize = 10) {
-    const {
-      app,
-    } = this;
-    // 初始化事务
-    const conn = await app.mysql.beginTransaction();
     try {
-
       // 查询个数
-      const sql = `SELECT COUNT(id) as count FROM ${this.model} p  WHERE p.name LIKE '%${key}%'`;
-      const total = await conn.query(sql);
-
+      const sql = `SELECT COUNT(id) as count FROM ? p  WHERE p.name LIKE '%${key}%'`;
+      const total = await knex.raw(sql, [this.model]);
       // 翻页
       const offset = parseInt((cur - 1) * pageSize);
-      const sql_list = `SELECT p.id,p.name,p.mark FROM ${this.model} p WHERE p.name LIKE '%${key}%' ORDER BY id DESC LIMIT ${offset},${parseInt(pageSize)}`;
-      const list = await conn.query(sql_list);
-
-      // 提交事务
-      await conn.commit();
-
+      const sql_list = `SELECT p.id,p.name,p.mark FROM ? p WHERE p.name LIKE '%${key}%' ORDER BY id DESC LIMIT ?,?`;
+      const list = await knex.raw(sql_list, [this.model, offset, parseInt(pageSize)]);
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
         current: +cur,
-        list,
+        list: list[0],
       };
     } catch (err) {
       console.error(err);
-      await conn.rollback();
-      throw err;
     }
   }
 
-
 }
 
-module.exports = AdminService;
+module.exports = new AdminService();
