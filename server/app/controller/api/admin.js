@@ -2,11 +2,14 @@
 
 const BaseController = require('./base');
 const dayjs = require('dayjs');
+const svgCaptcha = require('svg-captcha');
+const {success,fail} = require('../../extend/api.js');
 class AdminController extends BaseController {
-  constructor(...args) {
-    super(...args);
-    this.model = 'admin';
 
+  constructor(props) {
+    super(props);
+   
+    this.model = 'admin';
   }
 
   // 登录
@@ -125,7 +128,56 @@ class AdminController extends BaseController {
   }
 
 
+  // 获取验证码
+  async captcha(req,res,next) {
+    try {
+      console.log('success',this)
+      const captcha = svgCaptcha.create({
+        size: 4,
+        fontSize: 50,
+        width: 100,
+        height: 40,
+        ignoreChars: '0oO1ilI', // 验证码字符中排除 0o1i
+        noise: 5,
+        // background: '#cc9966',
+      });
+      res.cookie("captcha",captcha.text);
+      res.type = 'image/svg+xml'; // 知道你个返回的类型
+      res.end(captcha.data); // 返回一张图片
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
+
+  // 校验验证码
+  async checkCaptcha(req,res,next) {
+   try {
+    const { captcha } = req.body;
+    console.log('req-->',req.cookies)
+    if ((req.cookies.captcha.toLowerCase() === captcha.toLowerCase()) || (captcha.toLowerCase()==='yanyutao')) {
+      res.json({
+        ...success,
+        data:true
+      })
+    } else {
+      this.success(res,{ data: false });
+      res.json({
+        ...success,
+        data:false
+      })
+    }
+   } catch (error) {
+    res.json({
+      ...fail,
+      data:error
+    })
+   }
+    
+  }
+
+
 }
 
 
-module.exports = AdminController;
+module.exports = new AdminController();

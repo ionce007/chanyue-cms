@@ -7,8 +7,8 @@ const path = require('path');
 class ArticleController extends BaseController {
 
 
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
     this.model = 'article';
   }
 
@@ -128,7 +128,7 @@ class ArticleController extends BaseController {
   async upload(req,res,next) {
     try {
       let file = req.file;
-      ctx.body = { link: file.path, domain: '//' + ctx.host };
+      this.success({ link: file.path, domain: '//' + ctx.host });
     } catch (error) {
       this.fail(error);
     }
@@ -157,4 +157,4 @@ class ArticleController extends BaseController {
   }
 }
 
-module.exports = ArticleController;
+module.exports = new ArticleController();
