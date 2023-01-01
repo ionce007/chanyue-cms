@@ -14,7 +14,7 @@ export let siteInfo = () => {
 //更新基本信息
 export let updateInfo = ({ id, name, domain, email, icp, code }) => {
   return http({
-    url: `${api.API_URL}/api/auth/site/updateInfo`,
+    url: `${api.API_URL}/api/site/updateInfo`,
     method: "post",
     data: {
       id,
@@ -30,7 +30,7 @@ export let updateInfo = ({ id, name, domain, email, icp, code }) => {
 //更新seo
 export let updateSeo = ({ id, title, keywords, description }) => {
   return http({
-    url: `${api.API_URL}/api/auth/site/updateSeo`,
+    url: `${api.API_URL}/api/site/updateSeo`,
     method: "post",
     data: {
       id,

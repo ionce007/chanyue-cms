@@ -3,6 +3,16 @@ const router = express.Router();
 const upload = require('../../extend/upload.js');
 const AdminController = require('../../controller/api/admin.js');
 const ArticleController = require('../../controller/api/article.js');
+const SiteController = require('../../controller/api/site.js');
+const CategoryController = require('../../controller/api/category.js');
+const PageController = require('../../controller/api/page.js');
+const ModelController = require('../../controller/api/model.js');
+const FieldController = require('../../controller/api/field.js');
+const FragController = require('../../controller/api/frag.js');
+const TagController = require('../../controller/api/tag.js');
+const FriendlinkController = require('../../controller/api/friendlink.js');
+const AdController = require('../../controller/api/ad.js');
+const MessageController = require('../../controller/api/message.js');
 
 const auth = require('../../middleware/auth.js');
 
@@ -25,96 +35,94 @@ router.get('/admin/delete', auth(), AdminController.delete);
 router.post('/admin/update', auth(), AdminController.update);
 
 // 站点信息
-// router.get('/site/find', auth, controller.api.site.find);
-// router.post('/auth/site/updateInfo', auth, controller.api.site.updateInfo);
-// router.post('/auth/site/updateSeo', auth, controller.api.site.updateSeo);
-// router.get('/site/runEnv', controller.api.site.runEnv);
+router.get('/site/find', auth(), SiteController.find);
+router.post('/site/updateInfo', auth(), SiteController.updateInfo);
+router.post('/site/updateSeo', auth(), SiteController.updateSeo);
+router.get('/site/runEnv', SiteController.runEnv);
 
 // 网站栏目
-// router.get('/category/find', controller.api.category.find);
-// router.get('/category/findId', controller.api.category.findId);
-// router.get('/category/findSubId', controller.api.category.findSubId);
-// router.get('/category/search', controller.api.category.search);
-// router.get('/auth/category/delete', auth, controller.api.category.delete);
-// router.post('/auth/category/update', auth, controller.api.category.update);
-// router.post('/auth/category/create', auth, controller.api.category.create);
+router.get('/category/find', CategoryController.find);
+router.get('/category/findId', CategoryController.findId);
+router.get('/category/findSubId', CategoryController.findSubId);
+router.get('/category/search', CategoryController.search);
+router.get('/category/delete', auth(), CategoryController.delete);
+router.post('/category/update', auth(), CategoryController.update);
+router.post('/category/create', auth(), CategoryController.create);
 
 // 文章栏目
-// router.get('/article/list', controller.api.article.list);
-// router.get('/article/tongji', controller.api.article.tongji);
-// router.get('/article/search', controller.api.article.search);
-// router.get('/article/detail', controller.api.article.detail);
-// router.get('/article/findField', auth, controller.api.article.findField);
-// router.post('/article/create', auth, controller.api.article.create);
-// router.get('/article/delete', auth, controller.api.article.delete);
-// router.post('/article/update', auth, controller.api.article.update);
-// router.post('/upload', auth, controller.api.article.upload);
-
-// router.post('/upload', upload, ArticleController.upload);
+router.get('/article/list', ArticleController.list);
+router.get('/article/tongji', ArticleController.tongji);
+router.get('/article/search', ArticleController.search);
+router.get('/article/detail', ArticleController.detail);
+router.get('/article/findField',  auth(), ArticleController.findField);
+router.post('/article/create',  auth(), ArticleController.create);
+router.get('/article/delete',  auth(), ArticleController.delete);
+router.post('/article/update', auth(), ArticleController.update);
+router.post('/upload',auth(), upload, ArticleController.upload);
 
 // 页面管理
-// router.get('/page/list', controller.api.page.list);
-// router.get('/page/search', controller.api.page.search);
-// router.get('/page/detail', controller.api.page.detail);
-// router.post('/page/create', auth, controller.api.page.create);
-// router.get('/page/delete', auth, controller.api.page.delete);
-// router.post('/page/update', auth, controller.api.page.update);
+router.get('/page/list', PageController.list);
+router.get('/page/search', PageController.search);
+router.get('/page/detail', PageController.detail);
+router.post('/page/create',  auth(), PageController.create);
+router.get('/page/delete',  auth(), PageController.delete);
+router.post('/page/update',  auth(), PageController.update);
 
 // 模型管理
-// router.get('/model/list', controller.api.model.list);
-// router.get('/model/detail', controller.api.model.detail);
-// router.get('/model/hasUse', auth, controller.api.model.hasUse);
-// router.post('/model/create', auth, controller.api.model.create);
-// router.post('/model/delete', auth, controller.api.model.delete);
-// router.post('/model/update', auth, controller.api.model.update);
+router.get('/model/list', ModelController.list);
+router.get('/model/detail', ModelController.detail);
+router.get('/model/hasUse', auth(), ModelController.hasUse);
+router.post('/model/create', auth(), ModelController.create);
+router.post('/model/delete', auth(), ModelController.delete);
+router.post('/model/update', auth(), ModelController.update);
 
 // 字段管理
-// router.get('/field/list', controller.api.field.list);
-// router.get('/field/detail', controller.api.field.detail);
-// router.post('/field/create', auth, controller.api.field.create);
-// router.get('/field/delete', auth, controller.api.field.delete);
-// router.post('/field/update', auth, controller.api.field.update);
+router.get('/field/list', FieldController.list);
+router.get('/field/detail', FieldController.detail);
+router.post('/field/create', auth, FieldController.create);
+router.get('/field/delete', auth(), FieldController.delete);
+router.post('/field/update', auth(), FieldController.update);
 
 // 碎片管理
-// router.get('/frag/list', controller.api.frag.list);
-// router.get('/frag/search', controller.api.frag.search);
-// router.get('/frag/detail', controller.api.frag.detail);
-// router.post('/frag/create', auth, controller.api.frag.create);
-// router.get('/frag/delete', auth, controller.api.frag.delete);
-// router.post('/frag/update', auth, controller.api.frag.update);
+router.get('/frag/list', FragController.list);
+router.get('/frag/search', FragController.search);
+router.get('/frag/detail', FragController.detail);
+router.post('/frag/create', auth(), FragController.create);
+router.get('/frag/delete', auth(), FragController.delete);
+router.post('/frag/update', auth(), FragController.update);
 
 // tag标签管理
-// router.get('/tag/list', controller.api.tag.list);
-// router.post('/tag/create', auth, controller.api.tag.create);
-// router.get('/tag/detail', controller.api.tag.detail);
-// router.get('/tag/has', controller.api.tag.has);
-// router.get('/tag/search', controller.api.tag.search);
-// router.get('/tag/delete', auth, controller.api.tag.delete);
-// router.post('/tag/update', auth, controller.api.tag.update);
+router.get('/tag/list', TagController.list);
+router.post('/tag/create', auth, TagController.create);
+router.get('/tag/detail', TagController.detail);
+router.get('/tag/has', TagController.has);
+router.get('/tag/search', TagController.search);
+router.get('/tag/delete',  auth(), TagController.delete);
+router.post('/tag/update',  auth(), TagController.update);
 
 // 友情链接
-// router.get('/friendlink/list', controller.api.friendlink.list);
-// router.get('/friendlink/detail', controller.api.friendlink.detail);
-// router.post('/friendlink/create', auth, controller.api.friendlink.create);
-// router.get('/friendlink/delete', auth, controller.api.friendlink.delete);
-// router.post('/friendlink/update', auth, controller.api.friendlink.update);
+router.get('/friendlink/list', FriendlinkController.list);
+router.get('/friendlink/detail', FriendlinkController.detail);
+router.post('/friendlink/create', auth(), FriendlinkController.create);
+router.get('/friendlink/delete', auth(), FriendlinkController.delete);
+router.post('/friendlink/update', auth(), FriendlinkController.update);
 
 // 广告管理
-// router.get('/ad/list', controller.api.ad.list);
-// router.get('/ad/search', controller.api.ad.search);
-// router.get('/ad/detail', controller.api.ad.detail);
-// router.post('/ad/create', auth, controller.api.ad.create);
-// router.get('/ad/delete', auth, controller.api.ad.delete);
-// router.post('/ad/update', auth, controller.api.ad.update);
-// router.post('/upload', auth, controller.api.ad.upload);
+router.get('/ad/list', AdController.list);
+router.get('/ad/search', AdController.search);
+router.get('/ad/detail', AdController.detail);
+router.post('/ad/create',  auth(), AdController.create);
+router.get('/ad/delete',  auth(), AdController.delete);
+router.post('/ad/update',  auth(), AdController.update);
+router.post('/upload',  auth(), AdController.upload);
 
 // 留言管理
-// router.get('/message/list', controller.api.message.list);
-// router.get('/message/search', controller.api.message.search);
-// router.get('/message/detail', controller.api.message.detail);
-// router.post('/message/create', auth, controller.api.message.create);
-// router.get('/message/delete', auth, controller.api.message.delete);
-// router.post('/message/update', auth, controller.api.message.update);
+router.get('/message/list', MessageController.list);
+router.get('/message/search', MessageController.search);
+router.get('/message/detail', MessageController.detail);
+router.post('/message/create', auth(), MessageController.create);
+router.get('/message/delete', auth(), MessageController.delete);
+router.post('/message/update', auth(), MessageController.update);
 
 
 module.exports = router;

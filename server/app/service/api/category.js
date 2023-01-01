@@ -1,113 +1,87 @@
 'use strict';
 const BaseService = require('./base');
-
+const knex = require('../../config/config.knex.js');
 class CategoryService extends BaseService {
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
     this.model = 'category';
   }
 
   // 增
-  async create({ pid, seo_title, seo_keywords, seo_description, type,
-    name, pinyin, path, description, mid, url, sort, target, status }) {
+  async create(body) {
     const { app } = this;
     try {
-      const result = await app.mysql.insert(`${this.model}`, {
-        pid, seo_title, seo_keywords, seo_description, type, name, pinyin, path,
-        description, mid, url, sort, target, status,
-      });
-      const affectedRows = result.affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
-    
+      const result = await this.insert(body);
+      return result ? 'success' : 'fail';
     } catch (error) {
-     console.error(error)
+      console.error(error)
     }
   }
 
   // 删
   async delete(id) {
-    const { app } = this;
     try {
-    
-      const result = await app.mysql.delete(`${this.model}`, { id });
-      const affectedRows = result.affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
+      const result = await knex(this.model).where('id', '=', id).del()
+      return result ? 'success' : 'fail';
     } catch (error) {
-     console.error(error)
+      console.error(error)
     }
   }
 
   // 改
-  async update({ id, pid, seo_title, seo_keywords, seo_description,
-    type, name, pinyin, path, description, mid, url, sort, target, status }) {
-    const { app } = this;
+  async update(body) {
+    const { id } = body;
+    delete body.id;
     try {
-    
-      const result = await app.mysql.update(`${this.model}`,
-      { pid, seo_title, seo_keywords, seo_description,
-        type, name, pinyin, path, mid, description, url, sort, target, status },
-      {
-        where: {
-          id,
-        },
-      });
-    const affectedRows = result.affectedRows;
-    return affectedRows > 0 ? 'success' : 'fail';
+      const result = await knex(this.model).where('id', '=', id).update(body)
+      return result ? 'success' : 'fail';
     } catch (error) {
-     console.error(error)
+      console.error(error)
     }
   }
 
   // 查全部栏目
   async find() {
-    const { app } = this;
     try {
-    
-      const result = await app.mysql.select(`${this.model}`);
+      const result = await this.all();
+      console.log('result->', result)
       return result;
     } catch (error) {
-     console.error(error)
+      console.error(error)
     }
   }
 
   // 查栏目
   async findId(id) {
-    const { app } = this;
     try {
-    
-      const result = await app.mysql.get(`${this.model}`, { id });
+      const result = this.detail(id);
       return result;
     } catch (error) {
-     console.error(error)
+      console.error(error)
     }
   }
 
   // 查子栏目
   async findSubId(id) {
-    const { app } = this;
     try {
-    
-      const result = await app.mysql.select(`${this.model}`, { where: { pid: id } });
-      return result;
+      const result = await knex(this.model).where('pid', '=', id).select();
+      return result[0];
     } catch (error) {
-     console.error(error)
+      console.error(error)
     }
   }
 
   // 搜索栏目
   async search(key) {
-    const { app } = this;
     try {
-    
-      const sql = `select * from ${this.model} where name like "%${key}%" ORDER BY id,sort`;
-      const row = await app.mysql.query(sql);
-      return row;
+      const result = key ? await knex(this.model).whereLike('name', `%${key}%`).orderBy('id', 'desc', 'sort') 
+      : await knex(this.model).orderBy('id', 'desc', 'sort');
+      return result;
     } catch (error) {
-     console.error(error)
+      console.error(error)
     }
   }
 
-
 }
 
-module.exports = CategoryService;
+module.exports = new CategoryService();

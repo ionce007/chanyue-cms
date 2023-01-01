@@ -1,20 +1,19 @@
 'use strict';
 const knex = require('../../config/config.knex.js');
 const BaseService = require('./base');
+const {delImg,filterImgFromStr} = require('../../extend/helper.js');
 
 const path = require('path');
-async function getImgsByPageId(id, conn, arr, ctx) {
+async function getImgsByPageId(id, arr, ctx) {
   const imgStr = ` SELECT content FROM page WHERE id=${id}`;
-  const img = await conn.query(imgStr);
-  if (img.length > 0) {
-    const contImgArr = ctx.helper.filterImgFromStr(img[0].content);
+  const img =  await knex.raw(imgStr, []);
+  if (img[0].length > 0) {
+    const contImgArr =  filterImgFromStr(img[0].content);
     for (let i = 0; i < contImgArr.length; i++) {
       arr.push(contImgArr[i]);
     }
   }
 }
-
-
 
 
 class PageService extends BaseService {
@@ -23,60 +22,30 @@ class PageService extends BaseService {
     this.model = 'page'
   }
 
-  // 新增
-  async create({
-    cid,
-    title,
-    seo_title,
-    seo_keywords,
-    seo_description,
-    source,
-    author,
-    content,
-    status,
-    pv,
-    createdAt,
-  }) {
-    const {
-      app,
-    } = this;
-    try {
 
-      const result = await app.mysql.insert(`${this.model}`, {
-        cid,
-        title,
-        seo_title,
-        seo_keywords,
-        seo_description,
-        source,
-        author,
-        content,
-        status,
-        pv,
-        createdAt,
-      });
-
-      const affectedRows = result.affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
-    } catch (error) {
-      console.error(error)
+    // 增
+    async create(body) {
+      const { app } = this;
+      try {
+        const result = await this.insert(body);
+        return result ? 'success' : 'fail';
+      } catch (error) {
+        console.error(error)
+      }
     }
-  }
+
+  
 
   // 删
   async delete(id) {
-    const {
-      app, ctx,
-    } = this;
 
-    const conn = await app.mysql.beginTransaction(); // 初始化事务
     try {
       const ids = id.split(',');
       let arr = [];
       for (let i = 0, item; i < ids.length; i++) {
         item = ids[i];
         // 获取批量页面缩略图和内容图片路径
-        await getImgsByPageId(item, conn, arr, ctx);
+        await getImgsByPageId(item, arr, ctx);
       }
       // 过滤外链中的图片
       arr = arr.filter(item => {
@@ -87,119 +56,64 @@ class PageService extends BaseService {
       if (arr.length > 0) {
         for (let i = 0, item; i < arr.length; i++) {
           item = arr[i];
-          ctx.helper.delImg(path.join(__dirname, '../../' + item));
+          delImg(path.join(__dirname, '../../' + item));
         }
       }
 
       // 批量删除页面
       const delPageStr = `DELETE FROM ${this.model} WHERE id IN(${id})`;
-      const delPage = await conn.query(delPageStr);
+      const delPage = await knex.raw(delPageStr, [])
 
-      const affectedRows = delPage.affectedRows;
-      await conn.commit(); // 提交事务
-      return affectedRows > 0 ? 'success' : 'fail';
+      return delPage ? 'success' : 'fail';
     } catch (err) {
       console.error(err);
-      await conn.rollback();
-      throw err;
+     
     }
 
   }
 
 
   // 修改
-  async update({
-    id,
-    cid,
-    title,
-    seo_title,
-    seo_keywords,
-    seo_description,
-    source,
-    author,
-    content,
-    status,
-    pv,
-    updatedAt,
-  }) {
-    const {
-      app,
-    } = this;
+  async update(body) {
+    const { id } = body;
+    delete body.id;
     try {
-
-      const result = await app.mysql.update(`${this.model}`, {
-        cid,
-        title,
-        seo_title,
-        seo_keywords,
-        seo_description,
-        source,
-        author,
-        content,
-        status,
-        pv,
-        updatedAt,
-      }, {
-        where: {
-          id,
-        },
-      });
-      const affectedRows = result.affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
+      const result = await knex(this.model).where('id', '=', id).update(body)
+      return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
     }
   }
 
+// 列表
+async list(current = 1, pageSize = 10) {
+  try {
+    // 查询个数
+    const total = await knex(this.model).count('id', {as: 'count'});
+    const offset = parseInt((current - 1) * pageSize);
+    const list = await knex.select('*')
+      .from(this.model)
+      .limit(pageSize)
+      .offset(offset)
+      .orderBy('id', 'desc');
 
-  // 文章列表
-  async list(current = 1, pageSize = 10) {
-    const {
-      app,
-    } = this;
-    const conn = await app.mysql.beginTransaction(); // 初始化事务
-    try {
-      // 查询个数
-      const sql = `SELECT COUNT(id) as count FROM ${this.model}`;
-      const total = await conn.query(sql);
-
-      const offset = parseInt((current - 1) * pageSize);
-      const list = await conn.select(`${this.model}`, {
-        orders: [
-          ['id', 'desc'],
-        ],
-        offset,
-        limit: parseInt(pageSize),
-      });
-
-      await conn.commit(); // 提交事务
-      return {
-        count: total[0].count,
-        total: Math.ceil(total[0].count / pageSize),
-        current: Number(current),
-        list,
-      };
-    } catch (err) {
-      console.error(err);
-      await conn.rollback();
-      throw err;
-    }
+    return {
+      count: total[0].count,
+      total: Math.ceil(total[0].count / pageSize),
+      current: +current,
+      list: list,
+    };
+  } catch (err) {
+    console.error(err);
   }
+}
 
 
   // 查
-  async detail() {
-    const {
-      ctx,
-      app,
-    } = this;
+  async detail(id) {
     try {
-
-      const id = ctx.query.id;
-      const data = await app.mysql.get(`${this.model}`, {
-        id,
-      });
-      return data;
+      const result = this.detail(id);
+      return result;
     } catch (error) {
       console.error(error)
     }
@@ -209,8 +123,9 @@ class PageService extends BaseService {
   async article(cid) {
     try {
       // 通过栏目id查找模型id
-      const res = await knex.raw(`SELECT * FROM page WHERE cid=? ORDER BY id LIMIT 1`, [cid]);
+      const res = await knex(this.model).where('cid', '=', cid).select().limit(1);
       return res[0];
+
     } catch (error) {
       console.error(error)
     }
@@ -219,11 +134,9 @@ class PageService extends BaseService {
 
   // 增加计数器
   async count(id) {
-    const { app } = this;
     try {
-      const res = await knex.raw(`UPDATE page SET pv=pv+1 WHERE id=? LIMIT 1`, [id]);
-      const affectedRows = res[0].affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
+      const result = await knex.raw(`UPDATE page SET pv=pv+1 WHERE id=${id} LIMIT 1`, [id]);
+      return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
     }
@@ -231,25 +144,14 @@ class PageService extends BaseService {
 
   // 搜索
   async search(key = '', cur = 1, pageSize = 10) {
-    const {
-      app,
-    } = this;
-    // 初始化事务
-    const conn = await app.mysql.beginTransaction();
     try {
-
       // 查询个数
       const sql = `SELECT COUNT(*) as count FROM  page p LEFT JOIN category c ON p.cid=c.id WHERE p.title LIKE '%${key}%'`;
-      const total = await conn.query(sql);
-
+      const total = await knex.raw(sql, []);
       // 翻页
       const offset = parseInt((cur - 1) * pageSize);
       const sql_list = `SELECT p.id,p.title,p.cid,p.pv,p.updatedAt,p.status,c.name FROM ${this.model} p LEFT JOIN category c ON p.cid=c.id WHERE p.title LIKE '%${key}%' LIMIT ${offset},${parseInt(pageSize)}`;
-      const list = await conn.query(sql_list);
-
-      // 提交事务
-      await conn.commit();
-
+      const list = await knex.raw(sql_list, []);
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
@@ -257,9 +159,7 @@ class PageService extends BaseService {
         list,
       };
     } catch (err) {
-      console.error(err);
-      await conn.rollback();
-      throw err;
+      console.error(err)
     }
 
   }

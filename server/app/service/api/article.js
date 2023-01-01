@@ -1,24 +1,22 @@
 'use strict';
 
 const path = require('path');
+const knex = require('../../config/config.knex.js');
+const { delImg, filterImgFromStr } = require('../../extend/helper.js');
+const BaseService = require('./base');
 async function getImgsByArticleId(id, conn, arr, ctx) {
   const imgStr = ` SELECT img,content FROM article WHERE id=${id}`;
-  const img = await conn.query(imgStr);
-  if (img.length > 0) {
+  const img = await knex.raw(imgStr, []);
+  if (img[0].length > 0) {
     if (img[0].img) {
       arr.push(img[0].img);
     }
-    const contImgArr = ctx.helper.filterImgFromStr(img[0].content);
+    const contImgArr = filterImgFromStr(img[0].content);
     for (let i = 0; i < contImgArr.length; i++) {
       arr.push(contImgArr[i]);
     }
   }
 }
-
-const knex = require('../../config/config.knex.js');
-
-const BaseService = require('./base');
-
 class ArticleService extends BaseService {
 
   constructor(props) {
@@ -28,133 +26,123 @@ class ArticleService extends BaseService {
 
   // 增
   async create(body) {
-    const {
-      app,
-    } = this;
-    const conn = await app.mysql.beginTransaction(); // 初始化事务
     try {
-      // 插入基本文章
-      const result = await conn.insert(`${this.model}`, body.defaultParams);
-      const affectedRows = result.affectedRows;
       let res,
         mapTag;
-      if (affectedRows > 0) {
-        // 获取最后一个文章id和栏目id
-        const lastStr = `SELECT id,cid FROM ${this.model} ORDER BY id DESC LIMIT 1`;
-        const lastId = await conn.query(lastStr);
-        const { id, cid } = lastId[0];
-        // 通过栏目id查找模型id
-        const modIdStr = `SELECT mid FROM category WHERE id=${cid} LIMIT 0,1`;
-        const modId = await conn.query(modIdStr);
-        // 通过模型查找表名
-        const tableNameStr = `SELECT table_name FROM model WHERE id=${modId[0].mid} LIMIT 0,1`;
-        const tableName = await conn.query(tableNameStr);
-        // 新增模型文章
-        if (tableName.length > 0) {
-          const fieldParams = { ...body.fieldParams, aid: id };
-          res = await conn.insert(`${tableName[0].table_name}`, fieldParams);
-        }
-        // 新增文章和标签关联
-        const tags = body.defaultParams.tag_id.split(',').map(item => Number(item));
-        const tagsql = [];
-        tags.forEach(item => {
-          tagsql.push(`(${id},${item})`);
-        });
-        if (res && res.affectedRows) {
-          mapTag = await conn.query('INSERT INTO article_map_tag(aid,tid) VALUES ' + tagsql.join(','));
-        }
-      }
-      await conn.commit(); // 提交事务
+      await knex.transaction(async trx => {
+        const result = await trx('books').insert(body.defaultParams);
+        if (result) {
+          // 获取最后一个文章id和栏目id
+          const lastStr = `SELECT id,cid FROM ${this.model} ORDER BY id DESC LIMIT 1`;
+          const lastId = await trx.raw(lastStr, [])
+          const { id, cid } = lastId[0][0];
 
-      if (mapTag && mapTag.affectedRows) {
-        return mapTag.affectedRows > 0 ? 'success' : 'fail';
-      }
+          // 通过栏目id查找模型id
+          const modIdStr = `SELECT mid FROM category WHERE id=${cid} LIMIT 0,1`;
+          const modId = await trx.raw(modIdStr, []);
 
-      return affectedRows > 0 ? 'success' : 'fail';
+          // 通过模型查找表名
+          const tableNameStr = `SELECT table_name FROM model WHERE id=${modId[0][0].mid} LIMIT 0,1`;
+          const tableName = await trx.raw(tableNameStr, []);
+
+          // 新增模型文章
+          if (tableName[0].length > 0) {
+            const fieldParams = { ...body.fieldParams, aid: id };
+            res = await trx(`${tableName[0][0].table_name}`).insert(fieldParams)
+          }
+
+          // 新增文章和标签关联
+          const tags = body.defaultParams.tag_id.split(',').map(item => Number(item));
+          const tagsql = [];
+          tags.forEach(item => {
+            tagsql.push(`(${id},${item})`);
+          });
+          if (res) {
+            mapTag = await trx.raw('INSERT INTO article_map_tag(aid,tid) VALUES ' + tagsql.join(','), []);
+          }
+          return mapTag ? 'success' : 'fail';
+        }
+      });
     } catch (err) {
       console.error(err);
-      await conn.rollback();
-      throw err;
     }
   }
 
 
   // 删
   async delete(id) {
-    const {
-      app, ctx,
-    } = this;
-
-    const conn = await app.mysql.beginTransaction(); // 初始化事务
     try {
       const ids = id.split(',');
       // 删除文章图片
       let arr = [];
-      // 批量删除模型文章
-      for (let i = 0, item; i < ids.length; i++) {
-        item = ids[i];
-        // 通过文章id,找栏目id
-        const categoryStr = `SELECT cid FROM article WHERE id=${item} LIMIT 0,1`;
-        const category = await conn.query(categoryStr);
-        // 通过栏目id查找模型id
-        if (category.length > 0) {
-          const modIdStr = `SELECT mid FROM category WHERE id=${category[0].cid} LIMIT 0,1`;
-          const modId = await conn.query(modIdStr);
+      await knex.transaction(async trx => {
 
-          // 通过模型查找表名
-          if (modId.length > 0) {
-            const tableNameStr = `SELECT table_name FROM model WHERE id=${modId[0].mid} LIMIT 0,1`;
-            const tableName = await conn.query(tableNameStr);
-            if (tableName.length > 0) {
-              // 删除模型文章
-              const delModelStr = `DELETE FROM ${tableName[0].table_name} WHERE aid IN(${item})`;
-              await conn.query(delModelStr);
+        // 批量删除模型文章
+        for (let i = 0, item; i < ids.length; i++) {
+          item = ids[i];
+          // 通过文章id,找栏目id
+          const categoryStr = `SELECT cid FROM article WHERE id=${item} LIMIT 0,1`;
+          const category = await trx.raw(categoryStr, [])
+
+          // 通过栏目id查找模型id
+          if (category[0].length > 0) {
+            const modIdStr = `SELECT mid FROM category WHERE id=${category[0].cid} LIMIT 0,1`;
+
+
+            const modId = await trx.raw(modIdStr, [])
+
+            // 通过模型查找表名
+            if (modId[0].length > 0) {
+              const tableNameStr = `SELECT table_name FROM model WHERE id=${modId[0].mid} LIMIT 0,1`;
+              const tableName = await trx.raw(tableNameStr, [])
+
+              if (tableName[0].length > 0) {
+                // 删除模型文章
+                const delModelStr = `DELETE FROM ${tableName[0].table_name} WHERE aid IN(${item})`;
+                await trx.raw(delModelStr, [])
+
+              }
             }
+          }
+
+          // 获取批量文章缩略图和内容图片路径
+          await getImgsByArticleId(item, conn, arr, ctx);
+        }
+
+        // 过滤外链中的图片
+        arr = arr.filter(item => {
+          return item.includes('public/uploads');
+        });
+
+        // 批量删除文章缩略图和文章图片
+        if (arr.length > 0) {
+          for (let i = 0, item; i < arr.length; i++) {
+            item = arr[i];
+            delImg(path.join(__dirname, '../../' + item));
           }
         }
 
-        // 获取批量文章缩略图和内容图片路径
-        await getImgsByArticleId(item, conn, arr, ctx);
-      }
+        // 批量删除文章
+        const delArticleStr = `DELETE FROM ${this.model} WHERE id IN(${id})`;
+        const delArticle = await trx.raw(delArticleStr, []);
 
-      // 过滤外链中的图片
-      arr = arr.filter(item => {
-        return item.includes('public/uploads');
+        // 删除关联的 tag
+        const delMapTagStr = `DELETE FROM article_map_tag WHERE aid IN(${id})`;
+
+        await trx.raw(delMapTagStr, []);
+
+        return delArticle[0] > 0 ? 'success' : 'fail';
+
+
       });
-
-      // 批量删除文章缩略图和文章图片
-      if (arr.length > 0) {
-        for (let i = 0, item; i < arr.length; i++) {
-          item = arr[i];
-          ctx.helper.delImg(path.join(__dirname, '../../' + item));
-        }
-      }
-
-      // 批量删除文章
-      const delArticleStr = `DELETE FROM ${this.model} WHERE id IN(${id})`;
-      const delArticle = await conn.query(delArticleStr);
-
-      // 删除关联的 tag
-      const delMapTagStr = `DELETE FROM article_map_tag WHERE aid IN(${id})`;
-      await conn.query(delMapTagStr);
-
-      const affectedRows = delArticle.affectedRows;
-      await conn.commit(); // 提交事务
-      return affectedRows > 0 ? 'success' : 'fail';
     } catch (err) {
       console.error(err);
-      await conn.rollback();
-      throw err;
     }
   }
 
   // 改
   async update(body) {
-    const {
-      app,
-    } = this;
 
-    const conn = await app.mysql.beginTransaction(); // 初始化事务
     try {
       const { cid,
         sub_cid,
@@ -177,79 +165,63 @@ class ArticleService extends BaseService {
         updatedAt, id, field } = body;
       delete field.aid;
 
-      // 通过栏目id查找模型id
-      const modIdStr = `SELECT mid FROM category WHERE id=${cid} LIMIT 0,1`;
-      const modId = await conn.query(modIdStr);
+      await knex.transaction(async trx => {
+          // 通过栏目id查找模型id
+          const modIdStr = `SELECT mid FROM category WHERE id=${cid} LIMIT 0,1`;
+          const modId = await trx.raw(modIdStr, []);
+          
+          // 通过模型查找表名
+          const tableNameStr = `SELECT table_name FROM model WHERE id=${modId[0][0].mid} LIMIT 0,1`;
+          const tableName = await trx.raw(tableNameStr, []);
 
-      // 通过模型查找表名
-      const tableNameStr = `SELECT table_name FROM model WHERE id=${modId[0].mid} LIMIT 0,1`;
-      const tableName = await conn.query(tableNameStr);
-      if (tableName.length > 0) {
-        await conn.update(`${tableName[0].table_name}`, {
-          ...field,
-        }, {
-          where: {
-            aid: id,
-          },
-        });
-      }
+          if (tableName[0][0].length > 0) {
+            await knex(`${tableName[0][0].table_name}`).where('aid', '=', id).update(field)
+          }
 
-      const result = await conn.update(`${this.model}`, {
-        cid,
-        sub_cid,
-        title,
-        short_title,
-        tag_id,
-        attr,
-        seo_title,
-        seo_keywords,
-        seo_description,
-        source,
-        author,
-        description,
-        img,
-        content,
-        status,
-        pv,
-        link,
-        createdAt,
-        updatedAt,
-      }, {
-        where: {
-          id,
-        },
-      });
-      const affectedRows = result.affectedRows;
+          // 修改标签，要先全部删除关联的tag，然后再添加，因为修改标签有删除，新增等方式
+          const delMapTagStr = `DELETE FROM article_map_tag WHERE aid IN(${id})`;
+          await trx.raw(delMapTagStr, []);
+      
+          // 新增文章和标签关联
+          const tags = tag_id.split(',').map(item => +item);
+          const tagsql = [];
+          tags.forEach(item => {
+            tagsql.push(`(${id},${item})`);
+          });
 
+          await trx.raw('INSERT INTO article_map_tag(aid,tid) VALUES ' + tagsql.join(','));
+          const result = knex(this.model).where('id', '=', id).update({
+            cid,
+            sub_cid,
+            title,
+            short_title,
+            tag_id,
+            attr,
+            seo_title,
+            seo_keywords,
+            seo_description,
+            source,
+            author,
+            description,
+            img,
+            content,
+            status,
+            pv,
+            link,
+            createdAt,
+            updatedAt,
+          });
+          return result ? 'success' : 'fail';
+      })
 
-      // 修改标签，要先全部删除关联的tag，然后再添加，因为修改标签有删除，新增等方式
-      const delMapTagStr = `DELETE FROM article_map_tag WHERE aid IN(${id})`;
-      await conn.query(delMapTagStr);
-
-      // 新增文章和标签关联
-      const tags = tag_id.split(',').map(item => +item);
-      const tagsql = [];
-      tags.forEach(item => {
-        tagsql.push(`(${id},${item})`);
-      });
-
-      await conn.query('INSERT INTO article_map_tag(aid,tid) VALUES ' + tagsql.join(','));
-
-      await conn.commit(); // 提交事务
-      return affectedRows > 0 ? 'success' : 'fail';
     } catch (err) {
       console.error(err);
-      await conn.rollback();
-      throw err;
     }
   }
 
+
   // 文章列表
   async list(current = 1, pageSize = 10, id) {
-    const {
-      app,
-    } = this;
-
     try {
       // 查询个数
       let sql;
@@ -258,36 +230,28 @@ class ArticleService extends BaseService {
       } else {
         sql = `SELECT COUNT(id) as count FROM ${this.model}`;
       }
-      const total = await app.mysql.query(sql);
-
+      const total = await knex(this.model).raw(sql);
       const offset = parseInt((current - 1) * pageSize);
       let list;
       if (id) {
-        list = await app.mysql.select(`${this.model}`, {
-          where: { cid: id },
-          columns: ['id', 'title', 'createdAt', 'description', 'pv', 'author', 'status', 'img'],
-          orders: [
-            ['id', 'desc'],
-          ],
-          offset,
-          limit: parseInt(pageSize),
-        });
+        list = await knex.select(['id', 'title', 'createdAt', 'description', 'pv', 'author', 'status', 'img'])
+        .from(this.model).where('cid', '=', id)
+        .limit(pageSize)
+        .offset(offset)
+        .orderBy('id', 'desc');
       } else {
-        list = await app.mysql.select(`${this.model}`, {
-          columns: ['id', 'title', 'attr', 'pv', 'createdAt', 'status'],
-          orders: [
-            ['id', 'desc'],
-          ],
-          offset,
-          limit: parseInt(pageSize),
-        });
+        list = await knex.select(['id', 'title', 'attr', 'pv', 'createdAt', 'status'])
+        .from(this.model)
+        .limit(pageSize)
+        .offset(offset)
+        .orderBy('id', 'desc');
       }
 
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
         current: Number(current),
-        list,
+        list:list[0],
       };
     } catch (err) {
       console.error(err);
@@ -299,10 +263,8 @@ class ArticleService extends BaseService {
     try {
       // 查询文章
       const data = await knex(this.model).where('id', '=', id).select()
-      console.log('id-->', data)
       //兼容mysql错误
       if (!data[0] || !data[0].cid) {
-        console.log(`id->${id} data->${JSON.stringify(data[0])}`)
         return false;
       }
       // 通过栏目id查找模型id
@@ -323,7 +285,7 @@ class ArticleService extends BaseService {
 
   // 搜索
   async search(key = '', cur = 1, pageSize = 10, cid = 0) {
-    // 初始化事务
+
     try {
       // 查询个数
       let sql;
@@ -362,12 +324,9 @@ class ArticleService extends BaseService {
 
   // 增加计数器
   async count(id) {
-    const { app } = this;
     try {
       const result = await knex.raw(`UPDATE article SET pv=pv+1 WHERE id=${id} LIMIT 1`, [id]);
-      console.log('count--->', result)
-      const affectedRows = result[0].affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
+      return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
     }
@@ -385,14 +344,9 @@ class ArticleService extends BaseService {
 
   // 下一篇文章
   async next(id, cid) {
-    const { app } = this;
     try {
-
-
-
       const result = await knex.raw(`SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id WHERE a.id>? AND a.cid=? LIMIT 1`, [id, cid]);
       return result[0];
-
     } catch (error) {
       console.error(error)
     }
@@ -400,9 +354,6 @@ class ArticleService extends BaseService {
 
   // 通过栏目id获取mid，通过mid获取模型对应字段
   async findField(cid) {
-    const {
-      app,
-    } = this;
 
     try {
       // 查询个数

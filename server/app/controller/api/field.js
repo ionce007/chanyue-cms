@@ -1,79 +1,84 @@
 'use strict';
 const BaseController = require('./base');
+const dayjs = require('dayjs');
+
+const path = require('path');
+const { success, fail, } = require('../../extend/api.js');
+const { filterBody } = require('../../extend/helper.js');
+
+
+const FieldService = require('../../service/api/field.js');
+
+
 class FieldController extends BaseController {
 
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
     this.model = 'field';
   }
 
   // 增
-  async create() {
+  async create(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const body = ctx.request.body;
-      const has = await service[this.config.apiService][this.model].findByName(body.field_cname, body.field_ename);
-      if (has.length > 0) {
-        this.fail({ msg: '字段命名已重复' });
+      const body = req.body;
+      const has = await FieldService.findByName(body.field_cname, body.field_ename);
+      if (has[0].length > 0) {
+        res.json({ ...fail, msg: '字段命名已重复' });
         return;
       }
-      const data = await service[this.config.apiService][this.model].create({ ...body });
-      this.success(data);
+      const data = await FieldService.create({ ...body });
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 删除
-  async delete() {
+  async delete(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].delete(id);
-      this.success(data);
+      const id = req.query.id;
+      const data = await FieldService.delete(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 改
-  async update() {
+  async update(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const body = ctx.request.body;
-      const data = await service[this.config.apiService][this.model].update({ ...body });
-      this.success(data);
+      const body = req.body;
+      const data = await FieldService.update(body);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
 
   // 查
-  async detail() {
+  async detail(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].detail(id);
-      this.success(data);
+      const id = req.query.id;
+      const data = await FieldService.detail(id);
+      res.json({ ...success, data: data[0] });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
-  // 列表
-  async list() {
+  // 列表 
+  async list(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const cur = ctx.query.cur;
-      const model_id = ctx.query.model_id;
+      const cur = req.query.cur;
+      const model_id = req.query.model_id;
       const pageSize = 10;
-      const data = await service[this.config.apiService][this.model].list(model_id, cur, pageSize);
-      this.success(data);
+      const data = await FieldService.list(model_id, cur, pageSize);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 }
 
-module.exports = FieldController;
+module.exports = new FieldController();

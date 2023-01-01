@@ -12,6 +12,7 @@ const knex = require('knex')({
         user,
         password,
         database,
+        charset: 'utf8mb4'
     },
     debug: debug || true, //指明是否开启debug模式，默认为true表示开启
     pool: { //指明数据库连接池的大小，默认为{min: 2, max: 10}

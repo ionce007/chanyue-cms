@@ -12,7 +12,7 @@ export let find = () => {
 //增
 export let create = (opt) => {
   return http({
-    url: `${api.API_URL}/api/auth/category/create`,
+    url: `${api.API_URL}/api/category/create`,
     method: "post",
     data: opt,
   });
@@ -37,7 +37,7 @@ export let findSubId = (id) => {
 //改
 export let update = (opt) => {
   return http({
-    url: `${api.API_URL}/api/auth/category/update`,
+    url: `${api.API_URL}/api/category/update`,
     method: "post",
     data: opt,
   });
@@ -45,7 +45,7 @@ export let update = (opt) => {
 
 export let destory = (id) => {
   return http({
-    url: `${api.API_URL}/api/auth/category/delete?id=${id}`,
+    url: `${api.API_URL}/api/category/delete?id=${id}`,
     method: "get",
   });
 };

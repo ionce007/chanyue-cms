@@ -1,133 +1,131 @@
 'use strict';
 const BaseController = require('./base');
 const dayjs = require('dayjs');
-class AdController extends BaseController {
+const path = require('path');
+const { success, fail } = require('../../extend/api.js');
+const { md5, setToken } = require('../../extend/helper.js');
+const config = require('../../config/config.js');
+const AdService = require('../../service/api/ad.js');
 
-  constructor(...args) {
-    super(...args);
+class AdController extends BaseController {
+  constructor(props) {
+    super(props);
     this.model = 'ad';
   }
 
   // 增
-  async create() {
+  async create(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const body = ctx.request.body;
+      const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
       body.updatedAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
-      const data = await service[this.config.apiService][this.model].create({ ...body });
-      this.success(data);
+      const data = await AdService.create(body);
+      res.json({ ...success, data: data })
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 删除
-  async delete() {
+  async delete(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].delete(id);
-      this.success(data);
+      const id =  ctx.query.id;
+      const data = await AdService.delete(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 改
-  async update() {
+  async update(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const body = ctx.request.body;
+      const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
       body.updatedAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
-      body.content = ctx.helper.filterBody(body.content);
-      const data = await service[this.config.apiService][this.model].update({ ...body });
-      this.success(data);
+      body.content = filterBody(body.content);
+      const data = await AdService.updateInfo(body);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 查
-  async find() {
+  async find(req, res, next) {
     try {
-      const { service } = this;
-      const data = await service[this.config.apiService][this.model].find();
-      this.success(data);
+      const id = req.query.id;
+      const data = await AdService.find(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 查
-  async detail() {
+  async detail(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].detail(id);
-      this.success(data);
+      const id = req.query.id;
+      const data = await AdService.detail(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
+ 
 
   // 查子栏目
-  async findSubId() {
+  async findSubId(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].findSubId(id);
-      this.success(data);
+      const id = req.query.id;
+      const data = await AdService.findSubId(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 搜索
-  async search() {
+  async search(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const cur = ctx.query.cur;
-      const key = ctx.query.keyword;
-      const pageSize = 10;
-      const data = await service[this.config.apiService][this.model].search(key, cur, pageSize);
+      const cur = req.query.cur;
+      const key = req.query.keyword;
+      const pageSize = req.query.pageSize || 10;
+      const data = await AdService.search(key, cur, pageSize);
       data.list.forEach(ele => {
-        ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:mm:ss');
+        ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:MM');
       });
-      this.success(data);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 列表
-  async list() {
+  async list(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const cur = ctx.query.cur;
+      const cur = req.query.cur;
       const pageSize = 10;
-      const data = await service[this.config.apiService][this.model].list(cur, pageSize);
+      const data = await AdService.list(cur, pageSize);
       data.list.forEach(ele => {
-        ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:mm:ss');
+        ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:MM');
       });
-      this.success(data);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 上传图片
-  async upload() {
+  async upload(req,res,next) {
     try {
-      const { ctx } = this;
-      const res = await this.uploadFile();
+      let file = req.file;
       const link = { link: res.link.replace(/\\/g, '/') };
-      ctx.body = { link: link.link, location: link.link };
+      res.json({ ...success, data: { link: link.link, location: link.link }});
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 }
 
-module.exports = AdController;
+module.exports = new AdController();

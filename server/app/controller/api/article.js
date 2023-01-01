@@ -4,6 +4,11 @@ const dayjs = require('dayjs');
 
 const path = require('path');
 
+const { success, fail } = require('../../extend/api.js');
+const { md5, setToken } = require('../../extend/helper.js');
+const config = require('../../config/config.js');
+const ArticleService = require('../../service/api/article.js');
+
 class ArticleController extends BaseController {
 
 
@@ -13,114 +18,109 @@ class ArticleController extends BaseController {
   }
 
   // 增
-  async create() {
+  async create(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const body = ctx.request.body;
+      const body = req.body;
       body.defaultParams.createdAt = dayjs(body.defaultParams.createdAt).format('YYYY-MM-DD HH:mm:ss');
       body.defaultParams.updatedAt = dayjs(body.defaultParams.updatedAt).format('YYYY-MM-DD HH:mm:ss');
-      body.defaultParams.content = ctx.helper.filterBody(body.defaultParams.content);
-      const data = await service[this.config.apiService][this.model].create({ ...body });
-      this.success(data);
+      body.defaultParams.content = filterBody(body.defaultParams.content);
+      const data = await ArticleService.create(body);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
-  // 删除
-  async delete() {
-    try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].delete(id);
-      this.success(data);
-    } catch (error) {
-      this.fail(error);
-    }
+// 删除
+async delete(req, res, next) {
+  try {
+    const id = req.query.id;
+    const data = await ArticleService.delete(id);
+    res.json({ ...success, data: data });
+  } catch (error) {
+    next(error);
   }
+}
 
   // 改
-  async update() {
+  async update(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const body = ctx.request.body;
+      const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
       body.updatedAt = dayjs(body.updatedAt).format('YYYY-MM-DD HH:mm:ss');
-      body.content = ctx.helper.filterBody(body.content);
-      const data = await service[this.config.apiService][this.model].update({ ...body });
-      this.success(data);
+      body.content = filterBody(body.content);
+      const data = await ArticleService.update(body);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
+    }
+  }
+
+
+  // 查
+  async find(req, res, next) {
+    try {
+      const data = await ArticleService.find();
+      res.json({ ...success, data: data });
+    } catch (error) {
+      next(error);
     }
   }
 
   // 查
-  async find() {
+  async detail(req, res, next) {
     try {
-      const { ctx, service } = this;
-      ctx.logger.debug('ctx', ctx);
-      const data = await service[this.config.apiService][this.model].find();
-      this.success(data);
+      const id = req.query.id;
+      const data = await ArticleService.detail(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
-    }
-  }
-
-  // 查
-  async detail() {
-    try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].detail(id);
-      this.success(data);
-    } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 查子栏目
-  async findSubId() {
+  async findSubId(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].findSubId(id);
-      this.success(data);
+      const id = req.query.id;
+      const data = await ArticleService.findSubId(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
+
 
   // 搜索
-  async search() {
+  async search(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const cur = ctx.query.cur;
-      const key = ctx.query.keyword;
-      const cid = ctx.query.cid || 0; // 所属栏目
+      const cur = req.query.cur;
+      const key = req.query.keyword;
+      const cid = req.query.cid || 0; // 所属栏目
       const pageSize = ctx.query.pageSize || 10;
-      const data = await service[this.config.apiService][this.model].search(key, cur, pageSize, cid);
+      const data = await ArticleService.search(key, cur, pageSize, cid);
       data.list.forEach(ele => {
         ele.updatedAt = dayjs(ele.updatedAt).format('YYYY-MM-DD HH:mm:ss');
       });
-      this.success(data);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
+
   // 列表
-  async list() {
+  async list(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const cur = ctx.query.cur;
+   
+      const cur = req.query.cur;
       const pageSize = 10;
-      const data = await service[this.config.apiService][this.model].list(cur, pageSize);
+      const data = await ArticleService.list(cur, pageSize);
       data.list.forEach(ele => {
         ele.updatedAt = dayjs(ele.updatedAt).format('YYYY-MM-DD HH:mm:ss');
       });
-      this.success(data);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
@@ -128,31 +128,28 @@ class ArticleController extends BaseController {
   async upload(req,res,next) {
     try {
       let file = req.file;
-      this.success({ link: file.path, domain: '//' + ctx.host });
+      res.json({ ...success, data: { link: file.path, domain: '//' + ctx.host } });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
-  async findField() {
+  async findField(req,res,next) {
     try {
-      const { ctx, service } = this;
-      const cid = ctx.query.cid;
-      const data = await service[this.config.apiService][this.model].findField(cid);
-      this.success(data);
+      const cid = req.query.cid;
+      const data = await ArticleService.findField(cid);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
-
   }
 
-  async tongji() {
+  async tongji(req,res,next) {
     try {
-      const { service } = this;
-      const data = await service[this.config.apiService][this.model].tongji();
-      this.success(data);
+      const data = await ArticleService.tongji();
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 }

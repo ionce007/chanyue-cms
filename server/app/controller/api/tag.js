@@ -1,108 +1,99 @@
 'use strict';
 const BaseController = require('./base');
 const dayjs = require('dayjs');
+const path = require('path');
+const { success, fail } = require('../../extend/api.js');
+const TagService = require('../../service/api/tag.js');
+const {filterBody} = require('../../extend/helper.js');
+
 class TagController extends BaseController {
 
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
     this.model = 'tag';
   }
 
   // 增
-  async create() {
+  async create(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const body = ctx.request.body;
-      body.content = ctx.helper.filterBody(body.content);
-      const data = await service[this.config.apiService][this.model].create({ ...body });
-      this.success(data);
+      const body = req.body;
+      body.content = filterBody(body.content);
+      const data = await TagService.create(body);
+      res.json({ ...success, data: data })
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 删除
-  async delete() {
+  async delete(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].delete(id);
-      if (data) {
-        this.success(data);
-      } else {
-        this.fail({ msg: '存在引用，不能删' });
-      }
-
+      const id = req.body.id;
+      const data = await TagService.delete(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 改
-  async update() {
+  async update(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const data = await service[this.config.apiService][this.model].update({ ...ctx.request.body });
-      this.success(data);
+      const body = req.body;
+      const data = await TagService.updateInfo(body);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
-
 
   // 查
-  async detail() {
+  async detail(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].detail(id);
-      this.success(data);
+      const id = req.query.id;
+      const data = await TagService.detail(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
-
 
   // 列表
-  async list() {
+  async list(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const cur = ctx.query.cur;
+      const cur = req.query.cur;
       const pageSize = 50;
-      const data = await service[this.config.apiService][this.model].list(cur, pageSize);
-      this.success(data);
+      const data = await FragService.list(cur, pageSize);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
 
-  async has() {
+  async has(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const path = ctx.query.path;
-      const data = await service[this.config.apiService][this.model].has(path);
-      this.success(data);
+      const path = req.query.path;
+      const data = await FragService.has(path);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 搜索
-  async search() {
+  async search(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const cur = ctx.query.cur;
-      const key = ctx.query.keyword;
-
-      const pageSize = ctx.query.pageSize || 10;
-      const data = await service[this.config.apiService][this.model].search(key, cur, pageSize);
-      this.success(data);
+      const cur = req.query.cur;
+      const key = req.query.keyword;
+      const pageSize = req.query.pageSize || 10;
+      const data = await FragService.search(key, cur, pageSize);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
 }
 
-module.exports = TagController;
+module.exports = new TagController();

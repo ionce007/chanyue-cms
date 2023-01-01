@@ -2,90 +2,92 @@
 
 const BaseController = require('./base');
 const path = require('path');
+const { success, fail } = require('../../extend/api.js');
+const SiteService = require('../../service/api/site.js');
+
 class SiteController extends BaseController {
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
     this.model = 'site';
   }
 
   // 查
-  async find() {
+  async find(req, res, next) {
     try {
-      const { ctx, service } = this;
-
-      const data = await service[this.config.apiService][this.model].find();
-      this.success(data);
+      const data = await SiteService.find();
+      res.json({ ...success, data: data[0] })
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
 
-  // 增
-  async create() {
+  // 增 
+  async create(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const data = await service[this.config.apiService][this.model].create({ ...ctx.request.body });
-      this.success({ data });
+      const body = req.body;
+      const data = await SiteService.create(body);
+      res.json({ ...success, data: data })
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 删除
-  async delete() {
+  async delete(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.body.id;
-      const data = await service[this.config.apiService][this.model].delete(id);
-      this.success({ data });
+      const id = req.body.id;
+      const data = await SiteService.delete(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 改
-  async updateInfo() {
+  async updateInfo(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const data = await service[this.config.apiService][this.model].updateInfo({ ...ctx.request.body });
-      this.success({ data });
+      const body = req.body;
+      const data = await SiteService.updateInfo(body);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
-  async updateSeo() {
+  async updateSeo(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const data = await service[this.config.apiService][this.model].updateSeo({ ...ctx.request.body });
-      this.success({ data });
+      const body = req.body;
+      const data = await SiteService.updateSeo(body);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 查
-  async findId() {
+  async findId(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].find(id);
-      this.success({ data });
+      const id = req.query.id;
+      const data = await SiteService.find(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 获取磁盘信息
-  async runEnv() {
+  async runEnv(req, res, next) {
     try {
-      this.success({ dirname: path.join(__dirname, '../../../../') });
+      const dirname = path.join(__dirname, '../../../../');
+      console.log('dirname-->',dirname);
+
+      res.json({ ...success, data:{dirname: dirname} });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
 }
 
-module.exports = SiteController;
+module.exports = new SiteController();

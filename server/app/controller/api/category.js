@@ -1,94 +1,93 @@
 'use strict';
 const BaseController = require('./base');
-
+const { success, fail } = require('../../extend/api.js');
+const { md5, setToken } = require('../../extend/helper.js');
+const config = require('../../config/config.js');
+const CategoryService = require('../../service/api/category.js');
 class CategoryController extends BaseController {
 
-  constructor(...args) {
-    super(...args);
+
+  constructor(props) {
+    super(props);
     this.model = 'category';
   }
-
   // 增
-  async create() {
+  async create(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const data = await service[this.config.apiService][this.model].create({ ...ctx.request.body });
-      this.success({ data });
+      const body = req.body;
+      const data = await CategoryService.create(body);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 删除
-  async delete() {
+  async delete(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].delete(id);
-      this.success(data);
+      const id = req.query.id;
+      const data = await CategoryService.delete(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 改
-  async update() {
+  async update(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const data = await service[this.config.apiService][this.model].update({ ...ctx.request.body });
-      this.success(data);
+      const body = req.body;
+      const data = await CategoryService.update(body);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 查
-  async find() {
+  async find(req, res, next) {
     try {
-      const { service } = this;
-      const data = await service[this.config.apiService][this.model].find();
-      this.success(data);
+      const data = await CategoryService.find();
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 查
-  async findId() {
+  async findId(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].findId(id);
-      this.success(data);
+      const id = req.query.id;
+      const data = await CategoryService.findId(id);
+      console.log('data-->',data);
+      res.json({ ...success, data: data[0] });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 查子栏目
-  async findSubId() {
+  async findSubId(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const id = ctx.query.id;
-      const data = await service[this.config.apiService][this.model].findSubId(id);
-      this.success(data);
+      const id = req.query.id;
+      const data = await CategoryService.findSubId(id);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
   // 搜索栏目
-  async search() {
+  async search(req, res, next) {
     try {
-      const { ctx, service } = this;
-      const q = ctx.query.q;
-      const data = await service[this.config.apiService][this.model].search(q);
-      this.success(data);
+      const q = req.query.q;
+      const data = await CategoryService.search(q);
+      res.json({ ...success, data: data });
     } catch (error) {
-      this.fail(error);
+      next(error);
     }
   }
 
 }
 
-module.exports = CategoryController;
+module.exports = new CategoryController();
