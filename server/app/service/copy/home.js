@@ -1,6 +1,6 @@
 'use strict';
 const Service = require('egg').Service;
-// 解决 gb2312格式中文乱码
+// 解决 gb2312格式中文乱码 import fetch from 'node-fetch';
 
 const cheerio = require('cheerio');
 const iconv = require('iconv-lite');
