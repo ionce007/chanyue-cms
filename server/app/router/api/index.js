@@ -93,7 +93,7 @@ router.post('/frag/update', auth(), FragController.update);
 
 // tag标签管理
 router.get('/tag/list', TagController.list);
-router.post('/tag/create', auth, TagController.create);
+router.post('/tag/create', auth(), TagController.create);
 router.get('/tag/detail', TagController.detail);
 router.get('/tag/has', TagController.has);
 router.get('/tag/search', TagController.search);

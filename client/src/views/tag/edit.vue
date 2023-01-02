@@ -57,7 +57,7 @@ export default {
   async mounted() {},
   watch: {
     "params.name": function (newv, oldv) {
-      this.params.path = pinyin(newv, { toneType: "none" }).replaceAll(" ", "");
+      this.params.path = pinyin(newv, { toneType: "none" }).replace(/\s+/g, "");
     },
   },
   async created() {

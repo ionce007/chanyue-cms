@@ -107,7 +107,7 @@ class FieldService extends BaseService {
     try {
       // 查询个数
       const sql = `SELECT COUNT(id) as count FROM ${this.model}`;
-      const total = await knex(this.model).raw(sql);
+      const total = await knex.raw(sql);
       // 列表
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex.select(['id', 'field_cname', 'field_ename', 'field_sort'])
@@ -117,7 +117,7 @@ class FieldService extends BaseService {
         .orderBy('id', 'desc');
 
       // 查询模块名称
-      const model = await knex(this.model).raw('SELECT model_name,table_name FROM model WHERE id=?', [model_id]);
+      const model = await knex.raw('SELECT model_name,table_name FROM model WHERE id=?', [model_id]);
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
@@ -134,7 +134,7 @@ class FieldService extends BaseService {
   // 查
   async detail(id) {
     try {
-      const data = await this.detail(id);
+      const data = await knex(this.model).where('id', '=', id).select()
       return data[0];
     } catch (error) {
       console.error(error)

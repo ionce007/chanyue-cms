@@ -112,10 +112,10 @@ async list(cur = 1, pageSize = 10) {
   // 查
   async detail(id) {
     try {
-      const result = await knex(this.model).where('id', '=', id).select() 
-      return result;
+      const data = await knex(this.model).where('id', '=', id).select()
+      return data[0];
     } catch (error) {
-      console.error(error)
+      console.log(error);
     }
   }
 

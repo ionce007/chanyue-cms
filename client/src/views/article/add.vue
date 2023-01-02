@@ -78,20 +78,16 @@
 
         <el-form-item label="缩略图">
           <el-upload
-            action="/api/upload"
-            list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove"
+            class="avatar-uploader"
+            action="/api/upload"  
             :on-success="upload"
+            :show-file-list="false"
+            :before-upload="beforeUpload"
           >
-            <i class="el-icon-plus"></i>
-          </el-upload>
-          <el-dialog v-model="dialogVisible">
-            <img width="480" :src="dialogImageUrl" alt />
-          </el-dialog>
-
-          <p>建议尺寸：640px*320px、420*160、240*120，图片尺寸在100k内。</p>
-        </el-form-item>
+          <el-image style="width: 100%" v-if="params.img" :src="params.img"  fit="fit" />
+          <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+        </el-upload>
+        </el-form-item> 
 
         <el-form-item label="文章内容">
         
@@ -224,7 +220,7 @@ import { create, findField } from "../../api/article.js";
 import { search } from "../../api/tag.js";
 import Vue3Tinymce from '@jsdawn/vue3-tinymce';
 import {tinymceSet} from '../../config/tinymce.js';
-
+import { Plus } from '@element-plus/icons-vue'
 import {
   addLabelValue,
   getImgUrlFromStr,
@@ -238,6 +234,7 @@ export default {
   name: "article-add",
   components: {
     Vue3Tinymce,
+    Plus
   },
   data: () => {
     return {
@@ -369,22 +366,18 @@ export default {
       console.log("e-->", e);
     },
 
+    beforeUpload(rawFile){
+     if (rawFile.size / 1024 / 1024 > 2) {
+        this.$message('上传文件必须小于1M')
+        return false
+      }
+    },
     //上传缩略图
-    upload(e) {
-      this.params.img = e.link;
-    },
-
-    //缩略图
-    handleRemove(file) {
-      console.log(file);
-    },
-    handlePictureCardPreview(file) {
-      console.log("file--<", file);
-      this.dialogImageUrl = location.origin + file.response.link;
-      this.dialogVisible = true;
-    },
-    handleDownload(file) {
-      console.log(file);
+    upload(res) {
+      if(res.code === 200){
+        this.params.img =  res.data.path;
+        console.log('this.img--->',this.params.img);
+      }
     },
 
     //查询

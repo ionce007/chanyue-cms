@@ -17,7 +17,6 @@ class TagController extends BaseController {
   async create(req, res, next) {
     try {
       const body = req.body;
-      body.content = filterBody(body.content);
       const data = await TagService.create(body);
       res.json({ ...success, data: data })
     } catch (error) {
@@ -28,7 +27,7 @@ class TagController extends BaseController {
   // 删除
   async delete(req, res, next) {
     try {
-      const id = req.body.id;
+      const id = req.query.id;
       const data = await TagService.delete(id);
       res.json({ ...success, data: data });
     } catch (error) {
@@ -40,7 +39,7 @@ class TagController extends BaseController {
   async update(req, res, next) {
     try {
       const body = req.body;
-      const data = await TagService.updateInfo(body);
+      const data = await TagService.update(body);
       res.json({ ...success, data: data });
     } catch (error) {
       next(error);

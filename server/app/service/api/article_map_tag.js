@@ -1,46 +1,27 @@
 'use strict';
 const BaseService = require('./base');
-
+const knex = require('../../config/config.knex.js');
 class ArticleMapTagService extends BaseService {
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
     this.model = 'article_map_tag';
   }
 
   // 新增
-  async create({
-    aid,
-    tid,
-  }) {
-    const {
-      app,
-    } = this;
+  async create(body) {
     try {
-      const result = await app.mysql.insert(`${this.model}`, {
-        aid,
-        tid,
-      });
-
-      const affectedRows = result.affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
+      const result = await this.insert(body);
+      return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
     }
-
   }
 
   // 删
   async delete(id) {
-    const {
-      app,
-    } = this;
     try {
-
-      const result = await app.mysql.delete(`${this.model}`, {
-        id,
-      });
-      const affectedRows = result.affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
+      const result = await knex(this.model).where('id', '=', id).del()
+      return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
     }
@@ -48,26 +29,12 @@ class ArticleMapTagService extends BaseService {
 
 
   // 修改
-  async update({
-    id,
-    aid,
-    tid,
-  }) {
-    const {
-      app,
-    } = this;
+  async update(body) {
+    const { id } = body;
+    delete body.id;
     try {
-      const result = await app.mysql.update(`${this.model}`, {
-        id,
-        aid,
-        tid,
-      }, {
-        where: {
-          id,
-        },
-      });
-      const affectedRows = result.affectedRows;
-      return affectedRows > 0 ? 'success' : 'fail';
+      const result = await knex(this.model).where('id', '=', id).update(body)
+      return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
     }
@@ -76,51 +43,35 @@ class ArticleMapTagService extends BaseService {
 
   // 文章列表
   async list(cur = 1, pageSize = 10) {
-    const {
-      app,
-    } = this;
-    const conn = await app.mysql.beginTransaction(); // 初始化事务
     try {
       // 查询个数
-      const sql = `SELECT COUNT(id) as count FROM ${this.model}`;
-      const total = await conn.query(sql);
-
+      const total = await knex(this.model).count('id', { as: 'count' });
       const offset = parseInt((cur - 1) * pageSize);
-      const list = await conn.select(`${this.model}`, {
-        orders: [
-          ['id', 'desc'],
-        ],
-        offset,
-        limit: parseInt(pageSize),
-      });
+      const list = await knex.select('*')
+        .from(this.model)
+        .limit(pageSize)
+        .offset(offset)
+        .orderBy('id', 'desc');
 
-      await conn.commit(); // 提交事务
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
         current: +cur,
-        list,
+        list: list[0],
       };
     } catch (err) {
       console.error(err);
-      await conn.rollback();
-      throw err;
     }
   }
+  
 
 
   // 查
-  async detail() {
-    const {
-      ctx,
-      app,
-    } = this;
+  async detail(id) {
+   
     try {
-      const id = req.query.id;
-      const data = await app.mysql.get(`${this.model}`, {
-        id,
-      });
-      return data;
+      const data = await knex(this.model).where('id', '=', id).select()
+      return data[0];
     } catch (error) {
       console.error(error);
     }
@@ -129,39 +80,40 @@ class ArticleMapTagService extends BaseService {
 
   // 搜索
   async search(key = '', cur = 1, pageSize = 10) {
-    const {
-      app,
-    } = this;
-    // 初始化事务
-    const conn = await app.mysql.beginTransaction();
+
     try {
-
       // 查询个数
-      const sql = `SELECT COUNT(id) as count FROM ${this.model} p  WHERE p.aid LIKE '%${key}%'`;
-      const total = await conn.query(sql);
-
-      // 翻页
+      const total = key ? await knex(this.model).whereLike('name', `%${key}%`).count('id', { as: 'count' })
+        : await knex(this.model).count('id', { as: 'count' });
+      // 查询个数
       const offset = parseInt((cur - 1) * pageSize);
-      const sql_list = `SELECT p.id,p.aid,p.mark FROM ${this.model} p WHERE p.aid LIKE '%${key}%' ORDER BY id DESC LIMIT ${offset},${parseInt(pageSize)}`;
-      const list = await conn.query(sql_list);
-
-      // 提交事务
-      await conn.commit();
+      const list = key ? 
+      await knex.select(['id', 'name', 'mark'])
+        .from(this.model)
+        .whereLike('name', `%${key}%`)
+        .limit(pageSize)
+        .offset(offset)
+        .orderBy('id', 'desc') 
+        : await knex.select(['id', 'name', 'mark'])
+          .from(this.model)
+          .limit(pageSize)
+          .offset(offset)
+          .orderBy('id', 'desc');
+        
+          console.log('111111111111111',list)
 
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
         current: +cur,
-        list,
+        list: list,
       };
     } catch (err) {
       console.error(err);
-      await conn.rollback();
-      throw err;
     }
-
   }
+
 
 }
 
-module.exports = ArticleMapTagService;
+module.exports = new ArticleMapTagService();

@@ -87,7 +87,7 @@ class ModelService extends BaseService {
   // 查询是否已存在模型名称
   async findByName(model_name, table_name) {
     try {
-      const result = knex(this.model).raw(`SELECT model_name,table_name from model WHERE model_name=? or table_name=? LIMIT 0,1`, [model_name, table_name]);
+      const result = knex.raw(`SELECT model_name,table_name from model WHERE model_name=? or table_name=? LIMIT 0,1`, [model_name, table_name]);
       return result[0];
     } catch (error) {
       console.log(error)
@@ -99,14 +99,14 @@ class ModelService extends BaseService {
     try {
       const sql = `SELECT COUNT(id) as count FROM ${this.model}`;
       const total = await knex.raw(sql);
-      console.log('total-->',total)
+      console.log('total-->', total)
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex.select(['id', 'model_name', 'table_name', 'status'])
         .from(this.model)
         .limit(pageSize)
         .offset(offset)
         .orderBy('id', 'desc');
-        console.log('list-->',list)
+      console.log('list-->', list)
       return {
         count: total[0][0].count,
         total: Math.ceil(total[0][0].count / pageSize),
@@ -120,8 +120,12 @@ class ModelService extends BaseService {
 
   // 查
   async detail(id) {
-    const data = await this.detail(id);
-    return data[0];
+    try {
+      const data = await knex(this.model).where('id', '=', id).select()
+      return data[0];
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 }

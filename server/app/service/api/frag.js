@@ -69,8 +69,8 @@ class FragService extends BaseService {
   // 查
   async detail(id) {
     try {
-      const result = this.detail(id);
-      return result;
+      const data = await knex(this.model).where('id', '=', id).select()
+      return data[0];
     } catch (error) {
       console.error(error)
     }
@@ -81,8 +81,8 @@ class FragService extends BaseService {
 
     try {
       // 查询个数
-      const total = key ? await knex(this.model).count('id', { as: 'count' })
-        : await knex(this.model).whereLike('name', `%${key}%`).count('id', { as: 'count' });
+      const total = key ? await knex(this.model).whereLike('name', `%${key}%`).count('id', { as: 'count' })
+        : await knex(this.model).count('id', { as: 'count' });
       // 查询个数
       const offset = parseInt((cur - 1) * pageSize);
       const list = key ? 
@@ -97,12 +97,13 @@ class FragService extends BaseService {
           .limit(pageSize)
           .offset(offset)
           .orderBy('id', 'desc');
+        
 
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
         current: +cur,
-        list: list[0],
+        list: list,
       };
     } catch (err) {
       console.error(err);

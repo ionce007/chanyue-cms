@@ -73,7 +73,7 @@ class AdService extends BaseService {
   // 查
   async detail(id) {
     try {
-      const data = await knex(this.model).where('id', '=', id).select(['id', 'username', 'createdAt', 'updatedAt', 'status'])
+      const data = await knex(this.model).where('id', '=', id).select()
       return data[0];
     } catch (error) {
       console.log(error)

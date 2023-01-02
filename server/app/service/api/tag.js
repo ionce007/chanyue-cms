@@ -11,7 +11,7 @@ class TagService extends BaseService {
   // 新增
   async create(body) {
     try {
-      const result = await knex(this.model).insert(body)
+      const result = await knex(this.model).insert(body);
       return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
@@ -19,18 +19,19 @@ class TagService extends BaseService {
   }
 
   async has(path) {
-    const result = await knex(this.model).where('path', '=', path).select();
-    return Object.keys(result[0]).length > 0;
+    const result = await knex(this.model).where('path', '=', path).select(['id']);
+    return result.length > 0;
   }
 
   // 删除tag ,需要删除article_map_tag.js 里面的tid
   async delete(id) {
     try {
-      const has = await knex(this.model).raw(`SELECT tid FROM article_map_tag WHERE tid = ${id}`);
+      const has = await knex.raw(`SELECT tid FROM article_map_tag WHERE tid = ${id}`);
       if (has[0].length > 0) {
         return false;
       }
-      const res = await knex(this.model).where('id', '=', id).del()
+      const res = await knex(this.model).where('id', '=', id).del();
+      // res  返回值是 1
       return res ? 'success' : 'fail';
     } catch (err) {
       console.error(err);
@@ -87,10 +88,10 @@ class TagService extends BaseService {
 
 
   // 查
-  async detail() {
+  async detail(id) {
     try {
-      const result = this.detail(id);
-      return result;
+      const data = await knex(this.model).where('id', '=', id).select()
+      return data[0];
     } catch (error) {
       console.error(error)
     }

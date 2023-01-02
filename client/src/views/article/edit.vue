@@ -426,7 +426,7 @@ export default {
             message: "更新成功^_^",
             type: "success",
           });
-          //this.$router.go(-1);
+          this.$router.go(-1);
         }
       } catch (error) {
         console.log(error);

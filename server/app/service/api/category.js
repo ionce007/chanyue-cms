@@ -53,8 +53,8 @@ class CategoryService extends BaseService {
   // 查栏目
   async findId(id) {
     try {
-      const result = this.detail(id);
-      return result;
+      const data = await knex(this.model).where('id', '=', id).select()
+      return data[0];
     } catch (error) {
       console.error(error)
     }

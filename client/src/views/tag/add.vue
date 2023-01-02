@@ -5,7 +5,6 @@
       :model="params"
       :rules="paramsRules"
       label-width="84px"
-      class
     >
       <div>
         <el-form-item label="标签名称" prop="name">
@@ -62,7 +61,7 @@ export default {
   unmounted() {},
   watch: {
     "params.name": function (newv, oldv) {
-      this.params.path = pinyin(newv, { toneType: "none" }).replaceAll(" ", "");
+      this.params.path = pinyin(newv, { toneType: "none" }).replace(/\s+/g, "");
     },
   },
   methods: {
@@ -86,7 +85,7 @@ export default {
       try {
         let res = await has(this.params.path);
         console.log("res--->", res);
-        if (res.code) {
+        if (res.code === 200) {
           if (res.data) {
             this.$message({
               message: "标签已存在，请不要再添加了",
