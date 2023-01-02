@@ -15,12 +15,10 @@ router.get('/list',async(req,res,next)=>{
         try{
             let uid = res.locals.uid;
             let countNum = await db(res,msg.count,[uid]); 
-            console.log(countNum);
 
 
             let pageNo = req.query.page || 1;
             let pageTotal = Math.ceil(countNum[0].count / config.pagesize);
-            console.log(pageTotal)
             if(pageNo<=0){
                 pageNo = 1;
             }
@@ -80,7 +78,6 @@ router.get('/:id(\\d+)',async(req,res,next)=>{
         let hasread = await db(res,msg.readMsgStateById,[id,uid]);
         let api = {};
         api.data = {};
-        console.log('lalalal')
         if(hasread.length==0){
             let read = await db(res,msg.readmsg,[id,uid,1]);
         }else{
@@ -95,7 +92,6 @@ router.get('/:id(\\d+)',async(req,res,next)=>{
 
 router.get('/markRead',async(req,res,next)=>{
     try{
-        console.log(req.query)
         let id = req.query.id;
         let uid = res.locals.uid;
 
@@ -103,7 +99,6 @@ router.get('/markRead',async(req,res,next)=>{
         for(let i=0,ids;i<id.length;i++){
             ids = parseInt(id[i]);
             let hasread = await db(res,msg.readMsgStateById,[ids]);
-            console.log(hasread)
             if(hasread.length==0){
                await db(res,msg.readmsg,[ids,uid,1]);
             }

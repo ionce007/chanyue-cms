@@ -35,7 +35,6 @@ class HomeService extends Service {
           .replaceAll('<p><br></p>', '')
           .replaceAll('&nbsp;', '')
           .replaceAll(/\<br\>\d{3}/g, '');
-        console.log({ title, author, content });
         const addStr = `INSERT INTO article(cid,title,author,description,content,createdAt,updatedAt) values (${cid},'${title}','${author}','${content.slice(0, 200)}','${content}','2022-10-25 16:09:01','2022-10-25 16:09:01')`;
         await app.mysql.query(addStr);
       });
@@ -95,7 +94,6 @@ class HomeService extends Service {
           .replaceAll('　　', '')
           .replaceAll('                                        ', '');
 
-        console.log({ title, author, description, content });
         const addStr = 'INSERT INTO article(cid,title,author,description,content,createdAt,updatedAt) values (?,?,?,?,?,\'2022-10-26 19:41:01\',\'2022-10-26 19:41:01\')';
         await app.mysql.query(addStr, [ cid, title, author, description, content ]);
       });

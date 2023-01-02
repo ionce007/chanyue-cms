@@ -133,7 +133,6 @@
 									type: "get",
 									dataType: 'json',
 									success: function (data) {
-										console.log(data)
 										if (data.Code == 'OK') {
 											_this.$message('验证码发送成功，请注意查收！');
 										} else {
@@ -147,7 +146,6 @@
 								var _this = this;
 								var fm = document.reg;
 
-                                console.log(123)
 								if (fm.tel.value == '') {
 									_this.$message('手机号码不能为空！');
 									fm.tel.focus();

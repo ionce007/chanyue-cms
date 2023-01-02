@@ -52,7 +52,6 @@ var mkapp = {
             let d = arr[i];
             dataTable[d.id] = d;
             if(d.pid != 0){
-                console.log(dataTable[d.pid])
                 var childrenOfParent = dataTable[d.pid].children;
                 if(childrenOfParent && childrenOfParent.length){
                     childrenOfParent.push(d);
@@ -70,10 +69,8 @@ var mkapp = {
         let imgReg = /<img.*?(?:>|\/>)/gi;  //匹配出图片img标签
         let srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i; //匹配出图片src属性
         let arr = str.match(imgReg);
-        console.log(arr)
         let imgArr = [];
         if(!!arr){
-            console.log('123')
             for (let i = 0; i < arr.length; i++) {
                 let src = arr[i].match(srcReg);
                 if(src[1]){

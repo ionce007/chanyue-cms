@@ -78,7 +78,6 @@
                             type: "get",
                             dataType:'json',
                             success:function(data){
-                                console.log(data);
                                 _this.totalPage = data.pageTotal;
                                 _this.checked = false;
                                 //翻页之后要清空数据 和清空选择数据
@@ -102,7 +101,6 @@
                             startnum:_this.currentPage,				//指定页码
                             elem:$('#page2'),		//指定的元素
                             callback:function(n){	//回调函数
-                                console.log(n);
                                 _this.currentPage = n;
                                 _this.api();
                             }
@@ -153,7 +151,6 @@
                     },
                     list:{
                         handler:function(val,oldval){
-                            console.log(val,oldval)
                         },
                         deep:true
                     }

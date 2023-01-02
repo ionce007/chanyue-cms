@@ -97,14 +97,12 @@ class ModelService extends BaseService {
     try {
       const sql = `SELECT COUNT(id) as count FROM ${this.model}`;
       const total = await knex.raw(sql);
-      console.log('total-->', total)
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex.select(['id', 'model_name', 'table_name', 'status'])
         .from(this.model)
         .limit(pageSize)
         .offset(offset)
         .orderBy('id', 'desc');
-      console.log('list-->', list)
       return {
         count: total[0][0].count,
         total: Math.ceil(total[0][0].count / pageSize),

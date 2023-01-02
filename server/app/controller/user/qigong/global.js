@@ -19,16 +19,11 @@ router.use((req, res, next)=>{
 
 //必须登录才能进入会员中心
 router.use((req, res, next)=>{
-
-	console.log(req.signedCookies)
-
 	if(!req.signedCookies.user && req.url != '/login'){
 		res.redirect('/user/login');
 	}else{
 		next();
 	}
-
-
 });
 //注册
 router.use('/reg',reg);

@@ -47,7 +47,6 @@
 			function changeScale() {
 				var targetW = 375;
 				var scale = (window.screen.width / targetW).toFixed(2);
-				console.log(scale)
 				var meta = document.createElement('meta');
 				meta.name = "viewport";
 				meta.content = "initial-scale=" + scale + ",minimum-scale=" + scale + "; maximum-scale=" + scale + ", user-scalable=no";
@@ -430,7 +429,6 @@
 			if(performance || window.webkitPerformance) {
 				var every = performance.getEntries();
 				var time = performance.timing || window.webkitPerformance.timing;
-				console.log(time)
 				var m = performance.memory;
 				var navigation = performance.navigation;
 				var pageTime = {

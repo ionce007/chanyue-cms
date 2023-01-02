@@ -114,7 +114,6 @@ router.get('/comment/list',async(req,res,next)=>{
 router.post('/comment/add',async(req,res,next)=>{
 	try{
 		let body = req.body;
-		console.log(body)
 		let user = req.cookies.user || '游客';
 		let content =  body.content;
 		let id =  body.cid;

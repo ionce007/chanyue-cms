@@ -27,7 +27,6 @@ class HomeService extends BaseService {
         position: `${position}`,
         status: '1'
       }).select(['id', 'title', 'mark', 'imgUrl', 'link']);
-      console.log('res-->',res)
       return res;
     } catch (err) {
       console.error(`platform-> ${platform} position->${position}`, err);
@@ -139,7 +138,6 @@ class HomeService extends BaseService {
       // 获取所有id
       const res = await knex.raw('SELECT id FROM category WHERE pid=?', [id]);
       if (!res[0]) {
-        console.log(`getArticleImgList-id->${id}-len->${len}`)
         return { list: [] };
       }
       let ids = [id];
@@ -179,7 +177,6 @@ class HomeService extends BaseService {
         }
         ids = ids.join(',');
       }
-      console.log('bbbb-2>',ids)
       // 查询个数
       let sql1,
         sql2;

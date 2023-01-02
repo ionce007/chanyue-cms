@@ -40,7 +40,6 @@ router.post('/updatePass',async(req, res, next)=>{
 	try {
 		let body = req.body;
 		let smscode = req.body.smscode;
-		console.log(body)
 		if(smscode != req.session.smscode){
 			res.send(`<script>alert('对不起，您输入的验证码不正确哦^_^')</script>`)
 		}else{

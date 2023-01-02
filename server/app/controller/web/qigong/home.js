@@ -23,7 +23,6 @@ class HomeController{
 
       // 轮播
       const _slide = await HomeService.getArticleList(3, 0, 5);
-      console.log('_slide-->',_slide)
       const slide = _slide.list;
       slide.forEach(item => {
         item.createdAt = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -177,7 +176,6 @@ class HomeController{
       const navSub = getChildrenId(cate || cid, res.locals.category);
       const id = cid ? cid : navSub.cate.id;
       if (!id) {
-        console.log(`list_id${id}`);
         ctx.redirect('/');
         return;
       }
@@ -220,7 +218,6 @@ class HomeController{
       const id = req.params.id.replace('.html', '');
 
       if (!id) {
-        console.log(`no_article_id${id}`);
         res.redirect('/');
         return;
       }
@@ -228,7 +225,6 @@ class HomeController{
       // 文章列表
       const article = await ArticleService.detail(id);
       if (!article) {
-        console.log(`no_cid->article_id${id}_article_${JSON.stringify(article)}`);
         res.redirect('/');
         return;
       }
@@ -285,7 +281,6 @@ class HomeController{
     try {
       const id = req.params.id;
       if (!id) {
-        console.log(`page_id${id}`);
         res.redirect('/');
         return;
       }

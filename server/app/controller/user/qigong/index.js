@@ -37,7 +37,6 @@ router.get('/',async(req, res, next)=>{
 		api.data = slidelist;
 		api.score = score[0].score;
 		api.face = water[0].face;
-		console.log(score)
 		api.water = water[0].water;
 		
 		res.render(`${config.user_template}index`,api);

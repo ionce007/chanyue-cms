@@ -12,7 +12,6 @@ const storage = multer.diskStorage({
         // 获取目录路径
         let dir = path.join('app/public/upload/qigong', date);
         // 生成目录，异步改同步
-        console.log('has--->',dir, fs.existsSync(dir))
        
         function mkdirsSync(dirname) {
             if (fs.existsSync(dirname)) {

@@ -253,7 +253,6 @@ class ArticleService extends BaseService {
         sql = countSql + keyStr + cidStr;
       }
 
-      console.log('sql--->', sql)
       const total = cid ? await knex.raw(sql, [cid]) : await knex.raw(sql, []);
       // 翻页
       const offset = parseInt((cur - 1) * pageSize);

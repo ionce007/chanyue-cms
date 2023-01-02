@@ -72,7 +72,6 @@ router.get('/',async(req, res, next)=>{
 
 //更新个人信息
 router.post('/update',async(req, res, next)=>{
-   console.log(req.url)
     let body = req.body;
     const sex = body.sex;
     const face = body.face;
@@ -84,7 +83,6 @@ router.post('/update',async(req, res, next)=>{
     const area = body.area;
 	try {
         let user = await db(res,reg.updateMy,[sex,face,workplace,tel,province,city,area,address,res.locals.uid]);
-       console.log(user)
         res.redirect('/user/my');
     } catch (error) {
         console.error(error);
