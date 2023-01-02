@@ -62,11 +62,11 @@ class TagService extends BaseService {
 
 
   // 文章列表
-  async list(current = 1, pageSize = 10) {
+  async list(cur = 1, pageSize = 10) {
     try {
       // 查询个数
       const total = await knex(this.model).count('id', { as: 'count' });
-      const offset = parseInt((current - 1) * pageSize);
+      const offset = parseInt((cur - 1) * pageSize);
       const list = await knex.select('*')
         .from(this.model)
         .limit(pageSize)
@@ -76,7 +76,7 @@ class TagService extends BaseService {
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
-        current: +current,
+        current: +cur,
         list: list[0],
       };
 
@@ -100,10 +100,10 @@ class TagService extends BaseService {
   async search(key = '', cur = 1, pageSize = 10) {
     try {
       // 查询个数
-      const total = key ? await knex(this.model).count('id', { as: 'count' })
-        : await knex(this.model).whereLike('name', `%${key}%`).count('id', { as: 'count' });
+      const total = key ? await knex(this.model).whereLike('name', `%${key}%`).count('id', { as: 'count' })
+        : await knex(this.model).count('id', { as: 'count' });
   
-      const offset = parseInt((current - 1) * pageSize);
+      const offset = parseInt((cur - 1) * pageSize);
       const list = key ?
         await knex.select(['id', 'name', 'mark'])
           .from(this.model)
@@ -116,12 +116,12 @@ class TagService extends BaseService {
           .limit(pageSize)
           .offset(offset)
           .orderBy('id', 'desc');
-
+      console.log('list--->',total)
         return {
           count: total[0].count,
           total: Math.ceil(total[0].count / pageSize),
-          current: +current,
-          list: list[0],
+          current: +cur,
+          list: list,
         };
 
     } catch (err) {

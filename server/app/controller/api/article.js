@@ -5,7 +5,7 @@ const dayjs = require('dayjs');
 const path = require('path');
 
 const { success, fail } = require('../../extend/api.js');
-const { md5, setToken } = require('../../extend/helper.js');
+const { md5, setToken,filterBody } = require('../../extend/helper.js');
 const config = require('../../config/config.js');
 const ArticleService = require('../../service/api/article.js');
 
@@ -128,8 +128,9 @@ async delete(req, res, next) {
   // 上传图片
   async upload(req,res,next) {
     try {
-      let file = req.file;
-      res.json({ ...success, data: { link: file.path, domain: '//' + ctx.host } });
+      let file =  req.files;
+      const {originalname,filename,path} = file[0];
+      res.json({ ...success, data: { link: path.replace('app',''), domain: req.hostname ,originalname,filename,path:path.replace('app','')} });
     } catch (error) {
       next(error);
     }

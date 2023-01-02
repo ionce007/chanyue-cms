@@ -4,7 +4,7 @@ const config = require('../config/config.js');
 
 module.exports = () => {
   return async (req, res, next) => {
-    const token = req.headers.auth;
+    const token = req.cookies.token;
     if (token) {
       try {
         await getToken(token, config.token.KEY);

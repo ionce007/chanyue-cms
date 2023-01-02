@@ -63,7 +63,7 @@ class TagController extends BaseController {
     try {
       const cur = req.query.cur;
       const pageSize = 50;
-      const data = await FragService.list(cur, pageSize);
+      const data = await TagService.list(cur, pageSize);
       res.json({ ...success, data: data });
     } catch (error) {
       next(error);
@@ -74,7 +74,7 @@ class TagController extends BaseController {
   async has(req, res, next) {
     try {
       const path = req.query.path;
-      const data = await FragService.has(path);
+      const data = await TagService.has(path);
       res.json({ ...success, data: data });
     } catch (error) {
       next(error);
@@ -87,7 +87,8 @@ class TagController extends BaseController {
       const cur = req.query.cur;
       const key = req.query.keyword;
       const pageSize = req.query.pageSize || 10;
-      const data = await FragService.search(key, cur, pageSize);
+      const data = await TagService.search(key, cur, pageSize);
+      
       res.json({ ...success, data: data });
     } catch (error) {
       next(error);

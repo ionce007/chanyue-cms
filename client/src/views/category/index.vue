@@ -110,7 +110,8 @@ export default {
         if (res.code === 200) {
           let data = tree(res.data);
           console.log("data->", data);
-          this.tableData = addLabelValue(data);
+          this.tableData =  addLabelValue(data);
+          
           this.loading = false;
         }
       } catch (error) {
@@ -174,7 +175,7 @@ export default {
 
     delSome() {},
 
-    //删除栏目
+    //删除栏目  还需要判断是否当前栏目下面有文章？
     handleDel(e) {
       let id = e.id;
       let has = this.hasChild(id);

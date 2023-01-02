@@ -60,7 +60,8 @@
           ></el-input>
         </el-form-item>
 
-        <el-form-item label="缩略图">
+        <!-- <el-form-item label="缩略图">
+          <el-image style="width: 100px; height: 100px" :src="params.img" fit="fit" />
           <el-upload
             action="/api/upload"
             list-type="picture-card"
@@ -69,14 +70,26 @@
             :on-success="upload"
             :show-file-list="true"
           >
-            <img
-              v-if="this.params.img"
-              :src="this.params.img"
-              class="avatar-uploader"
-            />
-            <i v-else class="el-icon-plus"></i>
+           
+            <i class="el-icon-plus"></i>
           </el-upload>
-        </el-form-item>
+        </el-form-item> -->
+
+
+        <el-form-item label="缩略图">
+          <el-upload
+            class="avatar-uploader"
+            action="/api/upload"  
+            :on-success="upload"
+            :show-file-list="false"
+            :before-upload="beforeUpload"
+          >
+          <el-image style="width: 100%" v-if="params.img" :src="params.img"  fit="fit" />
+          <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+        </el-upload>
+        </el-form-item> 
+
+       
 
         <el-form-item label="文章内容">
           <vue3-tinymce v-model="params.content" :setting="setting"  script-src="/tinymce/tinymce.min.js"/>
@@ -190,6 +203,7 @@ import { update, detail, findField } from "../../api/article.js";
 import Vue3Tinymce from '@jsdawn/vue3-tinymce';
 import {tinymceSet} from '../../config/tinymce.js';
 import { search } from "../../api/tag.js";
+import { Plus } from '@element-plus/icons-vue'
 import {
   getImgUrlFromStr,
   filterHtml,
@@ -203,6 +217,7 @@ export default {
   name: "article-edit",
   components: {
     Vue3Tinymce,
+    Plus
   },
   data: () => {
     return {
@@ -374,29 +389,18 @@ export default {
     handleSubCid(e) {
       console.log("e-->", e);
     },
-
-    handletag(e) {
-      console.log("e-->", e);
+    
+    beforeUpload(rawFile){
+     if (rawFile.size / 1024 / 1024 > 2) {
+        this.$message('上传文件必须小于1M')
+        return false
+      }
     },
-    handleBox(e) {
-      console.log("e-->", e);
-    },
-
     //上传缩略图
-    upload(e) {
-      this.params.img = e.link;
-    },
-
-    //缩略图
-    handleRemove(file) {
-      console.log(file);
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = location.origin + file.response.link;
-      this.dialogVisible = true;
-    },
-    handleDownload(file) {
-      console.log(file);
+    upload(res) {
+      if(res.code === 200){
+        this.params.img =  res.data.path;
+      }
     },
 
     //新增
@@ -422,7 +426,7 @@ export default {
             message: "更新成功^_^",
             type: "success",
           });
-          this.$router.go(-1);
+          //this.$router.go(-1);
         }
       } catch (error) {
         console.log(error);

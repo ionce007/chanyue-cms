@@ -15,7 +15,7 @@
       class="w640"
     >
       <div v-show="activeIndex == 0">
-        <el-form-item label="上级栏目">
+        <el-form-item label="上级栏目" v-if="!params.pid == 0">
           <el-cascader
             :props="categoryProps"
             :show-all-levels="false"

@@ -95,12 +95,12 @@ class ModelService extends BaseService {
   }
 
   // 文章列表
-  async list(current = 1, pageSize = 10) {
+  async list(cur = 1, pageSize = 10) {
     try {
       const sql = `SELECT COUNT(id) as count FROM ${this.model}`;
       const total = await knex.raw(sql);
       console.log('total-->',total)
-      const offset = parseInt((current - 1) * pageSize);
+      const offset = parseInt((cur - 1) * pageSize);
       const list = await knex.select(['id', 'model_name', 'table_name', 'status'])
         .from(this.model)
         .limit(pageSize)
@@ -110,7 +110,7 @@ class ModelService extends BaseService {
       return {
         count: total[0][0].count,
         total: Math.ceil(total[0][0].count / pageSize),
-        current: +current,
+        current: +cur,
         list: list,
       };
     } catch (err) {

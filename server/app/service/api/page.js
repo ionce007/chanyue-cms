@@ -86,11 +86,11 @@ class PageService extends BaseService {
   }
 
 // 列表
-async list(current = 1, pageSize = 10) {
+async list(cur = 1, pageSize = 10) {
   try {
     // 查询个数
     const total = await knex(this.model).count('id', {as: 'count'});
-    const offset = parseInt((current - 1) * pageSize);
+    const offset = parseInt((cur - 1) * pageSize);
     const list = await knex.select('*')
       .from(this.model)
       .limit(pageSize)
@@ -100,7 +100,7 @@ async list(current = 1, pageSize = 10) {
       return {
         count: total[0][0].count,
         total: Math.ceil(total[0][0].count / pageSize),
-        current: +current,
+        current: +cur,
         list: list,
       };
   } catch (err) {
@@ -112,7 +112,7 @@ async list(current = 1, pageSize = 10) {
   // 查
   async detail(id) {
     try {
-      const result = this.detail(id);
+      const result = await knex(this.model).where('id', '=', id).select() 
       return result;
     } catch (error) {
       console.error(error)

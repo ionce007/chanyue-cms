@@ -75,7 +75,7 @@ class ArticleMapTagService extends BaseService {
 
 
   // 文章列表
-  async list(current = 1, pageSize = 10) {
+  async list(cur = 1, pageSize = 10) {
     const {
       app,
     } = this;
@@ -85,7 +85,7 @@ class ArticleMapTagService extends BaseService {
       const sql = `SELECT COUNT(id) as count FROM ${this.model}`;
       const total = await conn.query(sql);
 
-      const offset = parseInt((current - 1) * pageSize);
+      const offset = parseInt((cur - 1) * pageSize);
       const list = await conn.select(`${this.model}`, {
         orders: [
           ['id', 'desc'],
@@ -98,7 +98,7 @@ class ArticleMapTagService extends BaseService {
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
-        current: +current,
+        current: +cur,
         list,
       };
     } catch (err) {

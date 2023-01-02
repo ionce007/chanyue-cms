@@ -64,7 +64,7 @@ class CategoryService extends BaseService {
   async findSubId(id) {
     try {
       const result = await knex(this.model).where('pid', '=', id).select();
-      return result[0];
+      return result;
     } catch (error) {
       console.error(error)
     }
@@ -74,7 +74,7 @@ class CategoryService extends BaseService {
   async search(key) {
     try {
       const result = key ? await knex(this.model).whereLike('name', `%${key}%`).orderBy('id', 'desc', 'sort') 
-      : await knex(this.model).orderBy('id', 'desc', 'sort');
+      : await knex(this.model).orderBy('id', 'asc', 'sort');
       return result;
     } catch (error) {
       console.error(error)

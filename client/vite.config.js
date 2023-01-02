@@ -80,6 +80,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
+      "/public": {
+        target: "http://localhost:81/public", // 后端服务实际地址,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/public/, ""),
+      },
     },
     hmr: {
       overlay: false, //报错不显示在页面上

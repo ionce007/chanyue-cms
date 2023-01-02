@@ -2,17 +2,29 @@ const multer = require('multer');
 const dayjs = require('dayjs');
 const fs = require('fs');
 const path = require('path');
+const {mkdirsSync} = require('./helper.js');
 
 const storage = multer.diskStorage({
     //配置上传的目录
     destination: async (req, file, cb) => {
-        // 生成文件夹
-        const date = dayjs(Date.now()).format('YYYY/MM/DD');
-        // 存储图片的文件夹
-        const dir = path.join(__dirname, `../public/upload/qigong/${date}`);
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir)
-        }
+        // 生成格式化日期
+        let date = dayjs(Date.now()).format('YYYY/MM/DD');
+        // 获取目录路径
+        let dir = path.join('app/public/upload/qigong', date);
+        // 生成目录，异步改同步
+        console.log('has--->',dir, fs.existsSync(dir))
+       
+        function mkdirsSync(dirname) {
+            if (fs.existsSync(dirname)) {
+              return true;
+            }
+            if (mkdirsSync(path.dirname(dirname))) {
+                console.log(dirname)
+              fs.mkdirSync(dirname);
+              return true;
+            }
+          }
+          mkdirsSync(dir);
         cb(null, dir);
     },
     //修改上传后的文件名

@@ -68,7 +68,7 @@ class FriendlinkService extends BaseService {
       // 查询个数
       const total = key ? await knex(this.model).count('id', { as: 'count' })
         : await knex(this.model).whereLike('name', `%${key}%`).count('id', { as: 'count' });
-      const offset = parseInt((current - 1) * pageSize);
+      const offset = parseInt((cur - 1) * pageSize);
       const list = key ?
         await knex.select(['id', 'name', 'mark'])
           .from(this.model)
@@ -84,7 +84,7 @@ class FriendlinkService extends BaseService {
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
-        current: +current,
+        current: +cur,
         list: list[0],
       };
     } catch (err) {

@@ -53,11 +53,11 @@ class AdminService extends BaseService {
   }
 
   // 列表
-  async list(current = 1, pageSize = 10) {
+  async list(cur = 1, pageSize = 10) {
     try {
       // 查询个数
       const total = await knex(this.model).count('id', {as: 'count'});
-      const offset = parseInt((current - 1) * pageSize);
+      const offset = parseInt((cur - 1) * pageSize);
       const list = await knex.select('*')
         .from(this.model)
         .limit(pageSize)
@@ -67,7 +67,7 @@ class AdminService extends BaseService {
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
-        current: +current,
+        current: +cur,
         list: list,
       };
     } catch (err) {

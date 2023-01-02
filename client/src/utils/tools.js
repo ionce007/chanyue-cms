@@ -25,24 +25,34 @@ export let addLabelValue = (arr) => {
 };
 
 // 无限极分类tree
-export let tree = (arr) => {
-  const result = [];
-  const dataTable = {};
-  for (let i = 0; i < arr.length; i++) {
-    const d = arr[i];
-    dataTable[d.id] = d;
-    if (d.pid !== 0 && dataTable[d.pid]) {
-      const childrenOfParent = dataTable[d.pid].children;
-      if (childrenOfParent && childrenOfParent.length) {
-        childrenOfParent.push(d);
-      } else {
-        dataTable[d.pid].children = [d];
-      }
-    } else {
-      result.push(d);
-    }
-  }
-  return result;
+export let tree = (arr,pid=0,leval=1) => {
+  // const result = [];
+  // const dataTable = {};
+  // for (let i = 0; i < arr.length; i++) {
+  //   const d = arr[i];
+  //   dataTable[d.id] = d;
+  //   if (d.pid !== 0 && dataTable[d.pid]) {
+  //     const childrenOfParent = dataTable[d.pid].children;
+  //     if (childrenOfParent && childrenOfParent.length) {
+  //       childrenOfParent.push(d);
+  //     } else {
+  //       dataTable[d.pid].children = [ d ];
+  //     }
+  //   } else {
+  //     result.push(d);
+  //   }
+  // }
+  // return result;
+
+  let tmp = [];
+	arr.forEach((item,index)=>{
+		if(item.pid == pid){
+			item.leval = leval
+			item.children = tree(arr,item.id , leval + 1);
+			tmp.push(item);
+		}
+	})
+	return tmp;
 };
 
 //返回id父级所有栏目

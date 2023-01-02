@@ -103,13 +103,13 @@ class FieldService extends BaseService {
   }
 
   // 文章列表
-  async list(model_id, current = 1, pageSize = 10) {
+  async list(model_id, cur = 1, pageSize = 10) {
     try {
       // 查询个数
       const sql = `SELECT COUNT(id) as count FROM ${this.model}`;
       const total = await knex(this.model).raw(sql);
       // 列表
-      const offset = parseInt((current - 1) * pageSize);
+      const offset = parseInt((cur - 1) * pageSize);
       const list = await knex.select(['id', 'field_cname', 'field_ename', 'field_sort'])
         .from(this.model).where('model_id', '=', model_id)
         .limit(pageSize)
@@ -121,7 +121,7 @@ class FieldService extends BaseService {
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
-        current: +current,
+        current: +cur,
         list: list[0],
         model: model[0],
       };
