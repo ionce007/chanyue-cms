@@ -80,8 +80,6 @@ class SiteController extends BaseController {
   async runEnv(req, res, next) {
     try {
       const dirname = path.join(__dirname, '../../../../');
-      console.log('dirname-->',dirname);
-
       res.json({ ...success, data:{dirname: dirname} });
     } catch (error) {
       next(error);

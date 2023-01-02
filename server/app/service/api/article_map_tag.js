@@ -99,9 +99,6 @@ class ArticleMapTagService extends BaseService {
           .limit(pageSize)
           .offset(offset)
           .orderBy('id', 'desc');
-        
-          console.log('111111111111111',list)
-
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),

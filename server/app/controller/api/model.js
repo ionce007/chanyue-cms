@@ -57,7 +57,7 @@ class ModelController extends BaseController {
     try {
       const id = req.query.id;
       const data = await ModelService.detail(id);
-      res.json({ ...success, data: data[0] });
+      res.json({ ...success, data: data});
     } catch (error) {
       next(error);
     }
@@ -81,8 +81,6 @@ class ModelController extends BaseController {
       const cur = req.query.cur;
       const pageSize = 10;
       const data = await ModelService.list(cur, pageSize);
-      console.log('data--->',data);
-
       res.json({ ...success, data });
     } catch (error) {
       next(error);

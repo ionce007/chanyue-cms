@@ -35,9 +35,7 @@ class ModelService extends BaseService {
       // 新增内容
       const hasStr = `SELECT COUNT(*) as count FROM  article a LEFT JOIN category c ON c.mid=${id} WHERE a.cid=c.id LIMIT 0,1`;
       const has = await knex.raw(hasStr)
-      return {
-        has: has[0],
-      };
+      return has[0]
     } catch (err) {
       console.error(err);
     }

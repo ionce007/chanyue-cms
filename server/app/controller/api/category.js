@@ -59,7 +59,6 @@ class CategoryController extends BaseController {
     try {
       const id = req.query.id;
       const data = await CategoryService.findId(id);
-      console.log('data-->',data);
       res.json({ ...success, data: data[0] });
     } catch (error) {
       next(error);
@@ -71,7 +70,6 @@ class CategoryController extends BaseController {
     try {
       const id = req.query.id;
       const data = await CategoryService.findSubId(id);
-      console.log('subid',data)
       res.json({ ...success, data: data });
     } catch (error) {
       next(error);

@@ -117,7 +117,6 @@ class TagService extends BaseService {
           .limit(pageSize)
           .offset(offset)
           .orderBy('id', 'desc');
-      console.log('list--->',total)
         return {
           count: total[0].count,
           total: Math.ceil(total[0].count / pageSize),

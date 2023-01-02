@@ -106,7 +106,7 @@ export default {
     async hasUse(id) {
       try {
         let res = await hasUse(id);
-        if (res.data.has.length > 0) {
+        if (res.data.count) {
           this.disable = true;
         } else {
           this.disable = false;
