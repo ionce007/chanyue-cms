@@ -17,9 +17,9 @@ class FieldService extends BaseService {
       const { model_id, field_cname, field_ename, field_type, field_values, field_default, field_sort } = body;
       await knex.transaction(async trx => {
         // 查询模块名称
-        let table_name = await trx.raw('SELECT table_name FROM model WHERE id=?', [model_id]);
+        let table_name = await knex.raw('SELECT table_name FROM model WHERE id=?', [model_id]).transacting(trx);;
         table_name = table_name[0][0].table_name;
-        const result = await trx(this.model).insert({ model_id, field_cname, field_ename, field_type, field_values, field_default, field_sort })
+        const result = await knex(this.model).insert({ model_id, field_cname, field_ename, field_type, field_values, field_default, field_sort }).transacting(trx);
         const affectedRows = result;
         let sql = '';
         if (affectedRows) {
@@ -43,7 +43,7 @@ class FieldService extends BaseService {
             sql = 'datetime default null';
           }
         }
-        const res = await trx.raw(`alter table ${table_name} add ${field_ename} ${sql}`);
+        const res = await knex.raw(`alter table ${table_name} add ${field_ename} ${sql}`).transacting(trx);
         return res ? 'success' : 'fail';
       });
 
@@ -61,18 +61,18 @@ class FieldService extends BaseService {
     try {
       await knex.transaction(async trx => {
         // 查询需要删除的字段
-        const field = await trx.raw('SELECT model_id,field_ename FROM field WHERE id=?', [id])
+        const field = await knex.raw('SELECT model_id,field_ename FROM field WHERE id=?', [id]).transacting(trx);
         const { field_ename, model_id } = field[0];
         // 查询模型表名
-        const table = await trx.raw('SELECT table_name FROM model WHERE id=?', [model_id]);
+        const table = await knex.raw('SELECT table_name FROM model WHERE id=?', [model_id]).transacting(trx);
         table_name = table[0].table_name;
         // 删除数据
-        const result = await trx(this.model).where('id', '=', id).del();
+        const result = await knex(this.model).where('id', '=', id).del().transacting(trx);
         // 删除对应模型表中的字段
         if (result > 0) {
-          const res = await trx.raw(`alter table ${table_name} drop column ${field_ename}`);
-          return res ? 'success' : 'fail';
+          const res = await knex.raw(`alter table ${table_name} drop column ${field_ename}`).transacting(trx);
         }
+        return result ? 'success' : 'fail';
       });
     } catch (err) {
       console.error(err);
