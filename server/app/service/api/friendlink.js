@@ -41,19 +41,35 @@ class FriendlinkService extends BaseService {
   }
 
 
-  // 文章列表
-  async list() {
+
+  // 列表
+  async list(cur = 1, pageSize = 10) {
     try {
-      let res = await this.all();
-      return res;
+      // 查询个数
+      const total = await knex(this.model).count('id', { as: 'count' });
+      const offset = parseInt((cur - 1) * pageSize);
+      const list = await knex.select('*')
+        .from(this.model)
+        .limit(pageSize)
+        .offset(offset)
+        .orderBy('id', 'desc');
+
+      return {
+        count: total[0].count,
+        total: Math.ceil(total[0].count / pageSize),
+        current: +cur,
+        list: list,
+      };
+
     } catch (err) {
       console.error(err);
     }
   }
+  
 
 
   // 查
-  async detail() {
+  async detail(id) {
     try {
       const data = await knex(this.model).where('id', '=', id).select()
       return data[0];

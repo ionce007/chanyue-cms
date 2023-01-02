@@ -22,11 +22,14 @@ class FieldController extends BaseController {
     try {
       const body = req.body;
       const has = await FieldService.findByName(body.field_cname, body.field_ename);
-      if (has[0].length > 0) {
+
+     
+      if (has.length > 0) {
         res.json({ ...fail, msg: '字段命名已重复' });
         return;
       }
-      const data = await FieldService.create({ ...body });
+      const data = await FieldService.create(body);
+
       res.json({ ...success, data: data });
     } catch (error) {
       next(error);
@@ -61,7 +64,7 @@ class FieldController extends BaseController {
     try {
       const id = req.query.id;
       const data = await FieldService.detail(id);
-      res.json({ ...success, data: data[0] });
+      res.json({ ...success, data: data });
     } catch (error) {
       next(error);
     }

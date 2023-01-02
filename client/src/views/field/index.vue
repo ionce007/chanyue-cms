@@ -151,7 +151,7 @@ export default {
       let { id } = e;
       try {
         let _res = await this.hasUse(this.query.mid);
-        if (_res.data.has.length == 0) {
+        if (_res.data.count === 0) {
           let res = await del(id);
           if (res.code === 200) {
             this.$message({

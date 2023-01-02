@@ -84,17 +84,18 @@ class AdService extends BaseService {
   async search(key = '', cur = 1, pageSize = 10) {
 
     try {
-      const sql = `SELECT COUNT(id) as count FROM ${this.model}`;
-      const total = await knex.raw(sql);
+      // 查询个数
+      const total = await knex(this.model).count('id', { as: 'count' });
       const offset = parseInt((cur - 1) * pageSize);
-      const list = await knex.select(['id', 'model_name', 'table_name', 'status'])
+      const list = await knex.select('*')
         .from(this.model)
         .limit(pageSize)
         .offset(offset)
         .orderBy('id', 'desc');
+
       return {
-        count: total[0][0].count,
-        total: Math.ceil(total[0][0].count / pageSize),
+        count: total[0].count,
+        total: Math.ceil(total[0].count / pageSize),
         current: +cur,
         list: list,
       };

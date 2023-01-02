@@ -29,7 +29,7 @@ class MessageController extends BaseController {
   // 删除
   async delete(req, res, next) {
     try {
-      const id = req.body.id;
+      const id = req.query.id;
       const data = await MessageService.delete(id);
       res.json({ ...success, data: data });
     } catch (error) {

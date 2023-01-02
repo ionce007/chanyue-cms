@@ -41,20 +41,14 @@
         <el-form-item label="广告图片">
           <el-upload
             class="avatar-uploader"
-            action="/api/upload"
-            :show-file-list="false"
+            action="/api/upload"  
             :on-success="upload"
+            :show-file-list="false"
+            :before-upload="beforeUpload"
           >
-            <img
-              v-if="params.imgUrl"
-              :src="params.imgUrl"
-              class="avatar-uploader"
-            />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-          <div class="ml-5 c-666">
-            替换图片 （注：图片链接输入图片地址也可）
-          </div>
+          <el-image style="width: 100%" v-if="params.imgUrl" :src="params.imgUrl"  fit="fit" />
+          <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+        </el-upload>
         </el-form-item>
 
         <el-form-item label="发布时间">
@@ -81,7 +75,7 @@
 <script>
 import { create } from "../../api/ad.js";
 import { pinyin } from "pinyin-pro";
-
+import { Plus } from '@element-plus/icons-vue'
 export default {
   name: "ad-add",
   data: () => {
@@ -121,9 +115,10 @@ export default {
       },
     };
   },
+  components: {
+    Plus
+  },
 
-  computed: {},
-  mounted() {},
   created() {},
   watch: {
     "params.title": function (newv, oldv) {
@@ -135,13 +130,21 @@ export default {
       console.log("e-->", e);
     },
 
-    handleSubCid(e) {
-      console.log("e-->", e);
+    
+
+    beforeUpload(rawFile){
+     if (rawFile.size / 1024 / 1024 > 2) {
+        this.$message('上传文件必须小于1M')
+        return false
+      }
     },
 
     //上传缩略图
-    upload(e) {
-      this.params.imgUrl = e.link;
+    upload(res) {
+      if(res.code === 200){
+        this.params.imgUrl =  res.data.path;
+        console.log('this.params.imgUrl',this.params.imgUrl)
+      }
     },
 
     //新增

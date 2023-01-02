@@ -79,7 +79,7 @@ router.post('/model/update', auth(), ModelController.update);
 // 字段管理
 router.get('/field/list', FieldController.list);
 router.get('/field/detail', FieldController.detail);
-router.post('/field/create', auth, FieldController.create);
+router.post('/field/create', auth(), FieldController.create);
 router.get('/field/delete', auth(), FieldController.delete);
 router.post('/field/update', auth(), FieldController.update);
 

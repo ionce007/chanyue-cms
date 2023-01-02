@@ -20,9 +20,11 @@ class FieldService extends BaseService {
         let table_name = await knex.raw('SELECT table_name FROM model WHERE id=?', [model_id]).transacting(trx);;
         table_name = table_name[0][0].table_name;
         const result = await knex(this.model).insert({ model_id, field_cname, field_ename, field_type, field_values, field_default, field_sort }).transacting(trx);
-        const affectedRows = result;
+
+       // result 返回是新增[id]
+        
         let sql = '';
-        if (affectedRows) {
+        if (result[0]) {
           // 1单行文本（varchar）2.多行文本 text 3.下拉菜单 text 4.单选 text 5.多选 6.时间和日期
           if (field_type === '1') {
             sql = 'varchar(100) not null default \'\'';
@@ -43,6 +45,7 @@ class FieldService extends BaseService {
             sql = 'datetime default null';
           }
         }
+
         const res = await knex.raw(`alter table ${table_name} add ${field_ename} ${sql}`).transacting(trx);
         return res ? 'success' : 'fail';
       });
@@ -62,10 +65,10 @@ class FieldService extends BaseService {
       await knex.transaction(async trx => {
         // 查询需要删除的字段
         const field = await knex.raw('SELECT model_id,field_ename FROM field WHERE id=?', [id]).transacting(trx);
-        const { field_ename, model_id } = field[0];
+        const { field_ename, model_id } = field[0][0];
         // 查询模型表名
         const table = await knex.raw('SELECT table_name FROM model WHERE id=?', [model_id]).transacting(trx);
-        table_name = table[0].table_name;
+        table_name = table[0][0].table_name;
         // 删除数据
         const result = await knex(this.model).where('id', '=', id).del().transacting(trx);
         // 删除对应模型表中的字段
@@ -116,13 +119,15 @@ class FieldService extends BaseService {
         .offset(offset)
         .orderBy('id', 'desc');
 
+    
+
       // 查询模块名称
       const model = await knex.raw('SELECT model_name,table_name FROM model WHERE id=?', [model_id]);
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
         current: +cur,
-        list: list[0],
+        list: list,
         model: model[0],
       };
     } catch (err) {

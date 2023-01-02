@@ -136,7 +136,7 @@ export default {
       const { id, table_name } = e;
       try {
         let res = await this.hasUse(id);
-        if (res.data.has[0].count == 0) {
+        if (res.data.count == 0) {
           let res = await del(id, table_name);
           if (res.code === 200) {
             this.$message({

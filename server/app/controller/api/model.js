@@ -33,8 +33,8 @@ class ModelController extends BaseController {
   // 删除
   async delete(req, res, next) {
     try {
-      const body = req.request.body;
-      const data = await ModelService.delete(body.id, body.table_name);
+      const body = req.body;
+      const data = await ModelService.delete(body);
       res.json({ ...success, data: data });
     } catch (error) {
       next(error);
@@ -69,7 +69,7 @@ class ModelController extends BaseController {
     try {
       const id = req.query.id;
       const data = await ModelService.hasUse(id);
-      res.json({ ...success, data: data[0] });
+      res.json({ ...success, data:data[0] });
     } catch (error) {
       next(error);
     }

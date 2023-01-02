@@ -17,7 +17,6 @@ class FriendlinkController extends BaseController {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
-      body.content = filterBody(body.content);
       const data = await FriendlinkService.create(body);
       res.json({ ...success, data: data })
     } catch (error) {
@@ -28,7 +27,7 @@ class FriendlinkController extends BaseController {
   // 删除
   async delete(req, res, next) {
     try {
-      const id = req.body.id;
+      const id = req.query.id;
       const data = await FriendlinkService.delete(id);
       res.json({ ...success, data: data });
     } catch (error) {
@@ -42,7 +41,7 @@ class FriendlinkController extends BaseController {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
-      const data = await FriendlinkService.updateInfo(body);
+      const data = await FriendlinkService.update(body);
       res.json({ ...success, data: data });
     } catch (error) {
       next(error);
@@ -73,13 +72,12 @@ class FriendlinkController extends BaseController {
 
   // 搜索
   async search(req, res, next) {
-
     try {
       const cur = req.query.cur;
       const key = req.query.keyword;
       const pageSize = req.query.pageSize || 10;
       const data = await FriendlinkService.search(key, cur, pageSize);
-      data.list.forEach(ele => {
+      data.forEach(ele => {
         ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:MM');
       });
       res.json({ ...success, data: data });
@@ -88,7 +86,7 @@ class FriendlinkController extends BaseController {
     }
   }
 
-  // 列表
+  
   async list(req, res, next) {
     try {
       const cur = req.query.cur;

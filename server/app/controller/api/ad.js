@@ -43,8 +43,7 @@ class AdController extends BaseController {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
       body.updatedAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
-      body.content = filterBody(body.content);
-      const data = await AdService.updateInfo(body);
+      const data = await AdService.update(body);
       res.json({ ...success, data: data });
     } catch (error) {
       next(error);
@@ -107,6 +106,7 @@ class AdController extends BaseController {
       const cur = req.query.cur;
       const pageSize = 10;
       const data = await AdService.list(cur, pageSize);
+      console.log('data----------',data)
       data.list.forEach(ele => {
         ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:MM');
       });

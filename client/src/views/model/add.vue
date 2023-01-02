@@ -8,10 +8,10 @@
       class
     >
       <el-form-item label="模型名称" prop="model_name">
-        <el-input v-model="params.model_name"></el-input>
+        <el-input v-model="params.model_name" @input="change"></el-input>
       </el-form-item>
       <el-form-item label="新增表名" prop="table_name">
-        <el-input v-model="params.table_name"></el-input>
+        <el-input v-model="params.table_name" disabled></el-input>
       </el-form-item>
       <el-form-item label="是否启用">
         <el-radio v-model="params.status" label="1">开启</el-radio>
@@ -70,7 +70,10 @@ export default {
     handleAttr(e) {
       console.log("e-->", e);
     },
-
+    change(v){
+      console.log(v)
+      this.params.table_name = v;
+    },
     //新增
     async create() {
       try {

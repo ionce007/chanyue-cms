@@ -42,16 +42,16 @@ class ModelService extends BaseService {
   }
 
   // 删
-  async delete(id, table_name) {
+  async delete(body) {
     try {
+      const {id, table_name} = body;
       await knex.transaction(async trx => {
         // 删除模型
         const result = await knex(this.model).where('id', '=', id).del().transacting(trx);
         // 删除模型下对应得字段数据
-        const delField = await knex(this.model).where('model_id', '=', id).del().transacting(trx);
+        const delField = await knex('field').where('model_id', '=', id).del().transacting(trx);
         // 删除模型对应的表
         const delTable = await knex.raw(`drop table ${table_name}`).transacting(trx);
-
         return {
           delModel: result === 1,
           delField: delField === 1,
@@ -66,11 +66,13 @@ class ModelService extends BaseService {
 
   // 改
   async update(body) {
-    const {id,old_table_name,table_name,status} = body;
+    const {id,old_table_name,table_name,model_name,status} = body;
     try {
       await knex.transaction(async trx => {
         const renameTable = await knex.raw(`alter table ${old_table_name} rename to ${table_name}`).transacting(trx);
-        const result = knex(this.model).where('id', '=', id).update({ table_name, model_name, status }).transacting(trx);
+
+        const result = await knex(this.model).where('id', '=', id).update({ table_name, model_name, status }).transacting(trx);
+
         return {
           renameStatus: renameTable,
           updateStatus: result,

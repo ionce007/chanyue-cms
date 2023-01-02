@@ -205,7 +205,7 @@ class ArticleService extends BaseService {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
         current: +cur,
-        list: list[0],
+        list: list,
       };
     } catch (err) {
       console.error(err);
