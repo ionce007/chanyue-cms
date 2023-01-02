@@ -113,7 +113,7 @@ export default {
   data: () => {
     return {
       id: 0, //栏目
-      categorySelected: [-1], //-1默认选中顶级栏目
+      categorySelected: [], //-1默认选中顶级栏目
       categoryProps: { checkStrictly: true },
 
       activeName: "first", //tab 默认显示第一个
@@ -191,7 +191,7 @@ export default {
           }
           this.categorySelected = ids;
           let end = addLabelValue(tree(data));
-          this.category = [{ label: "顶级栏目", value: -1 }, ...end];
+          this.category = [...end];
         }
       } catch (error) {
         console.log(error);

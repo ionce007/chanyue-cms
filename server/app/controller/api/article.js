@@ -96,8 +96,9 @@ async delete(req, res, next) {
       const cur = req.query.cur;
       const key = req.query.keyword;
       const cid = req.query.cid || 0; // 所属栏目
-      const pageSize = ctx.query.pageSize || 10;
-      const data = await ArticleService.search(key, cur, pageSize, cid);
+ 
+      const pageSize = req.query.pageSize || 10;
+      const data = await ArticleService.search(key, cur, pageSize, +cid);
       data.list.forEach(ele => {
         ele.updatedAt = dayjs(ele.updatedAt).format('YYYY-MM-DD HH:mm:ss');
       });

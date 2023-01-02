@@ -17,10 +17,7 @@
         </el-form-item>
 
         <el-form-item label="文章内容">
-          <BasicEditor
-            :content="params.content"
-            @setContent="setContent"
-          ></BasicEditor>
+          <vue3-tinymce v-model="params.content" :setting="setting"  script-src="/tinymce/tinymce.min.js"/>
         </el-form-item>
 
         <el-form-item label="发布时间">
@@ -41,14 +38,16 @@
 
 <script>
 import { update, detail } from "../../api/frag.js";
-import BasicEditor from "../../components/BaseEditor.vue";
+import Vue3Tinymce from '@jsdawn/vue3-tinymce';
+import {tinymceSet} from '../../config/tinymce.js';
 export default {
   name: "frag-edit",
   components: {
-    BasicEditor,
+    Vue3Tinymce,
   },
   data: () => {
     return {
+      setting: tinymceSet,
       params: {
         //接口入参
         id: 0,

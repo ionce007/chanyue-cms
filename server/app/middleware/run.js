@@ -8,7 +8,7 @@ const ejs = require('ejs');
 
 module.exports = function(app){
 
-    console.log('config->',app.config);
+    //console.log('config->',app.config);
 
     //日志
     app.use(morgan(app.config.logger.level));

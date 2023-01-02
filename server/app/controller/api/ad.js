@@ -29,7 +29,7 @@ class AdController extends BaseController {
   // 删除
   async delete(req, res, next) {
     try {
-      const id =  ctx.query.id;
+      const id =  req.query.id;
       const data = await AdService.delete(id);
       res.json({ ...success, data: data });
     } catch (error) {

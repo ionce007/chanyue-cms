@@ -250,7 +250,7 @@ class ArticleService extends BaseService {
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
-        current: Number(current),
+        current: +current,
         list:list[0],
       };
     } catch (err) {
@@ -298,6 +298,8 @@ class ArticleService extends BaseService {
       } else {
         sql = countSql + keyStr + cidStr;
       }
+
+      console.log('sql--->',sql)
       const total = cid ? await knex.raw(sql, [cid]) : await knex.raw(sql, []);
       // 翻页
       const offset = parseInt((cur - 1) * pageSize);
@@ -314,7 +316,7 @@ class ArticleService extends BaseService {
       return {
         count: total[0][0].count,
         total: Math.ceil(total[0][0].count / pageSize),
-        current: Number(cur),
+        current: +cur,
         list: list[0],
       };
     } catch (err) {

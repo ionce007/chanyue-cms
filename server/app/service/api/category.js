@@ -44,7 +44,6 @@ class CategoryService extends BaseService {
   async find() {
     try {
       const result = await this.all();
-      console.log('result->', result)
       return result;
     } catch (error) {
       console.error(error)

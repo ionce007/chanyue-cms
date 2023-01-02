@@ -98,7 +98,7 @@ class ArticleMapTagService extends BaseService {
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
-        current: Number(current),
+        current: +current,
         list,
       };
     } catch (err) {
@@ -116,7 +116,7 @@ class ArticleMapTagService extends BaseService {
       app,
     } = this;
     try {
-      const id = ctx.query.id;
+      const id = req.query.id;
       const data = await app.mysql.get(`${this.model}`, {
         id,
       });
@@ -151,7 +151,7 @@ class ArticleMapTagService extends BaseService {
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
-        current: Number(cur),
+        current: +cur,
         list,
       };
     } catch (err) {

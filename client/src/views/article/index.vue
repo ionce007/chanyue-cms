@@ -112,7 +112,7 @@ export default {
       keywords: "",
       cid: 0,
       cur: 1,
-      categorySelected: [-1],
+      categorySelected: [],
       category: [], //当前所有栏目
       tableData: [],
       multipleSelection: [],

@@ -30,10 +30,7 @@
         </el-form-item>
 
         <el-form-item label="文章内容">
-          <BasicEditor
-            :content="params.content"
-            @setContent="setContent"
-          ></BasicEditor>
+          <vue3-tinymce v-model="params.content" :setting="setting"  script-src="/tinymce/tinymce.min.js"/>
         </el-form-item>
 
         <el-form-item label="内容功能">
@@ -101,14 +98,16 @@ import {
   treeById,
   tree,
 } from "../../utils/tools.js";
-import BasicEditor from "../../components/BaseEditor.vue";
+import Vue3Tinymce from '@jsdawn/vue3-tinymce';
+import {tinymceSet} from '../../config/tinymce.js';
 export default {
   name: "page-edit",
   components: {
-    BasicEditor,
+    Vue3Tinymce,
   },
   data: () => {
     return {
+      setting: tinymceSet,
       categorySelected: [-1], //-1默认选中顶级栏目
       categoryProps: { checkStrictly: true },
       activeName: "first", //tab 默认显示第一个
@@ -175,14 +174,10 @@ export default {
           let data = res.data;
           let ids = treeById(this.params.cid, data);
           this.categorySelected = ids.length > 1 ? ids[0] : ids;
-          // if (ids.length > 1) {
-          //   this.categorySelected = ids[0];
-          // } else {
-          //   this.categorySelected = ids;
-          // }
+         
           let end = addLabelValue(tree(data));
           this.cateList = addLabelValue(data);
-          this.category = [{ label: "顶级栏目", value: -1 }, ...end];
+          this.category = [...end];
         }
       } catch (error) {
         console.log(error);

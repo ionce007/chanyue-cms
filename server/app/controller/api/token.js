@@ -26,7 +26,7 @@ class TokenController extends BaseController {
   async check() {
     try {
       const { ctx } = this;
-      const token = ctx.query.token;
+      const token = req.query.token;
       const res = await ctx.helper.getToken(token, this.config.token.KEY);
       this.success({ ...res });
     } catch (error) {

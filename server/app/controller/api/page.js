@@ -107,7 +107,7 @@ class PageController extends BaseController {
   // 列表
   async list() {
     try {
-      const cur = ctx.query.cur;
+      const cur = req.query.cur;
       const pageSize = 10;
       const data = await PageService.list(cur, pageSize);
       data.list.forEach(ele => {

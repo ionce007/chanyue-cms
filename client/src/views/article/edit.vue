@@ -79,10 +79,7 @@
         </el-form-item>
 
         <el-form-item label="文章内容">
-          <BasicEditor
-            :content="params.content"
-            @setContent="setContent"
-          ></BasicEditor>
+          <vue3-tinymce v-model="params.content" :setting="setting"  script-src="/tinymce/tinymce.min.js"/>
         </el-form-item>
 
         <el-form-item label="内容功能">
@@ -190,7 +187,8 @@
 <script>
 import { find } from "../../api/category.js";
 import { update, detail, findField } from "../../api/article.js";
-import BasicEditor from "../../components/BaseEditor.vue";
+import Vue3Tinymce from '@jsdawn/vue3-tinymce';
+import {tinymceSet} from '../../config/tinymce.js';
 import { search } from "../../api/tag.js";
 import {
   getImgUrlFromStr,
@@ -204,12 +202,14 @@ import {
 export default {
   name: "article-edit",
   components: {
-    BasicEditor,
+    Vue3Tinymce,
   },
   data: () => {
     return {
+      setting: tinymceSet,
+
       loading: true,
-      categorySelected: [-1], //-1默认选中顶级栏目
+      categorySelected: [], //-1默认选中顶级栏目
       categoryProps: { checkStrictly: true },
 
       activeName: "first", //tab 默认显示第一个
@@ -314,7 +314,7 @@ export default {
           this.findField(this.params.cid);
           let end = addLabelValue(tree(data));
           this.cateList = addLabelValue(data);
-          this.category = [{ label: "顶级栏目", value: -1 }, ...end];
+          this.category = [...end];
         }
       } catch (error) {
         console.log(error);

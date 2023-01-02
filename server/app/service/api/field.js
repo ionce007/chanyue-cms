@@ -121,7 +121,7 @@ class FieldService extends BaseService {
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
-        current: Number(current),
+        current: +current,
         list: list[0],
         model: model[0],
       };

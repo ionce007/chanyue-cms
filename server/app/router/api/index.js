@@ -58,7 +58,7 @@ router.get('/article/findField',  auth(), ArticleController.findField);
 router.post('/article/create',  auth(), ArticleController.create);
 router.get('/article/delete',  auth(), ArticleController.delete);
 router.post('/article/update', auth(), ArticleController.update);
-router.post('/upload',auth(), upload, ArticleController.upload);
+router.post('/upload',auth(), upload.any(), ArticleController.upload);
 
 // 页面管理
 router.get('/page/list', PageController.list);
@@ -114,7 +114,7 @@ router.get('/ad/detail', AdController.detail);
 router.post('/ad/create',  auth(), AdController.create);
 router.get('/ad/delete',  auth(), AdController.delete);
 router.post('/ad/update',  auth(), AdController.update);
-router.post('/upload',  auth(), AdController.upload);
+
 
 // 留言管理
 router.get('/message/list', MessageController.list);
