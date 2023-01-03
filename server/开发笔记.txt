@@ -389,171 +389,17 @@ LIMIT 2;
 
 2.后台接口 静态资源
 
-3.vue
-
--------------------------------------------
 
 
-
-
-
-
-
-
-server.use(function*(next){
-    this.body += 'ddd';
-});
-
-server.on('error',()=>{
-    
-})
-server.listen(8080)
-=======
-	
-http://www.jb51.net/article/64974.htm 记住密码	
-PC      element-ui
-M移动端 vux mint-ui
-
-https://vux.li/#/	
-http://element-cn.eleme.io/
-http://mint-ui.github.io/#!/zh-cn
-
-react 
-https://ant.design/
-
-vue权威指南
-https://pan.baidu.com/s/1dFMPsnZ
-	
-
-
-
-for in 会遍历对象原型链
-for of 不会遍历
-
-bower 前端
-
-Jasmine 单元测试 ，可以编写单元测试
-Karma 让Jasmine测试自动化
-
-
-git init
-git add .
-git commit -m 'update'
-git push -u origin master
-
-
-动画插件
-animate.css 
-hover.css
-wow.js
-fullPage.js
-hammer.js
-iScroll
-html2canvas
-js.cookie.js
-file-uploader
-
-//根据服务器来判断渲染移动版模板 还是PC模板
-if(substr($_SERVER['SERVER_NAME'], 0,1) == 'm'){
- include template('content_m',$template);
- }else{
- include template('content',$template);
- }
-
-
-wushaopeng888
-吴大少888
-604077
-
-47.104.23.199
-ZXCcxz123
-
-administrator
-47.95.221.53
-
-https://gitee.com/yunucms/yscms.git
-npm install -g cnpm --registry=https://registry.npm.taobao.org
-
-
-swig            一个模板渲染引擎，语法简单，易上手
-mime                 文件类型读取插件，用于静态文件读取，上传、下载文件
-zlib                         文件压缩协议，用于http server返回的数据流压缩
-formidable        node的post表单、文件上传处理插件
-log4js                   node的日志框架
-
-
-商城 https://github.com/bailicangdu/node-elm
-blog  https://github.com/chaohangz/blog
-
-http://blog.csdn.net/qq_26598303/article/details/53468399
-node写API服务
-vue写静态页面 SEO可以使用ssr 
-
-npm install --production
-
-//2017-12-17
-删除文章 是否要删除评论
-栏目是否要添加外链网址
-填写模板名称
-
-NODE服务
-压力测试
-
-自动化渲染视图
 跨域资源共享
 npm install --save cors
 api子域名
 npm install --save vhost
 跨站请求伪造
 npm install --save csurf 
-zlib 压缩静态文件
-compress()
-
-app.use(require('csurf')());
-app.use((req,res,next)=>{
-    res.locals._csrfToken = req._csrfToken();
-    next()
-})
-
-var autoViews = {};
-var fs = require('fs');
-
-app.use((req,res,next)=>{
-    var path = req.path.toLowerCase();
-    if(autoViews[path]){
-        return res.render(autoViews[path])
-    }
-})
-
-function logger(req,res,next){
-    console.log('%s %s',req.method,req.url);
-    next()
-}
-
-
-### 开发环境
-nodemon 
-
-### 部署
-pm2
-### 技术栈选型
-express msyql sequelize ejs jwt rbac
-vue3 element-ui pina vue-router 
-富文本编辑器 Postgres
 
 
 express-validator
-
-### 文档 p17
-sequelize https://www.sequelize.cn/other-topics/transactions 
-
-
-app.engine('html',require('express-art-template'))
-app.set('view options',{
-    debug:process.env.NODE_ENV !== 'production'
-})
-app.set('views',path.join(__dirname,'views'))
-app.set('view engine','html');
 
 
 nodemon
