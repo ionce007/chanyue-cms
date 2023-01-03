@@ -20,6 +20,7 @@ class AdminController extends BaseController {
     try {
       let { username, password } = req.body;
       const pass = md5(password + config.md5.key);
+      console.log('pass--------',pass)
       const result = await AdminService.find(username, pass);
       if (result) {
         const { id, status } = result;

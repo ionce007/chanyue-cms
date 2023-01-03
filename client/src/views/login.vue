@@ -53,13 +53,13 @@
       <p class="f-13 c-a1a3aa text-c">
         &copy;
         <a
-          href="http://www.eggcms.top"
+          href="http://www.chanyue.top"
           class="mr-5"
           target="_blank"
           title="yuscms"
-          >www.eggcms.top</a
+          >www.chanyue.top</a
         >
-        eggcms系统 ● 位于南京 服务全国
+        禅悦系统 ● 位于南京 服务全国
       </p>
     </footer>
   </div>

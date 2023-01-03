@@ -268,7 +268,7 @@ export default {
         img: "",
         createdAt: new Date(),
         updatedAt: new Date(),
-        content: "eggcms",
+        content: "禅悦",
         status: "0",
         pv: 0,
         link: "",

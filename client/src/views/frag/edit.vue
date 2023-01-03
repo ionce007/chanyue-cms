@@ -54,7 +54,7 @@ export default {
         name: 0,
         mark: "",
         createdAt: new Date(),
-        content: "eggcms",
+        content: "禅悦",
       },
       dialogVisible: false,
       disabled: false,

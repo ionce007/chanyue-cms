@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 
 export const setTitle = (title) => {
-  window.document.title = `${title}-eggcms管理系统` || "eggcms管理系统";
+  window.document.title = `${title}-禅悦管理系统` || "禅悦管理系统";
 };
 
 export const setCookie = (tokenName = "token", token) => {

@@ -8,7 +8,7 @@ config.appName = 'chanyue-cms';
 config.appRoot = path.join(__dirname, '../');
 
 // cookie sign key
-config.keys = 'chanyue-cms_1539507495248_1368';
+config.keys = 'chanyue-cms_202301032044';
 config.port = '81';
 
 // add mysql config
@@ -17,16 +17,16 @@ config.mysql = {
     port: '3306',
     user: 'root',
     password: 'root',
-    database: 'eggcms'
+    database: 'chanyue-cms'
 };
 
 config.token = {
-    KEY: 'mingkong', // JSON WEB TOKEN KEY
+    KEY: 'chanyue-cms', // JSON WEB TOKEN KEY
     TIME: '1d', // 失效时间 10
 };
 
 config.md5 = {
-    key: 'eggcms', // md5 加盐
+    key: 'chanyue-cms', // md5 加盐
 };
 
 // 关闭csrf

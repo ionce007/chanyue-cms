@@ -55,7 +55,7 @@ export default {
         name: "",
         mark: "",
         createdAt: new Date(),
-        content: "eggcms",
+        content: "禅悦",
       },
       paramsRules: {
         //校验规则

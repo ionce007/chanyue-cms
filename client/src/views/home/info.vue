@@ -14,8 +14,8 @@
             <p class="f-16 mb-5">UI设计师：16号</p>
             <p class="f-16 mb-5 row">联系微信：yanyutao</p>
             <p class="f-16 mb-5">
-              <a class="c-9ca4bf" href="http://www.eggcms.top" target="_blank"
-                >云蛋系统：&copy; www.eggcms.top</a
+              <a class="c-9ca4bf" href="http://www.禅悦.top" target="_blank"
+                >云蛋系统：&copy; www.禅悦.top</a
               >
             </p>
           </div>

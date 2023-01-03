@@ -76,12 +76,12 @@ export default defineConfig({
     //代理配置
     proxy: {
       "/api": {
-        target: "http://localhost:81/api", // 后端服务实际地址,
+        target: "http://localhost:81/api", // api接口代理,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
       "/public": {
-        target: "http://localhost:81/public", // 后端服务实际地址,
+        target: "http://localhost:81/public", // 上传图片代理,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/public/, ""),
       },
