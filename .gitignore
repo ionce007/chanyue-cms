@@ -25,3 +25,4 @@ package-lock.json
 *.zip
 /server/app/public/uploads/
 
+/server/app/public/upload
