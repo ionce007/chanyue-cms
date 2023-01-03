@@ -1,7 +1,7 @@
 ﻿{
   "apps": [
       {
-          "name": "eggcms", 
+          "name": "chanyue-cms", 
           "script": "app.js",
           "cwd": "./", 
           "watch": [  
