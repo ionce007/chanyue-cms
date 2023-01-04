@@ -4,7 +4,7 @@
       <!-- logo -->
       <div class="logo row space-b">
         <img class="ml-20" src="../../assets/img/logo.png" alt />
-        <h1 class="logo-h1" v-if="!isCollapse">禅悦</h1>
+        <h1 class="logo-h1" v-if="!isCollapse">ChanYue-cms</h1>
       </div>
       <!-- 导航 -->
       <asideMenu :collapse="isCollapse" />

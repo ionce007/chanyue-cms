@@ -56,7 +56,7 @@
           href="http://www.chanyue.top"
           class="mr-5"
           target="_blank"
-          title="yuscms"
+          title="chanyue"
           >www.chanyue.top</a
         >
         禅悦系统 ● 位于南京 服务全国

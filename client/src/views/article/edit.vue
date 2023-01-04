@@ -61,7 +61,7 @@
         </el-form-item>
 
         <!-- <el-form-item label="缩略图">
-          <el-image style="width: 100px; height: 100px" :src="params.img" fit="fit" />
+          <el-image style="width: 100px; height: 100px" :src="params.img"  />
           <el-upload
             action="/api/upload"
             list-type="picture-card"
@@ -84,7 +84,7 @@
             :show-file-list="false"
             :before-upload="beforeUpload"
           >
-          <el-image style="width: 100%" v-if="params.img" :src="params.img"  fit="fit" />
+          <el-image style="width: 100%" v-if="params.img" :src="params.img"/>
           <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
         </el-upload>
         </el-form-item> 

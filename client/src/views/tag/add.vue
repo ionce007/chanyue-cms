@@ -84,7 +84,6 @@ export default {
     async has() {
       try {
         let res = await has(this.params.path);
-        console.log("res--->", res);
         if (res.code === 200) {
           if (res.data) {
             this.$message({

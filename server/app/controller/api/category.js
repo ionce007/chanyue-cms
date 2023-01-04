@@ -56,7 +56,7 @@ class CategoryController extends BaseController {
     try {
       const id = req.query.id;
       const data = await CategoryService.findId(id);
-      res.json({ ...success, data: data[0] });
+      res.json({ ...success, data: data});
     } catch (error) {
       next(error);
     }

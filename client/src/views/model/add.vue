@@ -99,7 +99,6 @@ export default {
     submit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(this.params);
           this.create();
         } else {
           console.log("error submit!!");

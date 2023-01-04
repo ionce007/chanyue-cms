@@ -5,17 +5,17 @@
         <el-col class="mb-20" :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
           <div class="info c-9ca4bf">
             <p class="f-16 mb-5">
-              技术架构：nodejs v16.16.0+ eggjs mysql-5.7 vue3 element-plus
+              技术架构：nodejs v16.16.0+ express mysql-5.7 vue3 element-plus
             </p>
             <p class="f-16 mb-5">程序版本：v.0.0.3</p>
             <p class="f-16 mb-5">程序路径：{{ dirname }}</p>
             <p class="f-16 mb-5">发布时间：2022-07-23</p>
             <p class="f-16 mb-5">开发人员：明空</p>
             <p class="f-16 mb-5">UI设计师：16号</p>
-            <p class="f-16 mb-5 row">联系微信：yanyutao</p>
+            <p class="f-16 mb-5 row">联系微信：yanyutao2014</p>
             <p class="f-16 mb-5">
-              <a class="c-9ca4bf" href="http://www.禅悦.top" target="_blank"
-                >云蛋系统：&copy; www.禅悦.top</a
+              <a class="c-9ca4bf" href="http://www.chanyue.top" target="_blank"
+                >禅悦内容管理系统：&copy; www.chanyue.top</a
               >
             </p>
           </div>

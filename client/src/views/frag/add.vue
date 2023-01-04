@@ -78,7 +78,7 @@ export default {
   unmounted() {},
   watch: {
     "params.name": function (newv, oldv) {
-      this.params.mark = pinyin(newv, { toneType: "none" }).replaceAll(" ", "");
+      this.params.mark = pinyin(newv, { toneType: "none" }).replace(/\s+/g, "");
     },
   },
   methods: {

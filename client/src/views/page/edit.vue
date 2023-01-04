@@ -108,7 +108,7 @@ export default {
   data: () => {
     return {
       setting: tinymceSet,
-      categorySelected: [-1], //-1默认选中顶级栏目
+      categorySelected: [], //-1默认选中顶级栏目
       categoryProps: { checkStrictly: true },
       activeName: "first", //tab 默认显示第一个
       activeIndex: "0", //tab 内容默认显示第一个
@@ -173,8 +173,7 @@ export default {
         if (res.code === 200) {
           let data = res.data;
           let ids = treeById(this.params.cid, data);
-          this.categorySelected = ids.length > 1 ? ids[0] : ids;
-         
+          this.categorySelected = ids;
           let end = addLabelValue(tree(data));
           this.cateList = addLabelValue(data);
           this.category = [...end];
@@ -232,7 +231,6 @@ export default {
     submit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(this.params);
           this.update();
         } else {
           console.log("error submit!!");

@@ -397,31 +397,13 @@ api子域名
 npm install --save vhost
 跨站请求伪造
 npm install --save csurf 
-
-
 express-validator
 
 
-nodemon
-
-http-error
 
 
 
-//配置解析表单请求体：application/json
-// function json(options){
-// 	return (req,res,next)=>{
-// 	}
-// }
 
-// app.use(json({
-// 	message:'hello'
-// }))
-
-//express.row()  application/octet-stream
-// express.text()
-//express.static()
-//app.use(multer({dest:config.upload}).any());
 
 //记录日志 不区分路由和方法，全局匹配 中间件顺序很重要
 //路由限定规则的中间件，use全局中间件

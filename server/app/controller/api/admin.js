@@ -5,7 +5,7 @@ const dayjs = require('dayjs');
 const svgCaptcha = require('svg-captcha');
 const { success, fail } = require('../../extend/api.js');
 const { md5, setToken } = require('../../extend/helper.js');
-const {secret,token:{KEY,TIME}} = require('../../config/config.js');
+const config = require('../../config/config.js');
 const AdminService = require('../../service/api/admin');
 
 class AdminController extends BaseController {
@@ -19,14 +19,14 @@ class AdminController extends BaseController {
   async login(req, res, next) {
     try {
       let { username, password } = req.body;
-      const pass = md5(password + secret.key);
+      const pass = md5(password + config.secret.key);
       const result = await AdminService.find(username, pass);
       if (result) {
         const { id, status } = result;
         // 设置token
         const token = setToken({ uid: id, username },
-          KEY,
-          TIME);
+          config.token.KEY,
+          config.token.TIME);
         const data = { id, status, username, token };
         res.json({ ...success, data: data })
       } else {
@@ -41,7 +41,7 @@ class AdminController extends BaseController {
   async create(req, res, next) {
     try {
       const body = req.body;
-      body.password = md5(body.password + secret.key);;
+      body.password = md5(body.password + config.secret.key);;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
       body.updatedAt = dayjs(body.updatedAt).format('YYYY-MM-DD HH:mm:ss');
       const data = await AdminService.create(body);
@@ -66,7 +66,7 @@ class AdminController extends BaseController {
   async update(req, res, next) {
     try {
       const body = req.body;
-      body.password = md5(body.password + secret.key);
+      body.password = md5(body.password + config.secret.key);
 
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
       body.updatedAt = dayjs(body.updatedAt).format('YYYY-MM-DD HH:mm:ss');

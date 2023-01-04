@@ -25,7 +25,7 @@ config.token = {
     TIME: '1d', // 失效时间 10
 };
 
-config.md5 = {
+config.secret = {
     key: 'chanyue-cms', // md5 加盐
 };
 

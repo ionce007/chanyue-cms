@@ -46,7 +46,7 @@
             :show-file-list="false"
             :before-upload="beforeUpload"
           >
-          <el-image style="width: 100%" v-if="params.imgUrl" :src="params.imgUrl"  fit="fit" />
+          <el-image style="width: 100%" v-if="params.imgUrl" :src="params.imgUrl"   />
           <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
         </el-upload>
         </el-form-item>
@@ -122,7 +122,7 @@ export default {
   created() {},
   watch: {
     "params.title": function (newv, oldv) {
-      this.params.mark = pinyin(newv, { toneType: "none" }).replaceAll(" ", "");
+      this.params.mark = pinyin(newv, { toneType: "none" }).replace(/\s+/g, "");
     },
   },
   methods: {

@@ -84,7 +84,7 @@
             :show-file-list="false"
             :before-upload="beforeUpload"
           >
-          <el-image style="width: 100%" v-if="params.img" :src="params.img"  fit="fit" />
+          <el-image style="width: 100%" v-if="params.img" :src="params.img"   />
           <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
         </el-upload>
         </el-form-item> 

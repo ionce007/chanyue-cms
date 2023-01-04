@@ -156,10 +156,7 @@ export default {
   computed: {},
   watch: {
     "params.name": function (newv, oldv) {
-      this.params.pinyin = pinyin(newv, { toneType: "none" }).replaceAll(
-        " ",
-        ""
-      );
+      this.params.pinyin = pinyin(newv, { toneType: "none" }).replace(/\s+/g, "");
       let path = this.params.path;
       let pathArr = path.split("/");
       pathArr.length = pathArr.length - 1;

@@ -26,8 +26,8 @@ router.use((req, res, next) => {
 
 //在所有组件挂在之后处理错误中间件
 router.use((err, req, res, next) => {
-	console.log('错误', req.method, req.url);
-	console.log('err.message', err.message)
+	console.log('err-req------>', req.method, req.url);
+	console.log('err-info----->', err)
 	res.status(500).send('服务器貌似有些问题了'+ err.message);
 });
 
