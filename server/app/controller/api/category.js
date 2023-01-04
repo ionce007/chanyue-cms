@@ -1,11 +1,8 @@
 'use strict';
 const BaseController = require('./base');
-const { success, fail } = require('../../extend/api.js');
-const { md5, setToken } = require('../../extend/helper.js');
-const config = require('../../config/config.js');
+const { success } = require('../../extend/api.js');
 const CategoryService = require('../../service/api/category.js');
 class CategoryController extends BaseController {
-
 
   constructor(props) {
     super(props);

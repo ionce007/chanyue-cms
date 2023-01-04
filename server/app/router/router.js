@@ -2,9 +2,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const config = require('../config/config');
- const api = require('./api/index.js');
-const web = require(`./web/default/index.js`);
+const api = require('./api/index.js');
+const web = require(`./web/index.js`);
 const express = require('express');
 const router = express.Router();
 

@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const init = require('../../../middleware/init.js');
-const HomeController = require('../../../controller/web/qigong/home.js');
+const { template } = require('../../../config/config.js');
+const HomeController = require(`../../../controller/web/${template}/home.js`);
 
 // 首页模板
-router.get('/', init(),HomeController.index);
+router.get('/', init(), HomeController.index);
 
 // 分类
 router.get([
@@ -16,7 +17,7 @@ router.get([
   '/c/:cate2/:cate1/:cate/index.html',
   '/c/:cate2/:cate1/:cate/index:current.html',
   '/c/:cate3/:cate2/:cate1/:cate/index.html',
-  '/c/:cate3/:cate2/:cate1/:cate/index:current.html' ], init(),HomeController.list);
+  '/c/:cate3/:cate2/:cate1/:cate/index:current.html'], init(), HomeController.list);
 
 // 文章页
 router.get([
@@ -33,9 +34,8 @@ router.get([
 // 搜索页
 router.get([
   '/search/:keywords/index.html',
-  '/search/:keywords/index:id.html' ], init(), HomeController.search);
- 
+  '/search/:keywords/index:id.html'], init(), HomeController.search);
 
- router.get('/page/:id', init(), HomeController.page);
- 
-  module.exports = router;
+router.get('/page/:id', init(), HomeController.page);
+
+module.exports = router;

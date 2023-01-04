@@ -15,11 +15,11 @@ class BaseController {
   }
 
   fail(res,err) {
+	  console.error(err);
     res.json({
       code: 500,
       msg:err
     })
-	  console.error(err);
   }
 
   

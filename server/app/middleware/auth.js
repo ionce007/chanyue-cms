@@ -1,5 +1,5 @@
 'use strict';
-const {getToken} = require('../extend/helper.js');
+const { getToken } = require('../extend/helper.js');
 const config = require('../config/config.js');
 
 module.exports = () => {

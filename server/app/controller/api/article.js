@@ -1,16 +1,11 @@
 'use strict';
 const BaseController = require('./base');
 const dayjs = require('dayjs');
-
-const path = require('path');
-
-const { success, fail } = require('../../extend/api.js');
-const { md5, setToken,filterBody } = require('../../extend/helper.js');
-const config = require('../../config/config.js');
+const { success } = require('../../extend/api.js');
+const { filterBody } = require('../../extend/helper.js');
 const ArticleService = require('../../service/api/article.js');
 
 class ArticleController extends BaseController {
-
 
   constructor(props) {
     super(props);

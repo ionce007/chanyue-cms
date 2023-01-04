@@ -1,6 +1,6 @@
 'use strict';
 const dayjs = require('dayjs');
-const config = require('../../../config/config.js');
+const {template} = require('../../../config/config.js');
 const HomeService = require('../../../service/qigong/home.js');
 const {getChildrenId,treeById} = require('../../../extend/helper.js');
 const ArticleService = require('../../../service/api/article.js');
@@ -158,7 +158,7 @@ class HomeController{
       const yujia = _yj.list;
 
       // 加入缓存？
-      res.render(`web/${config.template}/index.html`,{ slide, top, topList, ad, news, xueshu, tiyu, yixue, ys, ya, sh, rw, sj, jp, hot, chunsheng, taiji, yujia });
+      res.render(`web/${template}/index.html`,{ slide, top, topList, ad, news, xueshu, tiyu, yixue, ys, ya, sh, rw, sj, jp, hot, chunsheng, taiji, yujia });
     
     } catch (error) {
       console.error(error)
@@ -176,7 +176,7 @@ class HomeController{
       const navSub = getChildrenId(cate || cid, res.locals.category);
       const id = cid ? cid : navSub.cate.id;
       if (!id) {
-        ctx.redirect('/');
+        res.redirect('/');
         return;
       }
 
@@ -205,7 +205,7 @@ class HomeController{
       // 本类图文
       const pic = await HomeService.getArticleImgList(id, 10);
 
-      await res.render(`web/${config.template}/list.html`, { position, list: data, navSub, ad, tj, hot, pic });
+      await res.render(`web/${template}/list.html`, { position, list: data, navSub, ad, tj, hot, pic });
 
     } catch (error) {
       console.error(error);
@@ -269,7 +269,7 @@ class HomeController{
       // 本类图文
       const pic = await HomeService.getArticleImgList(cid, 10);
 
-      await res.render(`web/${config.template}/article.html`, { position, navSub, ad, article, pre, next, tj, hot, pic });
+      await res.render(`web/${template}/article.html`, { position, navSub, ad, article, pre, next, tj, hot, pic });
 
     } catch (error) {
       console.error(error);
@@ -306,7 +306,7 @@ class HomeController{
       // 点击数量
       await PageService.count(id);
 
-      await res.render(`web/${config.template}/page.html`, { article, navSub, ad, position });
+      await res.render(`web/${template}/page.html`, { article, navSub, ad, position });
 
     } catch (error) {
       console.error(error);
@@ -338,7 +338,7 @@ class HomeController{
         ele.updatedAt = dayjs(ele.updatedAt).format('YYYY-MM-DD HH:mm:ss');
       });
 
-      await res.render(`web/${config.template}/search.html`, { keywords, list, ad });
+      await res.render(`web/${template}/search.html`, { keywords, list, ad });
     } catch (error) {
       console.error(error);
     }

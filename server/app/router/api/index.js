@@ -115,7 +115,6 @@ router.post('/ad/create',  auth(), AdController.create);
 router.get('/ad/delete',  auth(), AdController.delete);
 router.post('/ad/update',  auth(), AdController.update);
 
-
 // 留言管理
 router.get('/message/list', MessageController.list);
 router.get('/message/search', MessageController.search);

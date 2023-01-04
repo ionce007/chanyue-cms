@@ -5,9 +5,9 @@ const Controller = require('egg').Controller;
 class HomeController extends Controller {
 
   // 新闻列表页
-  async index() {
+  async index(req,res,next) {
   // 获取数据显示到新闻页面
-    const { ctx } = this;
+
 
     const arr = [
       // 小学作文
@@ -30,13 +30,15 @@ class HomeController extends Controller {
     // for (let i = 0; i < arr.length; i++) {
     //   await this.service.copy.home.getList(arr[i].url, arr[i].cid);
     // }
-    ctx.body = 'ok';
+    res.json({
+      msg:'ok'
+    });
 
   }
 
   // 瑞文网
-  async ruiwen() {
-    const { ctx } = this;
+  async ruiwen(req,res,next) {
+   
     const arr = [
       // 小学作文
       { url: 'https://www.ruiwen.com/zuowen/yinianjizuowen/', cid: 4 },
@@ -53,7 +55,9 @@ class HomeController extends Controller {
       { url: 'https://www.ruiwen.com/zuowen/gaosanzuowen/', cid: 15 },
     ];
     await this.service.copy.home.ruiwen(arr[11].url, arr[11].cid);
-    ctx.body = 'ok';
+    res.json({
+      msg:'ok'
+    });
   }
 
 }

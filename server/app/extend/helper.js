@@ -5,8 +5,6 @@ const fs = require('fs');
 const path = require('path');
 // this.ctx.helper.relative  <%=helper.relative(item.time)%>
 
-
-
 exports.md5 = str => {
   return require('crypto').createHash('md5').update(str)
     .digest('hex');

@@ -4,7 +4,7 @@ const dayjs = require('dayjs');
 const path = require('path');
 const { success, fail } = require('../../extend/api.js');
 const { md5, setToken } = require('../../extend/helper.js');
-const config = require('../../config/config.js');
+
 const AdService = require('../../service/api/ad.js');
 
 class AdController extends BaseController {
@@ -106,7 +106,6 @@ class AdController extends BaseController {
       const cur = req.query.cur;
       const pageSize = 10;
       const data = await AdService.list(cur, pageSize);
-      console.log('data----------',data)
       data.list.forEach(ele => {
         ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:MM');
       });

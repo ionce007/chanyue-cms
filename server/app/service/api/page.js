@@ -115,7 +115,7 @@ async list(cur = 1, pageSize = 10) {
       const data = await knex(this.model).where('id', '=', id).select()
       return data[0];
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 

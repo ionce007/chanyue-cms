@@ -1,6 +1,8 @@
 'use strict';
 
 const BaseController = require('./base');
+const {token:{KEY,TIME}} = require('../../config/config.js');
+const {setToken,getToken} = require('../../extend/helper.js');
 class TokenController extends BaseController {
   constructor(...args) {
     super(...args);
@@ -8,14 +10,13 @@ class TokenController extends BaseController {
   }
 
   // 更新token时间
-  async update() {
+  async update(res,req,next) {
     try {
-      const { ctx } = this;
-      const username = ctx.locals.username;
-      const uid = ctx.locals.uid;
-      const token = ctx.helper.setToken({ username, uid },
-        this.config.token.KEY,
-        this.config.token.TIME);
+      const username = req.locals.username;
+      const uid = req.locals.uid;
+      const token = setToken({ username, uid },
+       KEY,
+        TIME);
       this.success({ token });
     } catch (error) {
       this.fail(error);
@@ -23,11 +24,11 @@ class TokenController extends BaseController {
   }
 
   // 校验token是否正确
-  async check() {
+  async check(req,res,next) {
     try {
-      const { ctx } = this;
+
       const token = req.query.token;
-      const res = await ctx.helper.getToken(token, this.config.token.KEY);
+      const res = await getToken(token, KEY);
       this.success({ ...res });
     } catch (error) {
       this.fail(error);
