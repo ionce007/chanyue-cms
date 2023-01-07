@@ -12,7 +12,7 @@ class SiteService extends BaseService {
   async find() {
     try {
       let res = await this.all();
-      return res;
+      return res[0];
     } catch (error) {
       console.error(error)
     }

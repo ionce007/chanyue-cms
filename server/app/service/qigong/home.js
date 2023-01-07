@@ -175,23 +175,16 @@ class HomeService extends BaseService {
             item.id && ids.push(item.id);
           });
         }
-        ids = ids.join(',');
+        
       }
+    
+      let idString= ids.join(',');
       // 查询个数
-      let sql1,
-        sql2;
-      if (ids ) {
-        sql1 = `SELECT COUNT(id) as count FROM article WHERE cid IN (?)`;
-        sql2 = `SELECT a.id,a.title,a.short_title,a.img,a.description,a.createdAt,a.author,a.pv,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id WHERE a.cid IN (?) ORDER BY createdAt DESC LIMIT ?,?`;
-      } else {
-        sql1 = 'SELECT COUNT(id) as count FROM article';
-        sql2 = `SELECT a.id,a.title,a.short_title,a.img,a.description,a.createdAt,a.author,a.pv,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id ORDER BY createdAt DESC LIMIT ?,?`;
-      }
+      let sql1 =`SELECT COUNT(id) as count FROM article WHERE cid IN (?)`;
+      let sql2 = `SELECT a.id,a.title,a.short_title,a.img,a.description,a.createdAt,a.author,a.pv,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id WHERE a.cid IN (?) ORDER BY createdAt DESC LIMIT ?,?`;
       const total = await knex.raw(sql1, [ids]);
-      const result = ids ? await knex.raw(sql2, [ids, start, pageSize]) : await knex.raw(sql2, [start, pageSize]);
-
+      const result = await knex.raw(sql2, [ids, start, pageSize]);
       const count = total[0].count || 1;
-
       return {
         count,
         total: Math.ceil(count / pageSize),

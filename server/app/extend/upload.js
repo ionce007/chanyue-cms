@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
     // 生成格式化日期
     let date = dayjs(Date.now()).format('YYYY/MM/DD');
     // 获取目录路径
-    let dir = path.join(`app/public/upload/${template}`, date);
+    let dir = path.join(`app/public/uploads/${template}`, date);
     // 生成目录，异步改同步
     function mkdirsSync(dirname) {
       if (fs.existsSync(dirname)) {
