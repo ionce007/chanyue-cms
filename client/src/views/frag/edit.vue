@@ -1,12 +1,6 @@
 <template>
   <div class="mr-10 ml-10 mb-20">
-    <el-form
-      ref="params"
-      :model="params"
-      :rules="paramsRules"
-      label-width="84px"
-      class
-    >
+    <el-form ref="params" :model="params" :rules="paramsRules" label-width="84px" class>
       <div>
         <el-form-item label="碎片名称" prop="name">
           <el-input v-model="params.name"></el-input>
@@ -17,15 +11,11 @@
         </el-form-item>
 
         <el-form-item label="文章内容">
-          <vue3-tinymce v-model="params.content" :setting="setting"  script-src="/tinymce/tinymce.min.js"/>
+          <vue3-tinymce v-model="params.content" :setting="setting" script-src="/tinymce/tinymce.min.js" />
         </el-form-item>
 
         <el-form-item label="发布时间">
-          <el-date-picker
-            v-model="params.createdAt"
-            type="datetime"
-            placeholder="选择日期时间"
-          ></el-date-picker>
+          <el-date-picker v-model="params.createdAt" type="datetime" placeholder="选择日期时间"></el-date-picker>
         </el-form-item>
       </div>
 
@@ -39,7 +29,7 @@
 <script>
 import { update, detail } from "../../api/frag.js";
 import Vue3Tinymce from '@jsdawn/vue3-tinymce';
-import {tinymceSet} from '../../config/tinymce.js';
+import { tinymceSet } from '../../config/tinymce.js';
 export default {
   name: "frag-edit",
   components: {
@@ -73,13 +63,13 @@ export default {
     };
   },
   computed: {},
-  async mounted() {},
+  async mounted() { },
 
   async created() {
     this.params.id = this.$route.params.id;
     await this.detail();
   },
-  unmounted() {},
+  unmounted() { },
   methods: {
     setContent(article) {
       this.params.content = article;
@@ -134,4 +124,6 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+
+</style>

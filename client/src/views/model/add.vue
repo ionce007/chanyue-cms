@@ -1,12 +1,6 @@
 <template>
   <div class="mr-10 ml-10 mb-20">
-    <el-form
-      ref="params"
-      :model="params"
-      :rules="paramsRules"
-      label-width="100px"
-      class
-    >
+    <el-form ref="params" :model="params" :rules="paramsRules" label-width="100px" class>
       <el-form-item label="模型名称" prop="model_name">
         <el-input v-model="params.model_name" @input="change"></el-input>
       </el-form-item>
@@ -65,12 +59,12 @@ export default {
   mounted() {
     //tinymce.init({});
   },
-  created() {},
+  created() { },
   methods: {
     handleAttr(e) {
       console.log("e-->", e);
     },
-    change(v){
+    change(v) {
       console.log(v)
       this.params.table_name = v;
     },
@@ -109,4 +103,6 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+
+</style>

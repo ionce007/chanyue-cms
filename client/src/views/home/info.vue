@@ -14,9 +14,7 @@
             <p class="f-16 mb-5">UI设计师：16号</p>
             <p class="f-16 mb-5 row">联系微信：yanyutao2014</p>
             <p class="f-16 mb-5">
-              <a class="c-9ca4bf" href="http://www.chanyue.top" target="_blank"
-                >禅悦内容管理系统：&copy; www.chanyue.top</a
-              >
+              <a class="c-9ca4bf" href="http://www.chanyue.top" target="_blank">禅悦内容管理系统：&copy; www.chanyue.top</a>
             </p>
           </div>
         </el-col>
@@ -46,7 +44,7 @@ export default {
     };
   },
   computed: {},
-  created() {},
+  created() { },
   mounted() {
     this.tongji();
     this.runEnv();

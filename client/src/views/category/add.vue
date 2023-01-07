@@ -7,21 +7,11 @@
   </div>
 
   <div class="mr-10 ml-10 mb-20">
-    <el-form
-      ref="params"
-      :model="params"
-      :rules="paramsRules"
-      label-width="84px"
-    >
+    <el-form ref="params" :model="params" :rules="paramsRules" label-width="84px">
       <div v-show="activeIndex == 0">
         <el-form-item label="上级栏目">
-          <el-cascader
-            :props="categoryProps"
-            :show-all-levels="false"
-            v-model="categorySelected"
-            :options="category"
-            @change="handleChange"
-          >
+          <el-cascader :props="categoryProps" :show-all-levels="false" v-model="categorySelected" :options="category"
+            @change="handleChange">
           </el-cascader>
           不选择为顶级栏目
         </el-form-item>
@@ -46,12 +36,7 @@
         <el-form-item label="扩展模型">
           <el-radio-group v-model="params.mid">
             <el-radio label="0">基本模型</el-radio>
-            <el-radio
-              v-for="(item, index) of modList"
-              :key="index"
-              :label="item.id"
-              >{{ item.model_name }}</el-radio
-            >
+            <el-radio v-for="(item, index) of modList" :key="index" :label="item.id">{{ item.model_name }}</el-radio>
           </el-radio-group>
         </el-form-item>
 
@@ -242,4 +227,6 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+
+</style>

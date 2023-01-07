@@ -4,12 +4,15 @@
     background: rgb(255, 255, 255);
     margin-top: 20px;
 }
-.el-table td.el-table__cell div{
+
+.el-table td.el-table__cell div {
     white-space: nowrap;
 }
-.el-table th.el-table__cell>.cell{
+
+.el-table th.el-table__cell>.cell {
     white-space: nowrap;
 }
+
 /* .el-input {
     width: 640px;
 } */

@@ -1,31 +1,29 @@
 <template>
   <el-row>
     <el-col>
-      <el-menu
-        router
-        unique-opened
-        :default-active="active"
-        :collapse="isCollapse"
-        :collapse-transition="false"
-        class="el-menu-vertical-demo"
-        @open="handleOpen"
-        @close="handleClose"
-      >
+      <el-menu router unique-opened :default-active="active" :collapse="isCollapse" :collapse-transition="false"
+        class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
         <el-menu-item index="/">
-          <el-icon class="el-icon-s-data"><DataLine /></el-icon>
+          <el-icon class="el-icon-s-data">
+            <DataLine />
+          </el-icon>
           <template #title>网站说明</template>
         </el-menu-item>
 
         <el-sub-menu index="2">
           <template #title>
-            <el-icon class="el-icon-setting"><Setting /></el-icon>
+            <el-icon class="el-icon-setting">
+              <Setting />
+            </el-icon>
             <span>系统管理</span>
           </template>
           <el-menu-item index="/sys">网站设置</el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="3">
           <template #title>
-            <el-icon class="el-icon-menu"><Menu /></el-icon>
+            <el-icon class="el-icon-menu">
+              <Menu />
+            </el-icon>
             <span>内容管理</span>
           </template>
           <el-menu-item index="/category"> 栏目管理 </el-menu-item>
@@ -38,7 +36,9 @@
         </el-sub-menu>
         <el-sub-menu index="4">
           <template #title>
-            <el-icon class="el-icon-s-operation"><Operation /></el-icon>
+            <el-icon class="el-icon-s-operation">
+              <Operation />
+            </el-icon>
             <span>功能管理</span>
           </template>
           <el-menu-item index="/model"> 扩展模型 </el-menu-item>
@@ -48,7 +48,9 @@
         </el-sub-menu>
         <el-sub-menu index="5">
           <template #title>
-            <el-icon class="el-icon-bank-card"><CreditCard /></el-icon>
+            <el-icon class="el-icon-bank-card">
+              <CreditCard />
+            </el-icon>
             <span>管理员</span>
           </template>
           <el-menu-item index="/admin"> 管理员列表</el-menu-item>
@@ -118,10 +120,12 @@ export default {
 .el-menu {
   border-right: 0;
 }
+
 .el-sub-menu.is-opened .el-sub-menu__icon-arrow {
   color: #1890ff;
   font-weight: lighter;
 }
+
 .el-menu-item.is-active {
   color: #1890ff;
 }
@@ -129,13 +133,16 @@ export default {
 .el-sub-menu.is-opened span {
   color: #1890ff;
 }
+
 .el-sub-menu.is-opened .el-icon {
   color: #1890ff;
 }
+
 .el-sub-menu .el-icon {
   color: #909399;
   font-size: 14px;
 }
+
 /* .el-sub-menu.is-opened [class^="el-icon-"] {
   color: #1890ff;
 } */

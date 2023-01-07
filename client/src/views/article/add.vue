@@ -316,7 +316,6 @@ export default {
       try {
         let res = await search(this.cur, keywords);
         if (res.code === 200) {
-          console.log("res--->", res.data.list);
           let arr = [];
           res.data.list.forEach((item) => {
             arr.push({
@@ -376,7 +375,6 @@ export default {
     upload(res) {
       if(res.code === 200){
         this.params.img =  res.data.path;
-        console.log('this.img--->',this.params.img);
       }
     },
 

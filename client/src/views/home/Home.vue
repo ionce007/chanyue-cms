@@ -31,10 +31,7 @@
               </a>
               <span class="ml-4 f-14">{{ username }}</span>
               <el-tooltip content="退出" placement="bottom" effect="light">
-                <el-icon
-                  class="ml-4 pointer pos-r t-2 f-20 el-icon-warning-outline"
-                  @click="quit"
-                >
+                <el-icon class="ml-4 pointer pos-r t-2 f-20 el-icon-warning-outline" @click="quit">
                   <SwitchButton />
                 </el-icon>
               </el-tooltip>
@@ -111,35 +108,43 @@ export default {
   box-shadow: 0 2px 4px #f2f2f2;
   background: #fff;
 }
+
 .el-container {
   background: #f2f2f2;
   height: 100vh;
 }
+
 .el-main {
   background: #fff;
   margin: 10px;
   border-radius: 6px;
 }
+
 .el-main::-webkit-scrollbar-track-piece {
   background-color: #f8f8f8;
 }
+
 .el-main::-webkit-scrollbar {
   width: 4px;
   height: 4px;
   border-radius: 1px;
 }
+
 .el-main::-webkit-scrollbar-thumb {
   //滚动条的设置
   background-color: #dddddd;
   background-clip: padding-box;
   min-height: 28px;
 }
+
 .el-main::-webkit-scrollbar-thumb:hover {
   background-color: #bbb;
 }
+
 .el-icon-s-fold {
   cursor: pointer;
 }
+
 .el-icon-s-fold:hover {
   color: #1890ff;
 }
@@ -156,6 +161,7 @@ export default {
   z-index: 1;
   transition: width 0.5s;
 }
+
 .logo {
   box-shadow: rgba(0, 21, 41, 0.05) 0px 1px 0px;
   padding: 0px;
@@ -171,14 +177,17 @@ export default {
     font-family: lighter;
   }
 }
+
 .el-header {
   line-height: 60px;
   padding: 0;
 }
+
 .pointer {
   cursor: pointer;
   color: #1890ff;
 }
+
 .fade-enter {
   opacity: 0;
 }

@@ -159,7 +159,6 @@ export default {
     upload(res) {
       if(res.code === 200){
         this.params.imgUrl =  res.data.path;
-        console.log('this.params.imgUrl',this.params.imgUrl)
       }
     },
 

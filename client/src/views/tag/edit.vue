@@ -1,12 +1,6 @@
 <template>
   <div class="mr-10 ml-10 mb-20">
-    <el-form
-      ref="params"
-      :model="params"
-      :rules="paramsRules"
-      label-width="84px"
-      class
-    >
+    <el-form ref="params" :model="params" :rules="paramsRules" label-width="84px" class>
       <div>
         <el-form-item label="标签名称" prop="name">
           <el-input v-model="params.name"></el-input>
@@ -54,7 +48,7 @@ export default {
     };
   },
   computed: {},
-  async mounted() {},
+  async mounted() { },
   watch: {
     "params.name": function (newv, oldv) {
       this.params.path = pinyin(newv, { toneType: "none" }).replace(/\s+/g, "");
@@ -64,7 +58,7 @@ export default {
     this.params.id = this.$route.params.id;
     await this.detail();
   },
-  unmounted() {},
+  unmounted() { },
   methods: {
     // 文章详情
     async detail() {
@@ -122,4 +116,6 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+
+</style>

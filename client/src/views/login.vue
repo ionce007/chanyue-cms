@@ -9,41 +9,21 @@
         <ul class="w-330">
           <li class="border-b pt-8 pb-8 mb-10 pos-r">
             <i class="ico ico-user pos-r t-2"></i>
-            <input
-              type="text"
-              class="ml-10 f-14 lh-20 c-333"
-              v-model="params.username"
-              placeholder="用户名"
-            />
+            <input type="text" class="ml-10 f-14 lh-20 c-333" v-model="params.username" placeholder="用户名" />
           </li>
           <li class="border-b pt-8 pb-8 mb-10 pos-r">
             <i class="ico ico-pass pos-r t-2"></i>
-            <input
-              type="password"
-              class="ml-10 f-14 lh-20 c-333"
-              v-model="params.password"
-              placeholder="密码"
-              @keyup.enter="toLogin"
-            />
+            <input type="password" class="ml-10 f-14 lh-20 c-333" v-model="params.password" placeholder="密码"
+              @keyup.enter="toLogin" />
           </li>
           <li class="mb-10 pos-r captcha">
-            <input
-              type="text"
-              class="f-14 lh-20 c-333 code"
-              v-model="code"
-              placeholder="请输入验证码"
-            />
+            <input type="text" class="f-14 lh-20 c-333 code" v-model="code" placeholder="请输入验证码" />
             <span v-html="svg"></span>
             <span @click="getCaptcha" class="see">看不清，换一张</span>
           </li>
 
           <li class="mt-21">
-            <input
-              type="submit"
-              @click="toLogin"
-              class="btn-block f-16 c-fff lh-22"
-              value="登录"
-            />
+            <input type="submit" @click="toLogin" class="btn-block f-16 c-fff lh-22" value="登录" />
           </li>
         </ul>
       </div>
@@ -52,13 +32,7 @@
     <footer class="ys-footer">
       <p class="f-13 c-a1a3aa text-c">
         &copy;
-        <a
-          href="http://www.chanyue.top"
-          class="mr-5"
-          target="_blank"
-          title="chanyue"
-          >www.chanyue.top</a
-        >
+        <a href="http://www.chanyue.top" class="mr-5" target="_blank" title="chanyue">www.chanyue.top</a>
         禅悦系统 ● 位于南京 服务全国
       </p>
     </footer>
@@ -85,7 +59,7 @@ export default {
     this.getCaptcha();
   },
 
-  mounted() {},
+  mounted() { },
   methods: {
     async getCaptcha() {
       try {
@@ -100,7 +74,7 @@ export default {
     async checkCaptcha() {
       try {
         let res = await checkCaptcha(this.code);
-        if (res.code===200 && res.data) {
+        if (res.code === 200 && res.data) {
           return true;
         } else {
           this.$message({
@@ -145,7 +119,6 @@ export default {
           password: this.params.password,
         })
           .then((res) => {
-            console.log("res--->", res);
             if (res.code === 200 && res.data) {
               setCookie("username", res.data.username);
               setCookie("token", res.data.token);
@@ -216,6 +189,7 @@ export default {
   color: #337ecc;
   cursor: pointer;
 }
+
 .c-a1a3aa {
   color: #a1a3aa;
 }
@@ -238,6 +212,7 @@ export default {
   background-color: rgb(103, 141, 253);
   cursor: pointer;
 }
+
 .ico {
   width: 16px;
   height: 16px;
@@ -253,6 +228,7 @@ export default {
   background-image: url("../assets/img/ico-pass.png");
   background-size: cover;
 }
+
 .pt-160 {
   padding-top: 16vh;
 }

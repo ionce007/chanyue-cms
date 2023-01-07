@@ -163,7 +163,7 @@ export default {
         let res = await destory(id);
         if (res.code === 200) {
           this.$message({
-            message: "栏目删除成功 ^_^",
+            message: "删除成功 ^_^",
             type: "success",
           });
           this.clearSearch();

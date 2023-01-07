@@ -1,22 +1,13 @@
 <template>
   <div class="mr-10 ml-10 mb-20">
-    <el-form
-      ref="params"
-      :model="params"
-      :rules="paramsRules"
-      label-width="84px"
-    >
+    <el-form ref="params" :model="params" :rules="paramsRules" label-width="84px">
       <div>
         <el-form-item label="标签名称" prop="name">
           <el-input v-model="params.name" placeholder="请输入汉字"></el-input>
         </el-form-item>
 
         <el-form-item label="标签标识">
-          <el-input
-            v-model="params.path"
-            placeholder="模板使用标识"
-            disabled
-          ></el-input>
+          <el-input v-model="params.path" placeholder="模板使用标识" disabled></el-input>
         </el-form-item>
       </div>
 
@@ -55,10 +46,10 @@ export default {
     };
   },
   computed: {},
-  async mounted() {},
+  async mounted() { },
 
-  created() {},
-  unmounted() {},
+  created() { },
+  unmounted() { },
   watch: {
     "params.name": function (newv, oldv) {
       this.params.path = pinyin(newv, { toneType: "none" }).replace(/\s+/g, "");
@@ -112,4 +103,6 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+
+</style>

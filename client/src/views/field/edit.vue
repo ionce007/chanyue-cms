@@ -1,11 +1,6 @@
 <template>
   <div class="mr-10 ml-10 mb-20">
-    <el-form
-      ref="params"
-      :model="params"
-      :rules="paramsRules"
-      label-width="100px"
-    >
+    <el-form ref="params" :model="params" :rules="paramsRules" label-width="100px">
       <el-form-item label="中文名称" prop="field_cname">
         <el-input v-model="params.field_cname"></el-input>
       </el-form-item>
@@ -15,17 +10,8 @@
       </el-form-item>
 
       <el-form-item label="字段类型">
-        <el-select
-          v-model="params.field_type"
-          :disabled="disable"
-          placeholder="请选择"
-        >
-          <el-option
-            v-for="item in type"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
+        <el-select v-model="params.field_type" :disabled="disable" placeholder="请选择">
+          <el-option v-for="item in type" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
       </el-form-item>
@@ -125,7 +111,7 @@ export default {
     };
   },
   computed: {},
-  async mounted() {},
+  async mounted() { },
   async created() {
     console.log("this.$route.query", this.$route.query);
     const { model_name, fid, mid, table_name } = this.$route.query;
@@ -207,4 +193,6 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+
+</style>

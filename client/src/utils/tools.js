@@ -25,7 +25,7 @@ export let addLabelValue = (arr) => {
 };
 
 // 无限极分类tree
-export let tree = (arr,pid=0,leval=1) => {
+export let tree = (arr, pid = 0, leval = 1) => {
   // const result = [];
   // const dataTable = {};
   // for (let i = 0; i < arr.length; i++) {
@@ -45,14 +45,14 @@ export let tree = (arr,pid=0,leval=1) => {
   // return result;
 
   let tmp = [];
-	arr.forEach((item,index)=>{
-		if(item.pid == pid){
-			item.leval = leval
-			item.children = tree(arr,item.id , leval + 1);
-			tmp.push(item);
-		}
-	})
-	return tmp;
+  arr.forEach((item, index) => {
+    if (item.pid == pid) {
+      item.leval = leval
+      item.children = tree(arr, item.id, leval + 1);
+      tmp.push(item);
+    }
+  })
+  return tmp;
 };
 
 //返回id父级所有栏目

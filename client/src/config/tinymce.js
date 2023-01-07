@@ -4,10 +4,10 @@ export let tinymceSet = {
     // 复用 图片上传 api 地址
     images_upload_url: '/api/upload',
     // 上传成功回调函数，return 图片地址。默认 response.location
-    custom_images_upload_callback: (res)=>{
-        if(res.code === 200){
+    custom_images_upload_callback: (res) => {
+        if (res.code === 200) {
             return res.data.path;
-          }
+        }
     },
     // 上传 api 请求头
     custom_images_upload_header: { 'X-Token': 'xxxx' },

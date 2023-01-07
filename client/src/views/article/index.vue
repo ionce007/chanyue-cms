@@ -4,38 +4,20 @@
       <el-row>
         <div class="mr-10">
           栏目筛选
-          <el-cascader
-            class="w-auto ml-5"
-            :show-all-levels="false"
-            v-model="categorySelected"
-            :options="category"
-            @change="handleChange"
-          ></el-cascader>
+          <el-cascader class="w-auto ml-5" :show-all-levels="false" v-model="categorySelected" :options="category"
+            @change="handleChange"></el-cascader>
         </div>
 
-        <el-input
-          class="mr-10 w-auto"
-          placeholder="请输入内容"
-          :suffix-icon="Search"
-          v-model="keywords"
-          clearable
-          @clear="clearSearch"
-        ></el-input>
+        <el-input class="mr-10 w-auto" placeholder="请输入内容" :suffix-icon="Search" v-model="keywords" clearable
+          @clear="clearSearch"></el-input>
         <el-button type="primary" @click="doSearch" round>搜索</el-button>
       </el-row>
     </el-col>
     <router-link class="c-fff add-btn" to="/article/add">新增</router-link>
   </el-row>
 
-  <el-table
-    ref="multipleTable"
-    :data="tableData"
-    tooltip-effect="dark"
-    row-key="id"
-    size="small"
-    @selection-change="handleSelectionChange"
-    v-loading="loading"
-  >
+  <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" row-key="id" size="small"
+    @selection-change="handleSelectionChange" v-loading="loading">
     <el-table-column type="selection"></el-table-column>
     <el-table-column prop="id" label="编号" width="60" fixed></el-table-column>
     <el-table-column prop="title" label="标题"></el-table-column>
@@ -47,11 +29,7 @@
       </el-table-column> -->
     <el-table-column prop="name" label="栏目" width="80"></el-table-column>
     <!-- <el-table-column prop="pv" label="浏览次数"></el-table-column> -->
-    <el-table-column
-      prop="updatedAt"
-      label="更新时间"
-      width="160"
-    ></el-table-column>
+    <el-table-column prop="updatedAt" label="更新时间" width="160"></el-table-column>
     <el-table-column prop="status" label="状态" width="60">
       <template #default="scope">{{
         scope.row.status == 0 ? "显示" : "隐藏"
@@ -59,17 +37,9 @@
     </el-table-column>
     <el-table-column fixed="right" label="操作" width="150">
       <template #default="scope">
-        <el-button
-          :icon="View"
-          circle
-          @click="handleClick(scope.row)"
-        ></el-button>
+        <el-button :icon="View" circle @click="handleClick(scope.row)"></el-button>
         <el-button :icon="Edit" circle @click="toEdit(scope.row)"></el-button>
-        <el-button
-          :icon="Delete"
-          circle
-          @click="handleDel(scope.row)"
-        ></el-button>
+        <el-button :icon="Delete" circle @click="handleDel(scope.row)"></el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -80,15 +50,8 @@
       批量操作：
       <el-button @click="delSome">删除</el-button>
     </div>
-    <el-pagination
-      background
-      layout="prev, pager, next"
-      @current-change="handleCurrentChange"
-      :pager-size="10"
-      :total="count"
-      v-model:currentPage="cur"
-      hide-on-single-page
-    ></el-pagination>
+    <el-pagination background layout="prev, pager, next" @current-change="handleCurrentChange" :pager-size="10"
+      :total="count" v-model:currentPage="cur" hide-on-single-page></el-pagination>
   </el-row>
 </template>
 
@@ -134,7 +97,7 @@ export default {
   watch: {
     $route(to, from) {
       console.log(to);
-      if(to.name=="article-index"){
+      if (to.name == "article-index") {
         let { cur, cid, keywords } = to.query;
         this.cur = +cur;
         this.cid = +cid;
@@ -153,7 +116,7 @@ export default {
     },
 
     doSearch() {
-    
+
       this.$router.replace({
         name: "article-index",
         query: { cur: this.cur, cid: this.cid, keywords: this.keywords },
@@ -226,7 +189,6 @@ export default {
       let ids = this.multipleSelection.map((item) => {
         return item.id;
       });
-      console.log("----->", ids.join(","));
       this.$confirm("此操作将永久删除, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -236,7 +198,7 @@ export default {
           let res = await del(ids.join(","));
           if (res.code === 200) {
             this.$message({
-              message: "文章删除成功 ^_^",
+              message: "删除成功 ^_^",
               type: "success",
             });
             this.search();
@@ -267,7 +229,9 @@ export default {
       }
     },
   },
-  onBeforeUnmount() {},
+  onBeforeUnmount() { },
 };
 </script>
-<style lang="less"></style>
+<style lang="less">
+
+</style>
