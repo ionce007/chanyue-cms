@@ -1,5 +1,3 @@
-
-
 const fs = require('fs');
 const path = require('path');
 const api = require('./api/index.js');
@@ -11,7 +9,7 @@ const router = express.Router();
 router.use('/', web);
 
 //接口
- router.use('/api', api);
+router.use('/api', api);
 
 //机器人抓取
 router.get('/robots.txt', function (req, res, next) {
@@ -28,7 +26,7 @@ router.use((req, res, next) => {
 router.use((err, req, res, next) => {
 	console.log('err-req------>', req.method, req.url);
 	console.log('err-info----->', err)
-	res.status(500).send('服务器貌似有些问题了'+ err.message);
+	res.status(500).send('服务器貌似有些问题了' + err.message);
 });
 
 module.exports = router;

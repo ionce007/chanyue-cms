@@ -54,19 +54,19 @@ router.get('/article/list', ArticleController.list);
 router.get('/article/tongji', ArticleController.tongji);
 router.get('/article/search', ArticleController.search);
 router.get('/article/detail', ArticleController.detail);
-router.get('/article/findField',  auth(), ArticleController.findField);
-router.post('/article/create',  auth(), ArticleController.create);
-router.get('/article/delete',  auth(), ArticleController.delete);
+router.get('/article/findField', auth(), ArticleController.findField);
+router.post('/article/create', auth(), ArticleController.create);
+router.get('/article/delete', auth(), ArticleController.delete);
 router.post('/article/update', auth(), ArticleController.update);
-router.post('/upload',auth(), upload.any(), ArticleController.upload);
+router.post('/upload', auth(), upload.any(), ArticleController.upload);
 
 // 页面管理
 router.get('/page/list', PageController.list);
 router.get('/page/search', PageController.search);
 router.get('/page/detail', PageController.detail);
-router.post('/page/create',  auth(), PageController.create);
-router.get('/page/delete',  auth(), PageController.delete);
-router.post('/page/update',  auth(), PageController.update);
+router.post('/page/create', auth(), PageController.create);
+router.get('/page/delete', auth(), PageController.delete);
+router.post('/page/update', auth(), PageController.update);
 
 // 模型管理
 router.get('/model/list', ModelController.list);
@@ -97,8 +97,8 @@ router.post('/tag/create', auth(), TagController.create);
 router.get('/tag/detail', TagController.detail);
 router.get('/tag/has', TagController.has);
 router.get('/tag/search', TagController.search);
-router.get('/tag/delete',  auth(), TagController.delete);
-router.post('/tag/update',  auth(), TagController.update);
+router.get('/tag/delete', auth(), TagController.delete);
+router.post('/tag/update', auth(), TagController.update);
 
 // 友情链接
 router.get('/friendlink/list', FriendlinkController.list);
@@ -111,9 +111,9 @@ router.post('/friendlink/update', auth(), FriendlinkController.update);
 router.get('/ad/list', AdController.list);
 router.get('/ad/search', AdController.search);
 router.get('/ad/detail', AdController.detail);
-router.post('/ad/create',  auth(), AdController.create);
-router.get('/ad/delete',  auth(), AdController.delete);
-router.post('/ad/update',  auth(), AdController.update);
+router.post('/ad/create', auth(), AdController.create);
+router.get('/ad/delete', auth(), AdController.delete);
+router.post('/ad/update', auth(), AdController.update);
 
 // 留言管理
 router.get('/message/list', MessageController.list);
@@ -122,6 +122,5 @@ router.get('/message/detail', MessageController.detail);
 router.post('/message/create', auth(), MessageController.create);
 router.get('/message/delete', auth(), MessageController.delete);
 router.post('/message/update', auth(), MessageController.update);
-
 
 module.exports = router;

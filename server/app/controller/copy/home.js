@@ -1,7 +1,7 @@
 'use strict';
 
 'use strict';
-const Controller = require('egg').Controller;
+
 class HomeController extends Controller {
 
   // 新闻列表页

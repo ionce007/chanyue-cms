@@ -58,7 +58,7 @@ class AdminService extends BaseService {
       // 查询个数
       const total = await knex(this.model).count('id', {as: 'count'});
       const offset = parseInt((cur - 1) * pageSize);
-      const list = await knex.select('*')
+      const list = await knex.select(['id','username','createdAt','updatedAt','status'])
         .from(this.model)
         .limit(pageSize)
         .offset(offset)
