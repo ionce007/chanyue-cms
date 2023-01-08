@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const upload = require('../../extend/upload.js');
 const AdminController = require('../../controller/api/admin.js');
 const ArticleController = require('../../controller/api/article.js');
 const SiteController = require('../../controller/api/site.js');
@@ -13,7 +12,7 @@ const TagController = require('../../controller/api/tag.js');
 const FriendlinkController = require('../../controller/api/friendlink.js');
 const AdController = require('../../controller/api/ad.js');
 const MessageController = require('../../controller/api/message.js');
-
+const upload = require('../../extend/upload.js');
 const auth = require('../../middleware/auth.js');
 
 // 验证码
