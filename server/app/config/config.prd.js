@@ -77,7 +77,7 @@ config.static = {
 
 // 日志
 config.logger = {
-    level: 'dev',
+    level: 'tiny',
 };
 
 // add your user config here
