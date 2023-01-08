@@ -1,5 +1,5 @@
 'use strict';
-const pc = require('../extend/helper.js');
+const { pc } = require('../extend/helper.js');
 module.exports = () => {
     return async (req, res, next) => {
         const userAgent = req.headers['user-agent'];
@@ -9,6 +9,7 @@ module.exports = () => {
         } else {
             res.locals.views = 'pc';
         }
+       
         await next();
     }
 };

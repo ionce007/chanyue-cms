@@ -1,4 +1,6 @@
 'use strict';
+const knex = require('../../../config/config.knex.js');
+
 const BaseService = require('./base');
 
 class HomeService extends BaseService {
