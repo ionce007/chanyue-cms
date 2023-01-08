@@ -281,6 +281,7 @@ class ArticleService extends BaseService {
   async count(id) {
     try {
       const result = await knex.raw(`UPDATE article SET pv=pv+1 WHERE id=${id} LIMIT 1`, [id]);
+      console.log('2222222222222222222--->',result)
       return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
@@ -291,7 +292,7 @@ class ArticleService extends BaseService {
   async pre(id, cid) {
     try {
       const result = await knex.raw(`SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id  WHERE a.id<? AND a.cid=? ORDER BY id DESC LIMIT 1`, [id, cid]);
-      return result[0];
+      return result[0][0];
     } catch (error) {
       console.error(error)
     }
@@ -301,7 +302,7 @@ class ArticleService extends BaseService {
   async next(id, cid) {
     try {
       const result = await knex.raw(`SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id WHERE a.id>? AND a.cid=? LIMIT 1`, [id, cid]);
-      return result[0];
+      return result[0][0];
     } catch (error) {
       console.error(error)
     }

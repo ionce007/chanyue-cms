@@ -27,5 +27,5 @@ export let tinymceSet = {
     // 以中文简体为例
     language: 'zh-Hans',
     language_url:
-        '/tinymce/zh-Hans.js',
+        '/public/admin/tinymce/zh-Hans.js',
 }

@@ -11,7 +11,7 @@
         </el-form-item>
 
         <el-form-item label="文章内容">
-          <vue3-tinymce v-model="params.content" :setting="setting" script-src="/tinymce/tinymce.min.js" />
+          <vue3-tinymce v-model="params.content" :setting="setting" script-src="/public/admin/tinymce/tinymce.min.js" />
         </el-form-item>
 
         <el-form-item label="发布时间">

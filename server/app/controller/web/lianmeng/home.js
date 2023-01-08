@@ -152,6 +152,7 @@ class HomeController {
 
       // 大健康运动会
       const sports = await HomeService.list(4, 1);
+      console.log('11111111111111',sports)
       sports.list.forEach(item => {
         item.createdAt = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss');
       });

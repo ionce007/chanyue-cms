@@ -71,7 +71,7 @@ class HomeService extends BaseService {
         result = await knex.raw(sql, [ids]);
       }
       // 提交事务
-      return { category: category[0], list: result[0] };
+      return { category: category[0][0], list: result[0] };
     } catch (err) {
       console.error(err);
     }
