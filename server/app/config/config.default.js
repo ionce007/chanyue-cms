@@ -81,7 +81,7 @@ config.logger = {
 };
 
 // add your user config here
-config.template = 'qigong';
+config.template = 'lianmeng';
 config.apiService = 'api';
 
 module.exports = config;

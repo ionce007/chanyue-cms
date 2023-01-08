@@ -1,17 +1,16 @@
 'use strict';
 const dayjs = require('dayjs');
-const {template} = require('../../../config/config.js');
+const { template } = require('../../../config/config.js');
 const HomeService = require(`../../../service/web/${template}/home.js`);
-const {getChildrenId,treeById} = require('../../../extend/helper.js');
+const { getChildrenId, treeById } = require('../../../extend/helper.js');
 const ArticleService = require('../../../service/api/article.js');
 const PageService = require('../../../service/api/page.js');
 
-class HomeController{
+class HomeController {
 
   // 首页
-  async index(req,res,next) {
+  async index(req, res, next) {
     try {
-      
 
       // 广告
       let ad = await HomeService.ad(1, 1);
@@ -158,15 +157,15 @@ class HomeController{
       const yujia = _yj.list;
 
       // 加入缓存？
-      res.render(`web/${template}/index.html`,{ slide, top, topList, ad, news, xueshu, tiyu, yixue, ys, ya, sh, rw, sj, jp, hot, chunsheng, taiji, yujia });
-    
+      res.render(`web/${template}/index.html`, { slide, top, topList, ad, news, xueshu, tiyu, yixue, ys, ya, sh, rw, sj, jp, hot, chunsheng, taiji, yujia });
+
     } catch (error) {
       console.error(error)
     }
   }
 
   // 列表页
-  async list(req,res,next) {
+  async list(req, res, next) {
     try {
       const { cate, current, cid } = req.params;
       const currentPage = current || 1;
@@ -213,7 +212,7 @@ class HomeController{
   }
 
   // 详情页
-  async article(req,res,next) {
+  async article(req, res, next) {
     try {
       const id = req.params.id.replace('.html', '');
 
@@ -221,14 +220,14 @@ class HomeController{
         res.redirect('/');
         return;
       }
-      
+
       // 文章列表
       const article = await ArticleService.detail(id);
       if (!article) {
         res.redirect('/');
         return;
       }
-      
+
       // 栏目id
       const cid = article.cid || '';
 
@@ -237,14 +236,14 @@ class HomeController{
 
       // 广告
       let ad = await HomeService.ad(1, 3);
-      if(ad){
+      if (ad) {
         const obj = {};
         ad.forEach(item => {
           obj[item.mark] = item;
         });
         ad = obj;
       }
-     
+
       // 当前栏目和当前栏目下所有子导航
       const navSub = getChildrenId(cid, res.locals.category);
 
@@ -277,7 +276,7 @@ class HomeController{
   }
 
   // 单页
-  async page(req,res,next) {
+  async page(req, res, next) {
     try {
       const id = req.params.id;
       if (!id) {
@@ -315,22 +314,22 @@ class HomeController{
 
 
   // 搜索页
-  async search(req,res,next) {
+  async search(req, res, next) {
     try {
-     
+
       const page = req.params.id || 1;
       const keywords = req.params.keywords;
       const pageSize = 10;
 
       // 广告
       let ad = await HomeService.ad(1, 3);
-      if(ad.length>0){
-      const obj = {};
-      ad.forEach(item => {
-        obj[item.mark] = item;
-      });
-      ad = obj;
-    }
+      if (ad.length > 0) {
+        const obj = {};
+        ad.forEach(item => {
+          obj[item.mark] = item;
+        });
+        ad = obj;
+      }
 
       // 文章列表
       const list = await ArticleService.search(keywords, page, pageSize);
@@ -343,7 +342,6 @@ class HomeController{
       console.error(error);
     }
   }
-
 
 }
 

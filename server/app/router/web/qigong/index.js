@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const init = require('../../middleware/init.js');
-const { template } = require('../../config/config.js');
-const HomeController = require(`../../controller/web/${template}/home.js`);
+const init = require('../../../middleware/init.js');
+const { template } = require('../../../config/config.js');
+const HomeController = require(`../../../controller/web/${template}/home.js`);
 
 // 首页模板
 router.get('/', init(), HomeController.index);

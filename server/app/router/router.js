@@ -1,9 +1,11 @@
 const fs = require('fs');
 const path = require('path');
-const api = require('./api/index.js');
-const web = require(`./web/index.js`);
 const express = require('express');
 const router = express.Router();
+
+const { template } = require('../config/config.js');
+const api = require('./api/index.js');
+const web = require(`./web/${template}/index.js`);
 
 //前台
 router.use('/', web);
