@@ -1,6 +1,6 @@
 const { tree } = require('../extend/helper.js');
 const {template} = require('../config/config.js');
-const HomeService = require(`../service/${template}/home.js`);
+const HomeService = require(`../service/web/${template}/home.js`);
 const SiteService = require('../service/api/site.js');
 const FriendlinkService = require('../service/api/friendlink');
 

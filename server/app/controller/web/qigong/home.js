@@ -1,7 +1,7 @@
 'use strict';
 const dayjs = require('dayjs');
 const {template} = require('../../../config/config.js');
-const HomeService = require(`../../../service/${template}/home.js`);
+const HomeService = require(`../../../service/web/${template}/home.js`);
 const {getChildrenId,treeById} = require('../../../extend/helper.js');
 const ArticleService = require('../../../service/api/article.js');
 const PageService = require('../../../service/api/page.js');

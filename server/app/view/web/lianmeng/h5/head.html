@@ -1,0 +1,54 @@
+<!-- header -->
+<header class="flex flex-c space-c pt-9 pb-12">
+    <h1 class="logo"><a class="logo" href="/"> 世界大健康运动联盟</a></h1>
+</header>
+
+<!-- 导航 -->
+<nav class="nav bg-3485d1 pd-10">
+    <!-- <ul class="flex flex-wrap ">
+        <%for(let i=0,item;i<nav.length;i++){%>
+        <%item=nav[i];%>
+        <%if(item.status==0){%>
+        <li>
+
+            <%if(item.type==1){%>
+            <a href="/page/<%=item.id%>" title="<%=item.name%>"><%=item.name%></a>
+            <%}else{%>
+            <a href="/list/<%=item.id%>?page=1" title="<%=item.name%>"><%=item.name%></a>
+            <%}%>
+                
+
+                <%if(item.children){%>
+            <ul>
+                <%for(let j=0,sub;j<item.children.length;j++){%>
+                <%sub=item.children[j];%>
+                <%if(sub.status==0){%>
+                <li>
+                    <%if(sub.type==1){%>
+                    <a href="/page/<%=sub.id%>" title="<%=sub.name%>"><%=sub.name%></a>
+                    <%}else{%>
+                    <a href="/list/<%=sub.id%>?page=1" title="<%=sub.name%>"><%=sub.name%></a>
+                    <%}%>
+                    </li>
+                    <%}%>
+                    <%}%>
+                </ul>
+                <%}%>
+                </li>
+                <%}%>
+            <%}%>
+
+            </ul> -->
+
+    <ul class="flex flex-wrap">
+        <li><a href="/page/1" title="联盟简介">联盟简介</a></li>
+        <li><a href="/list/2?page=1" title="新闻动态">新闻动态</a></li>
+        <li><a href="/list/3?page=1" title="论坛">论&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;坛</a></li>
+        <li><a href="/list/4?page=1" title="运动会">运&nbsp;动&nbsp;会</a></li>
+        <li><a href="/list/5?page=1" title="博览会">博&nbsp;览&nbsp;会</a></li>
+        <li><a href="/list/13?page=1" title="加盟合作">加盟合作</a></li>
+        <li><a href="/list/14?page=1" title="资料下载">资料下载</a></li>
+        <li><a href="/list/16?page=1" title="支持单位">支持单位</a></li>
+        <li><a href="/search?keywords=世界大健康运动会护照" title="护照">护&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;照</a></li>
+    </ul>
+</nav>

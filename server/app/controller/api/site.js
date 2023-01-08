@@ -15,7 +15,7 @@ class SiteController extends BaseController {
   async find(req, res, next) {
     try {
       const data = await SiteService.find();
-      res.json({ ...success, data: data[0] })
+      res.json({ ...success, data: data })
     } catch (error) {
       next(error);
     }

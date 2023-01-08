@@ -1,0 +1,401 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<%- include('meta.html') %>
+	<meta name="keywords" content="<%=site.keywords%>" />
+	<meta name="description" content="<%=site.description%>" />
+	<link rel="stylesheet" type="text/css" href="<%=base_url%>/pc/css/mkui.css" />
+	<link rel="stylesheet" type="text/css" href="<%=base_url%>/pc/css/index.css?v=1" />
+	<link href="https://cdn.bootcss.com/Swiper/4.3.0/css/swiper.min.css" rel="stylesheet">
+	<title><%=site.name%></title>
+</head>
+
+<body>
+
+	<%- include('head.html') %>
+
+	<!-- 内容 -->
+	<main>
+
+		<!-- banner -->
+		<div class="center pt-22 mb-25">
+			<a href="<%=ad.banner.link%>">
+				<img src="<%=ad.banner.imgUrl%>" lazyload="on" alt="<%=ad.banner.title%>" />
+			</a>
+		</div>
+
+		<!-- 新闻模块 -->
+		<div class="center pt-26">
+
+			<div class="flex flex-between">
+				<!-- 轮播图 推荐 -->
+				<div class="swiper bg-fff overflow-h">
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+
+							<%for(let i=0,item;i<swiper.length;i++){%>
+							<%item = swiper[i]%>
+							<div class="swiper-slide">
+								<a href="/article/<%=item.id%>" title="<%=item.title%>">
+									<img class="w-p100" lazyload="on" src="<%=item.img%>" alt="<%=item.title%>">
+								</a>
+								<h3 class="swiper-title">
+									<a href="/article/<%=item.id%>" title="<%=item.title%>">
+										<%=item.title%>
+									</a>
+								</h3>
+							</div>
+							<%}%>
+						</div>
+						<!-- 如果需要导航按钮 -->
+						<div class="swiper-button-prev"></div>
+						<div class="swiper-button-next"></div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+
+				<!-- 新闻动态 -->
+				<div class="news">
+					<h3 class="title f-26">
+						<a class="pos-r c-333" href="/list/<%=news.category.id%>"><%=news.category.name%></a>
+							<span class="c-999 small ml-10 f-16">News</span>
+							</h3>
+							<div>
+								<!-- 头条 -->
+								<ul class="news-cont pt-6 pb-6">
+									<%news.list.forEach(item=>{%>
+									<li class="flex mt-16">
+										<div class="flex flex-dir-r news-time">
+											<span
+												class="f-30 c-999 bold text-c day mt-2"><%=item.createdAt.slice(8,10)%></span>
+											<time
+												class="f-12 c-333 bold mt-6 pr-6 year"><%=item.createdAt.slice(0,7)%></time>
+										</div>
+										<div class="pl-12 flex-1">
+											<h4 class="f-18 c-333 bold">
+												<a href="/article/<%=item.id%>"><%=item.title%></a>
+											</h4>
+											<p class="f-12 flex c-666 mt-3">
+												<span class="ellips-1 flex-1"><%-item.description%>...</span>
+												<a class="f-14 ml-5 c-3e93cf" href="/article/<%=item.id%>">[详情]</a>
+											</p>
+										</div>
+									</li>
+									<%})%>
+								</ul>
+
+								<!-- 最新 -->
+								<ul class="new-footer mt-15">
+									<%news.new.forEach(item=>{%>
+									<li class="f-14 pl-15 mb-10">
+										<a class="c-333" href="/article/<%=item.id%>"><%=item.title%></a>
+									</li>
+									<%})%>
+								</ul>
+							</div>
+						</div>
+					</div>
+					
+					<!-- 钱学森 -->
+					<div class="mt-20">
+    					<a href="http://www.hongkongdaily.net/zhuanti/qianxuesen/index.html">
+    					    <img src="http://www.hongkongdaily.net/zhuanti/qianxuesen/img/qianxuesen-banner-small.jpg?v=20220207" alt="钱学森" width="100%">
+    					</a>
+					</div>
+
+					<!-- 世联盟论坛 -->
+					<div class="flex mt-20 flex-between">
+						<div class="w-580">
+							<h3 class="title f-26">
+								<a class="pos-r c-333" href="/list/<%=forum.category.id%>"><%=forum.category.name%></a>
+								<span class="c-999 small ml-10 f-16">News</span>
+								<a href="/list/<%=forum.category.id%>" class="more">更多</a>
+							</h3>
+							<div>
+								<ul class="pt-8 pb-8">
+									<%forum.list.forEach(item=>{%>
+									<li class="f-14 mt-12"><a class="c-333"
+											href="/article/<%=item.id%>"><%=item.title%></a></li>
+									<%})%>
+								</ul>
+							</div>
+						</div>
+						<div class="w-580 video">
+							<a href="<%=ad.video.link%>">
+								<img class="w-p100" lazyload="on" src="<%=ad.video.imgUrl%>"
+									alt="<%=ad.video.title%>" />
+							</a>
+						</div>
+					</div>
+					
+					<!-- 吴绍祖 -->
+					<div class="mt-20">
+					<a href="//www.hongkongdaily.net/zhuanti/wushaozu/index.html" target="_blank"> 
+					    <img src="http://www.hongkongdaily.net/zhuanti/wushaozu/img/ad-2021.jpg?v=20220207" width="100%">
+					</a>
+					</div>
+
+					<!-- 博览会 博览会 -->
+					<div class="flex mt-20 flex-between">
+						<div class="w-580 h-495 flex">
+							<div class="tiyuju">
+								<a href="/article/223" title="2014年会议体育总局作为支持单位复函">
+									<img src="/public/uploads/lianmeng/hexin/tiyuju.png" alt="国家体育总局贺信">
+								</a>
+							</div>
+							<div class="hujintao">
+								<a href="/article/222" title="胡锦涛主席的贺电、温家宝总理的贺信">
+									<img src="/public/uploads/lianmeng/2020/02/14/1581679928539614.jpg" alt="胡锦涛主席的贺电、温家宝总理的贺信">
+								</a>
+							</div>
+						</div>
+						<div class="w-580">
+							<h3 class="title f-26 mt-20">
+								<a class="pos-r c-333" href="/list/<%=fair.category.id%>"><%=fair.category.name%></a>
+								<span class="c-999 small ml-10 f-16">News</span>
+								<a href="/list/<%=fair.category.id%>" class="more">更多</a>
+							</h3>
+							<div>
+								<ul class="pt-8 pb-8">
+									<%fair.list.forEach(item=>{%>
+									<li class="f-14 mt-12"><a class="c-333"
+											href="/article/<%=item.id%>"><%=item.title%></a></li>
+									<%})%>
+								</ul>
+							</div>
+
+							<h3 class="title f-26 mt-20">
+								<a class="pos-r c-333"
+									href="/list/<%=learning.category.id%>"><%=learning.category.name%></a>
+								<span class="c-999 small ml-10 f-16">News</span>
+								<a href="/list/<%=learning.category.id%>" class="more">更多</a>
+							</h3>
+							<div>
+								<ul class="pt-8 pb-8">
+									<%learning.list.forEach(item=>{%>
+									<li class="f-14 mt-12"><a class="c-333"
+											href="/article/<%=item.id%>"><%=item.title%></a></li>
+									<%})%>
+								</ul>
+							</div>
+						</div>
+					</div>
+					
+					
+					<!-- 冯理达 -->
+					<div class="mt-20">
+    					<a href="http://www.hongkongdaily.net/zhuanti/fenglida/index.html">
+    					    <img src="http://www.hongkongdaily.net/zhuanti/fenglida/img/banner.jpg?v=20220207" alt="冯理达" width="100%">
+    					 </a>
+					</div>
+
+					<!-- 运动会 -->
+					<div class="mt-20">
+						<h3 class="title w-p100 f-26">
+							<a class="pos-r c-333" href="/list/<%=sports.category.id%>"><%=sports.category.name%></a>
+							<span class="c-999 small ml-10 f-16">News</span>
+							<a href="/list/<%=sports.category.id%>" class="more">更多</a>
+						</h3>
+						<!-- <ul class="flex flex-wrap space-b pt-10">
+							<%sports.list.forEach(item=>{%>
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/<%=item.id%>">
+									<img src="<%=item.img%>" lazyload="on" class="w-p100" alt="<%=item.title%>">
+								</a>
+							</li>
+							<%})%>
+						</ul> -->
+						<ul class="flex flex-wrap space-b pt-10">
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/148">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582085179157419.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2018中国澳门会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/148">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582085104031504.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2018中国澳门会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/148">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582085246720864.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2018中国澳门会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/148">
+									<img src="/public/uploads/lianmeng/2020/04/08/1586353916349936.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2018中国澳门会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/144">
+									<img src="/public/uploads/lianmeng/2020/04/08/1586354016227488.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2018中国澳门会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/143">
+									<img src="/public/uploads/lianmeng/2020/04/08/1586354211622885.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2018中国澳门会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/142">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582084511391102.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2014俄罗斯莫斯科会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/140">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582084408298827.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2014俄罗斯莫斯科会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/138">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582084293802467.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2014俄罗斯莫斯科会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/137">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582084087949680.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2013中国通化会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/134">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582083888890986.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2011中国济南会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/133">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582083752254781.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2010中国北京会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/132">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582083630986178.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2010中国北京会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/131">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582083519783908.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2010中国北京会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/129">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582082728551674.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2009年上海会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/126">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582082258604510.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2008中国北京会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/123">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582081675248842.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2007中国北京会议">
+								</a>
+							</li>
+
+							<li class="mt-5 col-4 pd-10">
+								<a href="/article/118">
+									<img src="/public/uploads/lianmeng/2020/02/19/1582079626454691.jpg" lazyload="on"
+										class="w-p100 h-118" alt="2006泰国曼谷会议">
+								</a>
+							</li>
+
+						</ul>
+					</div>
+
+					<!-- 历届会议 -->
+					<div class="mt-20">
+						<h3 class="title w-p100 f-26">
+							<a class="pos-r c-333" href="/list/15">历届会议</a>
+							<span class="c-999 small ml-10 f-16">News</span>
+							<a href="/list/15" class="more">更多</a>
+						</h3>
+						<div class="hy">
+							<ul class="flex f-16 flex-wrap">
+								<li class="col-8"><a class="c-3e93cf bold" href="/article/175">2006泰国曼谷会议</a></li>
+								<li class="col-8"><a class="c-3e93cf bold" href="/article/176">2007中国北京会议</a></li>
+								<li class="col-8"><a class="c-3e93cf bold" href="/article/177">2008中国北京会议</a></li>
+								<li class="col-8"><a class="c-3e93cf bold" href="/article/180">2009中国上海会议</a></li>
+								<li class="col-8"><a class="c-3e93cf bold" href="/article/181">2010中国北京会议</a></li>
+								<li class="col-8"><a class="c-3e93cf bold" href="/article/184">2011中国济南会议</a></li>
+								<li class="col-8"><a class="c-3e93cf bold" href="/article/137">2013中国通化会议</a></li>
+								<li class="col-8"><a class="c-3e93cf bold" href="/article/188">2014俄罗斯莫斯科会议</a></li>
+								<li class="col-8"><a class="c-3e93cf bold" href="/article/192">2015韩国大邱会议</a></li>
+								<li class="col-8"><a class="c-3e93cf bold" href="/article/194">2016韩国大邱会议</a></li>
+								<li class="col-8"><a class="c-3e93cf bold" href="/article/200">2018中国澳门会议</a></li>
+								<li class="col-8"><a class="c-3e93cf bold" href="/article/204">2019日本神户会议</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- 媒体合作 -->
+					<div class="bg-f8f8f8 mt-20 pd-20">
+						<%- include('mt.html') %>
+					</div>
+
+
+					<!-- 友情链接 -->
+					<div class="pd-20 bg-f3f3f3">
+						<%- include('link.html') %>
+					</div>
+				</div>
+
+	</main>
+
+	<!-- footer -->
+	<%- include('footer.html') %>
+
+	<script src="http://cdn.bootcss.com/Swiper/4.3.0/js/swiper.min.js"></script>
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+	<script src="<%=base_url%>/pc/js/search.js"></script>
+	<script>
+		console.log('<%-JSON.stringify(site)%>')
+		var mySwiper = new Swiper('.swiper-container', {
+			loop: true,
+			autoplay: true,
+			pagination: {
+				el: '.swiper-pagination',
+			},
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			}
+		});
+	</script>
+</body>
+
+</html>
