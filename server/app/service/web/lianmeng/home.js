@@ -38,7 +38,7 @@ class HomeService extends BaseService {
     try {
       const imgStr = `SELECT id,cid,title,short_title,img FROM article where attr LIKE \'%?%\' AND img!=\'\' ORDER BY createdAt DESC LIMIT 0,5`;
       const swiper = await knex.raw(imgStr,[attr]);
-      return swiper;
+      return swiper[0];
     } catch (err) {
       console.error(err);
     }

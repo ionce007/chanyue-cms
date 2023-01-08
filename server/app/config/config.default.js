@@ -17,7 +17,7 @@ config.mysql = {
     port: '3306',
     user: 'root',
     password: 'root',
-    database: 'qigong'
+    database: 'lianmeng'
 };
 
 config.token = {
@@ -81,7 +81,7 @@ config.logger = {
 };
 
 // add your user config here
-config.template = 'qigong';
+config.template = 'lianmeng';
 config.apiService = 'api';
 
 module.exports = config;

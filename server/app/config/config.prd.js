@@ -9,15 +9,15 @@ config.appRoot = path.join(__dirname, '../');
 
 // cookie sign key
 config.keys = 'chanyue-cms_202301032044';
-config.port = '81';
+config.port = '7004';
 
 // add mysql config
 config.mysql = {
     host: 'localhost',
     port: '3306',
-    user: 'shijieqigong',
+    user: 'dalianmeng',
     password: '@yanyutao2023',
-    database: 'shijieqigong'
+    database: 'dalianmeng'
 };
 
 config.token = {
