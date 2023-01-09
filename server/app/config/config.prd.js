@@ -80,6 +80,9 @@ config.logger = {
     level: 'tiny',
 };
 
+//sql debug
+config.debug = false;
+
 // add your user config here
 config.template = 'lianmeng';
 config.apiService = 'api';
