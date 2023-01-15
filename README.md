@@ -110,6 +110,7 @@
 
 
 ## ❤️项目关注     
-码云：   https://gitee.com/yanyutao0402/chanyue-cms
-github: https://github.com/yanyutao/chanyue-cms
+* 码云：   https://gitee.com/yanyutao0402/chanyue-cms
+* github: https://github.com/yanyutao/chanyue-cms
+
 **走过路过的老铁,帮忙点个小 ⭐⭐⭐⭐⭐,🤝🤝🤝🤝🤝,🙏🙏🙏🙏🙏**
