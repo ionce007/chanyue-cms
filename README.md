@@ -1,9 +1,9 @@
-# <center>禅悦内容管理系统介绍（`chanyue-cms`）</center> 
+# 💒<center>禅悦内容管理系统介绍（`chanyue-cms`）</center> 
 ------
  禅悦内容管理系统，基于`nodejs` `express` `mysql` `knex` `jwt` `vue3` 进行开发的一套实用轻量cms系统。常用企业网站，图片网站，新闻资讯，软件下载网站，博客，文章等诸多类型网站开发，也适用于前端二次开发。
 
 
-## 系统特色
+## 🌈系统特色
 
 * 轻量
 * 稳定
@@ -14,7 +14,7 @@
 * 长期维护更新，不是`KPI`项目
 
 
-## 软件架构
+## ⛱️软件架构
 
 后台管理client技术栈
 
@@ -36,7 +36,7 @@
 * pm2 (prd)
 * nodemon (dev)
   
-## 功能介绍
+## 🚧功能介绍
 
 * 站点信息
 * 管理员登模块
@@ -50,7 +50,7 @@
 * 友情链接模块
 * 在线留言模块
 
-### 案例
+### 🍅️案例
 
 
 [世界气功网](http://www.shijieqigong.com/) `http://www.shijieqigong.com/`
@@ -59,7 +59,7 @@
 
 
 
-## 本地开发运行
+## ⚡ 👈本地开发运行
 
 * 1 导入数据库文件 
     ```
@@ -96,7 +96,7 @@
     
 
 
-## linux服务器部署
+## 🕊 linux服务器部署
 
 * 1 安装`BT`运维管理工具
 * 2 安装 `nginx` `mysql5.6`  `pm2`管理器 
@@ -109,6 +109,7 @@
 * 6 配置`https`
 
 
-## 项目关注
+## ❤️项目关注     
 码云：   https://gitee.com/yanyutao0402/chanyue-cms
 github: https://github.com/yanyutao/chanyue-cms
+**走过路过的老铁,帮忙点个小 ⭐⭐⭐⭐⭐,🤝🤝🤝🤝🤝,🙏🙏🙏🙏🙏**
