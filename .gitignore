@@ -27,3 +27,12 @@ package-lock.json
 
 /server/app/public/upload
 /server/app/model
+/server/app/controller/user
+/server/app/controller/web/lianmeng
+/server/app/controller/web/default
+/server/app/controller/copy
+/server/app/router/web/lianmeng
+/server/app/service/copy
+/server/app/service/web/lianmeng
+/server/app/view/user
+/server/app/view/web/lianmeng
