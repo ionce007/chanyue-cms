@@ -26,3 +26,4 @@ package-lock.json
 /server/app/public/uploads/
 
 /server/app/public/upload
+/server/app/model

@@ -15,7 +15,7 @@ router.use('/api', api);
 
 //机器人抓取
 router.get('/robots.txt', function (req, res, next) {
-	let stream = fs.createReadStream(path.join(__dirname, './app/public/robots.txt'), { flags: 'r' });
+	let stream = fs.createReadStream(path.join(__dirname, '../public/robots.txt'), { flags: 'r' });
 	stream.pipe(res);
 });
 
