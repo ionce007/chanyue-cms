@@ -1,19 +1,9 @@
-﻿sequelize
-moment
-http-errors"
-\ "node-uuid": "^1.4.8"
+﻿node-uuid": "^1.4.8"
+shortid，url友好的unique id
 nvm node版本管理
 cheerio，jQuery核心选择器的实现，可跑在server端，类似jsdom，但比jsdom轻量很多
-shortid，url友好的unique id
-log4js/morgan，日志记录，稳健的系统离不开日志记录
-moment/dayjs，强大的日期处理库
-node-inspector node调试
-node-dev 自动重启
-deepmerge: js对象深度合并
 superagent：类似request，使用风格跟jQuery神似。
 mobile-agent: 判断是手机浏览器的访问还是pc端的访问，对做web很有用哦
-body-parser 解析http请求
-compression 压缩http响应
 cookie-parser 解析cookie
 cors 处理跨域资源请求
 
@@ -40,23 +30,6 @@ xss
 
 var compression = require('compression');
 app.use(compression());
-
-2.输入数据库字符串过滤
-3.表单发送send字段
-5.开启后台用户名密码 转为cookie 减少服务器压力
-6.会员注册手机号判断
-7.全站所有提示 
-8.网站无限极栏目 当前位置和文章只支持2级 需要支持无限极
-9.最近登录的6会员
-10.栏目 换成category
-11.所有的需要判断id是否存在
-12 后台的增删改查成功之后跳转到page处理
-
-
-### 错误处理
-res.status(500).json({
-    error:err.message
-})
 
 公告管理
 
@@ -398,11 +371,6 @@ npm install --save vhost
 跨站请求伪造
 npm install --save csurf 
 express-validator
-
-
-
-
-
 
 
 //记录日志 不区分路由和方法，全局匹配 中间件顺序很重要
