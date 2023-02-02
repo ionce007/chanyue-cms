@@ -135,8 +135,8 @@ async list(cur = 1, pageSize = 10) {
   // 增加计数器
   async count(id) {
     try {
-      const result = await knex.raw(`UPDATE page SET pv=pv+1 WHERE id=${id} LIMIT 1`, [id]);
-      return result ? 'success' : 'fail';
+      const result = await knex.raw(`UPDATE page SET pv=pv+1 WHERE id=? LIMIT 1`, [id]);
+      return result[0].affectedRows ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
     }

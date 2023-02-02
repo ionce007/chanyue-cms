@@ -1,4 +1,56 @@
-﻿node-uuid": "^1.4.8"
+﻿
+
+安装pm2-logrotate
+pm2 install pm2-logrotate
+
+查看详细配置
+pm2 conf pm2-logrotate
+
+// 每个文件最大存储   注：10G  10M  10K
+$ pm2 set pm2-logrotate:max_size 10M
+
+// retain：保留的日志文件个数，比如设置为30，那么在日志文件达到30个后就会将最早的日志文件删除
+$ pm2 set pm2-logrotate:retain 30
+
+// 是否通过gzip压缩日志
+$ pm2 set pm2-logrotate:compress false
+
+// dateFormat 日志文件名的日期格式。如设置的日志名为out.log，就会生成out-YYYY-MM-DD_HH-mm-ss.log 的日志文件
+$ pm2 set pm2-logrotate:dateFormat YYYY-MM-DD_HH-mm-ss
+
+// 检查日志大小的时间间隔，最小为1
+$ pm2 set pm2-logrotate:workerInterval 30
+
+// 设置强制分割，默认值是0 0 * * *，意思是每天晚上0点分割
+$ pm2 set pm2-logrotate:rotateInterval 0 0 * * *
+    
+// rotateModule 是否把pm2本身的日志也进行分割    
+$ pm2 set pm2-logrotate:rotateModule true
+
+使用pm2 list查看到pm2-logrotate 进程id为0 ，执行pm2 stop 0即可停止服务
+
+
+修改之后需要重启
+pm2 restart all
+设置PM2开机自启动
+#配置pm2服务开机启动。
+pm2 startup 
+#保存当前pm2 list中各应用服务状态
+pm2 save
+
+
+
+配合pm2-web实现监控可视化
+pm2-web --config pm2-web-config.json
+{
+  "www": {
+      "host": "localhost",
+      "address": "0.0.0.0",
+      "port": 6688
+  }                         
+}
+
+node-uuid": "^1.4.8"
 shortid，url友好的unique id
 nvm node版本管理
 cheerio，jQuery核心选择器的实现，可跑在server端，类似jsdom，但比jsdom轻量很多
@@ -6,6 +58,8 @@ superagent：类似request，使用风格跟jQuery神似。
 mobile-agent: 判断是手机浏览器的访问还是pc端的访问，对做web很有用哦
 cookie-parser 解析cookie
 cors 处理跨域资源请求
+
+
 
 // orm
 npm install mysql
@@ -380,3 +434,15 @@ express-validator
 // 	//交出执行权，继续往后匹配执行
 // 	next()
 // })
+
+<div m-2 rounded text-teal-400 />
+
+<button 
+  bg="blue-400 hover:blue-500 dark:blue-500 dark:hover:blue-600"
+  text="sm white"
+  font="mono light"
+  p="y-2 x-4"
+  border="2 rounded blue-200"
+>
+  Button
+</button>
