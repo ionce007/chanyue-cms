@@ -5,6 +5,7 @@ const router = express.Router();
 
 const { template } = require('../config/config.js');
 const api = require('./api/index.js');
+const weixin = require('./weixin/index.js');
 const web = require(`./web/${template}/index.js`);
 
 //前台
@@ -12,6 +13,9 @@ router.use('/', web);
 
 //接口
 router.use('/api', api);
+
+//小程序
+router.use('/weixin', weixin);
 
 //机器人抓取
 router.get('/robots.txt', function (req, res, next) {
