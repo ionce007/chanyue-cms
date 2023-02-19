@@ -6,7 +6,6 @@ class CategoryController extends BaseController {
 
   constructor(props) {
     super(props);
-    this.model = 'category';
   }
   // 增
   static async create(req, res, next) {

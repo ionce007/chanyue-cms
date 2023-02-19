@@ -10,7 +10,6 @@ class MessageController extends BaseController {
 
   constructor(props) {
     super(props);
-    this.model = 'message';
   }
 
   // 增

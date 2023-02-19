@@ -14,7 +14,6 @@ class PageController extends BaseController {
 
   constructor(props) {
     super(props);
-    this.model = 'page';
   }
 
   // 增

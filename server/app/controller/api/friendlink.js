@@ -9,7 +9,6 @@ class FriendlinkController extends BaseController {
 
   constructor(props) {
     super(props);
-    this.model = 'friendlink';
   }
 
   // 增

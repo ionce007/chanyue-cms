@@ -12,7 +12,6 @@ class AdminController extends BaseController {
 
   constructor(props) {
     super(props);
-    this.model = 'admin';
   }
 
   // 登录

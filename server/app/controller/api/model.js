@@ -11,7 +11,6 @@ class ModelController extends BaseController {
 
   constructor(props) {
     super(props);
-    this.model = 'model';
   }
 
   // 增

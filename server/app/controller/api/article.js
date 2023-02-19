@@ -9,7 +9,6 @@ class ArticleController extends BaseController {
 
   constructor(props) {
     super(props);
-    this.model = 'article';
   }
 
   // 增

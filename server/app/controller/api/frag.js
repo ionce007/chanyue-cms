@@ -11,7 +11,6 @@ class FragController extends BaseController {
 
   constructor(props) {
     super(props);
-    this.model = 'frag';
   }
 
   // 增

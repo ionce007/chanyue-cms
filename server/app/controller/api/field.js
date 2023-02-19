@@ -10,7 +10,6 @@ class FieldController extends BaseController {
 
   constructor(props) {
     super(props);
-    this.model = 'field';
   }
 
   // 增

@@ -8,7 +8,6 @@ const SiteService = require('../../service/api/site.js');
 class SiteController extends BaseController {
   constructor(props) {
     super(props);
-    this.model = 'site';
   }
 
   // 查
