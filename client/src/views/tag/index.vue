@@ -1,15 +1,27 @@
 <template>
   <el-row type="flex" justify="space-between">
     <el-col :span="18">
-      <el-input class="mr-10 w-auto" placeholder="请输入内容" :suffix-icon="Search" clearable @clear="clearSearch"
-        v-model="keywords"></el-input>
+      <el-input
+        class="mr-10 w-auto"
+        placeholder="请输入内容"
+        :suffix-icon="Search"
+        clearable
+        @clear="clearSearch"
+        v-model="keywords"
+      ></el-input>
       <el-button type="primary" @click="search" round>搜索</el-button>
     </el-col>
     <router-link class="c-fff add-btn" to="/tag/add">新增</router-link>
   </el-row>
 
-  <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" row-key="id" size="small"
-    @selection-change="handleSelectionChange">
+  <el-table
+    ref="multipleTable"
+    :data="tableData"
+    tooltip-effect="dark"
+    row-key="id"
+    size="small"
+    @selection-change="handleSelectionChange"
+  >
     <el-table-column type="selection"></el-table-column>
     <el-table-column prop="id" label="编号"></el-table-column>
     <el-table-column prop="name" label="名称"></el-table-column>
@@ -18,15 +30,26 @@
     <el-table-column fixed="right" label="操作">
       <template #default="scope">
         <el-button :icon="Edit" circle @click="toEdit(scope.row)"></el-button>
-        <el-button :icon="Delete" circle @click="handleDel(scope.row)"></el-button>
+        <el-button
+          :icon="Delete"
+          circle
+          @click="handleDel(scope.row)"
+        ></el-button>
       </template>
     </el-table-column>
   </el-table>
 
   <!-- 分页 -->
   <el-row type="flex" class="mt-20 align-c" justify="center">
-    <el-pagination background layout="prev, pager, next" @current-change="handleCurrentChange" :pager-size="10"
-      :total="count" v-model:currentPage="cur" hide-on-single-page></el-pagination>
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      @current-change="handleCurrentChange"
+      :pager-size="10"
+      :total="count"
+      v-model:currentPage="cur"
+      hide-on-single-page
+    ></el-pagination>
   </el-row>
 </template>
 
@@ -64,7 +87,7 @@ export default {
   },
   watch: {
     $route(to, from) {
-      if (to.name == 'tag-index') {
+      if (to.name == "tag-index") {
         let { cur, keywords } = to.query;
         this.cur = +cur;
         this.keywords = keywords;
@@ -87,7 +110,7 @@ export default {
         query: { cur: this.cur, keywords: this.keywords },
       });
 
-      this.search()
+      this.search();
     },
     //查询
     async search() {
@@ -151,6 +174,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>

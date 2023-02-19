@@ -1,6 +1,12 @@
 <template>
   <div class="mr-10 ml-10 mb-20">
-    <el-form ref="params" :model="params" :rules="paramsRules" label-width="100px" class>
+    <el-form
+      ref="params"
+      :model="params"
+      :rules="paramsRules"
+      label-width="100px"
+      class
+    >
       <el-form-item label="模型名称" prop="model_name">
         <el-input v-model="params.model_name"></el-input>
       </el-form-item>
@@ -9,7 +15,9 @@
       </el-form-item>
       <el-form-item label="是否启用">
         <el-radio v-model="params.status" label="1">开启</el-radio>
-        <el-radio v-model="params.status" :disabled="disable" label="0">禁用</el-radio>
+        <el-radio v-model="params.status" :disabled="disable" label="0"
+          >禁用</el-radio
+        >
       </el-form-item>
 
       <el-form-item>
@@ -58,7 +66,7 @@ export default {
     };
   },
   computed: {},
-  async mounted() { },
+  async mounted() {},
   async created() {
     let id = this.$route.params.id;
     this.params.id = id;
@@ -137,6 +145,4 @@ export default {
   },
 };
 </script>
-<style>
-
-</style>
+<style></style>

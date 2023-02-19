@@ -79,20 +79,22 @@
         <el-form-item label="缩略图">
           <el-upload
             class="avatar-uploader"
-            action="/api/upload"  
+            action="/api/upload"
             :on-success="upload"
             :show-file-list="false"
             :before-upload="beforeUpload"
           >
-          <el-image style="width: 100%" v-if="params.img" :src="params.img"   />
-          <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-        </el-upload>
-        </el-form-item> 
+            <el-image style="width: 100%" v-if="params.img" :src="params.img" />
+            <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+          </el-upload>
+        </el-form-item>
 
         <el-form-item label="文章内容">
-        
-          <vue3-tinymce v-model="params.content" :setting="setting"  script-src="/public/admin/tinymce/tinymce.min.js"/>
-
+          <vue3-tinymce
+            v-model="params.content"
+            :setting="setting"
+            script-src="/public/admin/tinymce/tinymce.min.js"
+          />
         </el-form-item>
 
         <el-form-item label="内容功能">
@@ -218,9 +220,9 @@
 import { find } from "../../api/category.js";
 import { create, findField } from "../../api/article.js";
 import { search } from "../../api/tag.js";
-import Vue3Tinymce from '@jsdawn/vue3-tinymce';
-import {tinymceSet} from '../../config/tinymce.js';
-import { Plus } from '@element-plus/icons-vue'
+import Vue3Tinymce from "@jsdawn/vue3-tinymce";
+import { tinymceSet } from "../../config/tinymce.js";
+import { Plus } from "@element-plus/icons-vue";
 import {
   addLabelValue,
   getImgUrlFromStr,
@@ -229,12 +231,11 @@ import {
   tree,
 } from "../../utils/tools.js";
 
-
 export default {
   name: "article-add",
   components: {
     Vue3Tinymce,
-    Plus
+    Plus,
   },
   data: () => {
     return {
@@ -242,7 +243,7 @@ export default {
 
       categorySelected: [], //-1默认选中顶级栏目
       categoryProps: { checkStrictly: true },
-     
+
       activeName: "first", //tab 默认显示第一个
       activeIndex: "0", //tab 内容默认显示第一个
       category: [], //当前所有栏目
@@ -365,16 +366,16 @@ export default {
       console.log("e-->", e);
     },
 
-    beforeUpload(rawFile){
-     if (rawFile.size / 1024 / 1024 > 2) {
-        this.$message('上传文件必须小于1M')
-        return false
+    beforeUpload(rawFile) {
+      if (rawFile.size / 1024 / 1024 > 2) {
+        this.$message("上传文件必须小于1M");
+        return false;
       }
     },
     //上传缩略图
     upload(res) {
-      if(res.code === 200){
-        this.params.img =  res.data.path;
+      if (res.code === 200) {
+        this.params.img = res.data.path;
       }
     },
 

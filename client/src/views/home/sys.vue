@@ -26,7 +26,12 @@
       </el-form-item>
 
       <el-form-item label="统计代码">
-        <el-input type="textarea" class="textarea" :rows="3" v-model="info.code"></el-input>
+        <el-input
+          type="textarea"
+          class="textarea"
+          :rows="3"
+          v-model="info.code"
+        ></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -47,7 +52,12 @@
       </el-form-item>
 
       <el-form-item label="描述">
-        <el-input type="textarea" :rows="3" class="textarea" v-model="seo.description"></el-input>
+        <el-input
+          type="textarea"
+          :rows="3"
+          class="textarea"
+          v-model="seo.description"
+        ></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -195,6 +205,4 @@ export default {
   },
 };
 </script>
-<style>
-
-</style>
+<style></style>

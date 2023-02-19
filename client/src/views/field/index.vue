@@ -1,17 +1,29 @@
 <template>
   <el-row type="flex" justify="end">
-    <router-link class="c-fff add-btn" :to="{
-      name: 'field-add',
-      query: {
-        mid: query.mid,
-        table_name: table_name,
-        model_name: model_name,
-      },
-    }">新增</router-link>
+    <router-link
+      class="c-fff add-btn"
+      :to="{
+        name: 'field-add',
+        query: {
+          mid: query.mid,
+          table_name: table_name,
+          model_name: model_name,
+        },
+      }"
+      >新增</router-link
+    >
   </el-row>
 
-  <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" row-key="id" size="small"
-    @selection-change="handleSelectionChange" v-loading="loading">
+  <el-table
+    ref="multipleTable"
+    :data="tableData"
+    tooltip-effect="dark"
+    style="width: 100%"
+    row-key="id"
+    size="small"
+    @selection-change="handleSelectionChange"
+    v-loading="loading"
+  >
     <el-table-column type="selection" width="55"></el-table-column>
     <el-table-column prop="id" label="编号"></el-table-column>
     <el-table-column prop="field_cname" label="中文名称"></el-table-column>
@@ -20,14 +32,24 @@
     <el-table-column fixed="right" label="操作" width="150">
       <template #default="scope">
         <el-button :icon="Edit" circle @click="toEdit(scope.row)"></el-button>
-        <el-button :icon="Delete" circle @click="handleDel(scope.row)"></el-button>
+        <el-button
+          :icon="Delete"
+          circle
+          @click="handleDel(scope.row)"
+        ></el-button>
       </template>
     </el-table-column>
   </el-table>
 
   <el-row type="flex" class="mt-20" justify="space-between">
-    <el-pagination background layout="prev, pager, next" @current-change="handleCurrentChange" :pager-size="10"
-      :total="count" hide-on-single-page></el-pagination>
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      @current-change="handleCurrentChange"
+      :pager-size="10"
+      :total="count"
+      hide-on-single-page
+    ></el-pagination>
   </el-row>
 </template>
 
@@ -64,7 +86,7 @@ export default {
     this.query = this.$route.query;
     this.list();
   },
-  update() { },
+  update() {},
   methods: {
     //查询
     async list() {
@@ -120,7 +142,7 @@ export default {
         },
       });
     },
-    delSome() { },
+    delSome() {},
     async hasUse(id) {
       return await hasUse(id);
     },
@@ -151,6 +173,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>

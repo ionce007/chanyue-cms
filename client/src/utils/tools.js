@@ -29,11 +29,11 @@ export let tree = (arr, pid = 0, leval = 1) => {
   let tmp = [];
   arr.forEach((item, index) => {
     if (item.pid == pid) {
-      item.leval = leval
+      item.leval = leval;
       item.children = tree(arr, item.id, leval + 1);
       tmp.push(item);
     }
-  })
+  });
   return tmp;
 };
 

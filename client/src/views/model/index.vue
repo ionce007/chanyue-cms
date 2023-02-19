@@ -3,8 +3,15 @@
     <router-link class="c-fff add-btn" to="/model/add">新增</router-link>
   </el-row>
 
-  <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" row-key="id" size="small"
-    @selection-change="handleSelectionChange" v-loading="loading">
+  <el-table
+    ref="multipleTable"
+    :data="tableData"
+    tooltip-effect="dark"
+    row-key="id"
+    size="small"
+    @selection-change="handleSelectionChange"
+    v-loading="loading"
+  >
     <el-table-column type="selection"></el-table-column>
     <el-table-column prop="id" label="编号"></el-table-column>
     <el-table-column prop="model_name" label="模型名称"></el-table-column>
@@ -16,17 +23,31 @@
     </el-table-column>
     <el-table-column fixed="right" label="操作">
       <template #default="scope">
-        <el-button :icon="View" circle @click="handleClick(scope.row)"></el-button>
+        <el-button
+          :icon="View"
+          circle
+          @click="handleClick(scope.row)"
+        ></el-button>
         <el-button :icon="Edit" circle @click="toEdit(scope.row)"></el-button>
-        <el-button :icon="Delete" circle @click="handleDel(scope.row)"></el-button>
+        <el-button
+          :icon="Delete"
+          circle
+          @click="handleDel(scope.row)"
+        ></el-button>
       </template>
     </el-table-column>
   </el-table>
 
   <!-- 分页 -->
   <el-row type="flex" class="mt-20 align-c" justify="center">
-    <el-pagination background layout="prev, pager, next" @current-change="handleCurrentChange" :pager-size="10"
-      :total="count" hide-on-single-page></el-pagination>
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      @current-change="handleCurrentChange"
+      :pager-size="10"
+      :total="count"
+      hide-on-single-page
+    ></el-pagination>
   </el-row>
 </template>
 
@@ -56,7 +77,7 @@ export default {
   created() {
     this.list();
   },
-  update() { },
+  update() {},
   methods: {
     //查询
     async list() {

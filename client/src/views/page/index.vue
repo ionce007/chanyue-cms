@@ -1,7 +1,12 @@
 <template>
   <el-row type="flex" justify="space-between">
     <el-col :span="18">
-      <el-input class="mr-10 w-auto" placeholder="请输入内容" :suffix-icon="Search" v-model="keywords"></el-input>
+      <el-input
+        class="mr-10 w-auto"
+        placeholder="请输入内容"
+        :suffix-icon="Search"
+        v-model="keywords"
+      ></el-input>
       <el-button type="primary" @click="search" round>搜索</el-button>
       <el-button @click="clearSearch" round>清空</el-button>
     </el-col>
@@ -9,8 +14,15 @@
     <router-link class="c-fff add-btn" to="/page/add">新增</router-link>
   </el-row>
 
-  <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" row-key="id" size="small"
-    @selection-change="handleSelectionChange" v-loading="loading">
+  <el-table
+    ref="multipleTable"
+    :data="tableData"
+    tooltip-effect="dark"
+    row-key="id"
+    size="small"
+    @selection-change="handleSelectionChange"
+    v-loading="loading"
+  >
     <el-table-column type="selection"></el-table-column>
     <el-table-column prop="id" label="编号" width="60"></el-table-column>
     <el-table-column prop="title" label="标题"></el-table-column>
@@ -26,9 +38,17 @@
     </el-table-column>
     <el-table-column fixed="right" label="操作" width="150">
       <template #default="scope">
-        <el-button :icon="View" circle @click="handleClick(scope.row)"></el-button>
+        <el-button
+          :icon="View"
+          circle
+          @click="handleClick(scope.row)"
+        ></el-button>
         <el-button :icon="Edit" circle @click="toEdit(scope.row)"></el-button>
-        <el-button :icon="Delete" circle @click="handleDel(scope.row)"></el-button>
+        <el-button
+          :icon="Delete"
+          circle
+          @click="handleDel(scope.row)"
+        ></el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -39,8 +59,14 @@
       批量操作：
       <el-button @click="delSome">删除</el-button>
     </div>
-    <el-pagination background layout="prev, pager, next" @current-change="handleCurrentChange" :pager-size="10"
-      :total="count" hide-on-single-page></el-pagination>
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      @current-change="handleCurrentChange"
+      :pager-size="10"
+      :total="count"
+      hide-on-single-page
+    ></el-pagination>
   </el-row>
 </template>
 

@@ -1,6 +1,12 @@
 <template>
   <div class="mr-10 ml-10 mb-20">
-    <el-form ref="params" :model="params" :rules="paramsRules" label-width="84px" class>
+    <el-form
+      ref="params"
+      :model="params"
+      :rules="paramsRules"
+      label-width="84px"
+      class
+    >
       <el-form-item label="标题" prop="title">
         <el-input v-model="params.title"></el-input>
       </el-form-item>
@@ -14,7 +20,11 @@
       </el-form-item>
 
       <el-form-item label="发布时间">
-        <el-date-picker v-model="params.createdAt" type="datetime" placeholder="选择日期时间">
+        <el-date-picker
+          v-model="params.createdAt"
+          type="datetime"
+          placeholder="选择日期时间"
+        >
         </el-date-picker>
       </el-form-item>
 
@@ -54,8 +64,8 @@ export default {
     };
   },
   computed: {},
-  mounted() { },
-  async created() { },
+  mounted() {},
+  async created() {},
   methods: {
     handleAttr(e) {
       console.log("e-->", e);
@@ -93,6 +103,4 @@ export default {
   },
 };
 </script>
-<style>
-
-</style>
+<style></style>

@@ -1,6 +1,12 @@
 <template>
   <div class="mr-10 mt-30 ml-10 mb-20">
-    <el-form ref="params" :model="params" :rules="paramsRules" label-width="84px" class>
+    <el-form
+      ref="params"
+      :model="params"
+      :rules="paramsRules"
+      label-width="84px"
+      class
+    >
       <el-form-item label="用户名" prop="username">
         <el-input v-model="params.username" :disabled="true"></el-input>
       </el-form-item>
@@ -10,7 +16,11 @@
       </el-form-item>
 
       <el-form-item label="发布时间">
-        <el-date-picker v-model="params.updatedAt" type="datetime" placeholder="选择日期时间"></el-date-picker>
+        <el-date-picker
+          v-model="params.updatedAt"
+          type="datetime"
+          placeholder="选择日期时间"
+        ></el-date-picker>
       </el-form-item>
 
       <el-form-item label="是否显示">
@@ -61,7 +71,7 @@ export default {
     };
   },
   computed: {},
-  mounted() { },
+  mounted() {},
   async created() {
     this.params.id = this.$route.params.id;
     this.username = getCookie("username");
@@ -121,6 +131,4 @@ export default {
   },
 };
 </script>
-<style>
-
-</style>
+<style></style>

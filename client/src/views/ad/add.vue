@@ -41,14 +41,18 @@
         <el-form-item label="广告图片">
           <el-upload
             class="avatar-uploader"
-            action="/api/upload"  
+            action="/api/upload"
             :on-success="upload"
             :show-file-list="false"
             :before-upload="beforeUpload"
           >
-          <el-image style="width: 100%" v-if="params.imgUrl" :src="params.imgUrl"   />
-          <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-        </el-upload>
+            <el-image
+              style="width: 100%"
+              v-if="params.imgUrl"
+              :src="params.imgUrl"
+            />
+            <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+          </el-upload>
         </el-form-item>
 
         <el-form-item label="发布时间">
@@ -75,7 +79,7 @@
 <script>
 import { create } from "../../api/ad.js";
 import { pinyin } from "pinyin-pro";
-import { Plus } from '@element-plus/icons-vue'
+import { Plus } from "@element-plus/icons-vue";
 export default {
   name: "ad-add",
   data: () => {
@@ -116,7 +120,7 @@ export default {
     };
   },
   components: {
-    Plus
+    Plus,
   },
 
   created() {},
@@ -130,19 +134,17 @@ export default {
       console.log("e-->", e);
     },
 
-    
-
-    beforeUpload(rawFile){
-     if (rawFile.size / 1024 / 1024 > 2) {
-        this.$message('上传文件必须小于1M')
-        return false
+    beforeUpload(rawFile) {
+      if (rawFile.size / 1024 / 1024 > 2) {
+        this.$message("上传文件必须小于1M");
+        return false;
       }
     },
 
     //上传缩略图
     upload(res) {
-      if(res.code === 200){
-        this.params.imgUrl =  res.data.path;
+      if (res.code === 200) {
+        this.params.imgUrl = res.data.path;
       }
     },
 

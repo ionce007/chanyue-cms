@@ -5,7 +5,11 @@
       <el-breadcrumb-item>
         <a href="javascript:;">{{ $route.matched[0].meta.title }}</a>
       </el-breadcrumb-item>
-      <el-breadcrumb-item v-for="(level, index) in this.levelList" :key="index" :to="level.path">
+      <el-breadcrumb-item
+        v-for="(level, index) in this.levelList"
+        :key="index"
+        :to="level.path"
+      >
         {{ level.name }}
       </el-breadcrumb-item>
     </el-breadcrumb>
@@ -107,6 +111,4 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
-
-</style>
+<style scoped lang="less"></style>

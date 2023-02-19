@@ -7,7 +7,9 @@ const ArticleService = require('../../../service/api/article.js');
 const PageService = require('../../../service/api/page.js');
 
 class HomeController {
-
+constructor(){
+  // super()
+}
   // 首页
   static async index(req, res, next) {
     try {

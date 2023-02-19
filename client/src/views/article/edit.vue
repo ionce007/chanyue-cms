@@ -7,11 +7,22 @@
   </div>
 
   <div class="mr-10 ml-10 mb-20">
-    <el-form ref="params" :model="params" :rules="paramsRules" label-width="100px" v-loading="loading">
+    <el-form
+      ref="params"
+      :model="params"
+      :rules="paramsRules"
+      label-width="100px"
+      v-loading="loading"
+    >
       <div v-show="activeIndex == 0">
         <el-form-item label="文章栏目">
-          <el-cascader :props="categoryProps" :show-all-levels="false" v-model="categorySelected" :options="category"
-            @change="handleChange"></el-cascader>
+          <el-cascader
+            :props="categoryProps"
+            :show-all-levels="false"
+            v-model="categorySelected"
+            :options="category"
+            @change="handleChange"
+          ></el-cascader>
         </el-form-item>
 
         <el-form-item label="文章标题" prop="title">
@@ -28,12 +39,25 @@
         </el-form-item>
 
         <el-form-item label="tag标签">
-          <el-select-v2 v-model="params.tag_id" :options="taglist" placeholder="Please select" style="width: 240px"
-            multiple filterable remote :remote-method="searchTag" />
+          <el-select-v2
+            v-model="params.tag_id"
+            :options="taglist"
+            placeholder="Please select"
+            style="width: 240px"
+            multiple
+            filterable
+            remote
+            :remote-method="searchTag"
+          />
         </el-form-item>
 
         <el-form-item label="内容摘要">
-          <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="params.description"></el-input>
+          <el-input
+            type="textarea"
+            :rows="2"
+            placeholder="请输入内容"
+            v-model="params.description"
+          ></el-input>
         </el-form-item>
 
         <!-- <el-form-item label="缩略图">
@@ -51,10 +75,14 @@
           </el-upload>
         </el-form-item> -->
 
-
         <el-form-item label="缩略图">
-          <el-upload class="avatar-uploader" action="/api/upload" :on-success="upload" :show-file-list="false"
-            :before-upload="beforeUpload">
+          <el-upload
+            class="avatar-uploader"
+            action="/api/upload"
+            :on-success="upload"
+            :show-file-list="false"
+            :before-upload="beforeUpload"
+          >
             <el-image style="width: 100%" v-if="params.img" :src="params.img" />
             <el-icon v-else class="avatar-uploader-icon">
               <Plus />
@@ -62,22 +90,33 @@
           </el-upload>
         </el-form-item>
 
-
-
         <el-form-item label="文章内容">
-          <vue3-tinymce v-model="params.content" :setting="setting" script-src="/public/admin/tinymce/tinymce.min.js" />
+          <vue3-tinymce
+            v-model="params.content"
+            :setting="setting"
+            script-src="/public/admin/tinymce/tinymce.min.js"
+          />
         </el-form-item>
 
         <el-form-item label="内容功能">
           <el-checkbox v-model="autoImg">
             提取第
-            <el-input v-model="picNum" class="w-80 mr-8 ml-8" placeholder="请输入内容"></el-input>张图片作封面
+            <el-input
+              v-model="picNum"
+              class="w-80 mr-8 ml-8"
+              placeholder="请输入内容"
+            ></el-input
+            >张图片作封面
           </el-checkbox>
           <el-checkbox v-model="autoDes">提取文章描述</el-checkbox>
         </el-form-item>
 
         <el-form-item label="发布时间">
-          <el-date-picker v-model="params.updatedAt" type="datetime" placeholder="选择日期时间"></el-date-picker>
+          <el-date-picker
+            v-model="params.updatedAt"
+            type="datetime"
+            placeholder="选择日期时间"
+          ></el-date-picker>
         </el-form-item>
 
         <el-form-item label="是否显示">
@@ -98,9 +137,12 @@
         <el-form-item label="其它栏目">
           <div class="w-640">
             <el-checkbox-group v-model="params.sub_cid" @change="handleSubCid">
-              <el-checkbox v-for="(item, index) in cateList" :key="index" :label="item.id">{{
-                item.label
-              }}</el-checkbox>
+              <el-checkbox
+                v-for="(item, index) in cateList"
+                :key="index"
+                :label="item.id"
+                >{{ item.label }}</el-checkbox
+              >
             </el-checkbox-group>
             <p class="tips">(可选发布到其它栏目)</p>
           </div>
@@ -124,12 +166,31 @@
         <el-form-item label="外链跳转">
           <el-input v-model="params.link" max="120"></el-input>
         </el-form-item>
-        <el-form-item :label="item.field_cname" v-for="(item, index) of field" :key="index">
-          <el-input v-model="fieldParams[item.field_ename]" max="120" v-if="item.field_type === '1'"></el-input>
-          <el-input type="textarea" :rows="3" v-else-if="item.field_type === '2'" placeholder="请输入内容"
-            v-model="fieldParams[item.field_ename]"></el-input>
-          <el-input type="textarea" :rows="3" v-else placeholder="请输入内容" autosize="false"
-            v-model="fieldParams[item.field_ename]"></el-input>
+        <el-form-item
+          :label="item.field_cname"
+          v-for="(item, index) of field"
+          :key="index"
+        >
+          <el-input
+            v-model="fieldParams[item.field_ename]"
+            max="120"
+            v-if="item.field_type === '1'"
+          ></el-input>
+          <el-input
+            type="textarea"
+            :rows="3"
+            v-else-if="item.field_type === '2'"
+            placeholder="请输入内容"
+            v-model="fieldParams[item.field_ename]"
+          ></el-input>
+          <el-input
+            type="textarea"
+            :rows="3"
+            v-else
+            placeholder="请输入内容"
+            autosize="false"
+            v-model="fieldParams[item.field_ename]"
+          ></el-input>
         </el-form-item>
       </div>
       <el-form-item>
@@ -142,10 +203,10 @@
 <script>
 import { find } from "../../api/category.js";
 import { update, detail, findField } from "../../api/article.js";
-import Vue3Tinymce from '@jsdawn/vue3-tinymce';
-import { tinymceSet } from '../../config/tinymce.js';
+import Vue3Tinymce from "@jsdawn/vue3-tinymce";
+import { tinymceSet } from "../../config/tinymce.js";
 import { search } from "../../api/tag.js";
-import { Plus } from '@element-plus/icons-vue'
+import { Plus } from "@element-plus/icons-vue";
 import {
   getImgUrlFromStr,
   filterHtml,
@@ -159,7 +220,7 @@ export default {
   name: "article-edit",
   components: {
     Vue3Tinymce,
-    Plus
+    Plus,
   },
   data: () => {
     return {
@@ -222,14 +283,14 @@ export default {
     };
   },
   computed: {},
-  async mounted() { },
+  async mounted() {},
   async created() {
     this.params.id = this.$route.params.id;
     await this.detail(); // 文章详情
     await this.query(); //查询栏目
     this.searchTag();
   },
-  unmounted() { },
+  unmounted() {},
   methods: {
     handleClick(tab) {
       this.activeIndex = tab.index;
@@ -332,8 +393,8 @@ export default {
 
     beforeUpload(rawFile) {
       if (rawFile.size / 1024 / 1024 > 2) {
-        this.$message('上传文件必须小于1M')
-        return false
+        this.$message("上传文件必须小于1M");
+        return false;
       }
     },
     //上传缩略图
@@ -386,6 +447,4 @@ export default {
   },
 };
 </script>
-<style>
-
-</style>
+<style></style>

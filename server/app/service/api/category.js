@@ -2,7 +2,7 @@
 const BaseService = require("./base");
 const knex = require("../../config/config.knex.js");
 class CategoryService extends BaseService {
-  static model = "category"
+  static model = "category";
   constructor(props) {
     super(props);
   }
@@ -11,7 +11,7 @@ class CategoryService extends BaseService {
   static async create(body) {
     const { app } = this;
     try {
-      const result = await BaseService.insert(CategoryService.model,body);
+      const result = await BaseService.insert(CategoryService.model, body);
       return result ? "success" : "fail";
     } catch (error) {
       console.error(error);
@@ -21,7 +21,9 @@ class CategoryService extends BaseService {
   // 删
   static async delete(id) {
     try {
-      const result = await knex(CategoryService.model).where("id", "=", id).del();
+      const result = await knex(CategoryService.model)
+        .where("id", "=", id)
+        .del();
       return result ? "success" : "fail";
     } catch (error) {
       console.error(error);
@@ -33,7 +35,9 @@ class CategoryService extends BaseService {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(CategoryService.model).where("id", "=", id).update(body);
+      const result = await knex(CategoryService.model)
+        .where("id", "=", id)
+        .update(body);
       return result ? "success" : "fail";
     } catch (error) {
       console.error(error);
@@ -43,7 +47,7 @@ class CategoryService extends BaseService {
   // 查全部栏目
   static async find() {
     try {
-      const result = await this.all();
+      const result = await BaseService.all(CategoryService.model);
       return result;
     } catch (error) {
       console.error(error);
@@ -53,7 +57,9 @@ class CategoryService extends BaseService {
   // 查栏目
   static async findId(id) {
     try {
-      const data = await knex(CategoryService.model).where("id", "=", id).select();
+      const data = await knex(CategoryService.model)
+        .where("id", "=", id)
+        .select();
       return data[0];
     } catch (error) {
       console.error(error);
@@ -63,7 +69,9 @@ class CategoryService extends BaseService {
   // 查子栏目
   static async findSubId(id) {
     try {
-      const result = await knex(CategoryService.model).where("pid", "=", id).select();
+      const result = await knex(CategoryService.model)
+        .where("pid", "=", id)
+        .select();
       return result;
     } catch (error) {
       console.error(error);

@@ -152,27 +152,31 @@ Structured Query Language：结构化查询语言
 是一种符号，它是用来进行列间或者变量之间的比较和数学运算的
 
 9.4.1 算术运算符 #
-运算符	说明
-+	加运算，求两个数或表达式相加的和，如1+1
--	减少减运算，求两个数或表达式相减的差，如4-1
-*	乘运算，求两个数或表达式相乘的积，如2*2
-/	除运算，求两个数或表达式相除的商，如6/4的值为1
-%	取模运算，求两个数或表达式相除的余数，如：6%4的值为2
+运算符 说明
+
++ 加运算，求两个数或表达式相加的和，如1+1
+
+- 减少减运算，求两个数或表达式相减的差，如4-1
+
+* 乘运算，求两个数或表达式相乘的积，如2*2
+/ 除运算，求两个数或表达式相除的商，如6/4的值为1
+% 取模运算，求两个数或表达式相除的余数，如：6%4的值为2
 查询姓名全称
 9.4.2 逻辑运算符 #
-运算符	说明
-AND	当且仅当两个布尔表达式都为true时，返回TRUE
-OR	当且仅当两个布尔表达式都为false，返回FALSE
-NOT	布尔表达式的值取反
+运算符 说明
+AND 当且仅当两个布尔表达式都为true时，返回TRUE
+OR 当且仅当两个布尔表达式都为false，返回FALSE
+NOT 布尔表达式的值取反
 9.4.3 比较运算符 #
-运算符	说明
-=	等于
->	大于
-<	小于
-<>	不等于
->=	大于等于
-<=	小于等于
-!=	不等于
+运算符 说明
+= 等于
+
+> 大于
+< 小于
+<> 不等于
+>= 大于等于
+<= 小于等于
+!= 不等于
 9.5 查询窗口 #
 query
 
@@ -230,9 +234,9 @@ TRUNCATE TABLE student
 查询产生的是虚拟表,并不会保存起来
 9.7.1 查询 #
 9.7.1.1 语法 #
-SELECT    <列名> 
-FROM      <表名> 
-[WHERE    <查询条件表达式>] 
+SELECT    <列名>
+FROM      <表名>
+[WHERE    <查询条件表达式>]
 [ORDER BY <排序的列名>[ASC或DESC]]
 9.7.1.2 排序 #
 查询北京的学生信息，并按ID正序排列
@@ -259,7 +263,7 @@ FROM student limit 2
 9.7.1.7 DISTINCT #
 查询同学们一共来自哪些不同的城市
 SELECT id,name,age,DISTINCT city,'中国' as country
-FROM student 
+FROM student
 9.7.1.8 + #
 在MYSQL中+号只能用作于数字
 SELECT 1+1
@@ -283,7 +287,6 @@ INSERT INTO `student`(id,name,gender,age,city,province,birthday,idcard,email) VA
 INSERT INTO `student`(id,name,gender,age,city,province,birthday,idcard,email) VALUES ('4', '小龙女', '4', '4', '终南山', '陕西省', '1970-09-03', 0, '4@qq.com');
 INSERT INTO `student`(id,name,gender,age,city,province,birthday,idcard,email) VALUES ('5', '欧阳锋', '5', '5', '白驼山', '新疆', '1989-09-09', 1, '5@qq.com');
 
-
 INSERT INTO `course` VALUES ('1', '语文');
 INSERT INTO `course` VALUES ('2', '数学');
 INSERT INTO `course` VALUES ('3', '英语');
@@ -299,28 +302,28 @@ INSERT INTO `score` VALUES ('3', '2', '90');
 INSERT INTO `score` VALUES ('3', '3', '80');
 
 9.7.1.7.2 查询山东省的同学全部信息 #
-select * from student where province = '山东';
+select *from student where province = '山东';
 9.7.1.7.3 查询山东省的男同学的全部信息 #
-select * from student where province = '山东' and gender=1;
+select* from student where province = '山东' and gender=1;
 9.7.1.7.4 查询没有填写电子邮箱的同学的姓名和身份证号 #
 SELECT name,idcard FROM student WHERE email IS NULL
 9.7.1.8 排序 #
 9.7.1.8.1 把学生的分数按升序排列 #
-select * from score order by grade asc;
+select *from score order by grade asc;
 9.7.1.8.2 把学生的分数按降序排列 #
-select * from score order by grade desc;
+select* from score order by grade desc;
 9.7.1.8.3 课程编号按升序，成绩按降序 #
 select * from score order by course_id asc, grade desc;
 9.8 函数 #
 9.8.1 字符函数 #
-函数名称	描述
-CONCAT	字符串连接
-CONCAT_WS	使用指定的分隔符进行字符连接
-FORMAT	数字格式化
-LOWER	转小写字母
-UPPER	转大写字母
-LEFT	返回字符串s开始的最左边n个字符
-RIGHT	返回字符串s开始的最左边n个字符
+函数名称 描述
+CONCAT 字符串连接
+CONCAT_WS 使用指定的分隔符进行字符连接
+FORMAT 数字格式化
+LOWER 转小写字母
+UPPER 转大写字母
+LEFT 返回字符串s开始的最左边n个字符
+RIGHT 返回字符串s开始的最左边n个字符
 9.8.1.1 LENGTH #
 SELECT LENGTH('zfpx');
 SELECT LENGTH('珠峰培训');
@@ -358,14 +361,14 @@ SELECT FORMAT(423423234.65534453,2); 423,423,234.66
 select left('abcde12345',5);   //abcde
 select left('abcde12345',5);   //12345
 9.8.2 数学函数 #
-函数名称	描述
-CEIL	向上取整
-FLOOR	向下取整数
-DIV	整数取
-MOD	取余(取模)
-POWER	幂运算
-ROUND	四舍五入
-TRUNCATE	数字截取
+函数名称 描述
+CEIL 向上取整
+FLOOR 向下取整数
+DIV 整数取
+MOD 取余(取模)
+POWER 幂运算
+ROUND 四舍五入
+TRUNCATE 数字截取
 9.8.2.1 四舍五入 #
 SELECT ROUND(2.5);
 SELECT ROUND(2.555,2);
@@ -378,13 +381,13 @@ SELECT TRUNCATE(1.66,1);
 9.8.2.5 取余 #
 SELECT mod(10,3);
 9.8.3 日期函数 #
-函数名称	描述
-NOW	当前日期和时间
-CURDATE	当前日期
-CURTIME	当前时间
-DATE_ADD	日期变化
-DATEDIFF	计算日期差
-DATE_FORMAT	日期格式化
+函数名称 描述
+NOW 当前日期和时间
+CURDATE 当前日期
+CURTIME 当前时间
+DATE_ADD 日期变化
+DATEDIFF 计算日期差
+DATE_FORMAT 日期格式化
 9.8.3.1 返回日期时间 #
 SELECT NOW():
 9.8.3.2 返回日期 #
@@ -405,16 +408,16 @@ SELECT SECOND(NOW());
 将日期格式的字符串转成指定格式的日期
 
 SELECT STR_TO_DATE('2018-09-09','%Y-%m-%d')
-序号	格式符	功能
-1	%Y	4位的年份
-2	%y	2位的年份
-3	%m	月份(01,02)
-4	%c	月份(1,2)
-5	%d	日(01,02)
-6	%H	小时(24小时制)
-7	%h	小时(12小时制)
-8	%i	分钟(00,01)
-9	%s	秒(00,01)
+序号 格式符 功能
+1 %Y 4位的年份
+2 %y 2位的年份
+3 %m 月份(01,02)
+4 %c 月份(1,2)
+5 %d 日(01,02)
+6 %H 小时(24小时制)
+7 %h 小时(12小时制)
+8 %i 分钟(00,01)
+9 %s 秒(00,01)
 9.8.3.6 #
 查询入职日期为1984-8-4的员工信息
 
@@ -448,14 +451,14 @@ WHEN 常量1 then 要显示的值或语句1
 WHEN 常量2 then 要显示的值或语句2
 ELSE 要显示的值
 END
-SELECT 
-CASE 
+SELECT
+CASE
 WHEN grade<60 then '不及格'
 WHEN grade>=60 then '及格'
 ELSE '未知'
 END
 FROM score;
-SELECT 
+SELECT
 CASE level
 WHEN 'A' then '优秀'
 WHEN 'B' then '良好'
@@ -505,7 +508,7 @@ select * from score where grade between 80 and 100
 9.10.3 IN #
 查询某一列中的值在列出的内容列表中
 
-select * from student where city in ('北京','上海','广东')
+select *from student where city in ('北京','上海','广东')
 9.10.4 IS NUL #
 查询没有邮箱的 IS NUL
 查询有邮箱的 IS NOT NULL
@@ -516,7 +519,7 @@ CREATE USER user1@localhost IDENTIFIED BY '123456'
 10.2 授予权限 #
 GRANT 权限1,权限2,,, ON 数据库.* TO 用户名
 
-GRANT CREATE,DROP ON db1.* TO user1@localhost;
+GRANT CREATE,DROP ON db1.*TO user1@localhost;
 10.3 授予权限 #
 REVOKE 权限1，权限2，，，ON 数据库.* FROM 用户名;
 REVOKE CREATE,DROP ONT db1.* FROM user1@localhost;
@@ -552,7 +555,7 @@ select @result;
 treeindex
 
 12.1 准备数据 #
--- 构建一个8388608条记录的数据 
+-- 构建一个8388608条记录的数据
 
 -- 创建用户表
 create table user(
@@ -563,28 +566,27 @@ create table user(
 
 -- 创建生成随机字符串的函数
 CREATE FUNCTION `rand_string`(n INT) RETURNS varchar(255)
-BEGIN 
-DECLARE chars_str varchar(100) DEFAULT 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; 
-DECLARE return_str varchar(255) DEFAULT ''; 
-DECLARE i INT DEFAULT 0; 
-WHILE i < n DO 
-SET return_str = concat(return_str,substring(chars_str , FLOOR(1 + RAND()*62 ),1)); 
-SET i = i +1; 
-END WHILE; 
-RETURN return_str; 
-END; 
+BEGIN
+DECLARE chars_str varchar(100) DEFAULT 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+DECLARE return_str varchar(255) DEFAULT '';
+DECLARE i INT DEFAULT 0;
+WHILE i < n DO
+SET return_str = concat(return_str,substring(chars_str , FLOOR(1 + RAND()*62 ),1));
+SET i = i +1;
+END WHILE;
+RETURN return_str;
+END;
 
-
--- 产生随机数字 
-create function rand_num() 
-returns int(5) 
+-- 产生随机数字
+create function rand_num()
+returns int(5)
 begin  
-declare i int default 0; 
-set i = floor(10+rand()*500); 
-return i; 
+declare i int default 0;
+set i = floor(10+rand()*500);
+return i;
 end
 
--- 创建存储过程，向用户表添加海量数据 
+-- 创建存储过程，向用户表添加海量数据
 
 create procedure insert_user(in start int(10),in max_num int(10))
  begin

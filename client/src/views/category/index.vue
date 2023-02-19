@@ -110,8 +110,8 @@ export default {
         if (res.code === 200) {
           let data = tree(res.data);
           console.log("data->", data);
-          this.tableData =  addLabelValue(data);
-          
+          this.tableData = addLabelValue(data);
+
           this.loading = false;
         }
       } catch (error) {

@@ -1,8 +1,16 @@
 <template>
   <el-row>
     <el-col>
-      <el-menu router unique-opened :default-active="active" :collapse="isCollapse" :collapse-transition="false"
-        class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+      <el-menu
+        router
+        unique-opened
+        :default-active="active"
+        :collapse="isCollapse"
+        :collapse-transition="false"
+        class="el-menu-vertical-demo"
+        @open="handleOpen"
+        @close="handleClose"
+      >
         <el-menu-item index="/">
           <el-icon class="el-icon-s-data">
             <DataLine />

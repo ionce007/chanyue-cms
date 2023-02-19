@@ -2,8 +2,7 @@
 const knex = require("../../../config/config.knex.js");
 
 class HomeService  {
-  constructor(props) {
-    super(props);
+  constructor() {
   }
 
   // 网站栏目

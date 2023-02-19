@@ -7,14 +7,16 @@
             <p class="f-16 mb-5">
               技术架构：nodejs v16.16.0+ express mysql-5.7 vue3 element-plus
             </p>
-            <p class="f-16 mb-5">程序版本：v.0.0.3</p>
+            <p class="f-16 mb-5">程序版本：v.1.0.1</p>
             <p class="f-16 mb-5">程序路径：{{ dirname }}</p>
-            <p class="f-16 mb-5">发布时间：2022-07-23</p>
+            <p class="f-16 mb-5">发布时间：2023-02-19</p>
             <p class="f-16 mb-5">开发人员：明空</p>
             <p class="f-16 mb-5">UI设计师：16号</p>
             <p class="f-16 mb-5 row">联系微信：yanyutao2014</p>
             <p class="f-16 mb-5">
-              <a class="c-9ca4bf" href="http://www.chanyue.top" target="_blank">禅悦内容管理系统：&copy; www.chanyue.top</a>
+              <a class="c-9ca4bf" href="http://www.chanyue.top" target="_blank"
+                >禅悦内容管理系统：&copy; www.chanyue.top</a
+              >
             </p>
           </div>
         </el-col>
@@ -44,7 +46,7 @@ export default {
     };
   },
   computed: {},
-  created() { },
+  created() {},
   mounted() {
     this.tongji();
     this.runEnv();

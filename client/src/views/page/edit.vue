@@ -7,11 +7,22 @@
   </div>
 
   <div class="mr-10 ml-10 mb-20">
-    <el-form ref="params" :model="params" :rules="paramsRules" label-width="84px" class>
+    <el-form
+      ref="params"
+      :model="params"
+      :rules="paramsRules"
+      label-width="84px"
+      class
+    >
       <div v-show="activeIndex == 0">
         <el-form-item label="文章栏目">
-          <el-cascader :props="categoryProps" :show-all-levels="false" v-model="categorySelected" :options="category"
-            @change="handleChange"></el-cascader>
+          <el-cascader
+            :props="categoryProps"
+            :show-all-levels="false"
+            v-model="categorySelected"
+            :options="category"
+            @change="handleChange"
+          ></el-cascader>
         </el-form-item>
 
         <el-form-item label="文章标题" prop="title">
@@ -19,20 +30,33 @@
         </el-form-item>
 
         <el-form-item label="文章内容">
-          <vue3-tinymce v-model="params.content" :setting="setting" script-src="/public/admin/tinymce/tinymce.min.js" />
+          <vue3-tinymce
+            v-model="params.content"
+            :setting="setting"
+            script-src="/public/admin/tinymce/tinymce.min.js"
+          />
         </el-form-item>
 
         <el-form-item label="内容功能">
           <el-checkbox v-model="autoImg">
             提取第
-            <el-input v-model="picNum" class="w-80 mr-8 ml-8" placeholder="请输入内容"></el-input>张图片作封面
+            <el-input
+              v-model="picNum"
+              class="w-80 mr-8 ml-8"
+              placeholder="请输入内容"
+            ></el-input
+            >张图片作封面
           </el-checkbox>
           <el-checkbox v-model="autoDes">提取文章描述</el-checkbox>
         </el-form-item>
 
         <el-form-item label="发布时间">
-          <el-date-picker v-model="params.createdAt" :default-value="new Date()" type="datetime"
-            placeholder="选择日期时间"></el-date-picker>
+          <el-date-picker
+            v-model="params.createdAt"
+            :default-value="new Date()"
+            type="datetime"
+            placeholder="选择日期时间"
+          ></el-date-picker>
         </el-form-item>
 
         <el-form-item label="是否显示">
@@ -78,8 +102,8 @@ import {
   treeById,
   tree,
 } from "../../utils/tools.js";
-import Vue3Tinymce from '@jsdawn/vue3-tinymce';
-import { tinymceSet } from '../../config/tinymce.js';
+import Vue3Tinymce from "@jsdawn/vue3-tinymce";
+import { tinymceSet } from "../../config/tinymce.js";
 export default {
   name: "page-edit",
   components: {
@@ -132,8 +156,8 @@ export default {
     };
   },
   computed: {},
-  unmounted() { },
-  mounted() { },
+  unmounted() {},
+  mounted() {},
   async created() {
     this.params.id = this.$route.params.id;
     await this.detail();
@@ -221,6 +245,4 @@ export default {
   },
 };
 </script>
-<style>
-
-</style>
+<style></style>

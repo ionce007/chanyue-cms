@@ -5,8 +5,14 @@
 
   <div class="mr-10 ml-10">
     <el-row>
-      <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" row-key="id" size="small"
-        @selection-change="handleSelectionChange">
+      <el-table
+        ref="multipleTable"
+        :data="tableData"
+        tooltip-effect="dark"
+        row-key="id"
+        size="small"
+        @selection-change="handleSelectionChange"
+      >
         <el-table-column type="selection"></el-table-column>
         <el-table-column prop="id" label="编号"></el-table-column>
         <el-table-column prop="username" label="管理员"></el-table-column>
@@ -20,17 +26,31 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作">
           <template #default="scope">
-            <el-button :icon="Edit" circle @click="toEdit(scope.row)"></el-button>
-            <el-button :icon="Delete" :disabled="username == scope.row.username" circle
-              @click="handleDel(scope.row)"></el-button>
+            <el-button
+              :icon="Edit"
+              circle
+              @click="toEdit(scope.row)"
+            ></el-button>
+            <el-button
+              :icon="Delete"
+              :disabled="username == scope.row.username"
+              circle
+              @click="handleDel(scope.row)"
+            ></el-button>
           </template>
         </el-table-column>
       </el-table>
 
       <!-- 分页 -->
       <el-row type="flex" class="mt-20 align-c" justify="center">
-        <el-pagination background layout="prev, pager, next" @current-change="handleCurrentChange" :pager-size="10"
-          :total="count" hide-on-single-page></el-pagination>
+        <el-pagination
+          background
+          layout="prev, pager, next"
+          @current-change="handleCurrentChange"
+          :pager-size="10"
+          :total="count"
+          hide-on-single-page
+        ></el-pagination>
       </el-row>
       <!-- <div style="margin-top: 20px">
           批量操作：
@@ -141,6 +161,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>

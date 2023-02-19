@@ -31,7 +31,10 @@
               </a>
               <span class="ml-4 f-14">{{ username }}</span>
               <el-tooltip content="退出" placement="bottom" effect="light">
-                <el-icon class="ml-4 pointer pos-r t-2 f-20 el-icon-warning-outline" @click="quit">
+                <el-icon
+                  class="ml-4 pointer pos-r t-2 f-20 el-icon-warning-outline"
+                  @click="quit"
+                >
                   <SwitchButton />
                 </el-icon>
               </el-tooltip>
