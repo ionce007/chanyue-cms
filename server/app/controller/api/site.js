@@ -12,7 +12,7 @@ class SiteController extends BaseController {
   }
 
   // 查
-  async find(req, res, next) {
+  static async find(req, res, next) {
     try {
       const data = await SiteService.find();
       res.json({ ...success, data: data })
@@ -23,7 +23,7 @@ class SiteController extends BaseController {
 
 
   // 增 
-  async create(req, res, next) {
+  static async create(req, res, next) {
     try {
       const body = req.body;
       const data = await SiteService.create(body);
@@ -34,7 +34,7 @@ class SiteController extends BaseController {
   }
 
   // 删除
-  async delete(req, res, next) {
+  static async delete(req, res, next) {
     try {
       const id = req.query.id;
       const data = await SiteService.delete(id);
@@ -45,7 +45,7 @@ class SiteController extends BaseController {
   }
 
   // 改
-  async updateInfo(req, res, next) {
+  static async updateInfo(req, res, next) {
     try {
       const body = req.body;
       const data = await SiteService.updateInfo(body);
@@ -55,7 +55,7 @@ class SiteController extends BaseController {
     }
   }
 
-  async updateSeo(req, res, next) {
+  static async updateSeo(req, res, next) {
     try {
       const body = req.body;
       const data = await SiteService.updateSeo(body);
@@ -66,7 +66,7 @@ class SiteController extends BaseController {
   }
 
   // 查
-  async findId(req, res, next) {
+  static async findId(req, res, next) {
     try {
       const id = req.query.id;
       const data = await SiteService.find(id);
@@ -77,7 +77,7 @@ class SiteController extends BaseController {
   }
 
   // 获取磁盘信息
-  async runEnv(req, res, next) {
+  static async runEnv(req, res, next) {
     try {
       const dirname = path.join(__dirname, '../../../../');
       res.json({ ...success, data:{dirname: dirname} });
@@ -88,4 +88,4 @@ class SiteController extends BaseController {
 
 }
 
-module.exports = new SiteController();
+module.exports = SiteController;

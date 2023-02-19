@@ -5,14 +5,15 @@ const knex = require('../../config/config.knex.js');
 const { delImg, filterImgFromStr } = require('../../extend/helper.js');
 
 class FragService extends BaseService {
+  static model = 'frag';
   constructor(props) {
     super(props);
-    this.model = 'frag';
+    
   }
   // 新增
-  async create(body) {
+  static async create(body) {
     try {
-      const result = await knex(this.model).insert(body)
+      const result = await knex(FragService.model).insert(body)
       return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
@@ -20,9 +21,9 @@ class FragService extends BaseService {
   }
 
   // 删
-  async delete(id) {
+  static async delete(id) {
     try {
-      const result = await knex(this.model).where('id', '=', id).del()
+      const result = await knex(FragService.model).where('id', '=', id).del()
       return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
@@ -30,11 +31,11 @@ class FragService extends BaseService {
   }
 
   // 修改
-  async update(body) {
+  static async update(body) {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(this.model).where('id', '=', id).update(body)
+      const result = await knex(FragService.model).where('id', '=', id).update(body)
       return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
@@ -43,13 +44,13 @@ class FragService extends BaseService {
 
 
   // 文章列表
-  async list(cur = 1, pageSize = 10) {
+  static async list(cur = 1, pageSize = 10) {
     try {
       // 查询个数
-      const total = await knex(this.model).count('id', { as: 'count' });
+      const total = await knex(FragService.model).count('id', { as: 'count' });
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex.select('*')
-        .from(this.model)
+        .from(FragService.model)
         .limit(pageSize)
         .offset(offset)
         .orderBy('id', 'desc');
@@ -67,9 +68,9 @@ class FragService extends BaseService {
 
 
   // 查
-  async detail(id) {
+  static async detail(id) {
     try {
-      const data = await knex(this.model).where('id', '=', id).select()
+      const data = await knex(FragService.model).where('id', '=', id).select()
       return data[0];
     } catch (error) {
       console.error(error)
@@ -77,23 +78,23 @@ class FragService extends BaseService {
   }
 
   // 搜索
-  async search(key = '', cur = 1, pageSize = 10) {
+  static async search(key = '', cur = 1, pageSize = 10) {
 
     try {
       // 查询个数
-      const total = key ? await knex(this.model).whereLike('name', `%${key}%`).count('id', { as: 'count' })
-        : await knex(this.model).count('id', { as: 'count' });
+      const total = key ? await knex(FragService.model).whereLike('name', `%${key}%`).count('id', { as: 'count' })
+        : await knex(FragService.model).count('id', { as: 'count' });
       // 查询个数
       const offset = parseInt((cur - 1) * pageSize);
       const list = key ? 
       await knex.select(['id', 'name', 'mark'])
-        .from(this.model)
+        .from(FragService.model)
         .whereLike('name', `%${key}%`)
         .limit(pageSize)
         .offset(offset)
         .orderBy('id', 'desc') 
         : await knex.select(['id', 'name', 'mark'])
-          .from(this.model)
+          .from(FragService.model)
           .limit(pageSize)
           .offset(offset)
           .orderBy('id', 'desc');
@@ -112,4 +113,4 @@ class FragService extends BaseService {
 
 }
 
-module.exports = new FragService();
+module.exports =  FragService;

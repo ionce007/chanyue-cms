@@ -1,58 +1,60 @@
-'use strict';
-const knex = require('../../config/config.knex.js');
-const BaseService = require('./base');
+"use strict";
+const knex = require("../../config/config.knex.js");
+const BaseService = require("./base");
 class SiteService extends BaseService {
-
+  static model = "site";
   constructor(props) {
-    super(props)
-    this.model = 'site'
+    super(props);
   }
 
   // 基本信息
-  async find() {
+  static async find() {
     try {
-      let res = await this.all();
+      let res = await BaseService.all(SiteService.model);
       return res[0];
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
   // 更新基本信息
-  async updateInfo(body) {
+  static async updateInfo(body) {
     const { id } = body;
     delete body.id;
-    
+
     try {
       if (id) {
-        const result = await knex(this.model).where('id', '=', id).update(body)
-        return result ? 'success' : 'fail';
+        const result = await knex(SiteService.model)
+          .where("id", "=", id)
+          .update(body);
+        return result ? "success" : "fail";
       } else {
-        const result = await this.insert(body);
-        return result ? 'success' : 'fail';
+        const result = await BaseService.insert(SiteService.model,body);
+        return result ? "success" : "fail";
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
   //  更新seo
-  async updateSeo(body) {
+  static async updateSeo(body) {
     const { id } = body;
     delete body.id;
     try {
       if (id) {
-        const result = await knex(this.model).where('id', '=', id).update(body)
-        return result ? 'success' : 'fail';
+        const result = await knex(SiteService.model)
+          .where("id", "=", id)
+          .update(body);
+        return result ? "success" : "fail";
       } else {
-        const result = await this.insert(body);
-        return result ? 'success' : 'fail';
+        const result = await BaseService.insert(SiteService.model,body);
+        return result ? "success" : "fail";
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
-
 }
 
-module.exports = new SiteService();
+module.exports = SiteService;

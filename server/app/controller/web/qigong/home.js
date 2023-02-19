@@ -9,7 +9,7 @@ const PageService = require('../../../service/api/page.js');
 class HomeController {
 
   // 首页
-  async index(req, res, next) {
+  static async index(req, res, next) {
     try {
 
       // 广告
@@ -165,7 +165,7 @@ class HomeController {
   }
 
   // 列表页
-  async list(req, res, next) {
+  static async list(req, res, next) {
     try {
       const { cate, current, cid } = req.params;
       const currentPage = current || 1;
@@ -212,7 +212,7 @@ class HomeController {
   }
 
   // 详情页
-  async article(req, res, next) {
+  static async article(req, res, next) {
     try {
       const id = req.params.id.replace('.html', '');
 
@@ -276,7 +276,7 @@ class HomeController {
   }
 
   // 单页
-  async page(req, res, next) {
+  static async page(req, res, next) {
     try {
       const id = req.params.id;
       if (!id) {
@@ -314,7 +314,7 @@ class HomeController {
 
 
   // 搜索页
-  async search(req, res, next) {
+  static async search(req, res, next) {
     try {
 
       const page = req.params.id || 1;
@@ -345,4 +345,4 @@ class HomeController {
 
 }
 
-module.exports = new HomeController();
+module.exports =  HomeController;

@@ -8,13 +8,13 @@ const { md5, setToken } = require('../../extend/helper.js');
 const AdService = require('../../service/api/ad.js');
 
 class AdController extends BaseController {
+
   constructor(props) {
     super(props);
-    this.model = 'ad';
   }
 
   // 增
-  async create(req, res, next) {
+  static async create(req, res, next) {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -27,7 +27,7 @@ class AdController extends BaseController {
   }
 
   // 删除
-  async delete(req, res, next) {
+  static async delete(req, res, next) {
     try {
       const id =  req.query.id;
       const data = await AdService.delete(id);
@@ -38,7 +38,7 @@ class AdController extends BaseController {
   }
 
   // 改
-  async update(req, res, next) {
+  static async update(req, res, next) {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -51,7 +51,7 @@ class AdController extends BaseController {
   }
 
   // 查
-  async find(req, res, next) {
+  static async find(req, res, next) {
     try {
       const id = req.query.id;
       const data = await AdService.find(id);
@@ -62,7 +62,7 @@ class AdController extends BaseController {
   }
 
   // 查
-  async detail(req, res, next) {
+  static async detail(req, res, next) {
     try {
       const id = req.query.id;
       const data = await AdService.detail(id);
@@ -74,7 +74,7 @@ class AdController extends BaseController {
  
 
   // 查子栏目
-  async findSubId(req, res, next) {
+  static async findSubId(req, res, next) {
     try {
       const id = req.query.id;
       const data = await AdService.findSubId(id);
@@ -85,7 +85,7 @@ class AdController extends BaseController {
   }
 
   // 搜索
-  async search(req, res, next) {
+  static async search(req, res, next) {
     try {
       const cur = req.query.cur;
       const key = req.query.keyword;
@@ -101,7 +101,7 @@ class AdController extends BaseController {
   }
 
   // 列表
-  async list(req, res, next) {
+  static async list(req, res, next) {
     try {
       const cur = req.query.cur;
       const pageSize = 10;
@@ -116,7 +116,7 @@ class AdController extends BaseController {
   }
 
   // 上传图片
-  async upload(req,res,next) {
+  static async upload(req,res,next) {
     try {
       let file = req.file;
       const link = { link: res.link.replace(/\\/g, '/') };
@@ -127,4 +127,4 @@ class AdController extends BaseController {
   }
 }
 
-module.exports = new AdController();
+module.exports = AdController;

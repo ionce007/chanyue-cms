@@ -15,7 +15,7 @@ class ModelController extends BaseController {
   }
 
   // 增
-  async create(req, res, next) {
+  static async create(req, res, next) {
     try {
       const body = req.body;
       const has = await ModelService.findByName(body.model_name, body.table_name);
@@ -31,7 +31,7 @@ class ModelController extends BaseController {
   }
 
   // 删除
-  async delete(req, res, next) {
+  static async delete(req, res, next) {
     try {
       const body = req.body;
       const data = await ModelService.delete(body);
@@ -42,7 +42,7 @@ class ModelController extends BaseController {
   }
 
   // 改
-  async update(req, res, next) {
+  static async update(req, res, next) {
     try {
       const body = req.body;
       const data = await ModelService.update(body);
@@ -53,7 +53,7 @@ class ModelController extends BaseController {
   }
 
   // 查
-  async detail(req, res, next) {
+  static async detail(req, res, next) {
     try {
       const id = req.query.id;
       const data = await ModelService.detail(id);
@@ -65,7 +65,7 @@ class ModelController extends BaseController {
 
 
   // 是否被使用
-  async hasUse(req, res, next) {
+  static async hasUse(req, res, next) {
     try {
       const id = req.query.id;
       const data = await ModelService.hasUse(id);
@@ -76,7 +76,7 @@ class ModelController extends BaseController {
   }
 
   // 列表
-  async list(req, res, next) {
+  static async list(req, res, next) {
     try {
       const cur = req.query.cur;
       const pageSize = 10;
@@ -88,4 +88,4 @@ class ModelController extends BaseController {
   }
 }
 
-module.exports = new ModelController();
+module.exports = ModelController;

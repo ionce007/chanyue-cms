@@ -13,7 +13,7 @@ class FriendlinkController extends BaseController {
   }
 
   // 增
-  async create(req, res, next) {
+  static async create(req, res, next) {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -25,7 +25,7 @@ class FriendlinkController extends BaseController {
   }
 
   // 删除
-  async delete(req, res, next) {
+  static async delete(req, res, next) {
     try {
       const id = req.query.id;
       const data = await FriendlinkService.delete(id);
@@ -37,7 +37,7 @@ class FriendlinkController extends BaseController {
 
 
   // 改
-  async update(req, res, next) {
+  static async update(req, res, next) {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -49,7 +49,7 @@ class FriendlinkController extends BaseController {
   }
 
   // 查
-  async find(req, res, next) {
+  static async find(req, res, next) {
     try {
       const id = req.query.id;
       const data = await FriendlinkService.find(id);
@@ -60,7 +60,7 @@ class FriendlinkController extends BaseController {
   }
 
   // 查
-  async detail(req, res, next) {
+  static async detail(req, res, next) {
     try {
       const id = req.query.id;
       const data = await FriendlinkService.detail(id);
@@ -71,7 +71,7 @@ class FriendlinkController extends BaseController {
   }
 
   // 搜索
-  async search(req, res, next) {
+  static async search(req, res, next) {
     try {
       const cur = req.query.cur;
       const key = req.query.keyword;
@@ -87,7 +87,7 @@ class FriendlinkController extends BaseController {
   }
 
   
-  async list(req, res, next) {
+  static async list(req, res, next) {
     try {
       const cur = req.query.cur;
       const pageSize = 10;
@@ -103,4 +103,4 @@ class FriendlinkController extends BaseController {
 
 }
 
-module.exports = new FriendlinkController();
+module.exports = FriendlinkController;

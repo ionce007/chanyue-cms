@@ -1,12 +1,10 @@
 'use strict';
-
-
 class BaseController {
   constructor(){
     
   }
 
-  success(res,data) {
+ static success(res) {
     res.json({
       code: 200,
       msg: '成功',
@@ -14,15 +12,13 @@ class BaseController {
     })
   }
 
-  fail(res,err) {
+  static fail(res,err) {
 	  console.error(err);
     res.json({
       code: 500,
       msg:err
     })
   }
-
-  
 }
 
 module.exports = BaseController;

@@ -2,15 +2,17 @@
 const BaseService = require('./base');
 const knex = require('../../config/config.knex.js');
 class AdminService extends BaseService {
+  static model = 'admin';
+
   constructor(props) {
     super(props);
-    this.model = 'admin';
+   
   }
 
   // 登录
-  async find(username, password) {
+  static async find(username, password) {
     try {
-      const res = await knex(`${this.model}`).where({
+      const res = await knex(`${AdminService.model}`).where({
         username: `${username}`,
         password: `${password}`
       }).select(['id', 'username', 'status']);
@@ -21,9 +23,9 @@ class AdminService extends BaseService {
   }
 
   // 增加
-  async create(body) {
+  static async create(body) {
     try {
-      const result = await this.insert(body);
+      const result = await BaseService.insert(AdminService.model,body);
       return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
@@ -31,9 +33,9 @@ class AdminService extends BaseService {
   }
 
   // 删
-  async delete(id) {
+  static async delete(id) {
     try {
-      const result = await knex(this.model).where('id', '=', id).del()
+      const result = await knex(AdminService.model).where('id', '=', id).del()
       return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
@@ -41,11 +43,11 @@ class AdminService extends BaseService {
   }
 
   // 修改
-  async update(body) {
+  static async update(body) {
     const {id} = body;
     delete body.id;
     try {
-      const result = await knex(this.model).where('id', '=', id).update(body)
+      const result = await knex(AdminService.model).where('id', '=', id).update(body)
       return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
@@ -53,13 +55,13 @@ class AdminService extends BaseService {
   }
 
   // 列表
-  async list(cur = 1, pageSize = 10) {
+  static async list(cur = 1, pageSize = 10) {
     try {
       // 查询个数
-      const total = await knex(this.model).count('id', {as: 'count'});
+      const total = await knex(AdminService.model).count('id', {as: 'count'});
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex.select(['id','username','createdAt','updatedAt','status'])
-        .from(this.model)
+        .from(AdminService.model)
         .limit(pageSize)
         .offset(offset)
         .orderBy('id', 'desc');
@@ -77,9 +79,9 @@ class AdminService extends BaseService {
 
 
   // 查
-  async detail(id) {
+  static async detail(id) {
     try {
-      const data = await knex(this.model).where('id', '=', id).select(['id', 'username', 'createdAt', 'updatedAt', 'status'])
+      const data = await knex(AdminService.model).where('id', '=', id).select(['id', 'username', 'createdAt', 'updatedAt', 'status'])
       return data[0];
     } catch (error) {
       console.log(error)
@@ -87,15 +89,15 @@ class AdminService extends BaseService {
   }
 
   // 搜索
-  async search(key = '', cur = 1, pageSize = 10) {
+  static async search(key = '', cur = 1, pageSize = 10) {
     try {
       // 查询个数
       const sql = `SELECT COUNT(id) as count FROM ? p  WHERE p.name LIKE '%${key}%'`;
-      const total = await knex.raw(sql, [this.model]);
+      const total = await knex.raw(sql, [AdminService.model]);
       // 翻页
       const offset = parseInt((cur - 1) * pageSize);
       const sql_list = `SELECT p.id,p.name,p.mark FROM ? p WHERE p.name LIKE '%${key}%' ORDER BY id DESC LIMIT ?,?`;
-      const list = await knex.raw(sql_list, [this.model, offset, parseInt(pageSize)]);
+      const list = await knex.raw(sql_list, [AdminService.model, offset, parseInt(pageSize)]);
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
@@ -109,4 +111,4 @@ class AdminService extends BaseService {
 
 }
 
-module.exports = new AdminService();
+module.exports =  AdminService;

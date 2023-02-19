@@ -14,7 +14,7 @@ class WeiXinController extends BaseController {
     this.model = 'weixin';
   }
 
-  async login(req, res, next){
+  static async login(req, res, next){
     try {
         const {code,userInfo} = req.body;
         const {appid,secret} = weixin;
@@ -36,4 +36,4 @@ class WeiXinController extends BaseController {
 
 }
 
-module.exports = new WeiXinController();
+module.exports =  WeiXinController;

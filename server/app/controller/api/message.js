@@ -14,7 +14,7 @@ class MessageController extends BaseController {
   }
 
   // 增
-  async create(req, res, next) {
+  static async create(req, res, next) {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -27,7 +27,7 @@ class MessageController extends BaseController {
 
 
   // 删除
-  async delete(req, res, next) {
+  static async delete(req, res, next) {
     try {
       const id = req.query.id;
       const data = await MessageService.delete(id);
@@ -38,7 +38,7 @@ class MessageController extends BaseController {
   }
 
   // 改
-  async update(req, res, next) {
+  static async update(req, res, next) {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -51,7 +51,7 @@ class MessageController extends BaseController {
   
 
   // 查
-  async find(req, res, next) {
+  static async find(req, res, next) {
     try {
       const id = req.query.id;
       const data = await MessageService.find(id);
@@ -63,7 +63,7 @@ class MessageController extends BaseController {
  
 
   // 查
-  async detail(req, res, next) {
+  static async detail(req, res, next) {
     try {
       const id = req.query.id;
       const data = await MessageService.detail(id);
@@ -76,7 +76,7 @@ class MessageController extends BaseController {
 
 
   // 搜索
-  async search(req, res, next) {
+  static async search(req, res, next) {
     try {
       const cur = req.query.cur;
       const key = req.query.keyword;
@@ -92,7 +92,7 @@ class MessageController extends BaseController {
   }
 
   // 列表
-  async list(req, res, next) {
+  static async list(req, res, next) {
     try {
       const cur = req.query.cur;
       const pageSize = 10;
@@ -108,4 +108,4 @@ class MessageController extends BaseController {
 
 }
 
-module.exports = new MessageController();
+module.exports = MessageController;

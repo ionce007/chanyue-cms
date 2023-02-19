@@ -9,7 +9,7 @@ class CategoryController extends BaseController {
     this.model = 'category';
   }
   // 增
-  async create(req, res, next) {
+  static async create(req, res, next) {
     try {
       const body = req.body;
       const data = await CategoryService.create(body);
@@ -20,7 +20,7 @@ class CategoryController extends BaseController {
   }
 
   // 删除
-  async delete(req, res, next) {
+  static async delete(req, res, next) {
     try {
       const id = req.query.id;
       const data = await CategoryService.delete(id);
@@ -31,7 +31,7 @@ class CategoryController extends BaseController {
   }
 
   // 改
-  async update(req, res, next) {
+  static async update(req, res, next) {
     try {
       const body = req.body;
       const data = await CategoryService.update(body);
@@ -42,7 +42,7 @@ class CategoryController extends BaseController {
   }
 
   // 查
-  async find(req, res, next) {
+  static async find(req, res, next) {
     try {
       const data = await CategoryService.find();
       res.json({ ...success, data: data });
@@ -52,7 +52,7 @@ class CategoryController extends BaseController {
   }
 
   // 查
-  async findId(req, res, next) {
+  static async findId(req, res, next) {
     try {
       const id = req.query.id;
       const data = await CategoryService.findId(id);
@@ -63,7 +63,7 @@ class CategoryController extends BaseController {
   }
 
   // 查子栏目
-  async findSubId(req, res, next) {
+  static async findSubId(req, res, next) {
     try {
       const id = req.query.id;
       const data = await CategoryService.findSubId(id);
@@ -74,7 +74,7 @@ class CategoryController extends BaseController {
   }
 
   // 搜索栏目
-  async search(req, res, next) {
+  static async search(req, res, next) {
     try {
       const q = req.query.q;
       const data = await CategoryService.search(q);
@@ -86,4 +86,4 @@ class CategoryController extends BaseController {
 
 }
 
-module.exports = new CategoryController();
+module.exports = CategoryController;

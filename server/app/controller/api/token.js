@@ -6,11 +6,10 @@ const {setToken,getToken} = require('../../extend/helper.js');
 class TokenController extends BaseController {
   constructor(...args) {
     super(...args);
-    this.model = 'token';
   }
 
   // 更新token时间
-  async update(res,req,next) {
+  static async update(res,req,next) {
     try {
       const username = req.locals.username;
       const uid = req.locals.uid;
@@ -24,7 +23,7 @@ class TokenController extends BaseController {
   }
 
   // 校验token是否正确
-  async check(req,res,next) {
+  static async check(req,res,next) {
     try {
 
       const token = req.query.token;
@@ -34,7 +33,6 @@ class TokenController extends BaseController {
       this.fail(error);
     }
   }
-
 
 }
 

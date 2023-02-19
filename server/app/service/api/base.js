@@ -1,28 +1,27 @@
 'use strict';
 const knex = require('../../config/config.knex.js');
 class BaseService {
-	constructor(props) {
-		this.model = props
+	constructor() {
 	}
 
-	all() {
-		return knex(this.model).select()
+	static all(model) {
+		return knex(model).select()
 	}
 
-	detail(id){
-		return knex(this.model).where('id', '=', id).select()
+	static detail(model,id){
+		return knex(model).where('id', '=', id).select()
 	}
 
-	insert(params) {
-		return knex(this.model).insert(params)
+	static insert(model,params) {
+		return knex(model).insert(params)
 	}
 
-	update(id, params) {
-		return knex(this.model).where('id', '=', id).update(params)
+	static update(model,id, params) {
+		return knex(model).where('id', '=', id).update(params)
 	}
 
-	delete(id) {
-		return knex(this.model).where('id', '=', id).del()
+	static delete(model,id) {
+		return knex(model).where('id', '=', id).del()
 	}
 }
 

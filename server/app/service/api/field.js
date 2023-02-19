@@ -5,13 +5,14 @@ const knex = require('../../config/config.knex.js');
 const { delImg, filterImgFromStr } = require('../../extend/helper.js');
 
 class FieldService extends BaseService {
+  static model = 'field';
   constructor(props) {
     super(props);
-    this.model = 'field';
+    
   }
 
   // 增
-  async create(body) {
+  static async create(body) {
     try {
       // 新增字的同时需要新增表
       const { model_id, field_cname, field_ename, field_type, field_values, field_default, field_sort } = body;
@@ -19,7 +20,7 @@ class FieldService extends BaseService {
         // 查询模块名称
         let table_name = await knex.raw('SELECT table_name FROM model WHERE id=?', [model_id]).transacting(trx);;
         table_name = table_name[0][0].table_name;
-        const result = await knex(this.model).insert({ model_id, field_cname, field_ename, field_type, field_values, field_default, field_sort }).transacting(trx);
+        const result = await knex(FieldService.model).insert({ model_id, field_cname, field_ename, field_type, field_values, field_default, field_sort }).transacting(trx);
 
        // result 返回是新增[id]
         
@@ -60,7 +61,7 @@ class FieldService extends BaseService {
   // "alter table ${table_name} drop column ${fieldName}"
   // https://study.163.com/course/courseLearn.htm?courseId=1003803023#/learn/video?lessonId=1004585871&courseId=1003803023
 
-  async delete(id, table_name) {
+  static async delete(id, table_name) {
     try {
       await knex.transaction(async trx => {
         // 查询需要删除的字段
@@ -70,7 +71,7 @@ class FieldService extends BaseService {
         const table = await knex.raw('SELECT table_name FROM model WHERE id=?', [model_id]).transacting(trx);
         table_name = table[0][0].table_name;
         // 删除数据
-        const result = await knex(this.model).where('id', '=', id).del().transacting(trx);
+        const result = await knex(FieldService.model).where('id', '=', id).del().transacting(trx);
         // 删除对应模型表中的字段
         if (result > 0) {
           const res = await knex.raw(`alter table ${table_name} drop column ${field_ename}`).transacting(trx);
@@ -83,11 +84,11 @@ class FieldService extends BaseService {
   }
 
   // 改
-  async update(body) {
+  static async update(body) {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(this.model).where('id', '=', id).update(body)
+      const result = await knex(FieldService.model).where('id', '=', id).update(body)
       return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
@@ -96,7 +97,7 @@ class FieldService extends BaseService {
 
   // 查询是否存在重复字段名
 
-  async findByName(field_cname, field_ename) {
+  static async findByName(field_cname, field_ename) {
     try {
       const result = await knex.raw('SELECT field_cname,field_ename from field WHERE field_cname=? or field_ename=? LIMIT 0,1', [field_cname, field_ename]);
       return result[0];
@@ -106,15 +107,15 @@ class FieldService extends BaseService {
   }
 
   // 文章列表
-  async list(model_id, cur = 1, pageSize = 10) {
+  static async list(model_id, cur = 1, pageSize = 10) {
     try {
       // 查询个数
-      const sql = `SELECT COUNT(id) as count FROM ${this.model}`;
+      const sql = `SELECT COUNT(id) as count FROM ${FieldService.model}`;
       const total = await knex.raw(sql);
       // 列表
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex.select(['id', 'field_cname', 'field_ename', 'field_sort'])
-        .from(this.model).where('model_id', '=', model_id)
+        .from(FieldService.model).where('model_id', '=', model_id)
         .limit(pageSize)
         .offset(offset)
         .orderBy('id', 'desc');
@@ -137,9 +138,9 @@ class FieldService extends BaseService {
   }
 
   // 查
-  async detail(id) {
+  static async detail(id) {
     try {
-      const data = await knex(this.model).where('id', '=', id).select()
+      const data = await knex(FieldService.model).where('id', '=', id).select()
       return data[0];
     } catch (error) {
       console.error(error)
@@ -148,4 +149,4 @@ class FieldService extends BaseService {
 
 }
 
-module.exports = new FieldService();
+module.exports =  FieldService;

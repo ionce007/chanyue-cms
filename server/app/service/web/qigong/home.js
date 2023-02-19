@@ -1,18 +1,25 @@
-'use strict';
-const knex = require('../../../config/config.knex.js');
+"use strict";
+const knex = require("../../../config/config.knex.js");
 
-const BaseService = require('./base');
-
-class HomeService extends BaseService {
-
+class HomeService  {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   // 网站栏目
-  async category() {
+  static async category() {
     try {
-      let res = await knex('category').select(['id', 'pid', 'name', 'pinyin', 'path', 'sort', 'target', 'status', 'type']);
+      let res = await knex("category").select([
+        "id",
+        "pid",
+        "name",
+        "pinyin",
+        "path",
+        "sort",
+        "target",
+        "status",
+        "type",
+      ]);
       return res;
     } catch (err) {
       console.error(err);
@@ -20,13 +27,15 @@ class HomeService extends BaseService {
   }
 
   // 广告
-  async ad(platform = 1, position = 1) {
+  static async ad(platform = 1, position = 1) {
     try {
-      let res = await knex('ad').where({
-        platform: `${platform}`,
-        position: `${position}`,
-        status: '1'
-      }).select(['id', 'title', 'mark', 'imgUrl', 'link']);
+      let res = await knex("ad")
+        .where({
+          platform: `${platform}`,
+          position: `${position}`,
+          status: "1",
+        })
+        .select(["id", "title", "mark", "imgUrl", "link"]);
       return res;
     } catch (err) {
       console.error(`platform-> ${platform} position->${position}`, err);
@@ -34,22 +43,28 @@ class HomeService extends BaseService {
   }
 
   //  指定栏目和文章 1头条 2推荐-右侧 3轮播 4热门事件
-  async getArticleListById(id, attr, len = 5) {
+  static async getArticleListById(id, attr, len = 5) {
     try {
       // 获取所有id
-      const res = await knex.raw('SELECT id FROM category WHERE pid=?', [id]);
+      const res = await knex.raw("SELECT id FROM category WHERE pid=?", [id]);
       let ids = [id];
-      res[0].forEach(item => {
+      res[0].forEach((item) => {
         ids.push(item.id);
       });
-      ids = ids.join(',');
+      ids = ids.join(",");
 
       // 获取栏目
       let result;
       if (attr) {
-        result = await knex.raw('SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id WHERE a.cid IN (?)  AND a.attr LIKE \'%?%\'  ORDER BY createdAt DESC LIMIT 0,?', [ids, attr, len]);
+        result = await knex.raw(
+          "SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id WHERE a.cid IN (?)  AND a.attr LIKE '%?%'  ORDER BY createdAt DESC LIMIT 0,?",
+          [ids, attr, len]
+        );
       } else {
-        result = await knex.raw('SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id WHERE a.cid IN (?) ORDER BY createdAt DESC LIMIT 0,?', [ids, len]);
+        result = await knex.raw(
+          "SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id WHERE a.cid IN (?) ORDER BY createdAt DESC LIMIT 0,?",
+          [ids, len]
+        );
       }
       return { list: result[0] };
     } catch (err) {
@@ -58,13 +73,19 @@ class HomeService extends BaseService {
   }
 
   // 全局文章  1头条 2推荐-右侧 3轮播 4热门事件
-  async getArticleList(attr, start = 0, len = 5) {
+  static async getArticleList(attr, start = 0, len = 5) {
     try {
       let result;
       if (attr) {
-        result = await knex.raw('SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id WHERE a.attr LIKE \'%?%\'  ORDER BY a.createdAt DESC LIMIT ?,?', [attr, start, len]);
+        result = await knex.raw(
+          "SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id WHERE a.attr LIKE '%?%'  ORDER BY a.createdAt DESC LIMIT ?,?",
+          [attr, start, len]
+        );
       } else {
-        result = await knex.raw('SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id  ORDER BY createdAt DESC LIMIT ?,?', [start, len]);
+        result = await knex.raw(
+          "SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id  ORDER BY createdAt DESC LIMIT ?,?",
+          [start, len]
+        );
       }
       return { list: result[0] };
     } catch (err) {
@@ -104,26 +125,32 @@ class HomeService extends BaseService {
   //     return { list: result };
   //   } catch (err) {
   //     // 异常后回滚
-  //      await conn.rollback(); 
+  //      await conn.rollback();
   //     console.error(err);
   //   }
   // }
 
   // 指定栏目或全局 浏览pv排行
-  async getArticlePvList(id = '', len = 10) {
+  static async getArticlePvList(id = "", len = 10) {
     try {
       let result;
       // 获取所有id
       if (id) {
-        const res = await knex.raw('SELECT id FROM category WHERE pid=?', [id]);
+        const res = await knex.raw("SELECT id FROM category WHERE pid=?", [id]);
         let ids = [id];
-        res[0].forEach(item => {
+        res[0].forEach((item) => {
           ids.push(item.id);
         });
-        ids = ids.join(',');
-        result = await knex.raw('SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id WHERE cid IN (?)  ORDER BY pv DESC LIMIT 0,?', [ids, len]);
+        ids = ids.join(",");
+        result = await knex.raw(
+          "SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id WHERE cid IN (?)  ORDER BY pv DESC LIMIT 0,?",
+          [ids, len]
+        );
       } else {
-        result = await knex.raw('SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id ORDER BY pv DESC LIMIT 0,?', [len]);
+        result = await knex.raw(
+          "SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id ORDER BY pv DESC LIMIT 0,?",
+          [len]
+        );
       }
       return { list: result[0] };
     } catch (err) {
@@ -131,28 +158,33 @@ class HomeService extends BaseService {
     }
   }
 
-
   // 指定栏目或全局 图文排行榜 ?没测过
-  async getArticleImgList(id = '', len = 10) {
+  static async getArticleImgList(id = "", len = 10) {
     try {
       // 获取所有id
-      const res = await knex.raw('SELECT id FROM category WHERE pid=?', [id]);
+      const res = await knex.raw("SELECT id FROM category WHERE pid=?", [id]);
       if (!res[0]) {
         return { list: [] };
       }
       let ids = [id];
       if (res[0]) {
-        res[0].forEach(item => {
+        res[0].forEach((item) => {
           item.id && ids.push(item.id);
         });
       }
-      ids = ids.join(',');
+      ids = ids.join(",");
 
       let result;
       if (id) {
-        result = await knex.raw(`SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id  WHERE a.img!='' AND a.cid IN (?) ORDER BY createdAt DESC LIMIT 0,?`, [ids, len]);
+        result = await knex.raw(
+          `SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id  WHERE a.img!='' AND a.cid IN (?) ORDER BY createdAt DESC LIMIT 0,?`,
+          [ids, len]
+        );
       } else {
-        result = await knex.raw(`SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id  WHERE img!='' ORDER BY createdAt DESC LIMIT 0,?`, [len]);
+        result = await knex.raw(
+          `SELECT a.id,a.title,a.short_title,a.img,a.createdAt,a.description,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id  WHERE img!='' ORDER BY createdAt DESC LIMIT 0,?`,
+          [len]
+        );
       }
       return { list: result[0] };
     } catch (err) {
@@ -160,27 +192,24 @@ class HomeService extends BaseService {
     }
   }
 
-
-  async list(id, current, pageSize) {
-
+  static async list(id, current, pageSize) {
     try {
       let ids = [];
       const start = parseInt((current - 1) * pageSize);
       // 获取所有id
       if (id) {
-        const res = await knex.raw('SELECT id FROM category WHERE pid=?', [id]);
-         ids = [id];
-        if (res[0].length>0) {
-          res[0].forEach(item => {
+        const res = await knex.raw("SELECT id FROM category WHERE pid=?", [id]);
+        ids = [id];
+        if (res[0].length > 0) {
+          res[0].forEach((item) => {
             item.id && ids.push(item.id);
           });
         }
-        
       }
-    
-      let idString= ids.join(',');
+
+      let idString = ids.join(",");
       // 查询个数
-      let sql1 =`SELECT COUNT(id) as count FROM article WHERE cid IN (?)`;
+      let sql1 = `SELECT COUNT(id) as count FROM article WHERE cid IN (?)`;
       let sql2 = `SELECT a.id,a.title,a.short_title,a.img,a.description,a.createdAt,a.author,a.pv,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id WHERE a.cid IN (?) ORDER BY createdAt DESC LIMIT ?,?`;
       const total = await knex.raw(sql1, [ids]);
       const result = await knex.raw(sql2, [ids, start, pageSize]);
@@ -197,4 +226,4 @@ class HomeService extends BaseService {
   }
 }
 
-module.exports = new HomeService();
+module.exports = HomeService;

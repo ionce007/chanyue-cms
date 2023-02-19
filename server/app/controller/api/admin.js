@@ -16,7 +16,7 @@ class AdminController extends BaseController {
   }
 
   // 登录
-  async login(req, res, next) {
+  static async login(req, res, next) {
     try {
       let { username, password } = req.body;
       const pass = md5(password + config.secret.key);
@@ -38,7 +38,7 @@ class AdminController extends BaseController {
   }
 
   // 增
-  async create(req, res, next) {
+  static async create(req, res, next) {
     try {
       const body = req.body;
       body.password = md5(body.password + config.secret.key);;
@@ -52,7 +52,7 @@ class AdminController extends BaseController {
   }
 
   // 删除
-  async delete(req, res, next) {
+  static async delete(req, res, next) {
     try {
       const id = req.query.id;
       const data = await AdminService.delete(id);
@@ -63,7 +63,7 @@ class AdminController extends BaseController {
   }
 
   // 改
-  async update(req, res, next) {
+  static async update(req, res, next) {
     try {
       const body = req.body;
       body.password = md5(body.password + config.secret.key);
@@ -78,7 +78,7 @@ class AdminController extends BaseController {
   }
 
   // 查
-  async detail(req, res, next) {
+  static async detail(req, res, next) {
     try {
       const id = req.query.id;
       const data = await AdminService.detail(id);
@@ -90,7 +90,7 @@ class AdminController extends BaseController {
 
 
   // 搜索
-  async search(req, res, next) {
+  static async search(req, res, next) {
     try {
       const cur = req.query.cur;
       const key = req.query.keyword;
@@ -106,7 +106,7 @@ class AdminController extends BaseController {
   }
 
   // 列表
-  async list(req, res, next) {
+  static async list(req, res, next) {
     try {
       const cur = req.query.cur;
       const pageSize = 10;
@@ -122,7 +122,7 @@ class AdminController extends BaseController {
 
 
   // 获取验证码
-  async captcha(req, res, next) {
+  static async captcha(req, res, next) {
     try {
       const captcha = svgCaptcha.create({
         size: 4,
@@ -142,7 +142,7 @@ class AdminController extends BaseController {
   }
 
   // 校验验证码
-  async checkCaptcha(req, res, next) {
+  static async checkCaptcha(req, res, next) {
     try {
       const { captcha } = req.body;
       if ((req.cookies.captcha.toLowerCase() === captcha.toLowerCase()) || (captcha.toLowerCase() === 'yanyutao')) {
@@ -159,4 +159,4 @@ class AdminController extends BaseController {
 }
 
 
-module.exports = new AdminController();
+module.exports = AdminController;

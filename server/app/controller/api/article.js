@@ -13,7 +13,7 @@ class ArticleController extends BaseController {
   }
 
   // 增
-  async create(req, res, next) {
+  static async create(req, res, next) {
     try {
       const body = req.body;
       body.defaultParams.createdAt = dayjs(body.defaultParams.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -27,7 +27,7 @@ class ArticleController extends BaseController {
   }
 
 // 删除
-async delete(req, res, next) {
+static async delete(req, res, next) {
   try {
     const id = req.query.id;
     const data = await ArticleService.delete(id);
@@ -38,7 +38,7 @@ async delete(req, res, next) {
 }
 
   // 改
-  async update(req, res, next) {
+  static async update(req, res, next) {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -53,7 +53,7 @@ async delete(req, res, next) {
 
 
   // 查
-  async find(req, res, next) {
+  static async find(req, res, next) {
     try {
       const data = await ArticleService.find();
       res.json({ ...success, data: data });
@@ -63,7 +63,7 @@ async delete(req, res, next) {
   }
 
   // 查
-  async detail(req, res, next) {
+  static async detail(req, res, next) {
     try {
       const id = req.query.id;
       const data = await ArticleService.detail(id);
@@ -74,7 +74,7 @@ async delete(req, res, next) {
   }
 
   // 查子栏目
-  async findSubId(req, res, next) {
+  static async findSubId(req, res, next) {
     try {
       const id = req.query.id;
       const data = await ArticleService.findSubId(id);
@@ -86,12 +86,11 @@ async delete(req, res, next) {
 
 
   // 搜索
-  async search(req, res, next) {
+  static async search(req, res, next) {
     try {
       const cur = req.query.cur;
       const key = req.query.keyword;
       const cid = req.query.cid || 0; // 所属栏目
- 
       const pageSize = req.query.pageSize || 10;
       const data = await ArticleService.search(key, cur, pageSize, +cid);
       data.list.forEach(ele => {
@@ -105,9 +104,8 @@ async delete(req, res, next) {
 
 
   // 列表
-  async list(req, res, next) {
+  static async list(req, res, next) {
     try {
-   
       const cur = req.query.cur;
       const pageSize = 10;
       const data = await ArticleService.list(cur, pageSize);
@@ -121,7 +119,7 @@ async delete(req, res, next) {
   }
 
   // 上传图片
-  async upload(req,res,next) {
+  static async upload(req,res,next) {
     try {
       let file =  req.files;
       const {originalname,filename,path} = file[0];
@@ -131,7 +129,7 @@ async delete(req, res, next) {
     }
   }
 
-  async findField(req,res,next) {
+  static async findField(req,res,next) {
     try {
       const cid = req.query.cid;
       const data = await ArticleService.findField(cid);
@@ -141,7 +139,7 @@ async delete(req, res, next) {
     }
   }
 
-  async tongji(req,res,next) {
+  static async tongji(req,res,next) {
     try {
       const data = await ArticleService.tongji();
       res.json({ ...success, data: data });
@@ -151,4 +149,4 @@ async delete(req, res, next) {
   }
 }
 
-module.exports = new ArticleController();
+module.exports = ArticleController;

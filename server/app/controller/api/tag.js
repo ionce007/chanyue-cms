@@ -10,11 +10,10 @@ class TagController extends BaseController {
 
   constructor(props) {
     super(props);
-    this.model = 'tag';
   }
 
   // 增
-  async create(req, res, next) {
+  static async create(req, res, next) {
     try {
       const body = req.body;
       const data = await TagService.create(body);
@@ -25,7 +24,7 @@ class TagController extends BaseController {
   }
 
   // 删除
-  async delete(req, res, next) {
+  static async delete(req, res, next) {
     try {
       const id = req.query.id;
       const data = await TagService.delete(id);
@@ -36,7 +35,7 @@ class TagController extends BaseController {
   }
 
   // 改
-  async update(req, res, next) {
+  static async update(req, res, next) {
     try {
       const body = req.body;
       const data = await TagService.update(body);
@@ -47,7 +46,7 @@ class TagController extends BaseController {
   }
 
   // 查
-  async detail(req, res, next) {
+  static async detail(req, res, next) {
     try {
       const id = req.query.id;
       const data = await TagService.detail(id);
@@ -58,7 +57,7 @@ class TagController extends BaseController {
   }
 
   // 列表
-  async list(req, res, next) {
+  static async list(req, res, next) {
     try {
       const cur = req.query.cur;
       const pageSize = 50;
@@ -70,7 +69,7 @@ class TagController extends BaseController {
   }
 
 
-  async has(req, res, next) {
+  static async has(req, res, next) {
     try {
       const path = req.query.path;
       const data = await TagService.has(path);
@@ -81,7 +80,7 @@ class TagController extends BaseController {
   }
 
   // 搜索
-  async search(req, res, next) {
+  static async search(req, res, next) {
     try {
       const cur = req.query.cur;
       const key = req.query.keyword;
@@ -96,4 +95,4 @@ class TagController extends BaseController {
 
 }
 
-module.exports = new TagController();
+module.exports = TagController;

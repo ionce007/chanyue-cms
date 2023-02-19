@@ -1,14 +1,10 @@
 'use strict';
 const BaseController = require('./base');
 const dayjs = require('dayjs');
-
 const path = require('path');
 const { success, fail, } = require('../../extend/api.js');
 const { filterBody } = require('../../extend/helper.js');
-
-
 const FieldService = require('../../service/api/field.js');
-
 
 class FieldController extends BaseController {
 
@@ -18,7 +14,7 @@ class FieldController extends BaseController {
   }
 
   // 增
-  async create(req, res, next) {
+  static async create(req, res, next) {
     try {
       const body = req.body;
       const has = await FieldService.findByName(body.field_cname, body.field_ename);
@@ -37,7 +33,7 @@ class FieldController extends BaseController {
   }
 
   // 删除
-  async delete(req, res, next) {
+  static async delete(req, res, next) {
     try {
       const id = req.query.id;
       const data = await FieldService.delete(id);
@@ -48,7 +44,7 @@ class FieldController extends BaseController {
   }
 
   // 改
-  async update(req, res, next) {
+  static async update(req, res, next) {
     try {
       const body = req.body;
       const data = await FieldService.update(body);
@@ -60,7 +56,7 @@ class FieldController extends BaseController {
 
 
   // 查
-  async detail(req, res, next) {
+  static async detail(req, res, next) {
     try {
       const id = req.query.id;
       const data = await FieldService.detail(id);
@@ -71,7 +67,7 @@ class FieldController extends BaseController {
   }
 
   // 列表 
-  async list(req, res, next) {
+  static async list(req, res, next) {
     try {
       const cur = req.query.cur;
       const model_id = req.query.model_id;
@@ -84,4 +80,4 @@ class FieldController extends BaseController {
   }
 }
 
-module.exports = new FieldController();
+module.exports = FieldController;

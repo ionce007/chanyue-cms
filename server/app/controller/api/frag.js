@@ -15,7 +15,7 @@ class FragController extends BaseController {
   }
 
   // 增
-  async create(req, res, next) {
+ static async create(req, res, next) {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -27,7 +27,7 @@ class FragController extends BaseController {
   }
 
   // 删除
-  async delete(req, res, next) {
+  static async delete(req, res, next) {
     try {
       const id = req.query.id;
       const data = await FragService.delete(id);
@@ -38,7 +38,7 @@ class FragController extends BaseController {
   }
 
   // 改
-  async update(req, res, next) {
+  static async update(req, res, next) {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -50,7 +50,7 @@ class FragController extends BaseController {
   }
 
   // 查
-  async find(req, res, next) {
+  static async find(req, res, next) {
     try {
       const data = await FragService.find();
       res.json({ ...success, data: data });
@@ -60,7 +60,7 @@ class FragController extends BaseController {
   }
 
   // 查
-  async detail(req, res, next) {
+  static async detail(req, res, next) {
     try {
       const id = req.query.id;
       const data = await FragService.detail(id);
@@ -71,7 +71,7 @@ class FragController extends BaseController {
   }
 
   // 查子栏目
-  async findSubId(req, res, next) {
+  static async findSubId(req, res, next) {
     try {
       const id = req.query.id;
       const data = await FragService.findSubId(id);
@@ -82,7 +82,7 @@ class FragController extends BaseController {
   }
 
   // 搜索
-  async search(req, res, next) {
+  static async search(req, res, next) {
     try {
       const cur = req.query.cur;
       const key = req.query.keyword;
@@ -98,7 +98,7 @@ class FragController extends BaseController {
   }
 
   // 列表
-  async list(req, res, next) {
+  static async list(req, res, next) {
     try {
       const cur = req.query.cur;
       const pageSize = 10;
@@ -114,4 +114,4 @@ class FragController extends BaseController {
 
 }
 
-module.exports = new FragController();
+module.exports = FragController;

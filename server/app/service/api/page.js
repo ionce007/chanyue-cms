@@ -17,17 +17,17 @@ async function getImgsByPageId(id, arr, ctx) {
 
 
 class PageService extends BaseService {
+  static model = 'page';
   constructor(props) {
     super(props)
-    this.model = 'page'
   }
 
 
     // 增
-    async create(body) {
+    static async create(body) {
       const { app } = this;
       try {
-        const result = await this.insert(body);
+        const result = await BaseService.insert(PageService.model,body);
         return result ? 'success' : 'fail';
       } catch (error) {
         console.error(error)
@@ -37,7 +37,7 @@ class PageService extends BaseService {
   
 
   // 删
-  async delete(id) {
+  static async delete(id) {
 
     try {
       const ids = id.split(',');
@@ -61,7 +61,7 @@ class PageService extends BaseService {
       }
 
       // 批量删除页面
-      const delPageStr = `DELETE FROM ${this.model} WHERE id IN(${id})`;
+      const delPageStr = `DELETE FROM ${PageService.model} WHERE id IN(${id})`;
       const delPage = await knex.raw(delPageStr, [])
 
       return delPage ? 'success' : 'fail';
@@ -74,11 +74,11 @@ class PageService extends BaseService {
 
 
   // 修改
-  async update(body) {
+  static async update(body) {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(this.model).where('id', '=', id).update(body)
+      const result = await knex(PageService.model).where('id', '=', id).update(body)
       return result ? 'success' : 'fail';
     } catch (error) {
       console.error(error)
@@ -86,13 +86,13 @@ class PageService extends BaseService {
   }
 
 // 列表
-async list(cur = 1, pageSize = 10) {
+static async list(cur = 1, pageSize = 10) {
   try {
     // 查询个数
-    const total = await knex(this.model).count('id', {as: 'count'});
+    const total = await knex(PageService.model).count('id', {as: 'count'});
     const offset = parseInt((cur - 1) * pageSize);
     const list = await knex.select('*')
-      .from(this.model)
+      .from(PageService.model)
       .limit(pageSize)
       .offset(offset)
       .orderBy('id', 'desc');
@@ -110,9 +110,9 @@ async list(cur = 1, pageSize = 10) {
 
 
   // 查
-  async detail(id) {
+  static async detail(id) {
     try {
-      const data = await knex(this.model).where('id', '=', id).select()
+      const data = await knex(PageService.model).where('id', '=', id).select()
       return data[0];
     } catch (error) {
       console.error(error);
@@ -120,10 +120,10 @@ async list(cur = 1, pageSize = 10) {
   }
 
   // 文章内容
-  async article(cid) {
+  static async article(cid) {
     try {
       // 通过栏目id查找模型id
-      const res = await knex(this.model).where('cid', '=', cid).select().limit(1);
+      const res = await knex(PageService.model).where('cid', '=', cid).select().limit(1);
       return res[0];
 
     } catch (error) {
@@ -133,7 +133,7 @@ async list(cur = 1, pageSize = 10) {
 
 
   // 增加计数器
-  async count(id) {
+  static async count(id) {
     try {
       const result = await knex.raw(`UPDATE page SET pv=pv+1 WHERE id=? LIMIT 1`, [id]);
       return result[0].affectedRows ? 'success' : 'fail';
@@ -143,7 +143,7 @@ async list(cur = 1, pageSize = 10) {
   }
 
   // 搜索
-  async search(key = '', cur = 1, pageSize = 10) {
+  static async search(key = '', cur = 1, pageSize = 10) {
     try {
       // 查询个数
       const sql = `SELECT COUNT(*) as count FROM  page p LEFT JOIN category c ON p.cid=c.id WHERE p.title LIKE '%${key}%'`;
@@ -168,4 +168,4 @@ async list(cur = 1, pageSize = 10) {
 
 }
 
-module.exports = new PageService();
+module.exports = PageService;

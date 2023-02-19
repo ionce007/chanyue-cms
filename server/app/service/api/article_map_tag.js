@@ -1,57 +1,56 @@
-'use strict';
-const BaseService = require('./base');
-const knex = require('../../config/config.knex.js');
+"use strict";
+const BaseService = require("./base");
+const knex = require("../../config/config.knex.js");
 class ArticleMapTagService extends BaseService {
+  static model = "article_map_tag";
   constructor(props) {
     super(props);
-    this.model = 'article_map_tag';
   }
 
   // 新增
-  async create(body) {
+  static async create(body) {
     try {
-      const result = await this.insert(body);
-      return result ? 'success' : 'fail';
+      const result = await BaseService.insert(ArticleMapTagService.model,body);
+      return result ? "success" : "fail";
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
   // 删
-  async delete(id) {
+  static async delete(id) {
     try {
-      const result = await knex(this.model).where('id', '=', id).del()
-      return result ? 'success' : 'fail';
+      const result = await knex(ArticleMapTagService.model).where("id", "=", id).del();
+      return result ? "success" : "fail";
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
-
   // 修改
-  async update(body) {
+  static async update(body) {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(this.model).where('id', '=', id).update(body)
-      return result ? 'success' : 'fail';
+      const result = await knex(ArticleMapTagService.model).where("id", "=", id).update(body);
+      return result ? "success" : "fail";
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
-
   // 文章列表
-  async list(cur = 1, pageSize = 10) {
+  static async list(cur = 1, pageSize = 10) {
     try {
       // 查询个数
-      const total = await knex(this.model).count('id', { as: 'count' });
+      const total = await knex(ArticleMapTagService.model).count("id", { as: "count" });
       const offset = parseInt((cur - 1) * pageSize);
-      const list = await knex.select('*')
-        .from(this.model)
+      const list = await knex
+        .select("*")
+        .from(ArticleMapTagService.model)
         .limit(pageSize)
         .offset(offset)
-        .orderBy('id', 'desc');
+        .orderBy("id", "desc");
 
       return {
         count: total[0].count,
@@ -63,42 +62,42 @@ class ArticleMapTagService extends BaseService {
       console.error(err);
     }
   }
-  
-
 
   // 查
-  async detail(id) {
-   
+  static async detail(id) {
     try {
-      const data = await knex(this.model).where('id', '=', id).select()
+      const data = await knex(ArticleMapTagService.model).where("id", "=", id).select();
       return data[0];
     } catch (error) {
       console.error(error);
     }
-
   }
 
   // 搜索
-  async search(key = '', cur = 1, pageSize = 10) {
-
+  static async search(key = "", cur = 1, pageSize = 10) {
     try {
       // 查询个数
-      const total = key ? await knex(this.model).whereLike('name', `%${key}%`).count('id', { as: 'count' })
-        : await knex(this.model).count('id', { as: 'count' });
+      const total = key
+        ? await knex(ArticleMapTagService.model)
+            .whereLike("name", `%${key}%`)
+            .count("id", { as: "count" })
+        : await knex(ArticleMapTagService.model).count("id", { as: "count" });
       // 查询个数
       const offset = parseInt((cur - 1) * pageSize);
-      const list = key ? 
-      await knex.select(['id', 'name', 'mark'])
-        .from(this.model)
-        .whereLike('name', `%${key}%`)
-        .limit(pageSize)
-        .offset(offset)
-        .orderBy('id', 'desc') 
-        : await knex.select(['id', 'name', 'mark'])
-          .from(this.model)
-          .limit(pageSize)
-          .offset(offset)
-          .orderBy('id', 'desc');
+      const list = key
+        ? await knex
+            .select(["id", "name", "mark"])
+            .from(ArticleMapTagService.model)
+            .whereLike("name", `%${key}%`)
+            .limit(pageSize)
+            .offset(offset)
+            .orderBy("id", "desc")
+        : await knex
+            .select(["id", "name", "mark"])
+            .from(ArticleMapTagService.model)
+            .limit(pageSize)
+            .offset(offset)
+            .orderBy("id", "desc");
       return {
         count: total[0].count,
         total: Math.ceil(total[0].count / pageSize),
@@ -109,8 +108,6 @@ class ArticleMapTagService extends BaseService {
       console.error(err);
     }
   }
-
-
 }
 
-module.exports = new ArticleMapTagService();
+module.exports = ArticleMapTagService;

@@ -18,7 +18,7 @@ class PageController extends BaseController {
   }
 
   // 增
-  async create(req, res, next) {
+  static async create(req, res, next) {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -32,7 +32,7 @@ class PageController extends BaseController {
   }
 
   // 删除
-  async delete(req, res, next) {
+  static async delete(req, res, next) {
     try {
       const id = req.query.id;
       const data = await PageService.delete(id);
@@ -43,7 +43,7 @@ class PageController extends BaseController {
   }
 
   // 改
-  async update(req, res, next) {
+  static async update(req, res, next) {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -57,7 +57,7 @@ class PageController extends BaseController {
   }
 
   // 查
-  async find(req, res, next) {
+  static async find(req, res, next) {
     try {
       const data = await PageService.find();
       res.json({ ...success, data: data });
@@ -67,7 +67,7 @@ class PageController extends BaseController {
   }
 
   // 查
-  async detail(req, res, next) {
+  static async detail(req, res, next) {
     try {
       const id = req.query.id;
       const data = await PageService.detail(id);
@@ -78,7 +78,7 @@ class PageController extends BaseController {
   }
 
   // 查子栏目
-  async findSubId(req, res, next) {
+  static async findSubId(req, res, next) {
     try {
       const id = req.query.id;
       const data = await PageService.findSubId(id);
@@ -89,7 +89,7 @@ class PageController extends BaseController {
   }
 
   // 搜索
-  async search(req, res, next) {
+  static async search(req, res, next) {
     try {
       const cur = req.query.cur;
       const key = req.query.keyword;
@@ -105,7 +105,7 @@ class PageController extends BaseController {
   }
 
   // 列表
-  async list() {
+  static async list() {
     try {
       const cur = req.query.cur;
       const pageSize = 10;
@@ -121,4 +121,4 @@ class PageController extends BaseController {
 
 }
 
-module.exports = new PageController();
+module.exports = PageController;
