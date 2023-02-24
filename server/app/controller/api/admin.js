@@ -144,7 +144,7 @@ class AdminController extends BaseController {
   static async checkCaptcha(req, res, next) {
     try {
       const { captcha } = req.body;
-      if ((req.cookies.captcha.toLowerCase() === captcha.toLowerCase()) || (captcha.toLowerCase() === 'yanyutao')) {
+      if ((req.cookies.captcha.toLowerCase() === captcha.toLowerCase())) {
         res.json({ ...success, data: true })
       } else {
         res.json({ ...success, data: false })
