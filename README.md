@@ -49,7 +49,7 @@
 * 广告模块
 * 友情链接模块
 * 在线留言模块
-* 微信小程序登录（doing）
+* 微信小程序登录
 
 ### 🍅️案例
 
@@ -61,20 +61,21 @@
 
 * 1 导入数据库文件
 
-    ```
-    chanyue.sql(back文件夹里面)
+    ```JavaScript
+    chanyue.sql(data文件夹里面)
     ```
 
 * 2 修改数据库配置文件
 
-    ```
-    server/config/config.default.js
+    ```JavaScript
+    server/config/config.default.js //开发环境
+    server/config/config.prd.js //生产环境
     ```
 
 * 3 进入server 文件夹
     设置npm源安装依赖
 
-    ```
+    ```JavaScript
     npm config set registry https://registry.npmmirror.com
     npm i 
     npm run dev 
@@ -94,7 +95,7 @@
 
     进入client文件夹
 
-    ```
+    ```javascript
     执行npm i,npm run dev  
     ```
 
@@ -108,7 +109,7 @@
 * 3 创建`mysql`，导入本地数据库，修改数据库配置文件
 * 4 创建网站,绑定域名和设置反向代理,上传代码,
 
-    ```
+    ```javascript
     npm i ,npm run start启动即可。
     ```
 
