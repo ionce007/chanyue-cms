@@ -1,34 +1,49 @@
 "use strict";
 const path = require("path");
 const dayjs = require("dayjs");
-const axios = require("axios");
 
-const BaseController = require("./base");
 const { success, fail } = require("../../extend/api.js");
 const { md5, setToken } = require("../../extend/helper.js");
-const { weixin } = require("../../config/config.js");
+const config = require('../../config/config.js');
 
-class WeiXinController extends BaseController {
+class WeiXinController {
   constructor(props) {
-    super(props);
     this.model = "weixin";
   }
 
+  //微信小程序登录
   static async login(req, res, next) {
     try {
       const { code, userInfo } = req.body;
-      const { appid, secret } = weixin;
+      const { appid, secret } = config.weixin;
+      const {avatarUrl,nickName} = userInfo;
       const url = `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&secret=${secret}&js_code=${code}&grant_type=authorization_code`;
-      const result = await axios.default.get(url);
+      const result = await fetch(url);
+      const {openid,session_key,unionid} = await result.json();
+       // 设置token
+       const token = setToken({ openid: openid },config.token.KEY,config.token.TIME);
+
+      // console.log(req.headers)
       // 加密返回token,获取token解密然后通过openid或者unionid来查询
+      // openid: "oy9xU5F3p5UPSRv3D8lhEfJkbqGI"
+      // userInfo:
+      // avatarUrl: ""
+      // city: ""
+      // country: ""
+      // gender: 0
+      // language: "zh_CN"
+      // nickName: "明空"
+      // province: ""
       res.json({
-        code: 0,
-        msg: "success",
-        data: {
-          ...result.data,
-          userInfo,
-        },
-      });
+        ...success,
+        data:{
+          openid,
+          token,
+          avatarUrl,
+          nickName
+        }
+      })
+      
     } catch (error) {
       next(error);
     }

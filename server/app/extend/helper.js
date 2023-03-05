@@ -178,3 +178,8 @@ exports.mkdirsSync = (dirname)=>{
     }
   }
 }
+
+
+exports.ip = (req)=>{
+  return (req.headers['x-real-ip'] || req.connection.remoteAddress).slice(7);
+}

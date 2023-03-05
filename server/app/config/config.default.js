@@ -29,10 +29,10 @@ config.secret = {
     key: 'chanyue-cms', // md5 加盐
 };
 
-//微信小程序配置
+//配置成自己的
 config.weixin = {
-    appid:'xxx',
-    secret:'xxx'
+    appid:'111',
+    secret:'222'
 }
 
 // 关闭csrf
