@@ -17,6 +17,7 @@
 ## ⛱️软件架构
 
 **client技术栈**
+
 后台管理界面
 
 * vue3
@@ -27,6 +28,7 @@
 * tinymce
 
 **服务端技术栈**
+
 很多同学问为啥选择express而不是nest或Midway？
 express全球下载量第一，功能超级稳定，相关依赖包众多,依赖包大部分基于JavaScript写的，相对于nest,express更加灵活，轻量。
 
