@@ -63,6 +63,17 @@
           </template>
           <el-menu-item index="/admin"> 管理员列表</el-menu-item>
         </el-sub-menu>
+        <el-sub-menu index="6">
+          <template #title>
+            <el-icon class="el-icon-bank-card">
+              <CreditCard />
+            </el-icon>
+            <span>会员管理</span>
+          </template>
+          <el-menu-item index="/memberQuery"> 会员查询</el-menu-item>
+          <el-menu-item index="/menberLevels"> 会员等级</el-menu-item>
+          <el-menu-item index="/memberPoints"> 会员积分</el-menu-item>
+        </el-sub-menu>
       </el-menu>
     </el-col>
   </el-row>
