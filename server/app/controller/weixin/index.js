@@ -1,10 +1,8 @@
 "use strict";
-const path = require("path");
-const dayjs = require("dayjs");
-
-const { success, fail } = require("../../extend/api.js");
-const { md5, setToken } = require("../../extend/helper.js");
-const config = require('../../config/config.js');
+const { success } = require("../../extend/api.js");
+const { setToken } = require("../../extend/helper.js");
+const config = require("../../config/config.js");
+const WeiXinService = require("../../service/weixin/index");
 
 class WeiXinController {
   constructor(props) {
@@ -16,12 +14,19 @@ class WeiXinController {
     try {
       const { code, userInfo } = req.body;
       const { appid, secret } = config.weixin;
-      const {avatarUrl,nickName} = userInfo;
-      const url = `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&secret=${secret}&js_code=${code}&grant_type=authorization_code`;
-      const result = await fetch(url);
-      const {openid,session_key,unionid} = await result.json();
-       // 设置token
-       const token = setToken({ openid: openid },config.token.KEY,config.token.TIME);
+      const { avatarUrl, nickName } = userInfo;
+
+      const { openid, session_key, unionid } = await WeiXinService.login(
+        appid,
+        secret,
+        code
+      );
+      // 设置token
+      const token = setToken(
+        { openid: openid },
+        config.token.KEY,
+        config.token.TIME
+      );
 
       // console.log(req.headers)
       // 加密返回token,获取token解密然后通过openid或者unionid来查询
@@ -34,16 +39,16 @@ class WeiXinController {
       // language: "zh_CN"
       // nickName: "明空"
       // province: ""
+
       res.json({
         ...success,
-        data:{
+        data: {
           openid,
           token,
           avatarUrl,
-          nickName
-        }
-      })
-      
+          nickName,
+        },
+      });
     } catch (error) {
       next(error);
     }
