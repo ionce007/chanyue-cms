@@ -33,7 +33,7 @@
       <template #header>
         <div class="card-header">
           <span>会员列表</span>
-          <el-button type="primary">新增</el-button>
+          <el-button type="primary" @click="addClick">新增</el-button>
         </div>
       </template>
       <el-table :data="tableData" style="width: 100%" v-loading="loading">
@@ -50,12 +50,16 @@
       </el-table>
       <el-pagination class="mg-tp12" :page-sizes="[15, 50, 100, 200]" v-model:current-page="pageNum" :page-size="pageSize" small="small" layout="sizes,total, prev, pager, next" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
     </el-card>
+
+    <AddDialog v-model="isAddVisible" title="新增会员"></AddDialog>
   </div>
 </template>
     
     <script>
 import { defineComponent, reactive, ref, toRefs } from "vue";
+import AddDialog from "./AddDialog/index.vue";
 export default defineComponent({
+  components: { AddDialog },
   setup() {
     const tableData = [...Array(10)].fill({
       memberId: "123",
@@ -81,6 +85,7 @@ export default defineComponent({
       pageNum: 1,
       total: 100,
       loading: false,
+      isAddVisible:false,
     });
 
     const formRef = ref(null);
@@ -103,6 +108,10 @@ export default defineComponent({
       state.pageNum = val.pageNum;
     };
 
+    const addClick = () => {
+      state.isAddVisible = true;
+    };
+
     return {
       formRef,
       search,
@@ -110,6 +119,7 @@ export default defineComponent({
       reset,
       handleSizeChange,
       handleCurrentChange,
+      addClick,
     };
   },
 });
