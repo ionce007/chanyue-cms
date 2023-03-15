@@ -41,9 +41,9 @@
   
 ## 技术选型说明
   
-* 问：很多同学问为啥选择`express`而不是`nest`或`Midway`？
+* **问：很多同学问为啥选择`express`而不是`nest`或`Midway`？**
 * 答：`express`全球下载量第一，功能超级稳定，相关依赖包众多（所以不选`koa2`,洋葱皮模型）,依赖包大部分基于`JavaScript`写的，相对于`nest`,`express`更加灵活，轻量。至于为啥不选择`eggjs`/`Midway`，怕了，你懂得。
-* 问：为啥不选择`Sequelize`、`typeorm`或者`prisma`作为`orm`框架？
+* **问：为啥不选择`Sequelize`、`typeorm`或者`prisma`作为`orm`框架？**
 * 答：`knex`简单，友好,强大，`objection.js`都是基于`knex`开发的。
 
 ## 🚧功能介绍
