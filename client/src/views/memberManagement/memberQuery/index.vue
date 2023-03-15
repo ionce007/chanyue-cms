@@ -24,8 +24,8 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="default" @click="reset">重置</el-button>
-          <el-button type="primary" @click="search">查询</el-button>
+          <el-button type="default" @click="reset" round >重置</el-button>
+          <el-button type="primary" @click="search" round >查询</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -33,7 +33,7 @@
       <template #header>
         <div class="card-header">
           <span>会员列表</span>
-          <el-button type="primary" @click="addClick">新增</el-button>
+          <el-button type="primary" @click="addClick" round >新增</el-button>
         </div>
       </template>
       <el-table :data="tableData" style="width: 100%" v-loading="loading">
