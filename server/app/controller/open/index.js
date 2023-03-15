@@ -9,6 +9,13 @@ class OpenController{
     const {name,time,data} = result;
     res.render(`web/open/60s.html`, { name,time,data });
   }
+
+  //简报
+  static async jianbao(req,res,next) {
+    const result = await OpenService.jianbao();
+    const {name,time,data} = result;
+    res.render(`web/open/jianbao.html`, { data });
+  }
 }
 
 module.exports = OpenController;
