@@ -1,0 +1,18 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title></title>
+</head>
+<body >
+    <main >
+        <div >
+               <article>
+                <%_ data.list.forEach((item,index)=>{ -%>
+                    <h5><%=index+1 -%>、 <%=item.title -%></h5>
+                    <p><%=item.digest -%></p>
+               <%_ }) -%>
+               </article>
+        </div>
+    </main>
+</body>
+</html>
