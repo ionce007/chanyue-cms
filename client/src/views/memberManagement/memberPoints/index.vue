@@ -37,6 +37,7 @@
           </div>
         </template>
         <el-table :data="tableData" style="width: 100%" v-loading="loading">
+          <el-table-column type="index" width="55" label="序号"/>
           <el-table-column label="会员ID" prop="memberId" width="180" />
           <el-table-column label="头像" prop="avater" width="180" />
           <el-table-column label="名称" prop="name" />

@@ -24,19 +24,20 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="default" @click="reset" round >重置</el-button>
-          <el-button type="primary" @click="search" round >查询</el-button>
+          <el-button type="default" @click="reset" round>重置</el-button>
+          <el-button type="primary" @click="search" round>查询</el-button>
         </el-form-item>
       </el-form>
     </el-card>
-    <el-card shadow="never" class="mg-tp12">
+    <el-card shadow="never" class="mg-tp12 card-box">
       <template #header>
         <div class="card-header">
           <span>会员列表</span>
-          <el-button type="primary" @click="addClick" round >新增</el-button>
+          <el-button type="primary" @click="addClick" round>新增</el-button>
         </div>
       </template>
       <el-table :data="tableData" style="width: 100%" v-loading="loading">
+        <el-table-column type="index" width="55" label="序号" />
         <el-table-column label="会员ID" prop="memberId" width="180" />
         <el-table-column label="头像" prop="avater" width="180" />
         <el-table-column label="名称" prop="name" />
@@ -61,7 +62,7 @@ import AddDialog from "./AddDialog/index.vue";
 export default defineComponent({
   components: { AddDialog },
   setup() {
-    const tableData = [...Array(10)].fill({
+    const tableData = [...Array(20)].fill({
       memberId: "123",
       avater: "12",
       name: "32",
@@ -85,7 +86,7 @@ export default defineComponent({
       pageNum: 1,
       total: 100,
       loading: false,
-      isAddVisible:false,
+      isAddVisible: false,
     });
 
     const formRef = ref(null);
@@ -125,7 +126,7 @@ export default defineComponent({
 });
 </script>
     
-    <style scoped>
+<style scoped>
 .mg-tp12 {
   margin-top: 12px;
 }
@@ -134,6 +135,32 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 16px;
+  position: relative;
+}
+.card-header :deep(span){
+  margin-left:12px;
+}
+.card-header::before {
+  content: "";
+  display: none;
+  height: 16px;
+  width: 3px;
+  background-color: #1b65b9;
+  margin-right: 5px;
+  margin-top: -3px;
+  display: inline-block;
+  margin-right: 4px;
+  width: 6px;
+  position: absolute;
+}
+
+:deep(.el-table) {
+  height: calc(100vh - 400px);
+}
+
+.card-box :deep(.el-card__body) {
+  padding: 5px 10px;
 }
 </style>
     

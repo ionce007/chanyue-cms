@@ -4,7 +4,7 @@
     <template #footer>
       <div class="dialog-footer">
         <slot name="footer">
-          <el-button type="close" @click="closed">关闭</el-button>
+          <el-button type="close" @click="closed" round>关闭</el-button>
         </slot>
       </div>
     </template>

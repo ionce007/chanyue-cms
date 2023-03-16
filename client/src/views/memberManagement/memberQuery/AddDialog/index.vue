@@ -57,7 +57,7 @@
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="closed">关闭</el-button>
+        <el-button @click="closed" round>关闭</el-button>
         <el-button type="primary" @click="submitClick" round >保存</el-button>
       </span>
     </template>
