@@ -1,6 +1,20 @@
 <template>
-  <el-dialog draggable :title="dialogTitle" v-bind="$attrs" v-model="modelValue" :modal-append-to-body="modalAppendToBody" :append-to-body="appendToBody" :fullscreen="fullscreen" :close-on-click-modal="closeOnClickModal" :close-on-press-escape="closeOnPressEscape" :width="comWidth" :top="top" class="my-dialog" @closed="closed">
-    <slot/>
+  <el-dialog
+    draggable
+    :title="dialogTitle"
+    v-bind="$attrs"
+    v-model="modelValue"
+    :modal-append-to-body="modalAppendToBody"
+    :append-to-body="appendToBody"
+    :fullscreen="fullscreen"
+    :close-on-click-modal="closeOnClickModal"
+    :close-on-press-escape="closeOnPressEscape"
+    :width="comWidth"
+    :top="top"
+    class="my-dialog"
+    @closed="closed"
+  >
+    <slot />
     <template #footer>
       <div class="dialog-footer">
         <slot name="footer">
@@ -10,8 +24,8 @@
     </template>
   </el-dialog>
 </template>
-  
-  <script>
+
+<script>
 import { defineComponent, computed } from "vue";
 
 export default defineComponent({
@@ -57,4 +71,3 @@ export default defineComponent({
   },
 });
 </script>
-  

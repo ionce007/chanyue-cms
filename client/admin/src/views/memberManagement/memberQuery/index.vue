@@ -1,7 +1,12 @@
 <template>
   <div class="my-page">
     <el-card shadow="never">
-      <el-form :inline="true" :model="formInline" class="demo-form-inline" ref="formRef">
+      <el-form
+        :inline="true"
+        :model="formInline"
+        class="demo-form-inline"
+        ref="formRef"
+      >
         <el-form-item label="会员ID">
           <el-input v-model="formInline.vipId" placeholder="请输入" />
         </el-form-item>
@@ -49,14 +54,24 @@
         <el-table-column label="活跃时间" prop="activeTime" />
         <el-table-column label="状态" prop="status" />
       </el-table>
-      <el-pagination class="mg-tp12" :page-sizes="[15, 50, 100, 200]" v-model:current-page="pageNum" :page-size="pageSize" small="small" layout="sizes,total, prev, pager, next" :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+      <el-pagination
+        class="mg-tp12"
+        :page-sizes="[15, 50, 100, 200]"
+        v-model:current-page="pageNum"
+        :page-size="pageSize"
+        small="small"
+        layout="sizes,total, prev, pager, next"
+        :total="total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
     </el-card>
 
     <AddDialog v-model="isAddVisible" title="新增会员"></AddDialog>
   </div>
 </template>
-    
-    <script>
+
+<script>
 import { defineComponent, reactive, ref, toRefs } from "vue";
 import AddDialog from "./AddDialog/index.vue";
 export default defineComponent({
@@ -125,7 +140,7 @@ export default defineComponent({
   },
 });
 </script>
-    
+
 <style scoped>
 .mg-tp12 {
   margin-top: 12px;
@@ -138,8 +153,8 @@ export default defineComponent({
   font-size: 16px;
   position: relative;
 }
-.card-header :deep(span){
-  margin-left:12px;
+.card-header :deep(span) {
+  margin-left: 12px;
 }
 .card-header::before {
   content: "";
@@ -163,5 +178,3 @@ export default defineComponent({
   padding: 5px 10px;
 }
 </style>
-    
-    

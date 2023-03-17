@@ -1,6 +1,11 @@
 <template>
   <CmDialog v-model="modelValue" :dialogTitle="title" @closed="closed">
-    <el-form :model="dataForm" label-width="120px" ref="ruleFormRef" :rules="rules">
+    <el-form
+      :model="dataForm"
+      label-width="120px"
+      ref="ruleFormRef"
+      :rules="rules"
+    >
       <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="等级" prop="gradeId">
@@ -53,12 +58,11 @@
           </el-form-item>
         </el-col>
       </el-row>
-
     </el-form>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="closed" round>关闭</el-button>
-        <el-button type="primary" @click="submitClick" round >保存</el-button>
+        <el-button type="primary" @click="submitClick" round>保存</el-button>
       </span>
     </template>
   </CmDialog>

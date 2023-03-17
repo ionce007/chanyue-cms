@@ -19,7 +19,7 @@
 
 **client技术栈**
 
-后台管理界面
+后台管理界面admin和会员中心界面member
 
 * vue3
 * vue-router
@@ -27,7 +27,7 @@
 * element-plus
 * vite3
 * tinymce
-
+  
 **服务端技术栈**
 
 * nodejs v18.14.2+

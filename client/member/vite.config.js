@@ -1,37 +1,32 @@
 import { fileURLToPath, URL } from "node:url";
-
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-
 import legacy from "@vitejs/plugin-legacy";
-import { viteVConsole } from "vite-plugin-vconsole";
-import path from "node:path";
 
-//按需引入
+//组件扩展名称
+import VueSetupExtend from "vite-plugin-vue-setup-extend";
+import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
-import { VantResolver } from "unplugin-vue-components/resolvers";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import copy from "rollup-plugin-copy";
+
 export default ({ mode }) => {
   console.log("mode--->", mode);
-
   return defineConfig({
     plugins: [
       vue(),
       legacy({
         targets: ["defaults", "not IE 11"],
-        // targets: ["> 1%, last 1 version, ie >= 11"], // 需要兼容的目标列表，可以设置多个
-        // additionalLegacyPolyfills: ["regenerator-runtime/runtime"], // 面向IE11时需要此插件
+      }),
+      copy({
+        targets: [{ src: "dist/*", dest: "../../server/app/public/member" }],
+      }),
+      VueSetupExtend(),
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
       }),
       Components({
-        resolvers: [VantResolver()], //按需加载
-      }),
-      viteVConsole({
-        entry: path.resolve("src/main.js"), //入口文件，可以多个[path.resolve("src/main.js")]
-        localEnabled: mode === "dev", //本地是否启用
-        enabled: mode === "dev", //是否启用
-        config: {
-          maxLogNumber: 1000,
-          theme: "light",
-        },
+        resolvers: [ElementPlusResolver()],
       }),
     ],
     css: {
@@ -52,7 +47,7 @@ export default ({ mode }) => {
       manifest: false,
       sourcemap: true,
       minify: "terser", // 混淆器,terser构建后文件体积更小
-      chunkSizeWarningLimit: 100, // chunk 大小警告的限制
+      chunkSizeWarningLimit: 200, // chunk 大小警告的限制
       cssCodeSplit: true, // 如果设置为false，整个项目中的所有 CSS 将被提取到一个 CSS 文件中
       target: "es2015", // 默认 "modules"
       rollupOptions: {
@@ -100,18 +95,26 @@ export default ({ mode }) => {
     server: {
       host: "0.0.0.0",
       port: "3000",
-      open: "index.html#/turntable?token=eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjgxZDY0YjQ0LWI4MDQtNDAwYi05OGM2LTA2NjIzZThlY2QyZCJ9.9dB4xpNtljeRhi0j3B2D2NVd2E-dwq_ecBW39hsHMR_MkC9L6ytbhncL9oX3JauZXteF1FxndJaMwkUMTicBMw&activityCode=1000029", // 浏览器自动打开 关闭false
+      open: "index.html#/", // 浏览器自动打开 关闭false
       https: false, // 是否开启 https
       ssr: false, // 服务端渲染
       strictPort: true, //端口占用，自动尝试下一个端口
-      //代理配置
-      proxy: {
-        "/api": {
-          target: "http://192.168.2.88:8081/", // 后端服务实际地址,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
-        },
-      },
-    },
+	//代理配置
+	proxy: {
+	  "/member": {
+		target: "http://localhost:81/member", // 会员接口,
+		changeOrigin: true,
+		rewrite: (path) => path.replace(/^\/member/, ""),
+	  },
+	  "/order": {
+		target: "http://localhost:81/order", // 订单接口,
+		changeOrigin: true,
+		rewrite: (path) => path.replace(/^\/order/, ""),
+	  },
+	},
+	hmr: {
+	  overlay: false, //报错不显示在页面上
+	},
+	},
   });
 };
