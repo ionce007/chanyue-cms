@@ -3,18 +3,18 @@
     <el-card shadow="never">
       <el-form
         :inline="true"
-        :model="formInline"
+        :model="dataForm"
         class="demo-form-inline"
         ref="formRef"
       >
         <el-form-item label="会员ID">
-          <el-input v-model="formInline.vipId" placeholder="请输入" />
+          <el-input v-model="dataForm.vipId" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="手机号">
-          <el-input v-model="formInline.phone" placeholder="请输入" />
+          <el-input v-model="dataForm.phone" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="会员等级">
-          <el-select v-model="formInline.level" placeholder="请选择">
+          <el-select v-model="dataForm.level" placeholder="请选择">
             <el-option label="普通会员" value="1" />
             <el-option label="钻石会员" value="2" />
             <el-option label="黑卡会员" value="3" />
@@ -23,7 +23,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="状态">
-          <el-select v-model="formInline.status" placeholder="请选择">
+          <el-select v-model="dataForm.status" placeholder="请选择">
             <el-option label="启用" value="1" />
             <el-option label="禁用" value="0" />
           </el-select>
@@ -43,16 +43,15 @@
       </template>
       <el-table :data="tableData" style="width: 100%" v-loading="loading">
         <el-table-column type="index" width="55" label="序号" />
-        <el-table-column label="会员ID" prop="memberId" width="180" />
-        <el-table-column label="头像" prop="avater" width="180" />
-        <el-table-column label="名称" prop="name" />
+        <el-table-column label="会员ID" prop="vipId" width="180" />
+        <el-table-column label="名称" prop="vipName" />
         <el-table-column label="手机号" prop="phone" width="180" />
-        <el-table-column label="会员等级" prop="level" width="180" />
-        <el-table-column label="余额" prop="extra" />
-        <el-table-column label="积分" prop="total" width="180" />
-        <el-table-column label="注册时间" prop="time" width="180" />
-        <el-table-column label="活跃时间" prop="activeTime" />
-        <el-table-column label="状态" prop="status" />
+        <el-table-column label="会员等级" prop="gradeId" width="180" />
+        <el-table-column label="身份证号" prop="certno" />
+        <el-table-column label="生日" prop="birth" width="180" />
+        <el-table-column label="通讯地址" prop="addr" width="180" />
+        <el-table-column label="会员状态" prop="status" />
+        <el-table-column label="备注信息" prop="memo" />
       </el-table>
       <el-pagination
         class="mg-tp12"
@@ -67,50 +66,58 @@
       />
     </el-card>
 
-    <AddDialog v-model="isAddVisible" title="新增会员"></AddDialog>
+    <AddDialog
+      v-model="isAddVisible"
+      title="新增会员"
+      @search="search"
+    ></AddDialog>
   </div>
 </template>
 
 <script>
 import { defineComponent, reactive, ref, toRefs } from "vue";
 import AddDialog from "./AddDialog/index.vue";
+import { find} from "@/api/member.js";
 export default defineComponent({
   components: { AddDialog },
   setup() {
-    const tableData = [...Array(20)].fill({
-      memberId: "123",
-      avater: "12",
-      name: "32",
-      phone: "34235",
-      level: "656",
-      extra: "45654",
-      total: "456",
-      time: "456",
-      activeTime: "1312",
-      status: "123",
-    });
     const state = reactive({
-      formInline: {
+      dataForm: {
+        gradeId: "",
+        vipName: "",
         vipId: "",
         phone: "",
-        level: "",
+        sexy: "",
+        certno: "",
+        birth: "",
+        addr: "",
         status: "",
+        memo: "",
       },
-      tableData,
+      tableData:[],
       pageSize: 15,
       pageNum: 1,
-      total: 100,
+      total: 0,
       loading: false,
       isAddVisible: false,
     });
 
     const formRef = ref(null);
-    const search = () => {
+    const search = async () => {
       state.loading = true;
-      let timer = setTimeout(() => {
+      const queryString = Object.keys(state.dataForm)
+        .map(
+          (key) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(
+              state.dataForm[key]
+            )}`
+        )
+        .join("&");
+      let res = await find(queryString);
+      if (res.code === 200) {
+        state.tableData = res.data;
         state.loading = false;
-        clearTimeout(timer);
-      }, 1500);
+      }
     };
 
     const reset = () => {
