@@ -420,37 +420,40 @@ const routes = [
         component: () => import("../views/tag/edit.vue"),
       },
       {
-        path:'/memberQuery',
-        name:'memberQuery',
-        meta:{
-          title:'会员管理',
-          auth:false,
-          icon:'',
-          level:1
+        path: "/memberQuery",
+        name: "memberQuery",
+        meta: {
+          title: "会员管理",
+          auth: false,
+          icon: "",
+          level: 1,
         },
-        component:()=>import('../views/memberManagement/memberQuery/index.vue'),
+        component: () =>
+          import("../views/memberManagement/memberQuery/index.vue"),
       },
       {
-        path:'/memberPoints',
-        name:'memberPoints',
-        meta:{
-          title:'会员积分',
-          auth:false,
-          icon:'',
-          level:1
+        path: "/memberPoints",
+        name: "memberPoints",
+        meta: {
+          title: "会员积分",
+          auth: false,
+          icon: "",
+          level: 1,
         },
-        component:()=>import('../views/memberManagement/memberPoints/index.vue'),
+        component: () =>
+          import("../views/memberManagement/memberPoints/index.vue"),
       },
       {
-        path:'/menberLevels',
-        name:'menberLevels',
-        meta:{
-          title:'会员等级',
-          auth:false,
-          icon:'',
-          level:1
+        path: "/menberLevels",
+        name: "menberLevels",
+        meta: {
+          title: "会员等级",
+          auth: false,
+          icon: "",
+          level: 1,
         },
-        component:()=>import('../views/memberManagement/menberLevels/index.vue'),
+        component: () =>
+          import("../views/memberManagement/menberLevels/index.vue"),
       },
     ],
   },
