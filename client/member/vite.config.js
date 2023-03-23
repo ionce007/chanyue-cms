@@ -99,22 +99,22 @@ export default ({ mode }) => {
       https: false, // 是否开启 https
       ssr: false, // 服务端渲染
       strictPort: true, //端口占用，自动尝试下一个端口
-	//代理配置
-	proxy: {
-	  "/member": {
-		target: "http://localhost:81/member", // 会员接口,
-		changeOrigin: true,
-		rewrite: (path) => path.replace(/^\/member/, ""),
-	  },
-	  "/order": {
-		target: "http://localhost:81/order", // 订单接口,
-		changeOrigin: true,
-		rewrite: (path) => path.replace(/^\/order/, ""),
-	  },
-	},
-	hmr: {
-	  overlay: false, //报错不显示在页面上
-	},
-	},
+      //代理配置
+      proxy: {
+        "/member": {
+          target: "http://localhost:81/member", // 会员接口,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/member/, ""),
+        },
+        "/order": {
+          target: "http://localhost:81/order", // 订单接口,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/order/, ""),
+        },
+      },
+      hmr: {
+        overlay: false, //报错不显示在页面上
+      },
+    },
   });
 };

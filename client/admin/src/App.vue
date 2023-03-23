@@ -8,8 +8,8 @@ export default {
   data() {
     return {};
   },
-  created() { },
-  mounted() { },
+  created() {},
+  mounted() {},
   methods: {},
 };
 </script>
