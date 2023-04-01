@@ -212,7 +212,7 @@ class HomeService  {
       let sql2 = `SELECT a.id,a.title,a.short_title,a.img,a.description,a.createdAt,a.author,a.pv,c.pinyin,c.name,c.path from article AS a LEFT JOIN category as c ON a.cid = c.id WHERE a.cid IN (?) ORDER BY createdAt DESC LIMIT ?,?`;
       const total = await knex.raw(sql1, [ids]);
       const result = await knex.raw(sql2, [ids, start, pageSize]);
-      const count = total[0].count || 1;
+      const count = total[0][0].count || 1;
       return {
         count,
         total: Math.ceil(count / pageSize),

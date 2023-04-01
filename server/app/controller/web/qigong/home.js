@@ -205,7 +205,7 @@ constructor(){
 
       // 本类图文
       const pic = await HomeService.getArticleImgList(id, 10);
-
+   
       await res.render(`web/${template}/list.html`, { position, list: data, navSub, ad, tj, hot, pic });
 
     } catch (error) {
