@@ -51,10 +51,10 @@ class ArticleMapTagService extends BaseService {
         .limit(pageSize)
         .offset(offset)
         .orderBy("id", "desc");
-
+        const count = total[0][0].count || 1;
       return {
-        count: total[0].count,
-        total: Math.ceil(total[0].count / pageSize),
+        count: count,
+        total: Math.ceil(count / pageSize),
         current: +cur,
         list: list,
       };
@@ -98,9 +98,10 @@ class ArticleMapTagService extends BaseService {
             .limit(pageSize)
             .offset(offset)
             .orderBy("id", "desc");
+            const count = total[0][0].count || 1;
       return {
-        count: total[0].count,
-        total: Math.ceil(total[0].count / pageSize),
+        count: count,
+        total: Math.ceil(count / pageSize),
         current: +cur,
         list: list,
       };

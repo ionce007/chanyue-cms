@@ -96,10 +96,10 @@ static async list(cur = 1, pageSize = 10) {
       .limit(pageSize)
       .offset(offset)
       .orderBy('id', 'desc');
-
+      const count = total[0][0].count || 1;
       return {
-        count: total[0][0].count,
-        total: Math.ceil(total[0][0].count / pageSize),
+        count: count,
+        total: Math.ceil(count / pageSize),
         current: +cur,
         list: list,
       };
@@ -152,10 +152,10 @@ static async list(cur = 1, pageSize = 10) {
       const offset = parseInt((cur - 1) * pageSize);
       const sql_list = `SELECT p.id,p.title,p.cid,p.pv,p.updatedAt,p.status,c.name FROM ${this.model} p LEFT JOIN category c ON p.cid=c.id WHERE p.title LIKE '%${key}%' LIMIT ${offset},${parseInt(pageSize)}`;
       const list = await knex.raw(sql_list, []);
-
+      const count = total[0][0].count || 1;
       return {
-        count: total[0][0].count,
-        total: Math.ceil(total[0][0].count / pageSize),
+        count: count,
+        total: Math.ceil(count / pageSize),
         current: +cur,
         list: list[0],
       };

@@ -232,8 +232,8 @@ class ArticleService extends BaseService {
       }
 
       return {
-        count: total[0].count,
-        total: Math.ceil(total[0].count / pageSize),
+        count: count,
+        total: Math.ceil(count / pageSize),
         current: +cur,
         list: list,
       };
@@ -308,9 +308,10 @@ class ArticleService extends BaseService {
       const list = cid
         ? await knex.raw(sql_list, [cid])
         : await knex.raw(sql_list, []);
+        const count = total[0][0].count || 1;
       return {
-        count: total[0][0].count,
-        total: Math.ceil(total[0][0].count / pageSize),
+        count: count,
+        total: Math.ceil(count / pageSize),
         current: +cur,
         list: list[0],
       };

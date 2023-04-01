@@ -65,10 +65,10 @@ class AdminService extends BaseService {
         .limit(pageSize)
         .offset(offset)
         .orderBy('id', 'desc');
-
+        const count = total[0][0].count || 1;
       return {
-        count: total[0].count,
-        total: Math.ceil(total[0].count / pageSize),
+        count: count,
+        total: Math.ceil(count / pageSize),
         current: +cur,
         list: list,
       };
@@ -98,9 +98,10 @@ class AdminService extends BaseService {
       const offset = parseInt((cur - 1) * pageSize);
       const sql_list = `SELECT p.id,p.name,p.mark FROM ? p WHERE p.name LIKE '%${key}%' ORDER BY id DESC LIMIT ?,?`;
       const list = await knex.raw(sql_list, [AdminService.model, offset, parseInt(pageSize)]);
+      const count = total[0][0].count || 1;
       return {
-        count: total[0].count,
-        total: Math.ceil(total[0].count / pageSize),
+        count: count,
+        total: Math.ceil(count / pageSize),
         current: +cur,
         list: list[0],
       };

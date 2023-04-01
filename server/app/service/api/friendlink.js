@@ -56,8 +56,8 @@ class FriendlinkService extends BaseService {
         .orderBy('id', 'desc');
 
       return {
-        count: total[0].count,
-        total: Math.ceil(total[0].count / pageSize),
+        count: count,
+        total: Math.ceil(count / pageSize),
         current: +cur,
         list: list,
       };
@@ -99,8 +99,8 @@ class FriendlinkService extends BaseService {
           .offset(offset)
           .orderBy('id', 'desc');
       return {
-        count: total[0].count,
-        total: Math.ceil(total[0].count / pageSize),
+        count: count,
+        total: Math.ceil(count / pageSize),
         current: +cur,
         list: list[0],
       };
