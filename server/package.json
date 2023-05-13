@@ -27,5 +27,8 @@
     "node-schedule": "^2.1.1",
     "serve-favicon": "^2.5.0",
     "svg-captcha": "^1.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }
