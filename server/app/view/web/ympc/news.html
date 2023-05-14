@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <%- include('head.html') %>
+  <body>
+    <%- include('header.html') %>
+
+    <!-- 头部 E -->
+    <div class="innerhead">
+      <div class="innerhead-title">
+        <div class="title">行业动态深度剖析，传递资讯价值</div>
+      </div>
+    </div>
+    <!-- 内页分类选项 S -->
+    <div class="inner-category">
+      <div class="container flex" id="categoryList">
+        <div class="btn inner-category-item active">推荐文章</div>
+      </div>
+    </div>
+    <!-- 内页分类选项 E -->
+    <!-- 资讯列表 S -->
+    <div class="newslist">
+      <div class="container flex" id="list"></div>
+
+      <div class="list-load-nodata">暂无数据</div>
+      <div class="list-load-more">
+        <span class="btn" id="listLoad">加载更多>></span>
+      </div>
+    </div>
+    <!-- 资讯列表 E -->
+    <%- include('footer.html') %>
+  </body>
+</html>

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+
+<title>端点云 - 专注于企业数字化和智慧化建设</title><!--智慧仓储系统WMS-->
+<meta name="keywords" content="端点科技,端点云,聚合支付,外卖小程序,点餐小程序,商城小程序,分销小程序,会员小程序,预约小程序,场馆预约系统,微信预约系统,在线选座系统,剧院订座系统,电影院选座系统,演唱会选座系统,私域流量运营,微信营销,线上线下一体化,连锁企业数字化解决方案">
+<meta name="description" content="端点科技,端点云,聚合支付,外卖小程序,点餐小程序,商城小程序,分销小程序,会员小程序,预约小程序,场馆预约系统,微信预约系统,在线选座系统,剧院订座系统,电影院选座系统,演唱会选座系统,私域流量运营,微信营销,线上线下一体化,连锁企业数字化解决方案">
+<!-- 简体 -->
+<meta name="location" content="province=广东;city=珠海">
+<meta name="copyright" content="端点科技">
+<!-- 繁体 -->
+<!-- <meta name="location" content="province=澳門;city=澳門">
+<meta name="copyright" content="端點軟件"> -->
+<!-- ico -->
+<link rel="shortcut icon" href="static/css/favicon.ico">
+<!-- 样式 -->
+<link rel="stylesheet" href="static/css/font_2605247_u3ake4u2iq.css">
+<link rel="stylesheet" href="static/css/lib.css">
+<link rel="stylesheet" href="static/css/swiper.min.css">
+<link rel="stylesheet" href="static/css/style.css">
+<!-- JS -->
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/swiper.min.js"></script>
+<script src="static/js/lib.min.js"></script>
+<script src="static/js/org.js" data-main="indexMain"></script>
+</head>
+
+<body>
+<!-- 头部 S -->
+<div class="header">
+    <div class="header-bg" id="headerbg"></div>
+    <div class="container space-between">
+        <div class="header-logo-box">
+            <h1>端点科技</h1>
+            <a href="index.html"><img src="static/picture/header_logo.svg" class="header-logo logo1" title="端点科技" alt="端点科技"></a>
+            <a href="index.html"><img src="static/picture/header_logo2.svg" class="header-logo logo2" title="端点科技" alt="端点科技"></a>
+            <img src="static/picture/gxjsqy.svg" class="header-gxjsqy">
+        </div>
+        <div class="header-nav">
+            <a href="index.html" id="nav_0" class="header-nav-link">首页</a>
+            <div id="nav_1" class="header-nav-link header-nav-link-more">
+                <span class="name">产品服务</span>
+                <i class="btn icon"></i>
+                <div class="header-subnav">
+                    <div class="header-subnav-box">
+                        <div class="header-subnav-title">
+                            <img src="static/picture/header_sub_1.svg" class="header-subnav-icon">
+                            <span>端点·云店</span>
+                        </div>
+                        <a href="index2.html" class="header-subnav-link">全域会员</a>
+                        <a href="index2.html" class="header-subnav-link">全触点营销</a>
+                        <a href="index2.html" class="header-subnav-link">全渠道交易</a>
+                        <a href="index2.html" class="header-subnav-link">全场景预约</a>
+                        <a href="index2.html" class="header-subnav-link">供应链云</a>
+                        <!-- <a href="###" class="header-subnav-link">货物收发系统</a>
+                        <a href="/index/wms/index.html" class="header-subnav-link">智慧仓储系统WMS</a>
+                        <a href="###" class="header-subnav-link">知识付费系统</a> -->
+                    </div>
+                    <div class="header-subnav-box">
+                        <div class="header-subnav-title">
+                            <img src="static/picture/header_sub_3.svg" class="header-subnav-icon">
+                            <span>定制服务</span>
+                        </div>
+                        <a href="index2.html" class="header-subnav-link">小程序</a>
+                        <a href="index2.html" class="header-subnav-link">移动APP</a>
+                        <a href="index2.html" class="header-subnav-link">H5</a>
+                        <a href="index2.html" class="header-subnav-link">PC端</a>
+                    </div>
+                    <div class="header-subnav-box">
+                        <div class="header-subnav-title">
+                            <img src="static/picture/header_sub_2.svg" class="header-subnav-icon">
+                            <span>服务模式</span>
+                        </div>
+                        <a href="index2.html" class="header-subnav-link">SaaS服务</a>
+                        <a href="index2.html" class="header-subnav-link">私有化PaaS服务</a>
+                        <a href="index2.html" class="header-subnav-link">OEM品牌服务</a>
+                    </div>
+                </div>
+            </div>
+            <div id="nav_2" class="header-nav-link header-nav-link-more" style="display: none;">
+                <span class="name">解决方案</span>
+                <i class="btn icon"></i>
+                <div class="header-subnav">
+                    <div class="header-subnav-box">
+                        <div class="header-subnav-title">
+                            <img src="static/picture/header_sub_1.svg" class="header-subnav-icon">
+                            <span>产品矩阵</span>
+                        </div>
+                        <a href="index3.html" class="header-subnav-link">端点智店</a>
+                        <a href="###" class="header-subnav-link">货物收发系统</a>
+                        <a href="" class="header-subnav-link">智慧仓储系统WMS</a>
+                        <a href="###" class="header-subnav-link">知识付费系统</a>
+                    </div>
+                    <div class="header-subnav-box">
+                        <div class="header-subnav-title">
+                            <img src="static/picture/header_sub_2.svg" class="header-subnav-icon">
+                            <span>服务模式</span>
+                        </div>
+                        <a href="###" class="header-subnav-link">SaaS服务</a>
+                        <a href="###" class="header-subnav-link">私有化PaaS服务</a>
+                        <a href="###" class="header-subnav-link">SMART数据中台</a>
+                    </div>
+                    <div class="header-subnav-box">
+                        <div class="header-subnav-title">
+                            <img src="static/picture/header_sub_3.svg" class="header-subnav-icon">
+                            <span>多终端</span>
+                        </div>
+                        <a href="###" class="header-subnav-link">小程序</a>
+                        <a href="###" class="header-subnav-link">移动APP</a>
+                        <a href="###" class="header-subnav-link">H5</a>
+                        <a href="###" class="header-subnav-link">PC端</a>
+                    </div>
+                </div>
+            </div>
+            <a href="index5.html" id="nav_3" class="header-nav-link">客户案例</a>
+            <a href="index6.html" id="nav_4" class="header-nav-link">资讯动态</a>
+            <a href="index7.html" id="nav_5" class="header-nav-link">关于我们</a>
+        </div>
+        <div class="header-action">
+            <a href="https://datapointtech.com/" class="header-change-side">
+                <img src="static/picture/global.svg" class="icon1">
+                <img src="static/picture/global2.svg" class="icon2">
+                <span>繁体</span>
+            </a>
+            <a href="###" class="main-btn header-appo showappo" data-source="0">申请演示</a>
+        </div>
+    </div>
+</div>
+<!-- 头部 E -->
+<!-- wms-banner S -->
+<div class="wms-banner">
+  <img src="static/picture/banner2.png" class="swiper-slide-bg">
+  <div class="container siwper-slide-content animated delay1">
+    <div class="title">仓储精细化管理系统</div>
+    <div class="desc">高精细+灵活策略配置，打造仓储数字化、智能化、可视化管理，<br>
+      为企业降本增效</div>
+    <div class="btn main-btn showappo">预约演示<i class="iconfont icon-jiantou_qiehuanyou"></i></div>
+  </div>
+</div>
+<!-- wms-banner E -->
+<!-- 应用场景 S -->
+<div class="wms-scene">
+  <div class="common-title animated delay3">
+    <div class="title">应用场景</div>
+    <div class="subtitle">单仓、多仓、云仓、统仓等全场景应用</div>
+  </div>
+  <div class="container space-between">
+    <div class="wms-scene-item animated">
+      <div class="title">单仓精益化运营</div>
+      <div>
+        <div class="info">保税物流仓储</div>
+        <div class="info">电子商务仓储</div>
+        <div class="info">冷链生鲜仓储</div>
+        <div class="info">新零售仓储</div>
+        <div class="info">传统线下仓储</div>
+      </div>
+    </div>
+    <div class="wms-scene-item animated delay1">
+      <div class="title">多仓协同运营</div>
+      <div>
+        <div class="info">多仓协同调拨</div>
+        <div class="info">库存全渠道共享</div>
+        <div class="info">智能补货协同</div>
+      </div>
+    </div>
+    <div class="wms-scene-item animated delay2">
+      <div class="title">云仓网络运营</div>
+      <div>
+        <div class="info">仓网平台多维度管理</div>
+        <div class="info">敏捷供应链管理</div>
+        <div class="info">智能预测、寻仓优选</div>
+        <div class="info">库存共享、数据驱动</div>
+      </div>
+    </div>
+    <div class="wms-scene-item animated delay3">
+      <div class="title">统仓共配</div>
+      <div>
+        <div class="info">平台化集采</div>
+        <div class="info">仓配一体化</div>
+        <div class="info">资源整合</div>
+        <div class="info">全局可视化库存</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 应用场景 E -->
+<!-- 作业效率 S -->
+<div class="wms-efficiency">
+  <div class="container space-between">
+    <div class="animated delay1">
+      <div class="title">有效提升35%作业效率 为供应链提速</div>
+      <div class="box space-between">
+        <div class="item">
+          <div class="data"><span data-count="700">700</span>+</div>
+          <div class="name">日均处理单量 (万单/天)</div>
+        </div>
+        <div class="item">
+            <div class="data"><span data-count="8000">8000</span>+</div>
+            <div class="name">波次执行率(单/s)</div>
+        </div>
+        <div class="item">
+            <div class="data"><span data-count="2">2</span>+</div>
+            <div class="name">订单出库速率(单/s)</div>
+        </div>
+        <div class="item">
+            <div class="data"><span data-count="1000">1000</span>+</div>
+            <div class="name">数据交互速度(行/s)</div>
+        </div>
+      </div>
+    </div>
+    <img src="static/picture/12.png" class="animated">
+  </div>
+</div>
+<!-- 作业效率 E -->
+<!-- 核心功能 S -->
+<div class="wms-core">
+  <div class="common-title animated">
+    <div class="title">丰富强大的核心功能</div>
+    <div class="subtitle">根据公司的发展需要和业务场景，快速定制您的专属数据平台</div>
+  </div>
+  <div class="container">
+    <div class="wms-core-tabbar flex">
+      <div class="btn wms-core-tabbar-item animated active" data-tclass="ruku">入库</div>
+      <div class="btn wms-core-tabbar-item animated delay1" data-tclass="chuku">出库</div>
+      <div class="btn wms-core-tabbar-item animated delay2" data-tclass="pda">PDA拣货</div>
+      <div class="btn wms-core-tabbar-item animated delay3" data-tclass="zuoye">作业策略</div>
+      <div class="btn wms-core-tabbar-item animated delay4" data-tclass="bi">BI可视化</div>
+      <div class="btn wms-core-tabbar-item animated delay5" data-tclass="bms">BMS计费管理</div>
+    </div>
+  </div>
+  <div class="wms-core-fun ruku" style="display: block;">
+    <div class="container space-between">
+     <div class="animated delay1">
+        <div class="title">入库管理与库存监控</div>
+        <div class="info">
+          <div class="info-name">入库订单管理</div>
+          <div class="info-desc">采购、退货、调拨等多重订单管理</div>
+          <div class="info-name">智能预约收货</div>
+          <div class="info-desc">供应商预约可视化管理，收货任务一目了然</div>
+          <div class="info-name">多种收货方式</div>
+          <div class="info-desc">支持容器收货、二次分拣收货、快速收货、扫描收货等多种收货</div>
+          <div class="info-name">商品质量检验</div>
+          <div class="info-desc">自定义商品质检规则、质检比例、质检缓存管理</div>
+          <div class="info-name">智能推荐上架</div>
+          <div class="info-desc">根据货品信息推荐最佳库位</div>
+        </div>
+        <div class="btn showappo">
+          <span>预约了解</span>
+          <i class="iconfont icon-jiantou_qiehuanyou"></i>
+        </div>
+      </div>
+      <img src="static/picture/core_1.png" class="animated">
+    </div>
+  </div>
+  <div class="wms-core-fun chuku">
+    <div class="container space-between">
+     <div class="animated delay1">
+        <div class="title">出库管理与订单追踪</div>
+        <div class="desc">WMS根据周转规则、分配规则、拣货规则等多种规则动态组合设置不同的波次规则同时系统引入自动波次，使出库作业更加有序。</div>
+        <div class="btn showappo">
+          <span>预约了解</span>
+          <i class="iconfont icon-jiantou_qiehuanyou"></i>
+        </div>
+      </div>
+      <img src="static/picture/core_2.png" class="animated">
+    </div>
+  </div>
+  <div class="wms-core-fun pda">
+    <div class="container space-between">
+     <div class="animated delay1">
+        <div class="title">PDA拣货</div>
+        <div class="desc">PDA出库管理页面，针对所有待拣货的订单生成拣货波次，分配给PDA去拣货</div>
+        <div class="info">
+          <div class="info-name">支持格子拣货（多行订单边拣边分）</div>
+          <div class="info-name">支持汇总拣货（单行订单或者多行先拣后分）</div>
+          <div class="info-name">针对每个操作员，支持设置拣货生手模式和熟手模式</div>
+        </div>
+        <div class="btn showappo">
+          <span>预约了解</span>
+          <i class="iconfont icon-jiantou_qiehuanyou"></i>
+        </div>
+      </div>
+      <img src="static/picture/core_2.png" class="animated">
+    </div>
+  </div>
+
+  <div class="wms-core-fun zuoye">
+    <div class="container space-between">
+     <div class="animated delay1">
+        <div class="title">多种作业策略管理</div>
+        <div class="desc">PDA出库管理页面，针对所有待拣货的订单生成拣货波次，分配给PDA去拣货</div>
+        <div class="info2 space-between">
+          <div class="info-name">收货策略</div>
+          <div class="info-name">上架策略</div>
+          <div class="info-name">分配策略</div>
+          <div class="info-name">拣货策略</div>
+          <div class="info-name">出库策略</div>
+          <div class="info-name">补货策略</div>
+
+        </div>
+        <div class="btn showappo">
+          <span>预约了解</span>
+          <i class="iconfont icon-jiantou_qiehuanyou"></i>
+        </div>
+      </div>
+      <img src="static/picture/core_4.png" class="animated">
+    </div>
+  </div>
+  <div class="wms-core-fun bi">
+    <div class="container space-between">
+     <div class="animated delay1">
+        <div class="title">BI可视化管理后台</div>
+        <div class="desc2">WMS的可视化管理后台，从平台、仓库、货主、库存、订单等多维度来量化运营数据，不仅能实时监控供应链的运营状况，更能借助大数据分析驱动企业管理决策。</div>
+        <div class="btn showappo">
+          <span>预约了解</span>
+          <i class="iconfont icon-jiantou_qiehuanyou"></i>
+        </div>
+      </div>
+      <img src="static/picture/core_5.png" class="animated">
+    </div>
+  </div>
+  <div class="wms-core-fun bms">
+    <div class="container space-between">
+     <div class="animated delay1">
+        <div class="title">BMS计费管理</div>
+        <div class="desc">提供多维度、全视角的仓库费用报表和智能分析报告</div>
+        <div class="info">
+          <div class="info-name">计费费率</div>
+          <div class="info-desc">按件数、重量、体积/按货主/按货品</div>
+          <div class="info-name">数据采集模块</div>
+          <div class="info-desc">入库费用、出库费用、加工费用、仓储租金</div>
+          <div class="info-name">费用结算</div>
+          <div class="info-desc">应收台账、应付台账、利润计算、成本分摊</div>
+        </div>
+        <div class="btn showappo">
+          <span>预约了解</span>
+          <i class="iconfont icon-jiantou_qiehuanyou"></i>
+        </div>
+      </div>
+      <img src="static/picture/core_6.png" class="animated">
+    </div>
+  </div>
+  <div class="wms-core-fun static">
+    <div class="container space-between">
+      <img src="static/picture/22.png" class="animated">
+     <div class="animated delay1">
+        <div class="title">适合保税企业的智慧仓储系统</div>
+        <div class="desc">满足海关对保税物流进、出、存、销、退、换和完税的监管要求。真正实现产品化、智能化、精细化、集成化的系统管理，为保税仓储物流运营作业保驾护航。</div>
+        <div class="info2 space-between">
+          <div class="info-name">进口报关</div>
+          <div class="info-name">出口报关</div>
+          <div class="info-name">报关台帐</div>
+          <div class="info-name">海关数据核查</div>
+
+        </div>
+        <div class="btn showappo">
+          <span>预约了解</span>
+          <i class="iconfont icon-jiantou_qiehuanyou"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 核心功能 E -->
+<!-- 优秀企业 S -->
+<div class="wms-excellent-company">
+  <div class="common-title animated delay1">
+    <div class="title">与更多优秀企业一起高速成长</div>
+    <div class="subtitle">与端点共同构建数字新未来</div>
+  </div>
+  <div class="container space-between animated delay2">
+    <div class="wms-excellent-company-item">
+      <img src="static/picture/brand_logo.png" alt="">
+    </div>
+    <div class="wms-excellent-company-item">
+      <img src="static/picture/brand_logo.png" alt="">
+    </div>
+    <div class="wms-excellent-company-item">
+      <img src="static/picture/brand_logo.png" alt="">
+    </div>
+    <div class="wms-excellent-company-item">
+      <img src="static/picture/brand_logo.png" alt="">
+    </div>
+    <div class="wms-excellent-company-item">
+      <img src="static/picture/brand_logo.png" alt="">
+    </div>
+  </div>
+</div>
+<!-- 优秀企业 E -->
+<!-- 预约 S -->
+<div class="appointment">
+    <div class="container">
+        <div class="common-title">
+            <div class="title">现在，免费预约演示</div>
+        </div>
+        <div class="appointment-box delay2">
+            <input type="text" class="appointment-input" placeholder="请填写您的手机号">
+            <div id="appointment-btn" class="btn appointment-btn">预约演示</div>
+        </div>
+    </div>
+</div>
+<!-- 预约 E -->
+<!-- 底部 S -->
+<div class="footer">
+    <div class="container">
+        <div class="footer-box">
+            <div class="footer-contact">
+                <img src="static/picture/footer_logo.svg" class="footer-logo delay1">
+                <img src="static/picture/footer_slogan.svg" class="footer-slogan delay2">
+                <div class="footer-contact-info delay2">
+                    <div class="space-between">
+                        <div>
+                            <div>林枫（全国销售总监）</div>
+                            <div class="number">135-3227-0246</div>
+                        </div>
+                        <div>
+                            <div>Roy Chong（澳门销售总监）</div>
+                            <div class="number">+863-68697345</div>
+                        </div>
+                    </div>
+                    <div>邮箱：hugh@duandiankeji.cn</div>
+                    <div>地址：广东省横琴新区横琴澳门青年创意谷20栋D座319室</div>
+                </div>
+            </div>
+            <div class="footer-qrcode-box delay1">
+                <img src="static/picture/qrcode.svg" class="footer-qrcode">
+                <div>官方公众号</div>
+            </div>
+            <div class="footer-nav">
+                <div class="footer-nav-box">
+                    <div class="footer-nav-title delay1">产品矩阵</div>
+                    <div>
+                        <a href="index2.html" class="footer-nav-link delay3">全域会员</a>
+                        <a href="index2.html" class="footer-nav-link delay3">全触点营销</a>
+                        <a href="index2.html" class="footer-nav-link delay3">全渠道交易</a>
+                        <a href="index2.html" class="footer-nav-link delay3">全场景预约</a>
+                        <a href="index2.html" class="footer-nav-link delay3">云供应链</a>
+                    </div>
+                </div>
+                <div class="footer-nav-box">
+                    <div class="footer-nav-title delay1">定制服务</div>
+                    <div>
+                        <a href="index2.html" class="footer-nav-link delay3">小程序</a>
+                        <a href="index2.html" class="footer-nav-link delay3">移动APP</a>
+                        <a href="index2.html" class="footer-nav-link delay3">H5</a>
+                        <a href="index2.html" class="footer-nav-link delay3">PC端</a>
+                    </div>
+                </div>
+                <div class="footer-nav-box">
+                    <div class="footer-nav-title delay1" style="margin-right: 0;">解决方案</div>
+                    <div>
+                        <a href="index2.html" class="footer-nav-link delay3">运动场馆行业解决方案</a>
+                        <a href="index2.html" class="footer-nav-link delay3">演出汇演行业解决方案</a>
+                        <a href="index2.html" class="footer-nav-link delay3">景区景点行业解决方案</a>
+                        <a href="index2.html" class="footer-nav-link delay3">快消行业解决方案</a>
+                        <a href="index2.html" class="footer-nav-link delay3">消费连锁行业解决方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-friendly">
+            <span class="footer-friendly-title">友情链接：</span>
+                        <a href="https://duandiankeji.cn/" target="_blank" class="footer-friendly-link">珠海网站开发</a>
+                        <a href="https://duandiankeji.cn/" target="_blank" class="footer-friendly-link">珠海APP开发</a>
+                        <a href="https://duandiankeji.cn/" target="_blank" class="footer-friendly-link">珠海小程序开发</a>
+                        <a href="###" class="footer-friendly-link exchange">交换友链</a>
+        </div>
+        <div class="footer-beian">
+            © 2017-2021 <a href="index.html">广东端点科技有限公司</a> <a><img src="static/picture/beian.svg" alt="">粤公网安备
+            44040202001122号</a> <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备17037203号-3</a>
+        </div>
+    </div>
+</div>
+<!-- 底部 E -->
+<!-- 演示弹窗 S -->
+<div class="mask" id="old-mask" style="display: none;"></div>
+<div class="case-window" id="old-case-window" style="display: none;">
+    <img src="static/picture/close.svg" class="btn case-window-close">
+    <div class="case-window-left">
+        <div class="box">
+            <div class="title"><span>预约演示</span></div>
+            <div class="subtitle">您将获得以下信息：</div>
+            <div class="info">
+                <div class="info-item">
+                    <i class="iconfont icon-xuanze"></i>
+                    <span>解决方案的详细介绍，帮您快速了解产品</span>
+                </div>
+                <div class="info-item">
+                    <i class="iconfont icon-xuanze"></i>
+                    <span>演示体验后台，快速了解功能及流程</span>
+                </div>
+                <div class="info-item">
+                    <i class="iconfont icon-xuanze"></i>
+                    <span>专业方案顾问，为您提供个性化方案沟通</span>
+                </div>
+            </div>
+            <div class="contact">商务经理：林枫
+                联系电话：+86 13532270246
+                邮箱地址：hugh@duandiankeji.cn
+            </div>
+            <div class="qrcode1">
+                <img src="static/picture/qrcode.svg">
+                <div class="qrcode-name">微信联系</div>
+            </div>
+        </div>
+    </div>
+    <div class="case-window-right">
+        <label class="input-box reg">
+            <input name="name" value="" type="text" placeholder="请填写姓名">
+        </label>
+        <label class="input-box reg">
+            <input name="phone" value="" type="text" placeholder="请填写手机号">
+        </label>
+        <label class="input-box">
+            <input name="company" value="" type="text" placeholder="请填写公司名称">
+        </label>
+        <div class="input-box sls">
+            <span id="productresult">请选择希望使用的产品</span>
+            <img src="static/picture/drop1.svg" class="drop">
+            <div class="appo-dropdown">
+                <div class="appo-dropdown-item" data-product="端点智店">端点智店</div>
+                <div class="appo-dropdown-item" data-product="WMS系统">WMS系统</div>
+                <div class="appo-dropdown-item" data-product="货物收发系统">货物收发系统</div>
+                <div class="appo-dropdown-item" data-product="定制开发(APP/小程序/网站)">定制开发(APP/小程序/网站)</div>
+            </div>
+        </div>
+        <label class="input-box">
+            <input name="remarks" value="" type="text" placeholder="请填写备注信息">
+        </label>
+        <div id="info_submit" class="btn">立即预约</div>
+    </div>
+</div>
+<!-- 演示弹窗 E -->
+<!-- 共用 S -->
+<script>
+    // 导航栏选择状态
+    function changeNavActive(num) {
+        $('.header-nav-link').removeClass('active')
+        $('#nav_' + num).addClass('active')
+    }
+
+    var tel_reg =/^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(19[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+    $(function () {
+        // 表单来源
+        var formSource = ''
+        // 提交预约
+        $('.sumbit-appo-input').click(function (e) {
+            // 只提交手机号和来源
+            formSource = 1
+            console.log($('.appointment-input').val())
+        })
+
+        // 演示弹窗
+        $('.showappo').click(function (e) {
+            // 来源
+            formSource = e.currentTarget.dataset.source
+            // $('.mask').show()
+            // $('.case-window').show()
+            $('#old-mask').show()
+            $('#old-case-window').show()
+        })
+        $('.case-window-close,.mask').click(function (e) {
+
+            $('.mask').hide()
+            $('.case-window').hide()
+            $('.case-window-left').eq(0).show()
+            $('.qrcode2').hide()
+            $('.input-box.sls').removeClass('active')
+            $('#productresult').text('请选择希望使用的产品')
+            $('#new-productresult').text('请选择希望使用的产品')
+            $('.case-window-left').show()
+            $('.appo-dropdown').hide()
+        })
+
+        // 演示弹窗选择产品
+        $('.input-box.sls').click(function (e) {
+
+            $('.appo-dropdown').show()
+        })
+        $('.appo-dropdown-item').click(function (e) {
+            e.stopPropagation()
+            $('.appo-dropdown').hide()
+            $('.input-box.sls').addClass('active')
+            $('#productresult').text(e.currentTarget.dataset.product)
+            $('#new-productresult').text(e.currentTarget.dataset.product)
+        })
+
+        // 表单提交
+        $('#info_submit').click(function (e) {
+            let name = $("input[name='name']").val();
+            let phone = $("input[name='phone']").val();
+            let company = $("input[name='company']").val();
+            let product = $('#productresult').text();
+            let remarks = $("input[name='remarks']").val();
+            let source = formSource;
+            if (name == "" || name == null || name == undefined){
+                alert('姓名不能为空');return
+            }
+            if (phone == "" || phone == null || phone == undefined){
+                alert('手机号不能为空');return
+            }
+            if (!tel_reg.test(phone)) {
+                alert('请输入正确的手机号');return
+            }
+            $.ajax({
+                url:"/index/index/form",
+                dataType:"json",
+                async:true,
+                data:{"name":name, "phone":phone, "company":company, "product":product, "remarks":remarks,'source':source},
+                type:"POSt",
+                success:function(req){
+                    $("input[name='name']").val('');
+                    $("input[name='phone']").val('');
+                    $("input[name='company']").val('');
+                    $("input[name='product']").val('');
+                    $("input[name='remarks']").val('');
+                    if(req['code'] == 1){
+                        alert(req['msg']);
+                    }else{
+                        alert(req['msg']);
+                    }
+                }
+            });
+        })
+        $('#appointment-btn').click(function (e){
+            let phone = $(".appointment-input").val();
+            let source = formSource;
+            if (phone == "" || phone == null || phone == undefined){
+                alert('手机号不能为空');return
+            }
+            if (!tel_reg.test(phone)) {
+                alert('请输入正确的手机号');return
+            }
+            $.ajax({
+                url:"/index/index/form_appointment",
+                dataType:"json",
+                async:true,
+                data:{"phone":phone,"source":source},
+                type:"POSt",
+                success:function(req){
+                    $(".appointment-input").val('');
+                    if(req['code'] == 1){
+                        alert(req['msg']);
+                    }else{
+                        alert(req['msg']);
+                    }
+                }
+            });
+        })
+        // 滚动时头部添加效果
+        $(window).scroll(function(e) {
+            var scrollTop = document.documentElement.scrollTop
+            if (scrollTop > 0) {
+               $('#headerbg').addClass('active')
+            } else {
+               $('#headerbg').removeClass('active')
+            }
+        })
+        // 下拉时头部与滚动后的效果一样
+        $('.header-nav-link-more').hover(function(e) {
+            $('#headerbg').addClass('active')
+        }, function(e) {
+            if (document.documentElement.scrollTop == 0) {
+                $('#headerbg').removeClass('active')
+            }
+        })
+    });
+</script>
+<!-- 共用 E -->
+
+</body>
+
+<script>
+  changeNavActive(2);
+  // 导航栏选择状态
+  function changeNavActive(num) {
+        $('.header-nav-link').removeClass('active')
+        $('#nav_' + num).addClass('active')
+    }
+  $(function(){
+
+      // 页面加载后触发动画效果
+      $('.wms-banner .animated').addClass('fadeInUp')
+      $('.wms-scene .common-title').addClass('animated fadeIn')
+      $('.wms-scene .animated').addClass('fadeInUp')
+      // 滚动触发动画效果
+      $(window).scroll(function(e) {
+          var scrollTop = document.documentElement.scrollTop
+          var triggerTop = scrollTop + window.innerHeight
+  
+          if(triggerTop > $('.wms-efficiency').offset().top ) {
+              $('.wms-efficiency .animated').addClass('fadeInUp')
+              $('.wms-efficiency .item .data span').each(function(index,element) {
+                numCount(element)
+            })
+          }
+          if(triggerTop > $('.wms-core').offset().top ) {
+              $('.wms-core .common-title').addClass('fadeIn')
+              $('.wms-core-tabbar .animated').addClass('fadeInUp')
+          }
+          if(triggerTop > $('.wms-core-fun').offset().top ) {
+              $('.wms-core-fun .animated').addClass('fadeInUp')
+          }
+          
+          if(triggerTop > $('.wms-excellent-company').offset().top ) {
+              $('.wms-excellent-company .delay1').addClass('fadeIn')
+              $('.wms-excellent-company .delay2').addClass('fadeInUp')
+          }
+  
+          if (triggerTop > $('.appointment').offset().top) {
+              $('.appointment .common-title').addClass('animated fadeIn')
+              $('.appointment .appointment-box').addClass('animated fadeInUp')
+          }
+          if (triggerTop > $('.footer').offset().top) {
+              $('.delay1').addClass('animated fadeInUp')
+              $('.delay2').addClass('animated fadeInUp')
+              $('.delay3').addClass('animated fadeInUp')
+          }
+      })
+  });
+  // 数字动画效果
+function numCount(element) {
+        var count = 0
+        var max = element.dataset.count
+        console.log(max.length)
+        var isDecimal = max.toString().includes('.')
+        var base = max / 30
+        $(element).text('0')
+        var si = setInterval(function() {
+            if(parseInt(count) >= parseInt(max)) {
+                $(element).text(max)
+                clearInterval(si)
+            } else {
+                $(element).text(count)
+                var temp = Math.random() * base
+                count = (isDecimal ? (parseInt(count) + temp + 1).toFixed(1) : count + Math.ceil(temp))
+            }
+        }, 1000 / 30)
+    }
+</script>
+
+</html>

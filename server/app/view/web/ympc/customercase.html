@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+  <%- include('head.html') %>
+  <body>
+    <%- include('header.html') %>
+
+    <!-- 头部 E -->
+    <div class="innerhead">
+      <div class="innerhead-title">
+        <div class="title">数据与企业的高价值链接</div>
+        <div class="subtitle">Connect company with Data</div>
+      </div>
+    </div>
+    <!-- 内页分类选项 S -->
+    <div class="inner-category">
+      <div class="container flex" id="categoryList">
+        <div class="btn inner-category-item active" data-cid="0">全部案例</div>
+        <% caseCategoryList.forEach(function(item){ %>
+        <div class="btn inner-category-item" data-cid="0">
+          <%- item.name -%>
+        </div>
+        <% }); %>
+        <div class="btn inner-category-item" data-cid="0">其他</div>
+      </div>
+    </div>
+    <!-- 内页分类选项 E -->
+    <!-- 客户案例 S -->
+    <div class="customer-cases">
+      <div class="container flex" id="list">
+        <% caseList.forEach(function(item,index){ %>
+        <div
+          class="customer-cases-item <%= item.color %>"
+          data-source="<%= item.title %>"
+          onclick="showAppo(event,<%= index %>)"
+        >
+          <div
+            class="pic"
+            style="background-image: url(<%=base_url%>/static<%=item.image%>)"
+          ></div>
+          <div class="box">
+            <div
+              class="brand-logo"
+              style="
+                background-image: url(<%=base_url%>/static<%=item.logo_image%>);
+              "
+            ></div>
+            <div class="name"><%= item.title %></div>
+            <div class="words">
+              <% item.keywords.forEach(function(keyword) { %>
+              <strong><%= keyword %></strong>
+              <% }); %>
+            </div>
+            <div class="desc"><%= item.introduction %></div>
+            <div
+              class="category-type <%= item.color %>"
+              style="display: inline-block"
+            >
+              <%= item.industry %>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+
+      <div class="list-load-nodata">暂无数据</div>
+      <div class="list-load-more">
+        <span class="btn" id="listLoad">加载更多</span>
+      </div>
+    </div>
+    <!-- 客户案例 E -->
+
+    <!-- 演示弹窗 S -->
+    <div id="new-mask" class="mask" style="display: none"></div>
+    <div id="new-case-window" class="case-window" style="display: none">
+      <img
+        src="<%=base_url%>/static/picture/close.svg"
+        class="btn case-window-close"
+      />
+      <div
+        id="one-case-window-left"
+        class="case-window-left"
+        style="display: none"
+      >
+        <div class="box">
+          <div class="title"><span>预约演示</span></div>
+          <div class="subtitle">您将获得以下信息：</div>
+          <div class="info">
+            <div class="info-item">
+              <i class="iconfont icon-xuanze"></i>
+              <span>解决方案的详细介绍，帮您快速了解产品</span>
+            </div>
+            <div class="info-item">
+              <i class="iconfont icon-xuanze"></i>
+              <span>演示体验后台，快速了解功能及流程</span>
+            </div>
+            <div class="info-item">
+              <i class="iconfont icon-xuanze"></i>
+              <span>专业方案顾问，为您提供个性化方案沟通</span>
+            </div>
+          </div>
+          <div class="contact">
+            商务经理：林枫 联系电话：+86 13532270246
+            邮箱地址：hugh@duandiankeji.cn
+          </div>
+          <div class="qrcode1">
+            <img src="<%=base_url%>/static/picture/qrcode.svg" />
+            <div class="qrcode-name">微信联系</div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="two-case-window-left"
+        class="case-window-left"
+        style="display: none"
+      >
+        <div class="box2">
+          <div class="title"><span>查看案例</span></div>
+          <div id="linkbox" class="case-url">
+            <div class="type-name">
+              <i class="iconfont icon-lianjie"></i>
+              <span>访问链接</span>
+            </div>
+            <a id="link" href="http://www.duandiankeji.cn" target="_blank"
+              >www.duandiankeji.cn</a
+            >
+          </div>
+          <div class="case-url qrcode" id="case-qrcode">
+            <div class="type-name">
+              <i class="iconfont icon-shouji"></i>
+              <span>移动端</span>
+            </div>
+            <div id="androidbox" class="qrcode2">
+              <img id="android" src="<%=base_url%>/static/picture/qrcode.svg" />
+              <div class="qrcode-name">安卓APP</div>
+            </div>
+            <div id="iosbox" class="qrcode2">
+              <img id="ios" src="<%=base_url%>/static/picture/qrcode.svg" />
+              <div class="qrcode-name">IOS APP</div>
+            </div>
+            <div id="wechatbox" class="qrcode2">
+              <img id="wechat" src="<%=base_url%>/static/picture/qrcode.svg" />
+              <div class="qrcode-name">微信小程序</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="case-window-right">
+        <label class="input-box reg">
+          <input
+            name="case_name"
+            value=""
+            type="text"
+            placeholder="请填写姓名"
+          />
+        </label>
+        <label class="input-box reg">
+          <input
+            name="case_phone"
+            value=""
+            type="text"
+            placeholder="请填写手机号"
+          />
+        </label>
+        <label class="input-box">
+          <input
+            name="case_company"
+            value=""
+            type="text"
+            placeholder="请填写公司名称"
+          />
+        </label>
+        <div class="input-box sls">
+          <span id="new-productresult">请选择希望使用的产品</span>
+          <img src="/assets/duandian/img/drop1.svg" class="drop" />
+          <div class="appo-dropdown">
+            <div class="appo-dropdown-item" data-product="端点智店">
+              端点智店
+            </div>
+            <div class="appo-dropdown-item" data-product="WMS系统">WMS系统</div>
+            <div class="appo-dropdown-item" data-product="货物收发系统">
+              货物收发系统
+            </div>
+            <div
+              class="appo-dropdown-item"
+              data-product="定制开发(APP/小程序/网站)"
+            >
+              定制开发(APP/小程序/网站)
+            </div>
+          </div>
+        </div>
+        <label class="input-box">
+          <input
+            name="case_remarks"
+            value=""
+            type="text"
+            placeholder="请填写备注信息"
+          />
+        </label>
+        <div id="case_info_submit" class="btn">立即预约</div>
+      </div>
+    </div>
+    <!-- 演示弹窗 E -->
+
+    <!-- 演示弹窗 S -->
+    <div id="new-mask" class="mask"></div>
+    <div class="case-window">
+      <img
+        src="<%=base_url%>/static/picture/lose.svg"
+        class="btn case-window-close"
+      />
+      <div id="one-case-window-left" class="case-window-left">
+        <div class="box">
+          <div class="title"><span>预约演示</span></div>
+          <div class="subtitle">您将获得以下信息：</div>
+          <div class="info">
+            <div class="info-item">
+              <i class="iconfont icon-xuanze"></i>
+              <span>解决方案的详细介绍，帮您快速了解产品</span>
+            </div>
+            <div class="info-item">
+              <i class="iconfont icon-xuanze"></i>
+              <span>演示体验后台，快速了解功能及流程</span>
+            </div>
+            <div class="info-item">
+              <i class="iconfont icon-xuanze"></i>
+              <span>专业方案顾问，为您提供个性化方案沟通</span>
+            </div>
+          </div>
+          <div class="contact">
+            商务经理：林枫 联系电话：+86 13532270246
+            邮箱地址：hugh@duandiankeji.cn
+          </div>
+          <div class="qrcode1">
+            <img src="<%=base_url%>/static/picture/qrcode.svg" />
+            <div class="qrcode-name">微信联系</div>
+          </div>
+        </div>
+      </div>
+      <div id="two-case-window-left" class="case-window-left">
+        <div class="box2">
+          <div class="title"><span>查看案例</span></div>
+          <div id="linkbox" class="case-url">
+            <div class="type-name">
+              <i class="iconfont icon-lianjie"></i>
+              <span>访问链接</span>
+            </div>
+            <a id="link" href="http://www.duandiankeji.cn" target="_blank"
+              >www.duandiankeji.cn</a
+            >
+          </div>
+          <div class="case-url qrcode" id="case-qrcode">
+            <div class="type-name">
+              <i class="iconfont icon-shouji"></i>
+              <span>移动端</span>
+            </div>
+            <div id="androidbox" class="qrcode2">
+              <img id="android" src="<%=base_url%>/static/picture/qrcode.svg" />
+              <div class="qrcode-name">安卓APP</div>
+            </div>
+            <div id="iosbox" class="qrcode2">
+              <img id="ios" src="<%=base_url%>/static/picture/qrcode.svg" />
+              <div class="qrcode-name">IOS APP</div>
+            </div>
+            <div id="wechatbox" class="qrcode2">
+              <img id="wechat" src="<%=base_url%>/static/picture/qrcode.svg" />
+              <div class="qrcode-name">微信小程序</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="case-window-right">
+        <label class="input-box reg">
+          <input
+            name="case_name"
+            value=""
+            type="text"
+            placeholder="请填写姓名"
+          />
+        </label>
+        <label class="input-box reg">
+          <input
+            name="case_phone"
+            value=""
+            type="text"
+            placeholder="请填写手机号"
+          />
+        </label>
+        <label class="input-box">
+          <input
+            name="case_company"
+            value=""
+            type="text"
+            placeholder="请填写公司名称"
+          />
+        </label>
+        <div class="input-box sls">
+          <span id="new-productresult">请选择希望使用的产品</span>
+          <img src="/assets/duandian/img/drop1.svg" class="drop" />
+          <div class="appo-dropdown">
+            <div class="appo-dropdown-item" data-product="端点智店">
+              端点智店
+            </div>
+            <div class="appo-dropdown-item" data-product="WMS系统">WMS系统</div>
+            <div class="appo-dropdown-item" data-product="货物收发系统">
+              货物收发系统
+            </div>
+            <div
+              class="appo-dropdown-item"
+              data-product="定制开发(APP/小程序/网站)"
+            >
+              定制开发(APP/小程序/网站)
+            </div>
+          </div>
+        </div>
+        <label class="input-box">
+          <input
+            name="case_remarks"
+            value=""
+            type="text"
+            placeholder="请填写备注信息"
+          />
+        </label>
+        <div id="case_info_submit" class="btn">立即预约</div>
+      </div>
+    </div>
+    <!-- 演示弹窗 E -->
+    <script>
+      var list = <%- JSON.stringify(caseList) %>;
+    </script>
+    <script>
+      $(".inner-category-item").click(function (e) {
+        $(".inner-category-item").removeClass("active");
+        $(this).addClass("active");
+      });
+      function showAppo(e, index) {
+        formSource = e.currentTarget.dataset.source;
+        $(".case-window-left").hide();
+        $(".case-window-left").eq(list[index].info_status).show();
+        if (list[index].info_status == 1) {
+          console.log(list[index]);
+          if (list[index].link) {
+            $("#linkbox").show();
+            $("#link").text(list[index].link).attr("href", list[index].link);
+          } else {
+            $("#linkbox").hide();
+          }
+          if (list[index].android_qrcode_image || list[index].ios_qrcode_image || list[index].wechat_qrcode_image) {
+            $("#case-qrcode").show();
+          } else {
+            $("#case-qrcode").hide()
+          }
+          if (list[index].android_qrcode_image) {
+            $("#androidbox").show();
+            $("#android").attr(
+              "src",
+              "<%=base_url%>/static" + list[index].android_qrcode_image
+            );
+          }
+          if (list[index].ios_qrcode_image) {
+            $("#iosbox").show();
+            $("#ios").attr(
+              "src",
+              "<%=base_url%>/static" + list[index].ios_qrcode_image
+            );
+          }
+          if (list[index].wechat_qrcode_image) {
+            $("#wechatbox").show();
+            $("#wechat").attr(
+              "src",
+              "<%=base_url%>/static" + list[index].wechat_qrcode_image
+            );
+          }
+        }
+        $("#new-mask").show();
+        $("#new-case-window").show();
+      }
+    </script>
+    <%- include('footer.html') %>
+  </body>
+</html>
