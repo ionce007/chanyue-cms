@@ -12,7 +12,7 @@ export let siteInfo = () => {
 };
 
 //更新基本信息
-export let updateInfo = ({ id, name, domain, email, icp, code }) => {
+export let updateInfo = ({ id, name, domain, email, icp, police, address, copyright, code }) => {
   return http({
     url: `${api.API_URL}/api/site/updateInfo`,
     method: "post",
@@ -22,6 +22,9 @@ export let updateInfo = ({ id, name, domain, email, icp, code }) => {
       domain,
       email,
       icp,
+      police,
+      address,
+      copyright,
       code,
     },
   });

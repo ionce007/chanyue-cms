@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+  <%- include('head.html') %>
+
+  <body>
+    <%- include('header.html') %>
+
+    <!-- 轮播图 S -->
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img
+            src="<%=base_url%>/static/picture/banner1.png"
+            class="swiper-slide-bg"
+          />
+          <div class="container siwper-slide-content">
+            <div class="title">数字化是智慧经营的起点</div>
+            <div class="desc">
+              通过数据来精细化服务客户，提升核心竞争力；通过数据把握<br />市场最新动向，助力经营决策。
+            </div>
+            <div class="btn main-btn showappo">
+              预约演示<i class="iconfont icon-jiantou_qiehuanyou"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+    </div>
+    <!-- 轮播图 E -->
+    <!-- 定制服务 S -->
+    <div class="custom-service">
+      <div class="container flex">
+        <div class="custom-service-item delay1">
+          <img
+            src="<%=base_url%>/static/picture/custom_service_1.svg"
+            class="icon"
+            width="77"
+            style="left: 5px"
+          />
+          <div class="title">定制服务</div>
+          <div class="desc">
+            来自互联网优秀的研发团队， 打造安全稳定可用的系统
+          </div>
+        </div>
+        <div class="custom-service-item delay2">
+          <img
+            src="<%=base_url%>/static/picture/custom_service_2.svg"
+            class="icon"
+            width="69"
+            style="left: 6px"
+          />
+          <div class="title">源码合作更灵活</div>
+          <div class="desc">
+            高效框架，源码清晰，提供系 统源码，可灵活二次开发
+          </div>
+        </div>
+        <div class="custom-service-item delay3">
+          <img
+            src="<%=base_url%>/static/picture/custom_service_3.svg"
+            class="icon"
+            width="72"
+            style="left: 6px"
+          />
+          <div class="title">数据私有更安全</div>
+          <div class="desc">独立部署，保护您的数据安全 和隐私</div>
+        </div>
+        <div class="custom-service-item delay4">
+          <img
+            src="<%=base_url%>/static/picture/custom_service_4.svg"
+            class="icon"
+            width="84"
+            style="left: 1px"
+          />
+          <div class="title">专属顾问</div>
+          <div class="desc">
+            专注、专业、专心的服务理念， 一对一服务，免费迭代升级
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 定制服务 E -->
+    <!-- 案例 S -->
+    <div class="case-application fadeInUp">
+      <div class="container">
+        <div class="common-title">
+          <div class="title">垂直细分行业生态的营销数字化解决方案</div>
+          <div class="subtitle">
+            深度融合
+            小程序、聚合支付、原生卡券、全渠道交易、全场景预约、供应链云
+          </div>
+        </div>
+        <div class="case-application-item showappo" style="cursor: pointer">
+          <div>
+            <img
+              src="<%=base_url%>/static/picture/index_1.jpg"
+              class="pic animated"
+              style="width: 100%; margin-bottom: 15px"
+            />
+          </div>
+          <div>
+            <img
+              src="<%=base_url%>/static/picture/index_2.svg"
+              class="pic animated"
+              style="width: 100%"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 案例 E -->
+    <!-- 研发实力 S -->
+    <div class="rnd">
+      <div class="container">
+        <div class="common-title white">
+          <div class="title">强大的研发实力，安全稳定可靠的系统支持</div>
+          <div class="subtitle">
+            雄厚的研发实力，结合双云部署，商家经营安心，客户消费放心
+          </div>
+        </div>
+        <div class="rnd-sec-1">
+          <div class="rnd-sec-1-item">
+            <div class="data"><span data-count="99.6">99.6</span>%</div>
+            <div class="title">系统可用</div>
+          </div>
+          <div class="rnd-sec-1-item">
+            <div class="data"><<span data-count="300">300</span></div>
+            <div class="title">服务平均响应(毫秒)</div>
+          </div>
+          <div class="rnd-sec-1-item">
+            <div class="data"><span data-count="4000">4000</span>+</div>
+            <div class="title">每秒订单处理数</div>
+          </div>
+          <div class="rnd-sec-1-item">
+            <div class="data"><span data-count="1000">1000</span>+</div>
+            <div class="title">网络攻击防护(G)</div>
+          </div>
+        </div>
+        <div class="rnd-sec-2">
+          <div class="rnd-sec-2-item">
+            <img src="<%=base_url%>/static/picture/rnd_1.svg" class="icon" />
+            <div class="title">五年技术沉淀，研发实力深厚</div>
+            <div class="desc">
+              有一支从事软件开发5余年、反应迅速、讲求团队合作的专业技术团队，奠定了开发实力的高起点
+            </div>
+          </div>
+          <div class="rnd-sec-2-item">
+            <img src="<%=base_url%>/static/picture/rnd_2.svg" class="icon" />
+            <div class="title">产品创新，在变化中保持领先</div>
+            <div class="desc">
+              以客户为中心，始终围绕客户需求，高效、高质量地满足用户。过去我们每一款产品都获得了行业标杆客户的青睐。
+            </div>
+          </div>
+          <div class="rnd-sec-2-item delay1">
+            <img src="<%=base_url%>/static/picture/rnd_3.svg" class="icon" />
+            <div class="title">以业务落地为导向，专家团队高效赋能</div>
+            <div class="desc">
+              关注客户实际落地，结合业务不断优化体验，提高效率，专家团队伴随式服务，深度运营陪跑。
+            </div>
+          </div>
+          <div class="rnd-sec-2-item delay1">
+            <img src="<%=base_url%>/static/picture/rnd_4.svg" class="icon" />
+            <div class="title">「中台+」合作模式，大客户灵活定制</div>
+            <div class="desc">
+              基于多行业的客户经验，打造真正的数字化中台系统，在满足 80%
+              场景的标准化产品之上，灵活扩展定制个性化需求。
+            </div>
+          </div>
+        </div>
+        <div class="rnd-sec-2-more-div">
+          <a href="index2.html" class="rnd-sec-2-more">了解更多</a>
+        </div>
+      </div>
+    </div>
+    <!-- 研发实力 E -->
+    <!-- 三大服务 S -->
+    <div class="three-service" style="display: none">
+      <div class="container">
+        <div class="common-title">
+          <div class="title">三大服务模式， 满足各类企业不同阶段的数据需求</div>
+          <div class="subtitle">
+            根据公司的发展需要和业务场景，快速定制您的专属数据平台
+          </div>
+        </div>
+        <div class="three-service-sec-1">
+          <div
+            class="btn three-service-sec-1-item active delay1"
+            data-target="tss1"
+          >
+            <img
+              src="<%=base_url%>/static/picture/ts_1_1.svg"
+              class="icon"
+              width="30.29"
+              style="left: 20.5px"
+            />
+            <div class="title">SaaS服务</div>
+            <div class="desc">开箱即用，高性价比</div>
+            <!-- <div class="btn more">
+                        <span>了解详情</span>
+                        <i class="iconfont icon-jiantou_qiehuanyou"></i>
+                    </div> -->
+          </div>
+          <div class="btn three-service-sec-1-item delay2" data-target="tss2">
+            <img
+              src="<%=base_url%>/static/picture/ts_1_2.svg"
+              class="icon"
+              width="30.29"
+              style="left: 20.5px"
+            />
+            <div class="title">私有化PaaS</div>
+            <div class="desc">数据更安全，能力开放，可敏捷响应式技术 架构</div>
+            <!-- <div class="btn more">
+                        <span>了解详情</span>
+                        <i class="iconfont icon-jiantou_qiehuanyou"></i>
+                    </div> -->
+          </div>
+          <div class="btn three-service-sec-1-item delay3" data-target="tss3">
+            <img
+              src="<%=base_url%>/static/picture/ts_1_3.svg"
+              class="icon"
+              width="30.29"
+              style="left: 20.5px; top: 27px"
+            />
+            <div class="title">SMART数据中台</div>
+            <div class="desc">定制化的数据智能解决方案</div>
+            <!-- <div class="btn more">
+                        <span>了解详情</span>
+                        <i class="iconfont icon-jiantou_qiehuanyou"></i>
+                    </div> -->
+          </div>
+        </div>
+        <div class="three-service-sec-2" id="tss1">
+          <div class="three-service-sec-2-item delay1">
+            <img src="<%=base_url%>/static/picture/ts_2_1.svg" class="icon" />
+            <div class="title">快速实现</div>
+            <div class="desc">
+              只要连通互联网，企业可以随时随地从任何计算机或设备上快速获得SaaS平台上所提供的应用程序。
+              用户互联网化，SaaS服务一键开通服务，更加灵活、高效。
+            </div>
+          </div>
+          <div class="three-service-sec-2-item delay1">
+            <img src="<%=base_url%>/static/picture/ts_2_2.svg" class="icon" />
+            <div class="title">低使用成本</div>
+            <div class="desc">
+              基于订阅收费，无需一次性投入过多成本。
+              无需运维人员参与硬件和系统维护、升级，节省人员成本。
+              使用共享基础设备，企业无需额外花费时间对这些设备进行维护。
+            </div>
+          </div>
+          <div class="three-service-sec-2-item delay2">
+            <img src="<%=base_url%>/static/picture/ts_2_3.svg" class="icon" />
+            <div class="title">无痛升级</div>
+            <div class="desc">
+              所有产品升级和功能优化可以第一时间体验。
+              随着业务拓展和用户量增长，无需担心系统的稳定性。
+            </div>
+          </div>
+          <div class="three-service-sec-2-item delay2">
+            <img src="<%=base_url%>/static/picture/ts_2_4.svg" class="icon" />
+            <div class="title">无缝整合</div>
+            <div class="desc">
+              SaaS产品功能更新可以不断拓展、优化，满足更多客户的需求，让更多企业受益。
+              随时可升级私有化PaaS平台。
+            </div>
+          </div>
+          <div class="three-service-sec-2-item delay3">
+            <img src="<%=base_url%>/static/picture/ts_2_5.svg" class="icon" />
+            <div class="title">AWS云更安全可靠</div>
+            <div class="desc">
+              AWS全球APN技术合作伙伴认证。 保障数据的存储安全。
+            </div>
+          </div>
+          <div class="three-service-sec-2-item delay3">
+            <img src="<%=base_url%>/static/picture/ts_2_6.svg" class="icon" />
+            <div class="title">数据资产积累</div>
+            <div class="desc">
+              数据接口开放，实现数据二次利用和激活。
+              强大的接入和管理能力，轻松拥有自己的数据仓库。
+            </div>
+          </div>
+        </div>
+        <div class="three-service-sec-2" id="tss2" style="display: none">
+          <div class="three-service-sec-2-item delay1">
+            <img src="<%=base_url%>/static/picture/ts_2_1.svg" class="icon" />
+            <div class="title">海量数据处理能力</div>
+            <div class="desc">日处理数亿用户数据 支持弹性扩展</div>
+          </div>
+          <div class="three-service-sec-2-item delay1">
+            <img src="<%=base_url%>/static/picture/ts_2_2.svg" class="icon" />
+            <div class="title">数据治理亮点</div>
+            <div class="desc">
+              用户打通、跨平台、超级应用、埋点管理、实时数据仓
+            </div>
+          </div>
+          <div class="three-service-sec-2-item delay2">
+            <img src="<%=base_url%>/static/picture/ts_2_3.svg" class="icon" />
+            <div class="title">数据灵活应用</div>
+            <div class="desc">业务分析、营销优化、数据报表、用户洞察</div>
+          </div>
+          <div class="three-service-sec-2-item delay2">
+            <img src="<%=base_url%>/static/picture/ts_2_4.svg" class="icon" />
+            <div class="title">开放PaaS能力</div>
+            <div class="desc">数据灵活开放、支持二次开发、对接第三方系统</div>
+          </div>
+          <div class="three-service-sec-2-item delay3">
+            <img src="<%=base_url%>/static/picture/ts_2_5.svg" class="icon" />
+            <div class="title">可拓展分布式架构</div>
+            <div class="desc">伴随业务发展节点，可随时拓展增加</div>
+          </div>
+          <div class="three-service-sec-2-item delay3">
+            <img src="<%=base_url%>/static/picture/ts_2_6.svg" class="icon" />
+            <div class="title">可敏捷响应式技术架构</div>
+            <div class="desc">技术架构可以敏捷响应业务需求变化</div>
+          </div>
+        </div>
+        <div class="three-service-sec-2" id="tss3" style="display: none">
+          <div class="three-service-sec-2-item delay1">
+            <img src="<%=base_url%>/static/picture/ts_2_1.svg" class="icon" />
+            <div class="title">全面可拓展的数据采集方案</div>
+            <div class="desc">
+              支持拓展各类型数字触点平台的数据采集及特殊开发框架的个性定制
+            </div>
+          </div>
+          <div class="three-service-sec-2-item delay1">
+            <img src="<%=base_url%>/static/picture/ts_2_2.svg" class="icon" />
+            <div class="title">架构可灵活满足业务场景变化，实现实时决策</div>
+            <div class="desc">
+              灵活的架构和原子化的数据，可根据业务变化灵活响应，满足各类数据分析场景需求
+            </div>
+          </div>
+          <div class="three-service-sec-2-item delay2">
+            <img src="<%=base_url%>/static/picture/ts_2_3.svg" class="icon" />
+            <div class="title">全域数据的统一治理、管理</div>
+            <div class="desc">
+              可定制满足复杂业务及系统的ID体系关联统一，实现数据整合和统一管理
+            </div>
+          </div>
+          <div class="three-service-sec-2-item delay2">
+            <img src="<%=base_url%>/static/picture/ts_2_4.svg" class="icon" />
+            <div class="title">专属的数据应用服务</div>
+            <div class="desc">
+              数据分析师深入了解业务，构建完善的数据指标体系及提供数据应用咨询
+            </div>
+          </div>
+          <div class="three-service-sec-2-item delay3">
+            <img src="<%=base_url%>/static/picture/ts_2_5.svg" class="icon" />
+            <div class="title">全场景规划，敏捷式交付</div>
+            <div class="desc">全场景规划，小场景启动，演进式敏捷数据中台</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 三大服务 E -->
+    <!-- 企业客户 S -->
+    <div class="enterprise-customers">
+      <div class="container">
+        <div class="common-title">
+          <div class="title">专注行业5年+，累积服务2000+企业</div>
+          <div class="subtitle">
+            覆盖运动场馆、演出中心、教培、泛零售、新零售等行业
+          </div>
+        </div>
+        <div class="brand-logo-box">
+          <img
+            src="<%=base_url%>/static/picture/70cb97c4a56ceb01b6306e52227ccce0.png"
+            class="brand-logo"
+            alt="珠海文旅"
+            title="珠海文旅"
+          />
+          <img
+            src="<%=base_url%>/static/picture/b688c6bbfe41a0d521e4c15afdc53085.png"
+            class="brand-logo"
+            alt="澳門特別行政區體育局"
+            title="澳門特別行政區體育局"
+          />
+          <img
+            src="<%=base_url%>/static/picture/0e0b02333f8828afa96722ad653c2730.png"
+            class="brand-logo"
+            alt="斗门体育公园"
+            title="斗门体育公园"
+          />
+          <img
+            src="<%=base_url%>/static/picture/e62390139fc24fa821d0bdb2009692a5.png"
+            class="brand-logo"
+            alt="中山大学"
+            title="中山大学"
+          />
+          <img
+            src="<%=base_url%>/static/picture/445bb692fb776775014bec29e47fab98.png"
+            class="brand-logo"
+            alt="潮州健康教育所"
+            title="潮州健康教育所"
+          />
+          <img
+            src="<%=base_url%>/static/picture/0af1e22ae23375239f7f71fc8d382ca8.png"
+            class="brand-logo"
+            alt="信禾巴士"
+            title="信禾巴士"
+          />
+          <img
+            src="<%=base_url%>/static/picture/b938790f2d56b51b06feda03f484cfa0.png"
+            class="brand-logo"
+            alt="人民日报英文版"
+            title="人民日报英文版"
+          />
+          <img
+            src="<%=base_url%>/static/picture/20f4b9b82d53f05f51d0ae5cd931dadf.png"
+            class="brand-logo"
+            alt="Energizer holdings,inc."
+            title="Energizer holdings,inc."
+          />
+          <img
+            src="<%=base_url%>/static/picture/68758d9175bc06e3c1f12e97a02b234e.png"
+            class="brand-logo"
+            alt="金品电器"
+            title="金品电器"
+          />
+          <img
+            src="<%=base_url%>/static/picture/0773a9878593a7cac9a5e617e391eed7.png"
+            class="brand-logo"
+            alt="南光（集团）有限公司"
+            title="南光（集团）有限公司"
+          />
+          <img
+            src="<%=base_url%>/static/picture/5a0e95593ab9d38dde5930144a59f74f.png"
+            class="brand-logo"
+            alt="VR"
+            title="VR"
+          />
+          <img
+            src="<%=base_url%>/static/picture/af782541379ba76a17987b8ff0d85ae8.png"
+            class="brand-logo"
+            alt="珠海市广丰物流有限公司"
+            title="珠海市广丰物流有限公司"
+          />
+          <img
+            src="<%=base_url%>/static/picture/9b317bf8ba1c10fb54534547467d1a43.png"
+            class="brand-logo"
+            alt="中晖物流"
+            title="中晖物流"
+          />
+          <img
+            src="<%=base_url%>/static/picture/6d4866167ca3d4533423e34fad15f704.png"
+            class="brand-logo"
+            alt="珠海晨光文具总代理"
+            title="珠海晨光文具总代理"
+          />
+          <img
+            src="<%=base_url%>/static/picture/b946c37cee43c2b8ed759a5320b79ad9.png"
+            class="brand-logo"
+            alt="美年大健康"
+            title="美年大健康"
+          />
+          <img
+            src="<%=base_url%>/static/picture/bebe06126a73a1799047eb6717dc3e4a.png"
+            class="brand-logo"
+            alt="干杯起司"
+            title="干杯起司"
+          />
+          <img
+            src="<%=base_url%>/static/picture/ec7a2fe85d9e51fd308f08f85e4546e9.png"
+            class="brand-logo"
+            alt="家宝德"
+            title="家宝德"
+          />
+          <img
+            src="<%=base_url%>/static/picture/c0e7808289df28f0f0c059d9f2edfd0e.png"
+            class="brand-logo"
+            alt="珀薇面膜"
+            title="珀薇面膜"
+          />
+          <img
+            src="<%=base_url%>/static/picture/18deb3f85679239a3854581c2ce477ca.png"
+            class="brand-logo"
+            alt="研尔嘉"
+            title="研尔嘉"
+          />
+          <img
+            src="<%=base_url%>/static/picture/c7c55da473bb9188cfa7c51df0df448a.jpg"
+            class="brand-logo"
+            alt="喔刷伙伴"
+            title="喔刷伙伴"
+          />
+          <img
+            src="<%=base_url%>/static/picture/d926a02d14782050ccc1d2ea92f2d6bb.png"
+            class="brand-logo"
+            alt="旺杰成"
+            title="旺杰成"
+          />
+          <img
+            src="<%=base_url%>/static/picture/3a5da74f97678c04336fde024ade549c.png"
+            class="brand-logo"
+            alt="天盈国际旅游"
+            title="天盈国际旅游"
+          />
+          <img
+            src="<%=base_url%>/static/picture/3738a4e3562328b36198f766c0d7fd8f.png"
+            class="brand-logo"
+            alt="味极海鲜放题"
+            title="味极海鲜放题"
+          />
+          <img
+            src="<%=base_url%>/static/picture/b2681c74f279f2d6d27de8b8f3c96165.png"
+            class="brand-logo"
+            alt="良品洗鞋馆"
+            title="良品洗鞋馆"
+          />
+          <img
+            src="<%=base_url%>/static/picture/d7302b7806d28c056965bf0ea99f5f08.png"
+            class="brand-logo"
+            alt="昆仑好客"
+            title="昆仑好客"
+          />
+          <img
+            src="<%=base_url%>/static/picture/ed3ed4315d8e440176e38d20f00fa9e0.png"
+            class="brand-logo"
+            alt="千雾科技"
+            title="千雾科技"
+          />
+          <img
+            src="<%=base_url%>/static/picture/443e49bd533f2980ed4b836d1a3b5363.png"
+            class="brand-logo"
+            alt="SugarteaPRO糖茶"
+            title="SugarteaPRO糖茶"
+          />
+          <img
+            src="<%=base_url%>/static/picture/d2977e8a0f390a37d4984ea75223097a.png"
+            class="brand-logo"
+            alt="珠海百货"
+            title="珠海百货"
+          />
+          <img
+            src="<%=base_url%>/static/picture/8ddd9e060a93d722670b8ba3e5fda639.png"
+            class="brand-logo"
+            alt="admix味蕾"
+            title="admix味蕾"
+          />
+          <img
+            src="<%=base_url%>/static/picture/e4a87f0c53b231cea02f286fa433929f.png"
+            class="brand-logo"
+            alt="博乒体育"
+            title="博乒体育"
+          />
+        </div>
+
+        <div class="rnd-sec-2-more-div">
+          <a href="index2.html" class="rnd-sec-2-more">更多案例</a>
+        </div>
+      </div>
+    </div>
+    <!-- 企业客户 E -->
+    <!-- 首页联系 S -->
+    <div class="index-contact">
+      <div class="index-contact-item">
+        <div>
+          <img
+            src="<%=base_url%>/static/picture/index_contact_wx.svg"
+            class="icon icon1"
+          />
+          <img
+            src="<%=base_url%>/static/picture/index_contact_wx_on.svg"
+            class="icon icon2"
+          />
+          <div class="name">微信咨询</div>
+        </div>
+        <div class="index-contact-qrcode">
+          <div class="q-name">林枫</div>
+          <div class="position">全国销售总监</div>
+          <img
+            src="<%=base_url%>/static/picture/index_contac_qrcode.svg"
+            class="qrcode"
+          />
+          <div>扫码添加我咨询～</div>
+        </div>
+      </div>
+      <div class="index-contact-item">
+        <div>
+          <img
+            src="<%=base_url%>/static/picture/index_contact_tel.svg"
+            class="icon icon1"
+          />
+          <img
+            src="<%=base_url%>/static/picture/index_contact_tel_on.svg"
+            class="icon icon2"
+          />
+          <div class="name">电话咨询</div>
+        </div>
+        <div class="index-contact-tel">
+          <div class="q-name">电话咨询</div>
+          <div class="number">
+            <img
+              src="<%=base_url%>/static/picture/index_contact_tel_1.svg"
+              alt=""
+            />
+            <span>135-3227-0246</span>
+          </div>
+        </div>
+      </div>
+      <div class="index-contact-item showappo">
+        <div>
+          <img
+            src="<%=base_url%>/static/picture/index_contact_appo.svg"
+            class="icon icon1"
+          />
+          <img
+            src="<%=base_url%>/static/picture/index_contact_appo_on.svg"
+            class="icon icon2"
+          />
+          <div class="name">预约演示</div>
+        </div>
+      </div>
+    </div>
+    <!-- 首页联系 E -->
+
+    <%- include('footer.html') %>
+  </body>
+</html>

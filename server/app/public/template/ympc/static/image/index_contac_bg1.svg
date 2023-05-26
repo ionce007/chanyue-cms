@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="487.165" height="548" viewBox="0 0 487.165 548">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        filter: url(#联合_23);
+      }
+    </style>
+    <filter id="联合_23" x="0" y="0" width="487.165" height="548" filterUnits="userSpaceOnUse">
+      <feOffset dy="4" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feFlood flood-color="#1f55fb" flood-opacity="0.078"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g class="cls-2" transform="matrix(1, 0, 0, 1, 0, 0)">
+    <path id="联合_23-2" data-name="联合 23" class="cls-1" d="M-2934-7221a16,16,0,0,1-16-16v-456a16,16,0,0,1,16-16h378a16,16,0,0,1,16,16v456a16,16,0,0,1-16,16Zm394-455.372,17.165,15.909L-2540-7644.4Z" transform="translate(2980 7735)"/>
+  </g>
+</svg>
