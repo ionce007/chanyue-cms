@@ -68,7 +68,7 @@ export default defineConfig({
   //服务器配置
   server: {
     host: "0.0.0.0",
-    port: "3000",
+    port: "3003",
     open: true, // 浏览器自动打开
     https: false, // 是否开启 https
     ssr: false, // 服务端渲染

@@ -15,8 +15,8 @@ config.port = '81';
 config.mysql = {
     host: 'localhost',
     port: '3306',
-    user: 'root',
-    password: 'root',
+    user: 'qigong',
+    password: '123456',
     database: 'qigong'
 };
 
@@ -90,7 +90,7 @@ config.logger = {
 config.debug = true;
 
 // add your user config here
-config.template = 'qigong';
+config.template = 'ympc';
 config.apiService = 'api';
 
 module.exports = config;

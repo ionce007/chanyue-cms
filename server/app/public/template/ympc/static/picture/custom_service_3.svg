@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="143.773" height="158.645" viewBox="0 0 143.773 158.645">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #e5eeff;
+      }
+
+      .cls-3 {
+        fill: #397ffc;
+      }
+
+      .cls-4 {
+        filter: url(#路径_350);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#659cfc"/>
+      <stop offset="1" stop-color="#3079fc"/>
+    </linearGradient>
+    <filter id="路径_350" x="0" y="0" width="143.773" height="158.645" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feFlood flood-color="#5a94fc" flood-opacity="0.192"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="组_575" data-name="组 575" transform="translate(-1472.114 -1163)">
+    <g id="保障" transform="translate(1577.214 1152)">
+      <g class="cls-4" transform="matrix(1, 0, 0, 1, -105.1, 11)">
+        <path id="路径_350-2" data-name="路径 350" class="cls-1" d="M89.115,12.419l-2.186-.047h-.047a56.76,56.76,0,0,1-16.652-3.4,80.294,80.294,0,0,1-14.42-7.21l-1.3-.884A4.273,4.273,0,0,0,51.81,0a4.95,4.95,0,0,0-2.7.791L47.624,1.814A77.579,77.579,0,0,1,33.3,8.931a56.76,56.76,0,0,1-16.652,3.4l-2.233.047h-.093A4.5,4.5,0,0,0,9.9,16.745V52.1c.14,5.349,1.721,14.605,4.558,19.164A56.419,56.419,0,0,0,25.25,84.192c4.047,3.628,8.949,6.233,13.786,8.7,4.047,2.186,8.15,5.523,12.755,5.755,4.977-.279,9.285-3.244,13.657-5.755A66.335,66.335,0,0,0,80.324,82.471a50.332,50.332,0,0,0,9.443-12.233c2.465-4.279,3.814-13.117,3.907-18.048V16.838a4.476,4.476,0,0,0-4.558-4.419Z" transform="translate(20.1 25)"/>
+      </g>
+    </g>
+    <path id="联合_6" data-name="联合 6" class="cls-2" d="M-2935,37a1,1,0,0,1-1-1V23h-13a1,1,0,0,1-1-1V14a1,1,0,0,1,1-1h13V0a1,1,0,0,1,1-1h8a1,1,0,0,1,1,1V13h13a1,1,0,0,1,1,1v8a1,1,0,0,1-1,1h-13V36a1,1,0,0,1-1,1Z" transform="translate(4475 1217.112)"/>
+    <path id="路径_2782" data-name="路径 2782" class="cls-2" d="M19.5,0A19.5,19.5,0,1,1,0,19.5,19.5,19.5,0,0,1,19.5,0Z" transform="translate(1560 1251.112)"/>
+    <path id="正确_1_" data-name="正确 (1)" class="cls-3" d="M9.131,19.142,0,10.011l2.7-2.7,6.432,6.412L22.855,0l2.7,2.7Z" transform="translate(1566.974 1260.591)"/>
+  </g>
+</svg>

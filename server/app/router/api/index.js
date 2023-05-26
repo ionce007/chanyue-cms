@@ -14,6 +14,9 @@ const TagController = require('../../controller/api/tag.js');
 const FriendlinkController = require('../../controller/api/friendlink.js');
 const AdController = require('../../controller/api/ad.js');
 const MessageController = require('../../controller/api/message.js');
+const CaseCategoryController = require('../../controller/api/caseCategory.js');
+const CaseController = require('../../controller/api/case.js');
+const AppointmentController = require('../../controller/api/appointment.js');
 
 const upload = require('../../extend/upload.js');
 const auth = require('../../middleware/auth.js');
@@ -142,5 +145,33 @@ router.get('/member/search', MemberController.search);
 router.get('/member/delete', auth(), MemberController.delete);
 router.post('/member/update', auth(), MemberController.update);
 router.post('/member/create', auth(), MemberController.create);
+
+//案例分类管理
+// router.get('/caseCategory/find', MemberController.find);
+// router.get('/member/findId', MemberController.findId);
+// router.get('/member/findSubId', MemberController.findSubId);
+router.get('/caseCategory/search', CaseCategoryController.search);
+router.get('/caseCategory/has', CaseCategoryController.has);
+router.get('/caseCategory/delete', auth(), CaseCategoryController.delete);
+router.post('/caseCategory/update', auth(), CaseCategoryController.update);
+router.post('/caseCategory/create', auth(), CaseCategoryController.create);
+router.get('/caseCategory/detail', CaseCategoryController.detail);
+
+// tag标签管理
+router.get('/case/list', CaseController.list);
+router.post('/case/create', auth(), CaseController.create);
+router.get('/case/detail', CaseController.detail);
+router.get('/case/has', CaseController.has);
+router.get('/case/search', CaseController.search);
+router.get('/case/delete', auth(), CaseController.delete);
+router.post('/case/update', auth(), CaseController.update);
+
+router.get('/appointment/list', AppointmentController.list);
+router.post('/appointment/create', auth(), AppointmentController.create);
+router.get('/appointment/detail', AppointmentController.detail);
+router.get('/appointment/has', AppointmentController.has);
+router.get('/appointment/search', AppointmentController.search);
+router.get('/appointment/delete', auth(), AppointmentController.delete);
+router.post('/appointment/update', auth(), AppointmentController.update);
 
 module.exports = router;
