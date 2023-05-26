@@ -319,29 +319,6 @@ const routes = [
       },
 
       {
-        path: "/appointment",
-        name: "appointment-index",
-        meta: {
-          title: "营销管理",
-          auth: false,
-          icon: "",
-          level: 1,
-        },
-        component: () => import("../views/appointment/index.vue"),
-      },
-      {
-        path: "/appointment/edit/:id",
-        name: "appointment-edit",
-        meta: {
-          title: "更新",
-          auth: false,
-          icon: "",
-          level: 2,
-        },
-        component: () => import("../views/appointment/edit.vue"),
-      },
-
-      {
         path: "/admin",
         name: "admin-index",
         meta: {
@@ -441,108 +418,6 @@ const routes = [
           level: 2,
         },
         component: () => import("../views/tag/edit.vue"),
-      },
-      {
-        path: "/memberQuery",
-        name: "memberQuery",
-        meta: {
-          title: "会员管理",
-          auth: false,
-          icon: "",
-          level: 1,
-        },
-        component: () =>
-          import("../views/memberManagement/memberQuery/index.vue"),
-      },
-      {
-        path: "/memberPoints",
-        name: "memberPoints",
-        meta: {
-          title: "会员积分",
-          auth: false,
-          icon: "",
-          level: 1,
-        },
-        component: () =>
-          import("../views/memberManagement/memberPoints/index.vue"),
-      },
-      {
-        path: "/menberLevels",
-        name: "menberLevels",
-        meta: {
-          title: "会员等级",
-          auth: false,
-          icon: "",
-          level: 1,
-        },
-        component: () =>
-          import("../views/memberManagement/menberLevels/index.vue"),
-      },
-      {
-        path: "/case",
-        name: "case-index",
-        meta: {
-          title: "案例管理",
-          auth: false,
-          icon: "",
-          level: 1,
-        },
-        component: () => import("../views/case/index.vue"),
-      },
-      {
-        path: "/case/add",
-        name: "case-add",
-        meta: {
-          title: "新增",
-          auth: false,
-          icon: "",
-          level: 2,
-        },
-        component: () => import("../views/case/add.vue"),
-      },
-      {
-        path: "/case/edit/:id",
-        name: "case-edit",
-        meta: {
-          title: "更新",
-          auth: false,
-          icon: "",
-          level: 2,
-        },
-        component: () => import("../views/case/edit.vue"),
-      },
-      {
-        path: "/caseCategory",
-        name: "caseCategory-index",
-        meta: {
-          title: "案例分类",
-          auth: false,
-          icon: "",
-          level: 1,
-        },
-        component: () => import("../views/caseCategory/index.vue"),
-      },
-      {
-        path: "/caseCategory/add",
-        name: "caseCategory-add",
-        meta: {
-          title: "新增",
-          auth: false,
-          icon: "",
-          level: 2,
-        },
-        component: () => import("../views/caseCategory/add.vue"),
-      },
-      {
-        path: "/caseCategory/edit/:id",
-        name: "caseCatagory-edit",
-        meta: {
-          title: "更新",
-          auth: false,
-          icon: "",
-          level: 2,
-        },
-        component: () => import("../views/caseCategory/edit.vue"),
       },
     ],
   },

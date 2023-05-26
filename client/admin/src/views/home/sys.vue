@@ -25,21 +25,13 @@
         <el-input v-model="info.icp"></el-input>
       </el-form-item>
 
-      <el-form-item label="公安备案号">
-        <el-input v-model="info.police" />
-      </el-form-item>
-
-      <el-form-item label="地址">
-        <el-input v-model="info.address" />
-      </el-form-item>
-
-      <el-form-item label="版权">
-        <el-input v-model="info.copyright" />
-      </el-form-item>
-
-
       <el-form-item label="统计代码">
-        <el-input type="textarea" class="textarea" :rows="3" v-model="info.code"></el-input>
+        <el-input
+          type="textarea"
+          class="textarea"
+          :rows="3"
+          v-model="info.code"
+        ></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -60,7 +52,12 @@
       </el-form-item>
 
       <el-form-item label="描述">
-        <el-input type="textarea" :rows="3" class="textarea" v-model="seo.description"></el-input>
+        <el-input
+          type="textarea"
+          :rows="3"
+          class="textarea"
+          v-model="seo.description"
+        ></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -150,7 +147,17 @@ export default {
             keywords,
             description,
           } = res.data;
-          this.info = { id, name, domain, email, icp, police, address, copyright, code };
+          this.info = {
+            id,
+            name,
+            domain,
+            email,
+            icp,
+            police,
+            address,
+            copyright,
+            code,
+          };
           this.seo = { id, title, keywords, description };
         }
       } catch (error) {

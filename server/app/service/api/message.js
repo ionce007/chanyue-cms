@@ -54,8 +54,8 @@ class MessageService extends BaseService {
         .offset(offset)
         .orderBy('id', 'desc');
       return {
-        count: total[0][0].count,
-        total: Math.ceil(total[0][0].count / pageSize),
+        count: total[0].count,
+        total: Math.ceil(total[0].count / pageSize),
         current: +cur,
         list: list,
       };

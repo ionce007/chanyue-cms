@@ -53,7 +53,6 @@
           <el-menu-item index="/friendlink"> 友情链接 </el-menu-item>
           <el-menu-item index="/ad"> 广告管理 </el-menu-item>
           <el-menu-item index="/message"> 留言管理 </el-menu-item>
-          <el-menu-item index="/appointment"> 营销管理 </el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="5">
           <template #title>
@@ -63,27 +62,6 @@
             <span>管理员</span>
           </template>
           <el-menu-item index="/admin"> 管理员列表</el-menu-item>
-        </el-sub-menu>
-        <el-sub-menu index="6">
-          <template #title>
-            <el-icon class="el-icon-bank-card">
-              <CreditCard />
-            </el-icon>
-            <span>会员管理</span>
-          </template>
-          <el-menu-item index="/memberQuery"> 会员查询</el-menu-item>
-          <el-menu-item index="/menberLevels"> 会员等级</el-menu-item>
-          <el-menu-item index="/memberPoints"> 会员积分</el-menu-item>
-        </el-sub-menu>
-        <el-sub-menu index="7">
-          <template #title>
-            <el-icon class="el-icon-bank-card">
-              <CreditCard />
-            </el-icon>
-            <span>案例管理</span>
-          </template>
-          <el-menu-item index="/case">案例管理</el-menu-item>
-          <el-menu-item index="/caseCategory">案例分类管理</el-menu-item>
         </el-sub-menu>
       </el-menu>
     </el-col>

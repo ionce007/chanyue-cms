@@ -124,7 +124,7 @@ class FieldService extends BaseService {
 
       // 查询模块名称
       const model = await knex.raw('SELECT model_name,table_name FROM model WHERE id=?', [model_id]);
-      const count = total[0][0].count || 1;
+      const count = total[0].count || 1;
       return {
         count: count,
         total: Math.ceil(count / pageSize),

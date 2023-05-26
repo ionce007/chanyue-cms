@@ -15,8 +15,8 @@ config.port = '81';
 config.mysql = {
     host: 'localhost',
     port: '3306',
-    user: 'qigong',
-    password: '123456',
+    user: 'root',
+    password: 'root',
     database: 'qigong'
 };
 
@@ -29,10 +29,10 @@ config.secret = {
     key: 'chanyue-cms', // md5 加盐
 };
 
-//配置成自己的
+//微信小程序配置
 config.weixin = {
-    appid:'111',
-    secret:'222'
+    appid:'xxx',
+    secret:'xxx'
 }
 
 // 关闭csrf
@@ -90,7 +90,7 @@ config.logger = {
 config.debug = true;
 
 // add your user config here
-config.template = 'ympc';
+config.template = 'qigong';
 config.apiService = 'api';
 
 module.exports = config;
