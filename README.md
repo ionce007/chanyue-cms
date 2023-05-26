@@ -99,7 +99,7 @@
     http://localhost:81/public/admin/index.html 
     ```
 
-   默认账号密码：**yanyutao**  **123456**
+   默认账号密码：**chanyue**  **123456**
 
 * 5.后端管理界面开发指南（不开发忽略这一步）
 
