@@ -109,7 +109,7 @@ class AdminController extends BaseController {
     try {
       const cur = req.query.cur;
       const pageSize = 10;
-      const data = await AdminService.list(cur, pageSize);
+      let data = await AdminService.list(cur, pageSize);
       data.list.forEach(ele => {
         ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:MM');
       });
