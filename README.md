@@ -123,8 +123,7 @@
     npm i ,npm run start启动即可。
     ```
 
-* 5 安装`pm2` ,执行`npm run app` 启动
-* 6 配置`https`
+* 5 配置`https`
 
 ## ❤️项目关注
 
