@@ -87,6 +87,7 @@
             <el-image style="width: 100%" v-if="params.img" :src="params.img" />
             <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
           </el-upload>
+          <el-input v-model="params.img"></el-input>
         </el-form-item>
 
         <el-form-item label="文章内容">

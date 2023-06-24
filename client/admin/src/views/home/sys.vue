@@ -25,6 +25,18 @@
         <el-input v-model="info.icp"></el-input>
       </el-form-item>
 
+      <el-form-item label="公司名称">
+        <el-input v-model="info.companyName"></el-input>
+      </el-form-item>
+
+      <el-form-item label="公司地址">
+        <el-input v-model="info.companyAddress"></el-input>
+      </el-form-item>
+
+      <el-form-item label="公司电话">
+        <el-input v-model="info.companyTel"></el-input>
+      </el-form-item>
+
       <el-form-item label="统计代码">
         <el-input
           type="textarea"
@@ -84,7 +96,6 @@ export default {
         email: "",
         icp: "",
         police: "",
-        address: "",
         copyright: "",
         code: "",
       },
@@ -138,9 +149,11 @@ export default {
             name,
             domain,
             email,
+            companyTel,
+            companyName,
+            companyAddress,
             icp,
             police,
-            address,
             copyright,
             code,
             title,
@@ -154,9 +167,11 @@ export default {
             email,
             icp,
             police,
-            address,
             copyright,
             code,
+            companyTel,
+            companyName,
+            companyAddress,
           };
           this.seo = { id, title, keywords, description };
         }

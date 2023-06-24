@@ -88,6 +88,7 @@
               <Plus />
             </el-icon>
           </el-upload>
+          <el-input v-model="params.img"></el-input>
         </el-form-item>
 
         <el-form-item label="文章内容">

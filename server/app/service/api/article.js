@@ -230,7 +230,7 @@ class ArticleService extends BaseService {
           .offset(offset)
           .orderBy("id", "desc");
       }
-
+    const count = total[0][0].count;
       return {
         count: count,
         total: Math.ceil(count / pageSize),
@@ -305,10 +305,12 @@ class ArticleService extends BaseService {
         sql_list = listStart + `AND c.id=? ` + listEnd;
       }
 
+     
+
       const list = cid
         ? await knex.raw(sql_list, [cid])
         : await knex.raw(sql_list, []);
-        const count = total[0].count || 1;
+        const count = total[0][0].count || 1;
       return {
         count: count,
         total: Math.ceil(count / pageSize),

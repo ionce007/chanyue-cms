@@ -106,8 +106,9 @@ static async delete(req, res, next) {
   static async list(req, res, next) {
     try {
       const cur = req.query.cur;
+      const cid = req.query.cid;
       const pageSize = 10;
-      const data = await ArticleService.list(cur, pageSize);
+      const data = await ArticleService.list(cur, pageSize,cid);
       data.list.forEach(ele => {
         ele.updatedAt = dayjs(ele.updatedAt).format('YYYY-MM-DD HH:mm:ss');
       });
