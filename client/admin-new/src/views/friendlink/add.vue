@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { create } from "../../api/friendlink.js";
+import { create } from "@/api/friendlink.js";
 
 export default {
   name: "friendlink-add",

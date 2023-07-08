@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { update, hasUse, detail } from "../../api/model.js";
+import { update, hasUse, detail } from "@/api/model.js";
 export default {
   name: "model-edit",
   data: () => {

@@ -55,8 +55,8 @@
 
 <script>
 import { Delete, Edit, View, Search } from "@element-plus/icons-vue";
-import { list, del } from "../../api/field.js";
-import { hasUse } from "../../api/model.js";
+import { list, del } from "@/api/field.js";
+import { hasUse } from "@/api/model.js";
 export default {
   name: "field-index",
   setup() {

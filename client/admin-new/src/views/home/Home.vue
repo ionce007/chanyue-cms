@@ -55,7 +55,7 @@
 <script>
 import { Delete, Expand, Fold, SwitchButton } from "@element-plus/icons-vue";
 import asideMenu from "../../components/menu.vue";
-import { getCookie, setCookie } from "../../utils/tools";
+import { getCookie, setCookie } from "@/utils/tool";
 
 import crumbs from "../../components/crumbs.vue";
 

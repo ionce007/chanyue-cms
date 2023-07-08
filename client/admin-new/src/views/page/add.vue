@@ -94,11 +94,11 @@
 </template>
 
 <script>
-import { find } from "../../api/category.js";
-import { create } from "../../api/page.js";
-import { addLabelValue, filterBody, tree } from "@/utils/tools.js";
+import { find } from "@/api/category.js";
+import { create } from "@/api/page.js";
+import { addLabelValue, filterBody, tree } from "@/utils/tool.js";
 import Vue3Tinymce from "@jsdawn/vue3-tinymce";
-import { tinymceSet } from "../../config/tinymce.js";
+import { tinymceSet } from "@/config/tinymce.js";
 
 export default {
   name: "page-add",

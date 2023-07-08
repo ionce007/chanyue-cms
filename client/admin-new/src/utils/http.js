@@ -28,7 +28,7 @@ http.interceptors.request.use(
   (config) => {
     // 是否需要设置 token 请根据实际情况自行修改
     const { token } = userStore();
-    token && (config.headers.token = token);
+    token && (config.headers.auth = token);
 
     //拦截放行
     return config;
@@ -44,16 +44,35 @@ http.interceptors.response.use(
   (response) => {
     // const data = response.data;
     const { code, data, message } = response;
-    if (code === 200) {
-      return data;
-    } else {
-      if (code === 401) {
-        //无权限
-        const userInfo = userStore();
-        userInfo.logout();
-        location.reload();
+    // if (code === 200) {
+    //   return data;
+    // } else {
+    //   if (code === 401) {
+    //     //无权限
+    //     const userInfo = userStore();
+    //     userInfo.logout();
+    //     location.reload();
+    //   }
+    // }
+
+    if (data.code === 0) {
+      console.log("data->", data);
+      if (data.msg.name == "TokenExpiredError") {
+        // eslint-disable-next-line no-undef
+        ElMessage({
+          message: "登录失效，请重新登录",
+          type: "warning",
+        });
+      } else {
+        // eslint-disable-next-line no-undef
+        ElMessage.success(data.msg);
       }
+
+      const userInfo = userStore();
+      userInfo.logout();
+      location.reload();
     }
+
     //拦截放行
     return Promise.resolve(data);
   },

@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import { update, detail } from "../../api/admin.js";
-import { getCookie, setCookie } from "../../utils/tools";
+import { update, detail } from "@/api/admin.js";
+import { getCookie, setCookie } from "@/utils/tool";
 export default {
   name: "admin-edit",
   data: () => {

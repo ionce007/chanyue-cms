@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { create, has } from "../../api/tag.js";
+import { create, has } from "@/api/tag.js";
 import { pinyin } from "pinyin-pro";
 export default {
   name: "tag-add",

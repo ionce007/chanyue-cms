@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { update, detail } from "../../api/friendlink.js";
+import { update, detail } from "@/api/friendlink.js";
 
 export default {
   name: "friendlink-edit",

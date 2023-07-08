@@ -1,23 +1,23 @@
 <template>
   <!-- 无子目录 -->
-  <template v-for="(item, index) of data" :key="index">
+  <template v-for="(item, index) of data" :key="item.path">
     <!-- 有子目录 -->
 
     <el-sub-menu
-      v-if="item?.children?.length > 0 && item?.meta?.isShow"
+      v-if="item?.children?.length > 0 && item.meta.isShow"
       :index="item.path"
     >
       <template #title>
         <el-icon>
           <component v-if="item.meta" :is="item.meta.icon"></component>
         </el-icon>
-        <span @click="goto(item)">{{ item?.meta?.title }}</span>
+        <span>{{ item?.meta?.title }}</span>
       </template>
       <SidebarItem :data="item.children"></SidebarItem>
     </el-sub-menu>
 
     <!-- 无子目录 -->
-    <el-menu-item v-else :index="item.path" @click="goto(item)">
+    <el-menu-item v-else-if="item.meta.isShow" :index="item.path">
       <el-icon>
         <component v-if="item.meta" :is="item.meta.icon"></component>
       </el-icon>

@@ -46,7 +46,7 @@
 
 <script>
 import { Delete, Edit, View, Search } from "@element-plus/icons-vue";
-import { list, del } from "../../api/message.js";
+import { list, del } from "@/api/message.js";
 
 export default {
   name: "message-index",

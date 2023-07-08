@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { siteInfo, updateInfo, updateSeo } from "../../api/site.js";
+import { siteInfo, updateInfo, updateSeo } from "@/api/site.js";
 
 export default {
   name: "home-sys",

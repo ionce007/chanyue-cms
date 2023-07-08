@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { create } from "../../api/admin.js";
+import { create } from "@/api/admin.js";
 export default {
   name: "admin-add",
   data: () => {

@@ -53,7 +53,7 @@
 
 <script>
 import { Delete, Edit, View, Search } from "@element-plus/icons-vue";
-import { list, hasUse, del } from "../../api/model.js";
+import { list, hasUse, del } from "@/api/model.js";
 export default {
   name: "model-index",
   setup() {

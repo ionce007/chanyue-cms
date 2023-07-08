@@ -55,7 +55,7 @@
 
 <script>
 import { Delete, Edit, View, Search } from "@element-plus/icons-vue";
-import { search, del } from "../../api/tag.js";
+import { search, del } from "@/api/tag.js";
 
 export default {
   name: "tag-index",

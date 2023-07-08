@@ -72,7 +72,7 @@
 
 <script>
 import { Delete, Edit, View, Search } from "@element-plus/icons-vue";
-import { search, del } from "../../api/page.js";
+import { search, del } from "@/api/page.js";
 
 export default {
   name: "page-index",

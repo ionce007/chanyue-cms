@@ -70,7 +70,7 @@
             :on-success="upload"
             :show-file-list="true"
           >
-           
+
             <i class="el-icon-plus"></i>
           </el-upload>
         </el-form-item> -->
@@ -202,11 +202,11 @@
 </template>
 
 <script>
-import { find } from "../../api/category.js";
-import { update, detail, findField } from "../../api/article.js";
+import { find } from "@/api/category.js";
+import { update, detail, findField } from "@/api/article.js";
 import Vue3Tinymce from "@jsdawn/vue3-tinymce";
-import { tinymceSet } from "../../config/tinymce.js";
-import { search } from "../../api/tag.js";
+import { tinymceSet } from "@/config/tinymce.js";
+import { search } from "@/api/tag.js";
 import { Plus } from "@element-plus/icons-vue";
 import {
   getImgUrlFromStr,
@@ -215,7 +215,7 @@ import {
   addLabelValue,
   treeById,
   tree,
-} from "@/utils/tools.js";
+} from "@/utils/tool.js";
 
 export default {
   name: "article-edit",

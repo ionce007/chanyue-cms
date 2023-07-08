@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { create } from "../../api/field.js";
+import { create } from "@/api/field.js";
 export default {
   name: "field-add",
   components: {},

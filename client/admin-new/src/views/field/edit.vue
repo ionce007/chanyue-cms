@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import { update, detail } from "../../api/field.js";
-import { hasUse } from "../../api/model.js";
+import { update, detail } from "@/api/field.js";
+import { hasUse } from "@/api/model.js";
 export default {
   name: "field-edit",
   data: () => {

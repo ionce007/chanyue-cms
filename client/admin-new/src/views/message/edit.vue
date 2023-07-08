@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { update, detail } from "../../api/message.js";
+import { update, detail } from "@/api/message.js";
 
 export default {
   name: "message-edit",

@@ -41,9 +41,9 @@
 </template>
 
 <script>
-import { create } from "../../api/frag.js";
+import { create } from "@/api/frag.js";
 import Vue3Tinymce from "@jsdawn/vue3-tinymce";
-import { tinymceSet } from "../../config/tinymce.js";
+import { tinymceSet } from "@/config/tinymce.js";
 import { pinyin } from "pinyin-pro";
 export default {
   name: "frag-add",

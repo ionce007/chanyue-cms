@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { create } from "../../api/message.js";
+import { create } from "@/api/message.js";
 
 export default {
   name: "message-add",

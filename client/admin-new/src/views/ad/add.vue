@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { create } from "../../api/ad.js";
+import { create } from "@/api/ad.js";
 import { pinyin } from "pinyin-pro";
 import { Plus } from "@element-plus/icons-vue";
 export default {

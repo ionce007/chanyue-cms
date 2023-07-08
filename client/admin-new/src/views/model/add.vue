@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { create } from "../../api/model.js";
+import { create } from "@/api/model.js";
 export default {
   name: "model-add",
   components: {},

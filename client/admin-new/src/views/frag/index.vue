@@ -57,7 +57,7 @@
 
 <script>
 import { Delete, Edit, View, Search } from "@element-plus/icons-vue";
-import { search, del } from "../../api/frag.js";
+import { search, del } from "@/api/frag.js";
 
 export default {
   name: "frag-index",

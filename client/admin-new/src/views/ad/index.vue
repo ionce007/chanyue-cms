@@ -72,7 +72,7 @@
 
 <script>
 import { Delete, Edit } from "@element-plus/icons-vue";
-import { search, del } from "../../api/ad.js";
+import { search, del } from "@/api/ad.js";
 export default {
   name: "ad-index",
   setup() {

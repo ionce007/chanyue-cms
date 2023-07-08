@@ -68,8 +68,8 @@
 
 <script>
 import { Delete, Edit, View, Search } from "@element-plus/icons-vue";
-import { findSubId, destory, search } from "../../api/category.js";
-import { tree, addLabelValue } from "@/utils/tools.js";
+import { findSubId, destory, search } from "@/api/category.js";
+import { tree, addLabelValue } from "@/utils/tool.js";
 
 export default {
   name: "category-index",

@@ -37,33 +37,63 @@ export const asyncRoutes = [
     meta: {
       title: "网站信息",
       icon: "DataLine",
+      isShow: true,
       role: ["admin"],
     },
   },
   {
     path: "/sys",
-    name: "home-sys",
+    name: "sys",
     icon: "Setting",
-    component: "@/views/home/sys.vue",
     meta: {
-      title: "系统设置",
+      title: "系统管理",
       icon: "location",
+      isShow: true,
       role: ["admin"],
     },
-  },
-  {
-    path: "/category",
-    name: "category-index",
-    icon: "setting",
-    component: "@/views/category/index.vue",
-    meta: {
-      title: "栏目管理",
-      icon: "location",
-      role: ["admin"],
-    },
+    redirect: "/sys/index",
     children: [
       {
-        path: "add",
+        path: "/sys/index",
+        name: "sys-index",
+        icon: "Setting",
+        component: "@/views/home/sys.vue",
+        meta: {
+          title: "系统设置",
+          isShow: true,
+          icon: "",
+          role: ["admin"],
+        },
+      },
+    ],
+  },
+
+  {
+    path: "/content",
+    name: "content",
+    icon: "setting",
+    meta: {
+      title: "内容管理",
+      isShow: true,
+      icon: "location",
+      role: ["admin"],
+    },
+    redirect: "/category",
+    children: [
+      {
+        path: "/category",
+        name: "category-index",
+        icon: "setting",
+        component: "@/views/category/index.vue",
+        meta: {
+          title: "栏目管理",
+          icon: "location",
+          isShow: true,
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/category/add",
         name: "category-add",
         icon: "setting",
         component: "@/views/category/add.vue",
@@ -75,7 +105,7 @@ export const asyncRoutes = [
         },
       },
       {
-        path: "edit/:id",
+        path: "/category/edit/:id",
         name: "category-edit",
         icon: "setting",
         component: "@/views/category/edit.vue",
@@ -86,362 +116,396 @@ export const asyncRoutes = [
           role: ["admin"],
         },
       },
-    ],
-  },
-
-  {
-    path: "/article",
-    name: "article-index",
-    icon: "setting",
-    component: "@/views/article/index.vue",
-    meta: {
-      title: "文章管理",
-      icon: "location",
-      role: ["admin"],
-    },
-    children: [
       {
-        path: "add",
+        path: "/article",
+        name: "article-index",
+        icon: "setting",
+        component: "@/views/article/index.vue",
+        meta: {
+          title: "文章管理",
+          icon: "location",
+          isShow: true,
+          role: ["admin"],
+        },
+      },
+
+      {
+        path: "/article/add",
         name: "article-add",
         icon: "setting",
         component: "@/views/article/add.vue",
         meta: {
           title: "文章管理-新增",
+          isShow: false,
           icon: "location",
           role: ["admin"],
         },
       },
       {
-        path: "edit/:id",
+        path: "/article/edit/:id",
         name: "article-edit",
         icon: "setting",
         component: "@/views/article/edit.vue",
         meta: {
           title: "文章管理-更新",
+          isShow: false,
           icon: "location",
           role: ["admin"],
         },
       },
-    ],
-  },
+      {
+        path: "/page",
+        name: "page-index",
+        icon: "setting",
+        component: "@/views/page/index.vue",
+        meta: {
+          title: "页面管理",
+          icon: "location",
+          isShow: true,
+          role: ["admin"],
+        },
+      },
 
-  {
-    path: "/model",
-    name: "model-index",
-    icon: "setting",
-    component: "@/views/model/index.vue",
-    meta: {
-      title: "模型管理",
-      icon: "location",
-      role: ["admin"],
-    },
-    children: [
       {
-        path: "add",
-        name: "model-add",
-        icon: "setting",
-        component: "@/views/model/add.vue",
-        meta: {
-          title: "模型管理-新增",
-          icon: "location",
-          role: ["admin"],
-        },
-      },
-      {
-        path: "edit/:id",
-        name: "model-edit",
-        icon: "setting",
-        component: "@/views/model/edit.vue",
-        meta: {
-          title: "模型管理-更新",
-          icon: "location",
-          role: ["admin"],
-        },
-      },
-    ],
-  },
-
-  {
-    path: "/field",
-    name: "field-index",
-    icon: "setting",
-    component: "@/views/field/index.vue",
-    meta: {
-      title: "字段管理",
-      icon: "location",
-      role: ["admin"],
-    },
-    children: [
-      {
-        path: "add",
-        name: "field-add",
-        icon: "setting",
-        component: "@/views/field/add.vue",
-        meta: {
-          title: "字段管理-新增",
-          icon: "location",
-          role: ["admin"],
-        },
-      },
-      {
-        path: "edit",
-        name: "field-edit",
-        icon: "setting",
-        component: "@/views/field/edit.vue",
-        meta: {
-          title: "字段管理-更新",
-          icon: "location",
-          role: ["admin"],
-        },
-      },
-    ],
-  },
-
-  {
-    path: "/ad",
-    name: "ad-index",
-    icon: "setting",
-    component: "@/views/ad/index.vue",
-    meta: {
-      title: "广告管理",
-      icon: "location",
-      role: ["admin"],
-    },
-    children: [
-      {
-        path: "add",
-        name: "ad-add",
-        icon: "setting",
-        component: "@/views/ad/add.vue",
-        meta: {
-          title: "广告管理-新增",
-          icon: "location",
-          role: ["admin"],
-        },
-      },
-      {
-        path: "edit",
-        name: "ad-edit",
-        icon: "setting",
-        component: "@/views/ad/edit.vue",
-        meta: {
-          title: "广告管理-更新",
-          icon: "location",
-          role: ["admin"],
-        },
-      },
-    ],
-  },
-
-  {
-    path: "/page",
-    name: "page-index",
-    icon: "setting",
-    component: "@/views/page/index.vue",
-    meta: {
-      title: "页面管理",
-      icon: "location",
-      role: ["admin"],
-    },
-    children: [
-      {
-        path: "add",
+        path: "/page/add",
         name: "page-add",
         icon: "setting",
         component: "@/views/page/add.vue",
         meta: {
           title: "页面管理-新增",
+          isShow: false,
           icon: "location",
           role: ["admin"],
         },
       },
       {
-        path: "edit/:id",
+        path: "/page/edit/:id",
         name: "page-edit",
         icon: "setting",
         component: "@/views/page/edit.vue",
         meta: {
           title: "页面管理-更新",
+          isShow: false,
           icon: "location",
           role: ["admin"],
         },
       },
-    ],
-  },
 
-  {
-    path: "/friendlink",
-    name: "friendlink-index",
-    icon: "setting",
-    component: "@/views/friendlink/index.vue",
-    meta: {
-      title: "友情链接",
-      icon: "location",
-      role: ["admin"],
-    },
-    children: [
       {
-        path: "add",
-        name: "friendlink-add",
+        path: "/tag",
+        name: "tag-index",
         icon: "setting",
-        component: "@/views/friendlink/add.vue",
+        component: "@/views/tag/index.vue",
         meta: {
-          title: "友情链接-新增",
+          title: "标签管理",
+          isShow: true,
           icon: "location",
           role: ["admin"],
         },
       },
       {
-        path: "edit/:id",
-        name: "friendlink-edit",
-        icon: "setting",
-        component: "@/views/friendlink/edit.vue",
-        meta: {
-          title: "友情链接-更新",
-          icon: "location",
-          role: ["admin"],
-        },
-      },
-    ],
-  },
-
-  {
-    path: "/message",
-    name: "message-index",
-    icon: "setting",
-    component: "@/views/message/index.vue",
-    meta: {
-      title: "消息管理",
-      icon: "location",
-      role: ["admin"],
-    },
-    children: [
-      {
-        path: "add",
-        name: "message-add",
-        icon: "setting",
-        component: "@/views/message/add.vue",
-        meta: {
-          title: "消息管理-新增",
-          icon: "location",
-          role: ["admin"],
-        },
-      },
-      {
-        path: "edit/:id",
-        name: "message-edit",
-        icon: "setting",
-        component: "@/views/message/edit.vue",
-        meta: {
-          title: "消息管理-更新",
-          icon: "location",
-          role: ["admin"],
-        },
-      },
-    ],
-  },
-
-  {
-    path: "/admin",
-    name: "admin-index",
-    icon: "setting",
-    component: "@/views/admin/index.vue",
-    meta: {
-      title: "管理员列表",
-      icon: "location",
-      role: ["admin"],
-    },
-    children: [
-      {
-        path: "add",
-        name: "admin-add",
-        icon: "setting",
-        component: "@/views/admin/add.vue",
-        meta: {
-          title: "管理员列表-新增",
-          icon: "location",
-          role: ["admin"],
-        },
-      },
-      {
-        path: "edit/:id",
-        name: "message-edit",
-        icon: "setting",
-        component: "@/views/admin/edit.vue",
-        meta: {
-          title: "管理员列表-更新",
-          icon: "location",
-          role: ["admin"],
-        },
-      },
-    ],
-  },
-
-  {
-    path: "/frag",
-    name: "frag-index",
-    icon: "setting",
-    component: "@/views/frag/index.vue",
-    meta: {
-      title: "碎片管理",
-      icon: "location",
-      role: ["admin"],
-    },
-    children: [
-      {
-        path: "add",
-        name: "frag-add",
-        icon: "setting",
-        component: "@/views/frag/add.vue",
-        meta: {
-          title: "碎片管理-新增",
-          icon: "location",
-          role: ["admin"],
-        },
-      },
-      {
-        path: "edit/:id",
-        name: "frag-edit",
-        icon: "setting",
-        component: "@/views/frag/edit.vue",
-        meta: {
-          title: "碎片管理-更新",
-          icon: "location",
-          role: ["admin"],
-        },
-      },
-    ],
-  },
-
-  {
-    path: "/tag",
-    name: "tag-index",
-    icon: "setting",
-    component: "@/views/tag/index.vue",
-    meta: {
-      title: "标签管理",
-      icon: "location",
-      role: ["admin"],
-    },
-    children: [
-      {
-        path: "add",
+        path: "/tag/add",
         name: "tag-add",
         icon: "setting",
         component: "@/views/tag/add.vue",
         meta: {
           title: "标签管理-新增",
+          isShow: false,
           icon: "location",
           role: ["admin"],
         },
       },
       {
-        path: "edit/:id",
+        path: "/tag/edit/:id",
         name: "tag-edit",
         icon: "setting",
         component: "@/views/tag/edit.vue",
         meta: {
           title: "标签管理-更新",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/frag",
+        name: "frag-index",
+        icon: "setting",
+        component: "@/views/frag/index.vue",
+        meta: {
+          title: "碎片管理",
+          isShow: true,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/frag/add",
+        name: "frag-add",
+        icon: "setting",
+        component: "@/views/frag/add.vue",
+        meta: {
+          title: "碎片管理-新增",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/frag/edit/:id",
+        name: "frag-edit",
+        icon: "setting",
+        component: "@/views/frag/edit.vue",
+        meta: {
+          title: "碎片管理-更新",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+    ],
+  },
+
+  {
+    path: "/extend",
+    name: "extend",
+    icon: "setting",
+    meta: {
+      title: "功能管理",
+      icon: "location",
+      isShow: true,
+      role: ["admin"],
+    },
+    children: [
+      {
+        path: "/model",
+        name: "model-index",
+        icon: "setting",
+        component: "@/views/model/index.vue",
+        meta: {
+          title: "模型管理",
+          isShow: true,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/model/add",
+        name: "model-add",
+        icon: "setting",
+        component: "@/views/model/add.vue",
+        meta: {
+          title: "模型管理-新增",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/model/edit/:id",
+        name: "model-edit",
+        icon: "setting",
+        component: "@/views/model/edit.vue",
+        meta: {
+          title: "模型管理-更新",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/field",
+        name: "field-index",
+        icon: "setting",
+        component: "@/views/field/index.vue",
+        meta: {
+          title: "字段管理",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/field/add",
+        name: "field-add",
+        icon: "setting",
+        component: "@/views/field/add.vue",
+        meta: {
+          title: "字段管理-新增",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/field/edit",
+        name: "field-edit",
+        icon: "setting",
+        component: "@/views/field/edit.vue",
+        meta: {
+          title: "字段管理-更新",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+
+      {
+        path: "/friendlink",
+        name: "friendlink-index",
+        icon: "setting",
+        component: "@/views/friendlink/index.vue",
+        meta: {
+          title: "友情链接",
+          isShow: true,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/friendlink/add",
+        name: "friendlink-add",
+        icon: "setting",
+        component: "@/views/friendlink/add.vue",
+        meta: {
+          title: "友情链接-新增",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/friendlink/edit/:id",
+        name: "friendlink-edit",
+        icon: "setting",
+        component: "@/views/friendlink/edit.vue",
+        meta: {
+          title: "友情链接-更新",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/ad",
+        name: "ad-index",
+        icon: "setting",
+        component: "@/views/ad/index.vue",
+        meta: {
+          title: "广告管理",
+          isShow: true,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/ad/add",
+        name: "ad-add",
+        icon: "setting",
+        component: "@/views/ad/add.vue",
+        meta: {
+          title: "广告管理-新增",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/ad/edit/:id",
+        name: "ad-edit",
+        icon: "setting",
+        component: "@/views/ad/edit.vue",
+        meta: {
+          title: "广告管理-更新",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+
+      {
+        path: "/message",
+        name: "message-index",
+        icon: "setting",
+        component: "@/views/message/index.vue",
+        meta: {
+          title: "消息管理",
+          isShow: true,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/message/add",
+        name: "message-add",
+        icon: "setting",
+        component: "@/views/message/add.vue",
+        meta: {
+          title: "消息管理-新增",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/message/edit/:id",
+        name: "message-edit",
+        icon: "setting",
+        component: "@/views/message/edit.vue",
+        meta: {
+          title: "消息管理-更新",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+    ],
+  },
+
+  {
+    path: "/manage",
+    name: "manage",
+    icon: "setting",
+    meta: {
+      title: "管理员",
+      isShow: true,
+      icon: "location",
+      role: ["admin"],
+    },
+    redirect: "/admin",
+    children: [
+      {
+        path: "/admin",
+        name: "admin-index",
+        icon: "setting",
+        component: "@/views/admin/index.vue",
+        meta: {
+          title: "管理员列表",
+          isShow: true,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/admin/add",
+        name: "admin-add",
+        icon: "setting",
+        component: "@/views/admin/add.vue",
+        meta: {
+          title: "管理员列表-新增",
+          isShow: false,
+          icon: "location",
+          role: ["admin"],
+        },
+      },
+      {
+        path: "/admin/edit/:id",
+        name: "message-edit",
+        icon: "setting",
+        component: "@/views/admin/edit.vue",
+        meta: {
+          title: "管理员列表-更新",
+          isShow: false,
           icon: "location",
           role: ["admin"],
         },
@@ -487,6 +551,7 @@ router.beforeEach(async (to, from) => {
         await user.getMenuList();
         //根据用户角色role，和菜单生成路由
         const accessRoutes = user.getAccessRoutes(role);
+        console.log("accessRoutes", accessRoutes);
         //添加路由
         accessRoutes.forEach((route) => {
           router.addRoute("Layout", route);

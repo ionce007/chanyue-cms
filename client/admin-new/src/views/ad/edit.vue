@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { update, detail } from "../../api/ad.js";
+import { update, detail } from "@/api/ad.js";
 import { Plus } from "@element-plus/icons-vue";
 export default {
   name: "ad-edit",

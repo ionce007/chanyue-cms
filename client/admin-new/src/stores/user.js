@@ -58,12 +58,12 @@ export const userStore = defineStore("user", {
       let asyncRoutes = this.menuList;
       const accessRoutes = filterRoutes(asyncRoutes, role);
       //将path路径改为  绝对路径
-      const fullPathRoutes = getFullPathRoutes(accessRoutes, "");
+      //const fullPathRoutes = getFullPathRoutes(accessRoutes, "");
       //将redirect改为children的第一个
       // updateRoutesRedirect(fullPathRoutes);
-      console.log("fullPathRoutes-->", fullPathRoutes);
-      this.menuList = fullPathRoutes;
-      return fullPathRoutes;
+      console.log("fullPathRoutes-->", accessRoutes);
+      this.menuList = accessRoutes;
+      return accessRoutes;
     },
   },
   persist: {

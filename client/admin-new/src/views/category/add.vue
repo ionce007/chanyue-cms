@@ -99,9 +99,9 @@
 </template>
 
 <script>
-import { find, create } from "../../api/category.js";
-import { addLabelValue, tree } from "@/utils/tools.js";
-import { list } from "../../api/model.js";
+import { find, create } from "@/api/category.js";
+import { addLabelValue, tree } from "@/utils/tool.js";
+import { list } from "@/api/model.js";
 import { pinyin } from "pinyin-pro";
 export default {
   name: "category-add",

@@ -41,9 +41,9 @@
 </template>
 
 <script>
-import { update, detail } from "../../api/frag.js";
+import { update, detail } from "@/api/frag.js";
 import Vue3Tinymce from "@jsdawn/vue3-tinymce";
-import { tinymceSet } from "../../config/tinymce.js";
+import { tinymceSet } from "@/config/tinymce.js";
 export default {
   name: "frag-edit",
   components: {

@@ -51,16 +51,16 @@
           />
         </el-form-item>
 
-        <!-- 
+        <!--
           field_cname   中文名称 varchar 60
           field_ename   英文名称 varchar 60
-          field_type    
-          from表单类型 
+          field_type
+          from表单类型
           1单行文本（varchar）
-          2.多行文本 
-          text 3.下拉菜单 
-          text 4.单选 
-          text 5.多选 
+          2.多行文本
+          text 3.下拉菜单
+          text 4.单选
+          text 5.多选
           6.时间和日期
           field_default  字段配置 男 女
           field_values   默认值可选 255
@@ -168,15 +168,15 @@
           <el-input v-model="params.link" max="120"></el-input>
         </el-form-item>
 
-        <!-- 
+        <!--
           field_cname   中文名称 varchar 60
           field_ename   英文名称 varchar 60
-          field_type    
+          field_type
           from表单类型 1单行文本（varchar）
-          2.多行文本 
-          text 3.下拉菜单 
-          text 4.单选 
-          text 5.多选 
+          2.多行文本
+          text 3.下拉菜单
+          text 4.单选
+          text 5.多选
           6.时间和日期
           field_default  默认值可选 255
           field_values   字段配置 男 女
@@ -218,11 +218,11 @@
 </template>
 
 <script>
-import { find } from "../../api/category.js";
-import { create, findField } from "../../api/article.js";
-import { search } from "../../api/tag.js";
+import { find } from "@/api/category.js";
+import { create, findField } from "@/api/article.js";
+import { search } from "@/api/tag.js";
 import Vue3Tinymce from "@jsdawn/vue3-tinymce";
-import { tinymceSet } from "../../config/tinymce.js";
+import { tinymceSet } from "@/config/tinymce.js";
 import { Plus } from "@element-plus/icons-vue";
 import {
   addLabelValue,
@@ -230,7 +230,7 @@ import {
   filterHtml,
   filterBody,
   tree,
-} from "@/utils/tools.js";
+} from "@/utils/tool.js";
 
 export default {
   name: "article-add",

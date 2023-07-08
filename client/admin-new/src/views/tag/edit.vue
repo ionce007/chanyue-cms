@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { update, detail, has } from "../../api/tag.js";
+import { update, detail, has } from "@/api/tag.js";
 import { pinyin } from "pinyin-pro";
 export default {
   name: "tag-edit",
