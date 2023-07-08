@@ -3,7 +3,7 @@ import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import { userStore } from "@/stores/user.js";
 export default {
   install: (app, options) => {
-    console.log("摩诃第一个插件");
+    console.log("萨埵第一个插件");
     app.config.globalProperties.$message = ElMessage;
     //注册所有图标
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

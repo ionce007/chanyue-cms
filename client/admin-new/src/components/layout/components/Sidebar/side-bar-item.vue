@@ -8,8 +8,8 @@
       :index="item.path"
     >
       <template #title>
-        <el-icon>
-          <component v-if="item.meta" :is="item.meta.icon"></component>
+        <el-icon v-if="item?.meta?.icon">
+          <component :is="item.meta.icon"></component>
         </el-icon>
         <span>{{ item?.meta?.title }}</span>
       </template>
@@ -18,8 +18,8 @@
 
     <!-- 无子目录 -->
     <el-menu-item v-else-if="item.meta.isShow" :index="item.path">
-      <el-icon>
-        <component v-if="item.meta" :is="item.meta.icon"></component>
+      <el-icon v-if="item?.meta?.icon">
+        <component :is="item.meta.icon"></component>
       </el-icon>
       <template #title>{{ item?.meta?.title }}</template>
     </el-menu-item>
@@ -66,6 +66,24 @@ export default {
   margin-right: 5px;
   img {
     width: 100%;
+  }
+}
+
+.el-sub-menu .el-menu-item {
+  margin-left: 10px;
+}
+
+.el-sub-menu.is-active {
+  .el-icon {
+    color: #1890ff;
+  }
+
+  :deep(.el-sub-menu__title) {
+    color: #1890ff;
+  }
+
+  :deep(.el-sub-menu__icon-arrow) {
+    color: #1890ff;
   }
 }
 </style>

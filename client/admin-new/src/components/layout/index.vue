@@ -30,13 +30,15 @@
       </div>
       <!-- 内容区域 -->
       <div class="app-main">
-        <router-view v-slot="{ Component, route }">
-          <transition :name="route.meta.transition">
-            <!-- <keep-alive :include="cachedViews"> -->
-            <component :is="Component" />
-            <!-- </keep-alive> -->
-          </transition>
-        </router-view>
+        <article class="container">
+          <router-view v-slot="{ Component, route }">
+            <transition :name="route.meta.transition">
+              <!-- <keep-alive :include="cachedViews"> -->
+              <component :is="Component" />
+              <!-- </keep-alive> -->
+            </transition>
+          </router-view>
+        </article>
       </div>
     </div>
   </div>
@@ -133,8 +135,15 @@ export default defineComponent({
     }
 
     .app-main {
-      min-height: calc(100vh - 84px);
-      background: rgb(242, 239, 239);
+      min-height: calc(100vh - 51px);
+      padding: 20px;
+      background-color: #f2f2f2;
+
+      .container {
+        height: 100%;
+        background-color: #fff;
+        border-radius: 6px;
+      }
     }
   }
 }

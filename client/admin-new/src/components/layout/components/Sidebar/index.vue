@@ -6,7 +6,7 @@
     text-color=""
     :default-active="activeIndex"
     :router="true"
-    :unique-opened="false"
+    :unique-opened="true"
     :collapse-transition="true"
     :collapse="isCollapse"
     popper-effect="light"

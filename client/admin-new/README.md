@@ -1,6 +1,6 @@
 # 萨埵(saduo-admin)用后台管理框架
 
-#### 摩诃介绍
+#### 萨埵介绍
 
 萨埵(saduo-admin)基于vue3、vue-router、 pinia、element-plus、 mitt、 axios vite4开发的通用的后台管理框架，轻量，快速，方便，易读为核心，服务于广大前端开发者。零配置，支持jsonp请求,开发者可专注于业务开发，提高开发效率。
 

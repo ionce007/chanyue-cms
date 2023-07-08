@@ -1,6 +1,6 @@
 # 💒 萨埵（saduo-wap）
 
-萨埵(saduo-wap)移动端通用框架，基于vite4、vue3、vue-router、 pinia、 vant4、vconsole、 mitt、 axios构建的通用移动端h5项目通用模板,零配置，支持rem适配,支持jsonp请求,微信内置web-view等wap等项目开发，开发者可专注于业务开发，提高开发效率。
+萨埵(saduo-wap)移动端通用框架，基于vite4、vue3、vue-router、 pinia、 element-plus、vconsole、 mitt、 axios构建的通用移动端h5项目通用模板,零配置，支持rem适配,支持jsonp请求,微信内置web-view等wap等项目开发，开发者可专注于业务开发，提高开发效率。
 
 ## ⛱️ 技术架构
 
