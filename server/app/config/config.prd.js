@@ -15,9 +15,9 @@ config.port = '7004';
 config.mysql = {
     host: 'localhost',
     port: '3306',
-    user: 'dalianmeng',
-    password: '@yanyutao2023',
-    database: 'dalianmeng'
+    user: 'root',
+    password: '123456',
+    database: 'chanyue'
 };
 
 config.token = {

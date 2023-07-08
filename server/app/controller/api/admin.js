@@ -29,7 +29,7 @@ class AdminController extends BaseController {
         const data = { id, status, username, token };
         res.json({ ...success, data: data })
       } else {
-        res.json({ ...success, data: false })
+        res.json({ ...fail, data: null,msg:'登录失败' })
       }
     } catch (error) {
       next(error);
@@ -125,11 +125,11 @@ class AdminController extends BaseController {
     try {
       const captcha = svgCaptcha.create({
         size: 4,
-        fontSize: 50,
+        fontSize: 36,
         width: 100,
-        height: 40,
+        height: 32,
         ignoreChars: '0oO1ilI', // 验证码字符中排除 0o1i
-        noise: 5,
+        noise: 3,
         // background: '#cc9966',
       });
       res.cookie("captcha", captcha.text);
@@ -140,20 +140,7 @@ class AdminController extends BaseController {
     }
   }
 
-  // 校验验证码
-  static async checkCaptcha(req, res, next) {
-    try {
-      const { captcha } = req.body;
-      if ((req.cookies.captcha.toLowerCase() === captcha.toLowerCase())) {
-        res.json({ ...success, data: true })
-      } else {
-        res.json({ ...success, data: false })
-      }
-    } catch (error) {
-      next(error);
-    }
-  }
-
+  
 
 }
 

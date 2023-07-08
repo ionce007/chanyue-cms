@@ -20,7 +20,6 @@ const auth = require('../../middleware/auth.js');
 
 // 验证码
 router.get('/captcha', AdminController.captcha); // 验证码
-router.post('/checkCaptcha', AdminController.checkCaptcha);
 
 // copy 爬虫
 // router.get('/copy', controller.copy.home.index);
