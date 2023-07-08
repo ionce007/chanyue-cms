@@ -48,7 +48,7 @@ export const asyncRoutes = [
     meta: {
       title: "系统设置",
       icon: "location",
-      role: ["editor"],
+      role: ["admin"],
     },
   },
   {
@@ -468,6 +468,7 @@ const router = createRouter({
 
 import { userStore } from "@/stores/user";
 router.beforeEach(async (to, from) => {
+  console.log("to-->", to.path);
   const user = userStore();
   if (user.token) {
     //已登录

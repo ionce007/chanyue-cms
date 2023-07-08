@@ -96,7 +96,7 @@
 <script>
 import { find } from "../../api/category.js";
 import { create } from "../../api/page.js";
-import { addLabelValue, filterBody, tree } from "../../utils/tools.js";
+import { addLabelValue, filterBody, tree } from "@/utils/tools.js";
 import Vue3Tinymce from "@jsdawn/vue3-tinymce";
 import { tinymceSet } from "../../config/tinymce.js";
 

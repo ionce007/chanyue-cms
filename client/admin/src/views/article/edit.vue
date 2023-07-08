@@ -215,7 +215,7 @@ import {
   addLabelValue,
   treeById,
   tree,
-} from "../../utils/tools.js";
+} from "@/utils/tools.js";
 
 export default {
   name: "article-edit",

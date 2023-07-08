@@ -96,12 +96,7 @@
 <script>
 import { find } from "../../api/category.js";
 import { update, detail } from "../../api/page.js";
-import {
-  filterBody,
-  addLabelValue,
-  treeById,
-  tree,
-} from "../../utils/tools.js";
+import { filterBody, addLabelValue, treeById, tree } from "@/utils/tools.js";
 import Vue3Tinymce from "@jsdawn/vue3-tinymce";
 import { tinymceSet } from "../../config/tinymce.js";
 export default {

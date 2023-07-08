@@ -1,7 +1,10 @@
 <template>
   <div class="app-wrapper">
     <!-- 左侧菜单 -->
-    <el-scrollbar class="sidebar">
+    <el-scrollbar
+      class="sidebar"
+      :style="{ width: isCollapse ? '65px' : '200px' }"
+    >
       <Logo :style="{ width: isCollapse ? '65px' : '200px' }" />
       <SideBar :isCollapse="isCollapse" />
     </el-scrollbar>
@@ -21,18 +24,17 @@
           <NavBar />
         </div>
 
-        <div class="tags-view">
+        <!-- <div class="tags-view">
           <TagView />
-        </div>
+        </div> -->
       </div>
       <!-- 内容区域 -->
       <div class="app-main">
-        <h2>app main</h2>
         <router-view v-slot="{ Component, route }">
           <transition :name="route.meta.transition">
-            <keep-alive :include="cachedViews">
-              <component :is="Component" />
-            </keep-alive>
+            <!-- <keep-alive :include="cachedViews"> -->
+            <component :is="Component" />
+            <!-- </keep-alive> -->
           </transition>
         </router-view>
       </div>
@@ -53,7 +55,7 @@ export default defineComponent({
   components: {
     SideBar,
     NavBar,
-    TagView,
+    // TagView,
     BreadCrumb,
     Logo,
   },
@@ -89,13 +91,13 @@ export default defineComponent({
   .sidebar {
     height: 100vh;
     border-right: 1px solid #f9f5f5;
+    transition: all 0.5s;
   }
 
   .sidebar-container {
-    width: 200px !important;
     height: 100%;
     background-color: var(--vt-c-white);
-
+    width: 200px !important;
     // menu未收起时样式
     &-menu:not(.el-menu--collapse) {
       width: 200px;
@@ -109,6 +111,8 @@ export default defineComponent({
     flex: 1;
     display: flex;
     flex-direction: column;
+
+    overflow: auto;
 
     .header {
       .navbar {
@@ -130,7 +134,7 @@ export default defineComponent({
 
     .app-main {
       min-height: calc(100vh - 84px);
-      background: rgb(175, 93, 93);
+      background: rgb(242, 239, 239);
     }
   }
 }

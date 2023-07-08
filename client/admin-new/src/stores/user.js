@@ -60,7 +60,7 @@ export const userStore = defineStore("user", {
       //将path路径改为  绝对路径
       const fullPathRoutes = getFullPathRoutes(accessRoutes, "");
       //将redirect改为children的第一个
-      updateRoutesRedirect(fullPathRoutes);
+      // updateRoutesRedirect(fullPathRoutes);
       console.log("fullPathRoutes-->", fullPathRoutes);
       this.menuList = fullPathRoutes;
       return fullPathRoutes;

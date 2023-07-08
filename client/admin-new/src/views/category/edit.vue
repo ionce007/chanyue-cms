@@ -105,7 +105,7 @@
 
 <script>
 import { find, findId, update } from "../../api/category.js";
-import { addLabelValue, treeById, tree } from "../../utils/tools.js";
+import { addLabelValue, treeById, tree } from "@/utils/tools.js";
 import { list } from "../../api/model.js";
 import { pinyin } from "pinyin-pro";
 export default {

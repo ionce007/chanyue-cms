@@ -85,7 +85,9 @@
             :before-upload="beforeUpload"
           >
             <el-image style="width: 100%" v-if="params.img" :src="params.img" />
-            <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+            <el-icon v-else class="avatar-uploader-icon">
+              <Plus />
+            </el-icon>
           </el-upload>
           <el-input v-model="params.img"></el-input>
         </el-form-item>
@@ -230,7 +232,7 @@ import {
   filterHtml,
   filterBody,
   tree,
-} from "../../utils/tools.js";
+} from "@/utils/tools.js";
 
 export default {
   name: "article-add",

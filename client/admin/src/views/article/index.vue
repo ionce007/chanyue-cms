@@ -96,7 +96,7 @@
 import { Delete, Edit, View, Search } from "@element-plus/icons-vue";
 import { search, del } from "../../api/article.js";
 import { find } from "../../api/category.js";
-import { addLabelValue, tree } from "../../utils/tools.js";
+import { addLabelValue, tree } from "@/utils/tools.js";
 export default {
   name: "article-index",
   setup() {
