@@ -47,20 +47,21 @@
                         <!-- 最新文章 -->
                         <div class="news bg-fff ml-20 pd-15">
                             <!-- 头条 -->
+                            <% if(top.length>0){%>
                             <div>
-                            <h3 class="f-16 text-c">
-                                <a class="c-333 ellips-1" href="/a<%=top.path%>/<%=top.id%>.html"
-                                    target="_blank">
-                                    <%=top.title%>
-                                </a>
-                            </h3>
-                            <p class="c-666 f-14 lh-20 mt-12">
-                                <a class="ellips-3" href="/a<%=top.path%>/<%=top.id%>.html">
-                                    <%=top.description%>
-                                </a>
-                            </p>
-                                        
+                                <h3 class="f-16 text-c">
+                                    <a class="c-333 ellips-1" href="/a<%=top[0].path%>/<%=top[0].id%>.html"
+                                        target="_blank">
+                                        <%=top[0].title%>
+                                    </a>
+                                </h3>
+                                <p class="c-666 f-14 lh-20 mt-12">
+                                    <a class="ellips-3" href="/a<%=top[0].path%>/<%=top[0].id%>.html">
+                                        <%=top[0].description%>
+                                    </a>
+                                </p>
                             </div>
+                            <%}%>
 
                             <div class="mt-12">
                                 <ul class="ul f-14 c-666">

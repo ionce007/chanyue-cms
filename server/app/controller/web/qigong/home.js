@@ -31,8 +31,8 @@ constructor(){
 
       // 顶部头条 1头条
       const _top = await HomeService.getArticleList(1, 0, 1);
-      const top = _top.list[0];
-
+      const top = _top.list;
+ 
       // 顶部头条 2-5
       const _topList = await HomeService.getArticleList(1, 1, 4);
       const topList = _topList.list;

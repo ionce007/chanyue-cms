@@ -21,7 +21,7 @@ export const constantRoutes = [
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
-    component: () => import("@/views/test/index.vue"),
+    component: () => import("@/views/404.vue"),
     meta: {
       title: "404",
     },
