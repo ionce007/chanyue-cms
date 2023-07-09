@@ -38,3 +38,4 @@ package-lock.json
 /server/app/view/web/lianmeng
 /doc
 /API.MD
+/server/app/config/config.default copy.js
