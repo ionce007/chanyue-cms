@@ -3,6 +3,17 @@
     <!-- 搜索 -->
     <!-- <el-button icon="Search" circle /> -->
 
+    <el-tooltip
+      class="mr-10"
+      effect="dark"
+      content="站点"
+      placement="top-start"
+    >
+      <a href="/" target="_blank">
+        <el-button :icon="IconLaunch" circle />
+      </a>
+    </el-tooltip>
+
     <!-- 语言 -->
     <el-tooltip
       class="mr-10"
@@ -81,7 +92,7 @@ import IconSun from "../../../icons/IconSun.vue";
 import IconMoon from "../../../icons/IconMoon.vue";
 import IconBell from "../../../icons/IconBell.vue";
 import IconFullscreen from "../../../icons/IconFullscreen.vue";
-
+import IconLaunch from "../../../icons/IconLaunch.vue";
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import { userStore } from "@/stores/user";

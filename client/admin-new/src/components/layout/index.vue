@@ -125,6 +125,8 @@ export default defineComponent({
           width: 42px;
           height: 42px;
           cursor: pointer;
+          font-size: 16px;
+          color: #1890ff;
         }
       }
 
@@ -143,6 +145,7 @@ export default defineComponent({
         height: 100%;
         background-color: #fff;
         border-radius: 6px;
+        padding: 10px;
       }
     }
   }

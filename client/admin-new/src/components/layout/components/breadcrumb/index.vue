@@ -73,13 +73,11 @@ const onLinkClick = (item) => {
   margin-left: 8px;
 
   .no-redirect {
-    color: #97a8be;
     cursor: text;
   }
 
   .redirect {
-    color: #666;
-    font-weight: 600;
+    font-weight: bolder;
   }
 }
 </style>
