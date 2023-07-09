@@ -79,7 +79,7 @@ class ArticleMapTagService extends BaseService {
       // 查询个数
       const total = key
         ? await knex(ArticleMapTagService.model)
-            .whereLike("name", `%${key}%`)
+            .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
             .count("id", { as: "count" })
         : await knex(ArticleMapTagService.model).count("id", { as: "count" });
       // 查询个数
@@ -88,7 +88,7 @@ class ArticleMapTagService extends BaseService {
         ? await knex
             .select(["id", "name", "mark"])
             .from(ArticleMapTagService.model)
-            .whereLike("name", `%${key}%`)
+            .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
             .limit(pageSize)
             .offset(offset)
             .orderBy("id", "desc")

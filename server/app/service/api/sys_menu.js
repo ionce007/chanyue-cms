@@ -83,7 +83,7 @@ class SysMenuService extends BaseService {
     try {
       const result = key
         ? await knex(SysMenuService.model)
-            .whereLike("name", `%${key}%`)
+            .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
             .orderBy("id", "desc", "sort")
         : await knex(SysMenuService.model).orderBy("id", "asc", "sort");
       return result;

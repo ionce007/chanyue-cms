@@ -21,9 +21,7 @@ class MemberService extends BaseService {
   // 删
   static async delete(id) {
     try {
-      const result = await knex(MemberService.model)
-        .where("id", "=", id)
-        .del();
+      const result = await knex(MemberService.model).where("id", "=", id).del();
       return result ? "success" : "fail";
     } catch (error) {
       console.error(error);
@@ -83,7 +81,7 @@ class MemberService extends BaseService {
     try {
       const result = key
         ? await knex(MemberService.model)
-            .whereLike("name", `%${key}%`)
+            .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
             .orderBy("id", "desc", "sort")
         : await knex(MemberService.model).orderBy("id", "asc", "sort");
       return result;

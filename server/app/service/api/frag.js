@@ -82,14 +82,16 @@ class FragService extends BaseService {
 
     try {
       // 查询个数
-      const total = key ? await knex(FragService.model).whereLike('name', `%${key}%`).count('id', { as: 'count' })
+      const total = key ? await knex(FragService.model)
+      .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
+      .count('id', { as: 'count' })
         : await knex(FragService.model).count('id', { as: 'count' });
       // 查询个数
       const offset = parseInt((cur - 1) * pageSize);
       const list = key ? 
       await knex.select(['id', 'name', 'mark'])
         .from(FragService.model)
-        .whereLike('name', `%${key}%`)
+        .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
         .limit(pageSize)
         .offset(offset)
         .orderBy('id', 'desc') 
