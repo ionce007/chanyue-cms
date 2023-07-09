@@ -35,7 +35,7 @@
 /* sidebar */
 --menuText:#bfcbd9;
 --menuActiveText:#409EFF;
---subMenuActiveText:#f4f4f5; 
+--subMenuActiveText:#f4f4f5;
 --menuBg:#304156;
 --menuHover:#263445;
 --subMenuBg:#1f2d3d;
@@ -91,4 +91,10 @@ body {
 
 .c-a1a3aa{
   color: #a1a3aa;
+}
+
+.search{
+  background-color: #f7f7f7;
+  border: 1px solid #f7f2f2;
+  border-radius: 5px;
 }

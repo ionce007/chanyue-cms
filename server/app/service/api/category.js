@@ -83,8 +83,8 @@ class CategoryService extends BaseService {
     try {
       const result = key
         ? await knex(CategoryService.model)
-            .whereLike("name", `%${key}%`)
-            .orderBy("id", "desc", "sort")
+        .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
+        .orderBy("id", "desc", "sort")
         : await knex(CategoryService.model).orderBy("id", "asc", "sort");
       return result;
     } catch (error) {

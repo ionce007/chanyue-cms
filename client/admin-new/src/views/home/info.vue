@@ -19,6 +19,33 @@
           </p>
         </div>
       </el-col>
+      <el-col class="mb-20" :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+        <el-card>
+          <h1 class="mb-20">禅悦cms历史进程</h1>
+          <el-timeline>
+            <el-timeline-item center timestamp="2022/6/12" placement="top">
+              <h4>第四次重构（chanyuecms）</h4>
+              <p>基于express mysql knex开发第三版</p>
+            </el-timeline-item>
+            <el-timeline-item timestamp="2020/10/1" placement="top">
+              <h4>第三次重构（eggcms）</h4>
+              <p>基于egg mysql Sequelize重构</p>
+            </el-timeline-item>
+            <el-timeline-item center timestamp="2018/4/2" placement="top">
+              <h4>第二次重构（koacms）</h4>
+              <p>基于koa2 mysql重构</p>
+            </el-timeline-item>
+            <el-timeline-item timestamp="2015/6/2" placement="top">
+              <h4>第一次构想</h4>
+              <p>基于express mongoDB开发第一版cms</p>
+            </el-timeline-item>
+            <el-timeline-item timestamp="2014/9/2" placement="top">
+              <h4>2014年初次接触node</h4>
+              <p>基于express mongoDB开发了一个博客</p>
+            </el-timeline-item>
+          </el-timeline>
+        </el-card>
+      </el-col>
     </el-row>
   </div>
 </template>

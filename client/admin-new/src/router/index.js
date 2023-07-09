@@ -431,7 +431,7 @@ export const asyncRoutes = [
       },
       {
         path: "/admin/edit/:id",
-        name: "message-edit",
+        name: "admin-edit",
         component: "@/views/admin/edit.vue",
         meta: {
           title: "管理员列表-更新",

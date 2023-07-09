@@ -1,18 +1,24 @@
 <template>
-  <el-row type="flex" justify="space-between">
-    <el-col :span="18">
-      <el-input
-        class="mr-10 w-auto"
-        placeholder="请输入内容"
-        :suffix-icon="Search"
-        v-model="keywords"
-      ></el-input>
-      <el-button type="primary" @click="search" round>搜索</el-button>
-      <el-button @click="clearSearch" round>清空</el-button>
-    </el-col>
-
-    <router-link class="c-fff add-btn" to="/category/add">新增</router-link>
-  </el-row>
+  <!-- 搜索区域 -->
+  <div class="search row justify-between align-c pd-20 mb-20">
+    <el-form :inline="true" :model="params">
+      <el-form-item label="名称" prop="keywords">
+        <el-input
+          placeholder="请输入栏目名称"
+          :suffix-icon="Search"
+          v-model="params.keywords"
+          clearable
+        />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="search" round>搜索</el-button>
+        <el-button @click="clearSearch" round>清空</el-button>
+      </el-form-item>
+    </el-form>
+    <router-link to="/category/add">
+      <el-button type="primary" @click="search" round>新增</el-button>
+    </router-link>
+  </div>
 
   <el-table
     ref="multipleTable"
@@ -83,7 +89,9 @@ export default {
   },
   data: () => {
     return {
-      keywords: "", //关键词
+      params: {
+        keywords: "",
+      },
       loading: true,
       tableData: [],
       multipleSelection: [],
@@ -96,7 +104,7 @@ export default {
   methods: {
     //清空
     clearSearch() {
-      this.keywords = "";
+      this.params.keywords = "";
       this.tableData = [];
       this.multipleSelection = [];
       this.search();
@@ -105,13 +113,12 @@ export default {
     //查询
     async search() {
       try {
-        const q = this.keywords;
+        const q = this.params.keywords;
         let res = await search(q);
         if (res.code === 200) {
           let data = tree(res.data);
           console.log("data->", data);
           this.tableData = addLabelValue(data);
-
           this.loading = false;
         }
       } catch (error) {
@@ -194,4 +201,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+:deep(.el-form-item) {
+  margin-bottom: 0px;
+}
+</style>

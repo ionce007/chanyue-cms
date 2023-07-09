@@ -1,18 +1,24 @@
 <template>
-  <el-row type="flex" justify="space-between">
-    <el-col :span="18">
-      <el-input
-        class="mr-10 w-auto"
-        placeholder="请输入内容"
-        :suffix-icon="Search"
-        v-model="keywords"
-      ></el-input>
-      <el-button type="primary" @click="search" round>搜索</el-button>
-      <el-button @click="clearSearch" round>清空</el-button>
-    </el-col>
-
-    <router-link class="c-fff add-btn" to="/page/add">新增</router-link>
-  </el-row>
+  <!-- 搜索区域 -->
+  <div class="search row justify-between align-c pd-20 mb-20">
+    <el-form :inline="true" :model="params">
+      <el-form-item label="标题" prop="keywords">
+        <el-input
+          class="mr-10 w-auto"
+          placeholder="请输入内容"
+          :suffix-icon="Search"
+          v-model="keywords"
+        ></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="search" round>搜索</el-button>
+        <el-button @click="clearSearch" round>清空</el-button>
+      </el-form-item>
+    </el-form>
+    <router-link to="/page/add">
+      <el-button type="primary" round>新增</el-button>
+    </router-link>
+  </div>
 
   <el-table
     ref="multipleTable"
@@ -199,7 +205,7 @@ export default {
 };
 </script>
 <style scoped>
-.el-input {
-  width: auto !important;
+:deep(.el-form-item) {
+  margin-bottom: 0px;
 }
 </style>

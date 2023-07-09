@@ -1,31 +1,36 @@
 <template>
-  <el-row type="flex" justify="space-between">
-    <el-col :span="18">
-      <el-row>
-        <div class="mr-10">
-          栏目筛选
-          <el-cascader
-            class="w-auto ml-5"
-            :show-all-levels="false"
-            v-model="categorySelected"
-            :options="category"
-            @change="handleChange"
-          ></el-cascader>
-        </div>
-
+  <!-- 搜索区域 -->
+  <div class="search row justify-between align-c pd-20 mb-20">
+    <el-form :inline="true" :model="params">
+      <el-form-item label="栏目筛选" prop="keywords">
+        <el-cascader
+          class="w-auto ml-5"
+          :show-all-levels="false"
+          v-model="categorySelected"
+          :options="category"
+          @change="handleChange"
+        ></el-cascader>
+      </el-form-item>
+      <el-form-item label="标题" prop="keywords">
         <el-input
           class="mr-10 w-auto"
-          placeholder="请输入内容"
+          placeholder="请输入文章标题"
           :suffix-icon="Search"
           v-model="keywords"
           clearable
           @clear="clearSearch"
         ></el-input>
+      </el-form-item>
+      <el-form-item>
         <el-button type="primary" @click="doSearch" round>搜索</el-button>
-      </el-row>
-    </el-col>
-    <router-link class="c-fff add-btn" to="/article/add">新增</router-link>
-  </el-row>
+        <el-button @click="clearSearch" round>清空</el-button>
+      </el-form-item>
+    </el-form>
+
+    <router-link to="/article/add">
+      <el-button type="primary" round>新增</el-button>
+    </router-link>
+  </div>
 
   <el-table
     ref="multipleTable"
@@ -268,4 +273,8 @@ export default {
   onBeforeUnmount() {},
 };
 </script>
-<style lang="less"></style>
+<style scoped>
+:deep(.el-form-item) {
+  margin-bottom: 0px;
+}
+</style>
