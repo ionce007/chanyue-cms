@@ -1,81 +1,133 @@
 <template>
   <div class="mr-10 ml-10">
     <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="基本设置" name="first"></el-tab-pane>
-      <el-tab-pane label="SEO设置" name="second"></el-tab-pane>
+      <!-- 基本设置 -->
+      <el-tab-pane label="基本设置" name="first">
+        <el-form ref="info" :model="info" label-width="84px">
+          <el-form-item
+            label="网站名称"
+            prop="name"
+            :rules="[
+              {
+                required: true,
+                message: '请输入网站名称',
+                trigger: 'blur',
+              },
+              {
+                min: 2,
+                max: 20,
+                message: '长度在 2 到 20 个字符',
+                trigger: 'blur',
+              },
+            ]"
+          >
+            <el-input v-model="info.name"></el-input>
+          </el-form-item>
+
+          <el-form-item prop="domain" label="网站域名">
+            <el-input v-model="info.domain"></el-input>
+          </el-form-item>
+
+          <el-form-item prop="email" label="站长邮箱">
+            <el-input
+              v-model="info.email"
+              :rules="[
+                {
+                  type: 'email',
+                  message: '请输入正确的邮箱',
+                  trigger: ['blur', 'change'],
+                },
+              ]"
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item prop="icp" label="ICP备案号">
+            <el-input v-model="info.icp"></el-input>
+          </el-form-item>
+
+          <el-form-item prop="companyName" label="公司名称">
+            <el-input v-model="info.companyName"></el-input>
+          </el-form-item>
+
+          <el-form-item prop="companyAddress" label="公司地址">
+            <el-input v-model="info.companyAddress"></el-input>
+          </el-form-item>
+
+          <el-form-item prop="companyTel" label="公司电话">
+            <el-input v-model="info.companyTel"></el-input>
+          </el-form-item>
+
+          <el-form-item prop="code" label="统计代码">
+            <el-input
+              type="textarea"
+              prop="textarea"
+              class="textarea"
+              :rows="3"
+              v-model="info.code"
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item>
+            <el-button type="primary" @click="submitInfo('info')"
+              >保存</el-button
+            >
+          </el-form-item>
+        </el-form>
+      </el-tab-pane>
+
+      <!-- seo设置 -->
+      <el-tab-pane label="SEO设置" name="second">
+        <el-form ref="seo" :model="seo" label-width="84px">
+          <el-form-item
+            label="标题"
+            prop="title"
+            :rules="[
+              {
+                required: true,
+                message: '请输入网站标题',
+                trigger: 'blur',
+              },
+              {
+                min: 2,
+                max: 20,
+                message: '长度在 2 到 20 个字符',
+                trigger: 'blur',
+              },
+            ]"
+          >
+            <el-input v-model="seo.title"></el-input>
+          </el-form-item>
+
+          <el-form-item label="关键词" prop="keywords">
+            <el-input v-model="seo.keywords"></el-input>
+          </el-form-item>
+
+          <el-form-item
+            label="描述"
+            prop="description"
+            :rules="[
+              {
+                min: 2,
+                max: 255,
+                message: '字数限制255',
+                trigger: 'blur',
+              },
+            ]"
+          >
+            <el-input
+              type="textarea"
+              :rows="3"
+              class="textarea"
+              v-model="seo.description"
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item>
+            <el-button type="primary" @click="submitSeo('seo')">保存</el-button>
+          </el-form-item>
+        </el-form>
+      </el-tab-pane>
     </el-tabs>
-  </div>
-
-  <!-- 基本设置 -->
-  <div class="mr-10 ml-10" v-show="activeIndex === '0'" v-loading="loading">
-    <el-form ref="info" :rules="infoRules" :model="info" label-width="84px">
-      <el-form-item label="网站名称" prop="name">
-        <el-input v-model="info.name"></el-input>
-      </el-form-item>
-
-      <el-form-item label="网站域名">
-        <el-input v-model="info.domain"></el-input>
-      </el-form-item>
-
-      <el-form-item label="站长邮箱">
-        <el-input v-model="info.email"></el-input>
-      </el-form-item>
-
-      <el-form-item label="ICP备案号">
-        <el-input v-model="info.icp"></el-input>
-      </el-form-item>
-
-      <el-form-item label="公司名称">
-        <el-input v-model="info.companyName"></el-input>
-      </el-form-item>
-
-      <el-form-item label="公司地址">
-        <el-input v-model="info.companyAddress"></el-input>
-      </el-form-item>
-
-      <el-form-item label="公司电话">
-        <el-input v-model="info.companyTel"></el-input>
-      </el-form-item>
-
-      <el-form-item label="统计代码">
-        <el-input
-          type="textarea"
-          class="textarea"
-          :rows="3"
-          v-model="info.code"
-        ></el-input>
-      </el-form-item>
-
-      <el-form-item>
-        <el-button type="primary" @click="submitInfo('info')">保存</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
-
-  <!-- SEO设置 -->
-  <div class="mr-10 ml-10" v-show="activeIndex === '1'">
-    <el-form ref="seo" :model="seo" :rules="seoRules" label-width="84px">
-      <el-form-item label="标题" prop="title">
-        <el-input v-model="seo.title"></el-input>
-      </el-form-item>
-
-      <el-form-item label="关键词">
-        <el-input v-model="seo.keywords"></el-input>
-      </el-form-item>
-
-      <el-form-item label="描述">
-        <el-input
-          type="textarea"
-          :rows="3"
-          class="textarea"
-          v-model="seo.description"
-        ></el-input>
-      </el-form-item>
-
-      <el-form-item>
-        <el-button type="primary" @click="submitSeo('seo')">保存</el-button>
-      </el-form-item>
-    </el-form>
   </div>
 </template>
 
@@ -95,8 +147,9 @@ export default {
         domain: "",
         email: "",
         icp: "",
-        police: "",
-        copyright: "",
+        companyName: "",
+        companyAddress: "",
+        companyTel: "",
         code: "",
       },
       seo: {

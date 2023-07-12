@@ -7,13 +7,7 @@
   </div>
 
   <div class="mr-10 ml-10 mb-20">
-    <el-form
-      ref="params"
-      :model="params"
-      :rules="paramsRules"
-      label-width="100px"
-      class
-    >
+    <el-form ref="params" :model="params" label-width="100px" class>
       <div v-show="activeIndex == 0">
         <el-form-item label="文章栏目">
           <el-cascader
@@ -25,7 +19,23 @@
           ></el-cascader>
         </el-form-item>
 
-        <el-form-item label="文章标题" prop="title">
+        <el-form-item
+          label="文章标题"
+          prop="title"
+          :rules="[
+            {
+              required: true,
+              message: '请输入文章标题',
+              trigger: 'blur',
+            },
+            {
+              min: 1,
+              max: 50,
+              message: '栏目不能超过50个字',
+              trigger: 'blur',
+            },
+          ]"
+        >
           <el-input v-model="params.title"></el-input>
         </el-form-item>
 
@@ -42,7 +52,7 @@
           <el-select-v2
             v-model="params.tag_id"
             :options="taglist"
-            placeholder="Please select"
+            placeholder="请选择标签"
             style="width: 240px"
             multiple
             filterable
@@ -77,17 +87,25 @@
         </el-form-item>
 
         <el-form-item label="缩略图">
-          <el-upload
-            class="avatar-uploader"
-            action="/api/upload"
-            :on-success="upload"
-            :show-file-list="false"
-            :before-upload="beforeUpload"
-          >
-            <el-image style="width: 100%" v-if="params.img" :src="params.img" />
-            <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-          </el-upload>
-          <el-input v-model="params.img"></el-input>
+          <el-space wrap>
+            <el-upload
+              class="avatar-uploader"
+              action="/api/upload"
+              :on-success="upload"
+              :show-file-list="false"
+              :before-upload="beforeUpload"
+            >
+              <el-image
+                style="width: 100%"
+                v-if="params.img"
+                :src="params.img"
+              />
+              <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+            </el-upload>
+          </el-space>
+          <el-space wrap>
+            <el-input v-model="params.img"></el-input>
+          </el-space>
         </el-form-item>
 
         <el-form-item label="文章内容">
@@ -108,6 +126,9 @@
             ></el-input
             >张图片作封面
           </el-checkbox>
+        </el-form-item>
+
+        <el-form-item label="提取文章描述">
           <el-checkbox v-model="autoDes">提取文章描述</el-checkbox>
         </el-form-item>
 
@@ -281,18 +302,6 @@ export default {
       dialogImageUrl: "",
       dialogVisible: false,
       disabled: false,
-      paramsRules: {
-        //校验规则
-        title: [
-          { required: true, message: "请输入栏目名称", trigger: "blur" },
-          {
-            min: 2,
-            max: 50,
-            message: "名称长度在 2 到 50 个字符之间",
-            trigger: "blur",
-          },
-        ],
-      },
       cur: 1,
       keywords: "",
     };

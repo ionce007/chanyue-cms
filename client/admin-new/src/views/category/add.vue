@@ -7,12 +7,7 @@
   </div>
 
   <div class="mr-10 ml-10 mb-20">
-    <el-form
-      ref="params"
-      :model="params"
-      :rules="paramsRules"
-      label-width="84px"
-    >
+    <el-form ref="params" :model="params" label-width="84px">
       <div v-show="activeIndex == 0">
         <el-form-item label="上级栏目">
           <el-cascader
@@ -26,7 +21,23 @@
           不选择为顶级栏目
         </el-form-item>
 
-        <el-form-item label="栏目名称" prop="name">
+        <el-form-item
+          label="栏目名称"
+          prop="name"
+          :rules="[
+            {
+              required: true,
+              message: '请输入栏目名称',
+              trigger: 'blur',
+            },
+            {
+              min: 1,
+              max: 10,
+              message: '栏目不能超过10个字',
+              trigger: 'blur',
+            },
+          ]"
+        >
           <el-input v-model="params.name"></el-input>
         </el-form-item>
 

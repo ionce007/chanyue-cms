@@ -28,7 +28,23 @@
           不选择为顶级栏目
         </el-form-item>
 
-        <el-form-item label="栏目名称" prop="name">
+        <el-form-item
+          label="栏目名称"
+          prop="name"
+          :rules="[
+            {
+              required: true,
+              message: '请输入栏目名称',
+              trigger: 'blur',
+            },
+            {
+              min: 1,
+              max: 10,
+              message: '栏目不能超过10个字',
+              trigger: 'blur',
+            },
+          ]"
+        >
           <el-input v-model="params.name"></el-input>
         </el-form-item>
 

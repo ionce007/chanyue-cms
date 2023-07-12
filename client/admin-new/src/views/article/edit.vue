@@ -10,7 +10,6 @@
     <el-form
       ref="params"
       :model="params"
-      :rules="paramsRules"
       label-width="100px"
       v-loading="loading"
     >
@@ -25,7 +24,23 @@
           ></el-cascader>
         </el-form-item>
 
-        <el-form-item label="文章标题" prop="title">
+        <el-form-item
+          label="文章标题"
+          prop="title"
+          :rules="[
+            {
+              required: true,
+              message: '请输入文章标题',
+              trigger: 'blur',
+            },
+            {
+              min: 1,
+              max: 50,
+              message: '栏目不能超过50个字',
+              trigger: 'blur',
+            },
+          ]"
+        >
           <el-input v-model="params.title"></el-input>
         </el-form-item>
 
@@ -42,7 +57,7 @@
           <el-select-v2
             v-model="params.tag_id"
             :options="taglist"
-            placeholder="Please select"
+            placeholder="请选择标签"
             style="width: 240px"
             multiple
             filterable
@@ -60,35 +75,30 @@
           ></el-input>
         </el-form-item>
 
-        <!-- <el-form-item label="缩略图">
-          <el-image style="width: 100px; height: 100px" :src="params.img"  />
-          <el-upload
-            action="/api/upload"
-            list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove"
-            :on-success="upload"
-            :show-file-list="true"
-          >
-
-            <i class="el-icon-plus"></i>
-          </el-upload>
-        </el-form-item> -->
-
         <el-form-item label="缩略图">
-          <el-upload
-            class="avatar-uploader"
-            action="/api/upload"
-            :on-success="upload"
-            :show-file-list="false"
-            :before-upload="beforeUpload"
-          >
-            <el-image style="width: 100%" v-if="params.img" :src="params.img" />
-            <el-icon v-else class="avatar-uploader-icon">
-              <Plus />
-            </el-icon>
-          </el-upload>
-          <el-input v-model="params.img"></el-input>
+          <el-space wrap>
+            <el-upload
+              class="avatar-uploader"
+              action="/api/upload"
+              :on-success="upload"
+              :show-file-list="false"
+              :before-upload="beforeUpload"
+            >
+              <el-image
+                style="width: 100%"
+                v-if="params.img"
+                :src="params.img"
+              />
+              <el-icon v-else class="avatar-uploader-icon">
+                <Plus />
+              </el-icon>
+            </el-upload>
+          </el-space>
+
+          <el-space wrap>
+            地址
+            <el-input v-model="params.img"></el-input>
+          </el-space>
         </el-form-item>
 
         <el-form-item label="文章内容">
@@ -104,11 +114,14 @@
             提取第
             <el-input
               v-model="picNum"
-              class="w-80 mr-8 ml-8"
+              class="mr-8 ml-8"
               placeholder="请输入内容"
             ></el-input
             >张图片作封面
           </el-checkbox>
+        </el-form-item>
+
+        <el-form-item label="提取文章描述">
           <el-checkbox v-model="autoDes">提取文章描述</el-checkbox>
         </el-form-item>
 

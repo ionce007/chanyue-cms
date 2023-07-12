@@ -113,8 +113,8 @@ export default defineComponent({
     flex: 1;
     display: flex;
     flex-direction: column;
-
-    overflow: auto;
+    height: 100vh;
+    overflow: hidden;
 
     .header {
       .navbar {
@@ -137,12 +137,11 @@ export default defineComponent({
     }
 
     .app-main {
-      min-height: calc(100vh - 51px);
+      height: calc(100vh - 51px);
       padding: 20px;
       background-color: #f2f2f2;
-
+      overflow: auto;
       .container {
-        height: 100%;
         background-color: #fff;
         border-radius: 6px;
         padding: 10px;
