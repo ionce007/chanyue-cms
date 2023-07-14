@@ -139,7 +139,7 @@ export default defineComponent({
     .app-main {
       height: calc(100vh - 51px);
       padding: 20px;
-      background-color: #f2f2f2;
+      background-color: #f2f3f5;
       overflow: auto;
       .container {
         background-color: #fff;

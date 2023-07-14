@@ -47,6 +47,9 @@
             ></el-input
             >张图片作封面
           </el-checkbox>
+        </el-form-item>
+
+        <el-form-item label="提取文章描述">
           <el-checkbox v-model="autoDes">提取文章描述</el-checkbox>
         </el-form-item>
 

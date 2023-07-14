@@ -74,16 +74,20 @@ export default {
 }
 
 .el-sub-menu.is-active {
-  .el-icon {
-    color: #1890ff;
+  :deep(.el-icon) {
+    color: #165dff;
   }
 
   :deep(.el-sub-menu__title) {
-    color: #1890ff;
+    color: #165dff;
   }
 
   :deep(.el-sub-menu__icon-arrow) {
-    color: #1890ff;
+    color: #165dff;
   }
+}
+
+:deep(.is-active) {
+  color: #165dff;
 }
 </style>
