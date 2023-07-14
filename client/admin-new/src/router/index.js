@@ -67,7 +67,6 @@ export const asyncRoutes = [
   {
     path: "/content",
     name: "content",
-
     meta: {
       title: "内容管理",
       isShow: true,
