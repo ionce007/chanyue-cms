@@ -1,7 +1,9 @@
 <template>
   <div>
-    <el-row type="flex" justify="end">
-      <router-link class="c-fff add-btn" to="/ad/add">新增</router-link>
+    <el-row type="flex" class="mt-10 mb-10" justify="end">
+      <router-link to="/ad/add">
+        <el-button type="primary" round>新增</el-button>
+      </router-link>
     </el-row>
 
     <el-table

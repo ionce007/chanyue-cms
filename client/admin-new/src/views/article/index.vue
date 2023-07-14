@@ -1,12 +1,12 @@
 <template>
   <!-- 搜索区域 -->
   <div class="search row justify-between align-c pd-20 mb-20">
-    <el-form :inline="true" :model="params">
-      <el-form-item label="栏目筛选" prop="keywords">
+    <el-form :inline="true" :model="params" ref="form">
+      <el-form-item label="栏目筛选" prop="categorySelected">
         <el-cascader
           class="w-auto ml-5"
           :show-all-levels="false"
-          v-model="categorySelected"
+          v-model="params.categorySelected"
           :options="category"
           @change="handleChange"
         ></el-cascader>
@@ -16,14 +16,14 @@
           class="mr-10 w-auto"
           placeholder="请输入文章标题"
           :suffix-icon="Search"
-          v-model="keywords"
+          v-model="params.keywords"
           clearable
           @clear="clearSearch"
         ></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="doSearch" round>搜索</el-button>
-        <el-button @click="clearSearch" round>清空</el-button>
+        <el-button @click="clearSearch('form')" round>清空</el-button>
       </el-form-item>
     </el-form>
 
@@ -117,12 +117,15 @@ export default {
       keywords: "",
       cid: 0,
       cur: 1,
-      categorySelected: [],
       category: [], //当前所有栏目
       tableData: [],
       multipleSelection: [],
       count: 0,
       loading: true,
+      params: {
+        keywords: "",
+        categorySelected: [],
+      },
     };
   },
   computed: {},
@@ -130,8 +133,11 @@ export default {
     let { cur = 1, cid = 0, keywords = "" } = this.$route.query;
 
     this.cur = +cur;
-    this.categorySelected = +cid;
-    this.keywords = keywords;
+    this.params = {
+      categorySelected: +cid,
+      keywords: keywords,
+    };
+
     this.queryCategory();
     this.search();
   },
@@ -143,14 +149,17 @@ export default {
         let { cur, cid, keywords } = to.query;
         this.cur = +cur;
         this.cid = +cid;
-        this.keywords = keywords;
+        this.params.keywords = keywords;
         this.search();
       }
     },
   },
   methods: {
     //清空搜索
-    clearSearch() {
+    clearSearch(str) {
+      if (str) {
+        this.$refs.form.resetFields();
+      }
       this.$router.replace({
         name: "article-index",
         query: { cur: 1, cid: 0, keywords: "" },
@@ -160,7 +169,7 @@ export default {
     doSearch() {
       this.$router.replace({
         name: "article-index",
-        query: { cur: this.cur, cid: this.cid, keywords: this.keywords },
+        query: { cur: this.cur, cid: this.cid, keywords: this.params.keywords },
       });
       this.search();
     },
@@ -168,7 +177,7 @@ export default {
     //查询
     async search() {
       try {
-        let res = await search(this.cur, this.keywords, this.cid);
+        let res = await search(this.cur, this.params.keywords, this.cid);
         if (res.code === 200) {
           this.tableData = [...res.data.list];
           this.count = res.data.count;

@@ -35,14 +35,14 @@ export default defineComponent({
   },
   watch: {
     $route(to, from) {
-      this.activeIndex = to.path;
+      this.activeIndex = "/" + to.path.split("/")[1] || to.path;
     },
   },
   created() {
     const route = useRoute();
     const { menuList } = userStore();
     this.menuList = menuList;
-    this.activeIndex = route.path;
+    this.activeIndex = "/" + route.path.split("/")[1] || route.path;
   },
   methods: {
     handleOpen(key, keyPath) {

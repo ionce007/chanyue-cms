@@ -1,7 +1,7 @@
 <template>
   <!-- 搜索区域 -->
   <div class="search row justify-between align-c pd-20 mb-20">
-    <el-form :inline="true" :model="params">
+    <el-form :inline="true" :model="params" ref="form">
       <el-form-item label="标题" prop="keywords">
         <el-input
           class="mr-10 w-auto"
@@ -9,12 +9,12 @@
           :suffix-icon="Search"
           clearable
           @clear="search"
-          v-model="keywords"
+          v-model="params.keywords"
         ></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="search" round>搜索</el-button>
-        <el-button @click="clearSearch" round>清空</el-button>
+        <el-button @click="clearSearch('form')" round>清空</el-button>
       </el-form-item>
     </el-form>
     <router-link to="/frag/add">
@@ -78,7 +78,9 @@ export default {
   },
   data: () => {
     return {
-      keywords: "",
+      params: {
+        keywords: "",
+      },
       tableData: [],
       multipleSelection: [],
       count: 0,
@@ -90,10 +92,22 @@ export default {
     this.search();
   },
   methods: {
+    //清空搜索
+    clearSearch(str) {
+      if (str) {
+        this.$refs.form.resetFields();
+      }
+      // this.$router.replace({
+      //   name: "tag-index",
+      //   query: { cur: 1, cid: 0, keywords: "" },
+      // });
+      this.search();
+    },
+
     //查询
     async search() {
       try {
-        let res = await search(this.cur, this.keywords);
+        let res = await search(this.cur, this.params.keywords);
         if (res.code === 200) {
           this.tableData = [...res.data.list];
           this.count = res.data.count;

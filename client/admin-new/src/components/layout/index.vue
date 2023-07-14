@@ -32,11 +32,11 @@
       <div class="app-main">
         <article class="container">
           <router-view v-slot="{ Component, route }">
-            <transition :name="route.meta.transition">
-              <!-- <keep-alive :include="cachedViews"> -->
-              <component :is="Component" />
-              <!-- </keep-alive> -->
-            </transition>
+            <!-- <transition :name="route.meta.transition"> -->
+            <!-- <keep-alive :include="cachedViews"> -->
+            <component :is="Component" />
+            <!-- </keep-alive> -->
+            <!-- </transition> -->
           </router-view>
         </article>
       </div>
