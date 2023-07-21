@@ -131,6 +131,7 @@
           <vue3-tinymce
             v-model="params.content"
             :setting="setting"
+            @init="tinymce"
             script-src="/public/admin/tinymce/tinymce.min.js"
           />
         </el-form-item>
@@ -288,7 +289,6 @@ export default {
   data: () => {
     return {
       setting: tinymceSet,
-
       loading: true,
       categorySelected: [], //-1默认选中顶级栏目
       categoryProps: { checkStrictly: true },
@@ -355,6 +355,9 @@ export default {
   },
   unmounted() {},
   methods: {
+    tinymce() {
+      this.loading = false;
+    },
     handleClick(tab) {
       this.activeIndex = tab.index;
     },

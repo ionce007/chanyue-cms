@@ -356,7 +356,6 @@ export default {
     },
 
     tinymce() {
-      console.log("初始化完成");
       this.loading = false;
     },
 
