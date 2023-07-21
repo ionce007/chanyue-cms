@@ -5,20 +5,19 @@
       :model="params"
       :rules="paramsRules"
       label-width="84px"
+      class="mt-20"
     >
-      <div>
-        <el-form-item label="标签名称" prop="name">
-          <el-input v-model="params.name" placeholder="请输入汉字"></el-input>
-        </el-form-item>
+      <el-form-item label="标签名称" prop="name">
+        <el-input v-model="params.name" placeholder="请输入汉字"></el-input>
+      </el-form-item>
 
-        <el-form-item label="标签标识">
-          <el-input
-            v-model="params.path"
-            placeholder="模板使用标识"
-            disabled
-          ></el-input>
-        </el-form-item>
-      </div>
+      <el-form-item label="标签标识">
+        <el-input
+          v-model="params.path"
+          placeholder="模板使用标识"
+          disabled
+        ></el-input>
+      </el-form-item>
 
       <el-form-item>
         <el-button type="primary" @click="submit('params')">保存</el-button>

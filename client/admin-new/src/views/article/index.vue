@@ -1,8 +1,8 @@
 <template>
   <!-- 搜索区域 -->
-  <div class="search row justify-between align-c pd-20 mb-20">
+  <div class="search row justify-between align-c pt-10 pl-20 pr-20 pb-20 mb-20">
     <el-form :inline="true" :model="params" ref="form">
-      <el-form-item label="栏目筛选" prop="categorySelected">
+      <el-form-item class="mt-10" label="栏目筛选" prop="categorySelected">
         <el-cascader
           class="w-auto ml-5"
           :show-all-levels="false"
@@ -11,7 +11,7 @@
           @change="handleChange"
         ></el-cascader>
       </el-form-item>
-      <el-form-item label="标题" prop="keywords">
+      <el-form-item class="mt-10" label="标题" prop="keywords">
         <el-input
           class="mr-10 w-auto"
           placeholder="请输入文章标题"
@@ -21,13 +21,13 @@
           @clear="clearSearch"
         ></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item class="mt-10">
         <el-button type="primary" @click="doSearch" round>搜索</el-button>
         <el-button @click="clearSearch('form')" round>清空</el-button>
       </el-form-item>
     </el-form>
 
-    <router-link to="/article/add">
+    <router-link class="mt-10" to="/article/add">
       <el-button type="primary" round>新增</el-button>
     </router-link>
   </div>

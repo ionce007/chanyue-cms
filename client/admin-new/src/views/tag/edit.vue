@@ -5,17 +5,15 @@
       :model="params"
       :rules="paramsRules"
       label-width="84px"
-      class
+      class="mt-20"
     >
-      <div>
-        <el-form-item label="标签名称" prop="name">
-          <el-input v-model="params.name"></el-input>
-        </el-form-item>
+      <el-form-item label="标签名称" prop="name">
+        <el-input v-model="params.name"></el-input>
+      </el-form-item>
 
-        <el-form-item label="标签标识">
-          <el-input v-model="params.path" disabled></el-input>
-        </el-form-item>
-      </div>
+      <el-form-item label="标签标识">
+        <el-input v-model="params.path" disabled></el-input>
+      </el-form-item>
 
       <el-form-item>
         <el-button type="primary" @click="submit('params')">保存</el-button>

@@ -12,7 +12,6 @@
       :model="params"
       :rules="paramsRules"
       label-width="84px"
-      class
     >
       <div v-show="activeIndex == 0">
         <el-form-item label="文章栏目">

@@ -2,60 +2,75 @@
   <div class="mr-10 ml-10">
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <!-- 基本设置 -->
-      <el-tab-pane label="基本设置" name="first">
+      <el-tab-pane label="基本设置" class="mt-20" name="first">
         <el-form ref="info" :model="info" label-width="84px">
-          <el-form-item
-            label="网站名称"
-            prop="name"
-            :rules="[
-              {
-                required: true,
-                message: '请输入网站名称',
-                trigger: 'blur',
-              },
-              {
-                min: 2,
-                max: 20,
-                message: '长度在 2 到 20 个字符',
-                trigger: 'blur',
-              },
-            ]"
-          >
-            <el-input v-model="info.name"></el-input>
-          </el-form-item>
+          <el-row :gutter="20">
+            <el-col :sm="24" :md="12">
+              <el-form-item
+                label="网站名称"
+                prop="name"
+                :rules="[
+                  {
+                    required: true,
+                    message: '请输入网站名称',
+                    trigger: 'blur',
+                  },
+                  {
+                    min: 2,
+                    max: 20,
+                    message: '长度在 2 到 20 个字符',
+                    trigger: 'blur',
+                  },
+                ]"
+              >
+                <el-input v-model="info.name"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :sm="24" :md="12">
+              <el-form-item prop="domain" label="网站域名">
+                <el-input v-model="info.domain"></el-input>
+              </el-form-item>
+            </el-col>
 
-          <el-form-item prop="domain" label="网站域名">
-            <el-input v-model="info.domain"></el-input>
-          </el-form-item>
+            <el-col :sm="24" :md="12">
+              <el-form-item prop="email" label="站长邮箱">
+                <el-input
+                  v-model="info.email"
+                  :rules="[
+                    {
+                      type: 'email',
+                      message: '请输入正确的邮箱',
+                      trigger: ['blur', 'change'],
+                    },
+                  ]"
+                ></el-input>
+              </el-form-item>
+            </el-col>
 
-          <el-form-item prop="email" label="站长邮箱">
-            <el-input
-              v-model="info.email"
-              :rules="[
-                {
-                  type: 'email',
-                  message: '请输入正确的邮箱',
-                  trigger: ['blur', 'change'],
-                },
-              ]"
-            ></el-input>
-          </el-form-item>
+            <el-col :sm="24" :md="12">
+              <el-form-item prop="icp" label="ICP备案号">
+                <el-input v-model="info.icp"></el-input>
+              </el-form-item>
+            </el-col>
 
-          <el-form-item prop="icp" label="ICP备案号">
-            <el-input v-model="info.icp"></el-input>
-          </el-form-item>
+            <el-col :sm="24" :md="12">
+              <el-form-item prop="companyName" label="公司名称">
+                <el-input v-model="info.companyName"></el-input>
+              </el-form-item>
+            </el-col>
 
-          <el-form-item prop="companyName" label="公司名称">
-            <el-input v-model="info.companyName"></el-input>
-          </el-form-item>
+            <el-col :sm="24" :md="12">
+              <el-form-item prop="companyAddress" label="公司地址">
+                <el-input v-model="info.companyAddress"></el-input>
+              </el-form-item>
+            </el-col>
 
-          <el-form-item prop="companyAddress" label="公司地址">
-            <el-input v-model="info.companyAddress"></el-input>
-          </el-form-item>
-
-          <el-form-item prop="companyTel" label="公司电话">
-            <el-input v-model="info.companyTel"></el-input>
-          </el-form-item>
+            <el-col :sm="24" :md="12">
+              <el-form-item prop="companyTel" label="公司电话">
+                <el-input v-model="info.companyTel"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
 
           <el-form-item prop="code" label="统计代码">
             <el-input
@@ -76,7 +91,7 @@
       </el-tab-pane>
 
       <!-- seo设置 -->
-      <el-tab-pane label="SEO设置" name="second">
+      <el-tab-pane label="SEO设置" class="mt-20" name="second">
         <el-form ref="seo" :model="seo" label-width="84px">
           <el-form-item
             label="标题"

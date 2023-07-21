@@ -1,6 +1,8 @@
 <template>
-  <el-row type="flex" justify="end">
-    <router-link class="c-fff add-btn" to="/admin/add">新增</router-link>
+  <el-row type="flex" class="mt-10 mb-10" justify="end">
+    <router-link to="/admin/add">
+      <el-button type="primary" round>新增</el-button>
+    </router-link>
   </el-row>
 
   <div class="mr-10 ml-10">
@@ -24,7 +26,7 @@
         <el-table-column prop="createdAt" label="发布时间" width="160">
           <template #default="scope">{{ scope.row.createdAt }}</template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作">
+        <el-table-column fixed="right" width="100" label="操作">
           <template #default="scope">
             <el-button
               :icon="Edit"

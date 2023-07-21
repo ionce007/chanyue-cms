@@ -15,7 +15,7 @@
     </el-tooltip>
 
     <!-- 语言 -->
-    <el-tooltip
+    <!-- <el-tooltip
       class="mr-10"
       effect="dark"
       content="语言"
@@ -30,7 +30,7 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-    </el-tooltip>
+    </el-tooltip> -->
 
     <!-- <el-tooltip
       class="box-item"

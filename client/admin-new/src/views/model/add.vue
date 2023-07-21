@@ -5,7 +5,7 @@
       :model="params"
       :rules="paramsRules"
       label-width="100px"
-      class
+      class="mt-20"
     >
       <el-form-item label="模型名称" prop="model_name">
         <el-input v-model="params.model_name" @input="change"></el-input>

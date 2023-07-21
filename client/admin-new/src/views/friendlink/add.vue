@@ -5,7 +5,7 @@
       :model="params"
       :rules="paramsRules"
       label-width="84px"
-      class
+      class="mt-20"
     >
       <el-form-item label="标题" prop="title">
         <el-input v-model="params.title"></el-input>

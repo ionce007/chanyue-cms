@@ -1,6 +1,3 @@
-<!-- eslint-disable prettier/prettier -->
-<!-- eslint-disable no-undef -->
-<!-- eslint-disable no-undef -->
 <template>
   <div class="page">
     <div class="login">
@@ -11,7 +8,7 @@
           ref="loginForm"
           :model="loginForm"
           :rules="loginRules"
-          label-width="80px"
+          label-width="70px"
         >
           <el-form-item label="用户名" prop="username">
             <el-input v-model="loginForm.username"></el-input>
@@ -21,35 +18,38 @@
           </el-form-item>
 
           <el-form-item label="验证码" prop="captcha">
-            <div class="captcha-input">
-              <el-row :gutter="20">
-                <el-col :span="20"
-                  ><el-input v-model="loginForm.captcha" placeholder="请输入验证码"></el-input
-                ></el-col>
-                <el-col :span="4"
-                  ><span
-                    class="captcha block pointer"
-                    v-html="captcha"
-                    @click="getCaptcha"
-                  ></span
-                ></el-col>
-              </el-row>
-            </div>
+            <el-row :gutter="20">
+              <el-col :span="15"
+                ><el-input
+                  v-model="loginForm.captcha"
+                  placeholder="请输入验证码"
+                ></el-input
+              ></el-col>
+              <el-col :span="4"
+                ><span
+                  class="captcha block pointer"
+                  v-html="captcha"
+                  @click="getCaptcha"
+                ></span
+              ></el-col>
+            </el-row>
           </el-form-item>
 
           <el-form-item>
-            <el-button size="large" type="primary" @click="login">登录</el-button>
+            <el-button size="large" type="primary" @click="login"
+              >登录</el-button
+            >
           </el-form-item>
         </el-form>
       </div>
     </div>
 
-    <footer class="login-footer">
-      <p class="f-13 text-c">
+    <footer class="login-footer overflow-h">
+      <p class="f-13 text-c mt-10 c-fff">
         &copy;
         <a
           href="http://www.chanyue.top"
-          class="mr-5"
+          class="mr-5 c-fff"
           target="_blank"
           title="chanyue"
           >www.chanyue.top</a
@@ -156,19 +156,20 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 50px);
   .title {
-    font-size: 40px;
+    font-size: 36px;
     margin-bottom: 20px;
     color: #fff;
     text-align: center;
     font-weight: lighter;
   }
   .login-cont {
-    width: 500px;
+    max-width: 500px;
     background-color: #fff;
     border-radius: 6px;
     padding: 20px;
+    margin: 20px;
   }
 }
 .login-phone {
@@ -188,7 +189,7 @@ export default defineComponent({
 // }
 
 .login-footer {
-  height: 80px;
+  height: 50px;
 }
 
 .pointer {

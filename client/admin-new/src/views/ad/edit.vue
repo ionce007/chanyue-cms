@@ -5,7 +5,7 @@
       :model="params"
       :rules="paramsRules"
       label-width="84px"
-      class
+      class="mt-20"
     >
       <div>
         <el-form-item label="广告名称" prop="title">
