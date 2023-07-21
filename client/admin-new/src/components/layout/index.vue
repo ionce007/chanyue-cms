@@ -71,8 +71,21 @@ export default defineComponent({
       this.activeIndex = to.path;
     },
   },
-  created() {},
+  created() {
+    window.addEventListener("resize", this.changeCollapse);
+  },
+  mounted() {
+    this.changeCollapse();
+  },
   methods: {
+    changeCollapse() {
+      let w = document.documentElement.clientWidth;
+      if (w <= 640) {
+        this.isCollapse = true;
+      } else {
+        this.isCollapse = false;
+      }
+    },
     switchCollapse(key, keyPath) {
       console.log(key, keyPath);
       this.isCollapse = !this.isCollapse;
@@ -138,13 +151,14 @@ export default defineComponent({
 
     .app-main {
       height: calc(100vh - 51px);
-      padding: 20px;
+      padding: 10px;
       background-color: #f2f3f5;
       overflow: auto;
       .container {
         background-color: #fff;
         border-radius: 6px;
         padding: 10px;
+        min-height: calc(100vh - 71px);
       }
     }
   }

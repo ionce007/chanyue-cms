@@ -1,6 +1,6 @@
 import axios from "axios";
 import { jsonp } from "./jsonp";
-// import { showToast } from "vant";
+import { getCookie } from "./tool.js";
 import { userStore } from "@/stores/user";
 
 //设置axios为form-data

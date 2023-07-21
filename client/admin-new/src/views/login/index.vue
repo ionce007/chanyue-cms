@@ -38,7 +38,7 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button type="primary" @click="login">登录</el-button>
+            <el-button size="large" type="primary" @click="login">登录</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -120,12 +120,20 @@ export default defineComponent({
           users.login({ username, password }).then((res) => {
             if (res.code == 500) {
               // eslint-disable-next-line no-undef
-              ElMessage({
+              ElNotification({
+                title: "提示",
                 message: "登录失败",
-                type: "warning",
+                type: "error",
               });
               return false;
             }
+            // eslint-disable-next-line no-undef
+            ElNotification({
+              title: "提示",
+              message: "登录成功",
+              duration: 800,
+              type: "success",
+            });
             this.$router.push({
               path: this.$route.query.redirect || "/",
             });

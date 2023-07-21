@@ -75,7 +75,30 @@ export let getImgUrlFromStr = (str) => {
 
 // 过滤 html标签
 export let filterHtml = (str) => {
-  return str.replace(/<[^>]*>/g, "");
+  // 查找第一个段落的结束位置
+  let endIndex = str.indexOf("</p>");
+  // 如果找到第一个段落的结束位置
+  if (endIndex !== -1) {
+    // 将字符串截断到第一个段落的结束位置加上"</p>"的长度
+    str = str.substring(0, endIndex + 4);
+  }
+  // 创建一个临时元素，用于处理字符串中的HTML内容
+  let tempElement = document.createElement("div");
+  tempElement.innerHTML = str;
+  // 获取处理后的文本内容，包括实体字符
+  let filteredText = tempElement.textContent;
+  // 如果文本内容超过255个字符
+  if (filteredText.length > 225) {
+    // 向前查找中文句号进行分割
+    let splitIndex = filteredText.lastIndexOf("。", 255);
+    // 如果找到分割点，则将字符串分割成两个部分
+    if (splitIndex !== -1) {
+      filteredText = filteredText.slice(0, splitIndex + 1);
+    }
+  }
+  // 销毁临时元素，释放内存
+  tempElement.remove();
+  return filteredText;
 };
 
 // 过滤 body标签

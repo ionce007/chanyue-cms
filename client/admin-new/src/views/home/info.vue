@@ -28,15 +28,16 @@
       <el-col class="mb-20" :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
         <div class="info c-9ca4bf">
           <p class="f-16 mb-5">
-            技术架构：nodejs v18.16.0 express mysql-5.6/5.7
+            技术架构：nodejs v18.16.0 express4+ mysql-5.6/5.7
           </p>
-          <p class="f-16 mb-5">前端架构：vite4.0 vue3 element-plus pinia</p>
+          <p class="f-16 mb-5">
+            前端架构：vite4.0 vue3 element-plus pinia axios
+          </p>
           <p class="f-16 mb-5">程序版本：v.1.0.2</p>
           <p class="f-16 mb-5">程序路径：{{ dirname }}</p>
-          <p class="f-16 mb-5">发布时间：2023-02-19</p>
-          <p class="f-16 mb-5">前端开发：明空</p>
-          <p class="f-16 mb-5">后端开发：明空</p>
-          <p class="f-16 mb-5">UI界面：明空</p>
+          <p class="f-16 mb-5">发布时间：2023-07-21</p>
+          <p class="f-16 mb-5">独立开发：明空</p>
+          <p class="f-16 mb-5">UI界面：16号</p>
           <p class="f-16 mb-5 row">联系微信：yanyutao2014</p>
           <p class="f-16 mb-5">
             <a class="c-9ca4bf" href="http://www.chanyue.top" target="_blank"

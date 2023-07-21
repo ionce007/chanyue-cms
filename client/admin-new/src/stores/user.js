@@ -3,10 +3,10 @@ import Login from "@/api/Login";
 
 const modules = import.meta.glob("@/views/*/*.vue");
 console.log("modules--->", modules);
-
+import { setCookie, getCookie } from "@/utils/tool.js";
 export const userStore = defineStore("user", {
   state: () => ({
-    token: localStorage.getItem("token") || "",
+    token: getCookie("token") || "",
     userInfo: null,
     menuList: [], //左侧菜单
   }),
@@ -16,6 +16,7 @@ export const userStore = defineStore("user", {
         const res = await Login.toLogin(params);
         if (res.code == 200) {
           this.token = res.data.token;
+          setCookie("token", res.data.token);
         }
         return res;
       } catch (error) {
@@ -71,7 +72,6 @@ export const userStore = defineStore("user", {
     strategies: [
       {
         key: "user",
-        storage: localStorage,
         paths: ["token"], //指定字段
       },
     ],

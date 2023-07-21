@@ -125,3 +125,22 @@ body {
   color: #fff;
   border: none;
 }
+.avatar-uploader{
+  width:32px;
+  height: 32px;
+}
+.avatar-uploader-icon{
+  width:31px;
+  height: 31px;
+}
+
+.tox-tinymce,
+.el-cascader,
+.el-input,
+.el-select-v2{
+  width: 100%!important;
+}
+
+.w-80{
+  width: 80px!important;
+}

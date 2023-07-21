@@ -7,59 +7,111 @@
   </div>
 
   <div class="mr-10 ml-10 mb-20">
-    <el-form ref="params" :model="params" label-width="100px" class>
-      <div v-show="activeIndex == 0">
-        <el-form-item label="文章栏目">
-          <el-cascader
-            :props="categoryProps"
-            :show-all-levels="false"
-            v-model="categorySelected"
-            :options="category"
-            @change="handleChange"
-          ></el-cascader>
-        </el-form-item>
+    <el-form ref="params" :model="params" label-width="90px">
+      <div v-show="activeIndex == 0" v-loading="loading">
+        <el-row :gutter="20">
+          <el-col :sm="24" :md="12">
+            <el-form-item label="文章栏目">
+              <el-cascader
+                :props="categoryProps"
+                :show-all-levels="false"
+                v-model="categorySelected"
+                :options="category"
+                @change="handleChange"
+              ></el-cascader>
+            </el-form-item>
+          </el-col>
+          <el-col :sm="24" :md="12">
+            <el-form-item
+              label="文章标题"
+              prop="title"
+              :rules="[
+                {
+                  required: true,
+                  message: '请输入文章标题',
+                  trigger: 'blur',
+                },
+                {
+                  min: 1,
+                  max: 50,
+                  message: '栏目不能超过50个字',
+                  trigger: 'blur',
+                },
+              ]"
+            >
+              <el-input v-model="params.title"></el-input>
+            </el-form-item>
+          </el-col>
 
-        <el-form-item
-          label="文章标题"
-          prop="title"
-          :rules="[
-            {
-              required: true,
-              message: '请输入文章标题',
-              trigger: 'blur',
-            },
-            {
-              min: 1,
-              max: 50,
-              message: '栏目不能超过50个字',
-              trigger: 'blur',
-            },
-          ]"
-        >
-          <el-input v-model="params.title"></el-input>
-        </el-form-item>
+          <el-col :sm="24" :md="12">
+            <el-form-item label="tag标签">
+              <el-select-v2
+                v-model="params.tag_id"
+                :options="taglist"
+                placeholder="请选择标签"
+                style="width: 240px"
+                multiple
+                filterable
+                remote
+                :remote-method="searchTag"
+              />
+            </el-form-item>
+          </el-col>
 
-        <el-form-item label="内容属性">
-          <el-checkbox-group v-model="params.attr" @change="handleAttr">
-            <el-checkbox label="1">头条</el-checkbox>
-            <el-checkbox label="2">推荐</el-checkbox>
-            <el-checkbox label="3">轮播</el-checkbox>
-            <el-checkbox label="4">热门</el-checkbox>
-          </el-checkbox-group>
-        </el-form-item>
+          <el-col :sm="24" :md="12">
+            <el-form-item label="内容属性">
+              <el-checkbox-group v-model="params.attr" @change="handleAttr">
+                <el-checkbox label="1">头条</el-checkbox>
+                <el-checkbox label="2">推荐</el-checkbox>
+                <el-checkbox label="3">轮播</el-checkbox>
+                <el-checkbox label="4">热门</el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+          </el-col>
 
-        <el-form-item label="tag标签">
-          <el-select-v2
-            v-model="params.tag_id"
-            :options="taglist"
-            placeholder="请选择标签"
-            style="width: 240px"
-            multiple
-            filterable
-            remote
-            :remote-method="searchTag"
-          />
-        </el-form-item>
+          <el-col :sm="24" :md="12">
+            <el-form-item label="发布时间">
+              <el-date-picker
+                v-model="params.createdAt"
+                :default-value="new Date()"
+                type="datetime"
+                placeholder="选择日期时间"
+              ></el-date-picker> </el-form-item
+          ></el-col>
+
+          <el-col :sm="24" :md="12">
+            <el-form-item class="row" label="缩略图">
+              <el-upload
+                class="avatar-uploader"
+                action="/api/upload"
+                :on-success="upload"
+                :show-file-list="false"
+                :before-upload="beforeUpload"
+              >
+                <el-icon class="avatar-uploader-icon">
+                  <Plus />
+                </el-icon>
+              </el-upload>
+
+              <el-popover placement="right" :width="400" trigger="hover">
+                <template #reference>
+                  <el-image
+                    class="avatar-uploader-icon pointer ml-10"
+                    v-if="params.img"
+                    :src="params.img"
+                  />
+                </template>
+                <el-image
+                  style="width: 100%"
+                  v-if="params.img"
+                  :src="params.img"
+                />
+              </el-popover>
+
+              <el-input class="ml-10 flex-1" v-model="params.img"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
 
         <!--
           field_cname   中文名称 varchar 60
@@ -76,7 +128,6 @@
           field_values   默认值可选 255
           field_sort     字段顺序
           -->
-
         <el-form-item label="内容摘要">
           <el-input
             type="textarea"
@@ -85,111 +136,86 @@
             v-model="params.description"
           ></el-input>
         </el-form-item>
-
-        <el-form-item label="缩略图">
-          <el-space wrap>
-            <el-upload
-              class="avatar-uploader"
-              action="/api/upload"
-              :on-success="upload"
-              :show-file-list="false"
-              :before-upload="beforeUpload"
-            >
-              <el-image
-                style="width: 100%"
-                v-if="params.img"
-                :src="params.img"
-              />
-              <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-            </el-upload>
-          </el-space>
-          <el-space wrap>
-            <el-input v-model="params.img"></el-input>
-          </el-space>
-        </el-form-item>
-
         <el-form-item label="文章内容">
           <vue3-tinymce
             v-model="params.content"
             :setting="setting"
+            @init="tinymce"
             script-src="/public/admin/tinymce/tinymce.min.js"
           />
         </el-form-item>
 
-        <el-form-item label="内容功能">
-          <el-checkbox v-model="autoImg">
-            提取第
-            <el-input
-              v-model="picNum"
-              class="w-80 mr-8 ml-8"
-              placeholder="请输入内容"
-            ></el-input
-            >张图片作封面
-          </el-checkbox>
-        </el-form-item>
+        <el-row :gutter="20">
+          <el-col :sm="24" :md="12" :lg="8">
+            <el-form-item label="自动封面">
+              <el-checkbox v-model="autoImg">
+                文章第
+                <el-input
+                  v-model="picNum"
+                  class="w-80 mr-8 ml-8"
+                  placeholder="请输入内容"
+                ></el-input
+                >张图
+              </el-checkbox>
+            </el-form-item>
+          </el-col>
+          <el-col :sm="24" :md="12" :lg="8">
+            <el-form-item label="提取描述">
+              <el-checkbox v-model="autoDes">提取文章描述</el-checkbox>
+            </el-form-item>
+          </el-col>
 
-        <el-form-item label="提取文章描述">
-          <el-checkbox v-model="autoDes">提取文章描述</el-checkbox>
-        </el-form-item>
-
-        <el-form-item label="发布时间">
-          <el-date-picker
-            v-model="params.createdAt"
-            :default-value="new Date()"
-            type="datetime"
-            placeholder="选择日期时间"
-          ></el-date-picker>
-        </el-form-item>
-
-        <el-form-item label="是否显示">
-          <el-radio v-model="params.status" label="0">发布</el-radio>
-          <el-radio v-model="params.status" label="1">不发布</el-radio>
-        </el-form-item>
-
-        <el-form-item label="浏览数">
-          <el-input v-model="params.pv"></el-input>
-        </el-form-item>
+          <el-col :sm="24" :md="12" :lg="8"
+            ><el-form-item label="是否显示">
+              <el-radio v-model="params.status" label="0">发布</el-radio>
+              <el-radio v-model="params.status" label="1">不发布</el-radio>
+            </el-form-item></el-col
+          >
+        </el-row>
       </div>
 
       <div v-show="activeIndex == 1">
-        <el-form-item label="短标题" prop="name">
-          <el-input v-model="params.short_title"></el-input>
-        </el-form-item>
+        <el-row :gutter="20">
+          <el-col :sm="24" :md="12">
+            <el-form-item label="短标题" prop="name">
+              <el-input v-model="params.short_title"></el-input>
+            </el-form-item>
+          </el-col>
 
-        <el-form-item label="其它栏目">
-          <div class="w-640">
-            <el-checkbox-group v-model="params.sub_cid" @change="handleSubCid">
-              <el-checkbox
-                v-for="(item, index) in cateList"
-                :key="index"
-                :label="item.value"
-                >{{ item.label }}</el-checkbox
-              >
-            </el-checkbox-group>
-            <p class="tips">(可选发布到其它栏目)</p>
-          </div>
-        </el-form-item>
+          <el-col :sm="24" :md="12">
+            <el-form-item label="SEO标题">
+              <el-input v-model="params.seo_title"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :sm="24" :md="12">
+            <el-form-item label="SEO关键词">
+              <el-input v-model="params.seo_keywords"></el-input>
+            </el-form-item>
+          </el-col>
 
-        <el-form-item label="SEO标题">
-          <el-input v-model="params.seo_title"></el-input>
-        </el-form-item>
-        <el-form-item label="SEO关键词">
-          <el-input v-model="params.seo_keywords"></el-input>
-        </el-form-item>
-        <el-form-item label="SEO描述">
-          <el-input v-model="params.seo_description"></el-input>
-        </el-form-item>
-        <el-form-item label="来源">
-          <el-input v-model="params.source"></el-input>
-        </el-form-item>
-        <el-form-item label="作者">
-          <el-input v-model="params.author"></el-input>
-        </el-form-item>
-        <el-form-item label="外链跳转">
-          <el-input v-model="params.link" max="120"></el-input>
-        </el-form-item>
+          <el-col :sm="24" :md="12">
+            <el-form-item label="SEO描述">
+              <el-input v-model="params.seo_description"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :sm="24" :md="12">
+            <el-form-item label="来源">
+              <el-input v-model="params.source"></el-input>
+            </el-form-item>
+          </el-col>
 
-        <!--
+          <el-col :sm="24" :md="12">
+            <el-form-item label="作者">
+              <el-input v-model="params.author"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :sm="24" :md="12">
+            <el-form-item label="外链跳转">
+              <el-input v-model="params.link" max="120"></el-input>
+            </el-form-item>
+          </el-col>
+          <!--
           field_cname   中文名称 varchar 60
           field_ename   英文名称 varchar 60
           field_type
@@ -203,32 +229,42 @@
           field_values   字段配置 男 女
           field_sort     字段顺序
           -->
-        <el-form-item
-          :label="item.field_cname"
-          v-for="(item, index) of field"
-          :key="index"
-        >
-          <el-input
-            v-model="item.field_values"
-            max="120"
-            v-if="item.field_type === '1'"
-          ></el-input>
-          <el-input
-            type="textarea"
-            :rows="3"
-            v-else-if="item.field_type === '2'"
-            placeholder="请输入内容"
-            v-model="item.field_values"
-          ></el-input>
-          <el-input
-            type="textarea"
-            :rows="3"
-            v-else
-            placeholder="请输入内容"
-            autosize="false"
-            v-model="item.field_values"
-          ></el-input>
-        </el-form-item>
+          <el-col
+            :sm="24"
+            :md="12"
+            :lg="8"
+            v-for="(item, index) of field"
+            :key="index"
+          >
+            <el-form-item :label="item.field_cname">
+              <el-input
+                v-model="item.field_values"
+                max="120"
+                v-if="item.field_type === '1'"
+              ></el-input>
+              <el-input
+                type="textarea"
+                :rows="3"
+                v-else-if="item.field_type === '2'"
+                placeholder="请输入内容"
+                v-model="item.field_values"
+              ></el-input>
+              <el-input
+                type="textarea"
+                :rows="3"
+                v-else
+                placeholder="请输入内容"
+                autosize="false"
+                v-model="item.field_values"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :sm="24" :md="12">
+            <el-form-item label="浏览数">
+              <el-input v-model="params.pv"></el-input> </el-form-item
+          ></el-col>
+        </el-row>
       </div>
 
       <el-form-item>
@@ -262,7 +298,7 @@ export default {
   data: () => {
     return {
       setting: tinymceSet,
-
+      loading: true,
       categorySelected: [], //-1默认选中顶级栏目
       categoryProps: { checkStrictly: true },
 
@@ -277,7 +313,6 @@ export default {
       params: {
         //接口入参
         cid: 0,
-        sub_cid: [],
         title: "",
         short_title: "",
         tag_id: "",
@@ -296,9 +331,7 @@ export default {
         pv: 0,
         link: "",
       },
-
       field: [], //字段列表
-
       dialogImageUrl: "",
       dialogVisible: false,
       disabled: false,
@@ -320,6 +353,11 @@ export default {
 
     setContent(article) {
       this.params.content = article;
+    },
+
+    tinymce() {
+      console.log("初始化完成");
+      this.loading = false;
     },
 
     //查询标签
@@ -405,7 +443,6 @@ export default {
       try {
         let params = { ...this.params };
         params.attr = params.attr.toString();
-        params.sub_cid = params.sub_cid.toString();
         params.tag_id = params.tag_id.toString();
         //判断是否有缩略图
         if (!params.img) {
@@ -450,4 +487,8 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+:deep(.tiny-textarea) {
+  height: 436px;
+}
+</style>
