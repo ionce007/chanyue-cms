@@ -133,6 +133,20 @@
 
  **走过路过的老铁,帮忙点个小 ⭐⭐⭐⭐⭐,🤝🤝🤝🤝🤝,🙏🙏🙏🙏🙏**
 
+## 禅悦cms历史进程
+
+* 第四次重构（chanyuecms）2022/6/12
+基于express mysql knex开发第三版，经过多年开发，回归最稳定的express。
+
+* 第三次重构（eggcms） 2020/10/1
+基于egg mysql Sequelize重构
+
+* 第二次重构（koacms）2018/4/2
+基于koa2 mysql重构
+
+* 第一次构想 2015/6/2
+基于express mongoDB开发第一版cms
+
 ## 👈待开发功能表
 
  **近期工作内容☕**
