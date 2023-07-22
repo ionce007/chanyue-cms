@@ -1,2 +1,0 @@
-import{h as a,A as e}from"./index.js";let t=(t,p="")=>a({url:`${e.BASE_API}/api/page/search?cur=${t}&pageSize=10&keyword=${p}`,method:"get"}),p=t=>a({url:`${e.BASE_API}/api/page/create`,method:"post",data:t}),d=t=>a({url:`${e.BASE_API}/api/page/delete?id=${t}`,method:"get"}),r=t=>a({url:`${e.BASE_API}/api/page/update`,method:"post",data:t}),s=t=>a({url:`${e.BASE_API}/api/page/detail?id=${t}`,method:"get"});export{d as a,p as c,s as d,t as s,r as u};
-//# sourceMappingURL=page.js.map
