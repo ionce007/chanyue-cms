@@ -35,11 +35,7 @@
           </el-checkbox-group>
         </el-form-item>
 
-        <el-form-item label="图片链接">
-          <el-input v-model="params.imgUrl"></el-input>
-        </el-form-item>
-
-        <el-form-item label="广告图片">
+        <el-form-item class="row" label="广告图片">
           <el-upload
             class="avatar-uploader"
             action="/api/upload"
@@ -47,13 +43,25 @@
             :show-file-list="false"
             :before-upload="beforeUpload"
           >
+            <el-icon class="avatar-uploader-icon"><Plus /></el-icon>
+          </el-upload>
+
+          <el-popover placement="right" :width="400" trigger="hover">
+            <template #reference>
+              <el-image
+                class="avatar-uploader-icon pointer ml-10"
+                v-if="params.imgUrl"
+                :src="params.imgUrl"
+              />
+            </template>
             <el-image
               style="width: 100%"
               v-if="params.imgUrl"
               :src="params.imgUrl"
             />
-            <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-          </el-upload>
+          </el-popover>
+
+          <el-input class="ml-10 flex-1" v-model="params.imgUrl"></el-input>
         </el-form-item>
 
         <el-form-item label="发布时间">

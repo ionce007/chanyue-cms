@@ -6,7 +6,6 @@ const ArticleController = require('../../controller/api/article.js');
 const SiteController = require('../../controller/api/site.js');
 const CategoryController = require('../../controller/api/category.js');
 const MemberController = require('../../controller/api/member.js');
-const PageController = require('../../controller/api/page.js');
 const ModelController = require('../../controller/api/model.js');
 const FieldController = require('../../controller/api/field.js');
 const FragController = require('../../controller/api/frag.js');
@@ -69,14 +68,6 @@ router.post('/article/create', auth(), ArticleController.create);
 router.get('/article/delete', auth(), ArticleController.delete);
 router.post('/article/update', auth(), ArticleController.update);
 router.post('/upload', auth(), upload.any(), ArticleController.upload);
-
-// 页面管理
-router.get('/page/list', PageController.list);
-router.get('/page/search', PageController.search);
-router.get('/page/detail', PageController.detail);
-router.post('/page/create', auth(), PageController.create);
-router.get('/page/delete', auth(), PageController.delete);
-router.post('/page/update', auth(), PageController.update);
 
 // 模型管理
 router.get('/model/list', ModelController.list);

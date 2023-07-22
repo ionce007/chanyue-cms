@@ -136,37 +136,6 @@ export const asyncRoutes = [
           role: ["admin"],
         },
       },
-      {
-        path: "/page",
-        name: "page-index",
-        component: "@/views/page/index.vue",
-        meta: {
-          title: "页面管理",
-          isShow: true,
-          role: ["admin"],
-        },
-      },
-
-      {
-        path: "/page/add",
-        name: "page-add",
-        component: "@/views/page/add.vue",
-        meta: {
-          title: "页面管理-新增",
-          isShow: false,
-          role: ["admin"],
-        },
-      },
-      {
-        path: "/page/edit/:id",
-        name: "page-edit",
-        component: "@/views/page/edit.vue",
-        meta: {
-          title: "页面管理-更新",
-          isShow: false,
-          role: ["admin"],
-        },
-      },
 
       {
         path: "/tag",
@@ -272,7 +241,7 @@ export const asyncRoutes = [
         },
       },
       {
-        path: "/field",
+        path: "/model/field",
         name: "field-index",
         component: "@/views/field/index.vue",
         meta: {
@@ -282,7 +251,7 @@ export const asyncRoutes = [
         },
       },
       {
-        path: "/field/add",
+        path: "/model/field/add",
         name: "field-add",
         component: "@/views/field/add.vue",
         meta: {
@@ -292,7 +261,7 @@ export const asyncRoutes = [
         },
       },
       {
-        path: "/field/edit",
+        path: "/model/field/edit",
         name: "field-edit",
         component: "@/views/field/edit.vue",
         meta: {

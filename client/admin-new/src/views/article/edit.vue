@@ -513,4 +513,8 @@ export default {
   },
 };
 </script>
-<style></style>
+<style scoped>
+:deep(.tiny-textarea) {
+  height: 436px;
+}
+</style>

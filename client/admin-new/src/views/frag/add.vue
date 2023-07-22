@@ -5,7 +5,8 @@
       :model="params"
       :rules="paramsRules"
       label-width="84px"
-      class
+      class="mt-20"
+      v-loading="loading"
     >
       <div>
         <el-form-item label="碎片名称" prop="name">
@@ -20,6 +21,7 @@
           <vue3-tinymce
             v-model="params.content"
             :setting="setting"
+            @init="tinymce"
             script-src="/public/admin/tinymce/tinymce.min.js"
           />
         </el-form-item>
@@ -53,7 +55,7 @@ export default {
   data: () => {
     return {
       setting: tinymceSet,
-
+      loading: true,
       params: {
         //接口入参
         name: "",
@@ -86,6 +88,10 @@ export default {
     },
   },
   methods: {
+    tinymce() {
+      this.loading = false;
+    },
+
     setContent(article) {
       this.params.content = article;
     },
@@ -126,4 +132,8 @@ export default {
   },
 };
 </script>
-<style></style>
+<style scoped>
+:deep(.tiny-textarea) {
+  height: 436px;
+}
+</style>

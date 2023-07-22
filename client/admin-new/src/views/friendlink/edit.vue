@@ -4,7 +4,7 @@
       ref="params"
       :model="params"
       :rules="paramsRules"
-      label-width="84px"
+      label-width="80px"
       class="mt-20"
     >
       <el-form-item label="标题" prop="title">

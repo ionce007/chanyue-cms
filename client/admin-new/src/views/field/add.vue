@@ -5,6 +5,7 @@
       :model="params"
       :rules="paramsRules"
       label-width="100px"
+      class="mt-20"
     >
       <el-form-item label="中文名称" prop="field_cname">
         <el-input v-model="params.field_cname"></el-input>

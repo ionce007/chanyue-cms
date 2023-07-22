@@ -116,7 +116,7 @@ class TagService extends BaseService {
       const offset = parseInt((cur - 1) * pageSize);
       const list = key
         ? await knex
-            .select(["id", "name" ,"path"])
+            .select(["id", "name", "mark"])
             .from(TagService.model)
             .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
             .limit(pageSize)

@@ -15,7 +15,7 @@
     v-loading="loading"
   >
     <el-table-column type="selection"></el-table-column>
-    <el-table-column prop="id" label="编号"></el-table-column>
+    <el-table-column prop="id" width="60" label="编号"></el-table-column>
     <el-table-column prop="model_name" label="模型名称"></el-table-column>
     <el-table-column prop="table_name" label="模型对应的表"></el-table-column>
     <el-table-column prop="status" label="状态">
@@ -23,7 +23,7 @@
         scope.row.status == 1 ? "启用" : "禁用"
       }}</template>
     </el-table-column>
-    <el-table-column fixed="right" label="操作">
+    <el-table-column fixed="right" width="136" label="操作">
       <template #default="scope">
         <el-button
           :icon="View"

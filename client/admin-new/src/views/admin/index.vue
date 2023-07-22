@@ -23,7 +23,7 @@
             scope.row.status == 1 ? "启用" : "关闭"
           }}</template>
         </el-table-column>
-        <el-table-column prop="createdAt" label="发布时间" width="160">
+        <el-table-column prop="createdAt" label="发布时间">
           <template #default="scope">{{ scope.row.createdAt }}</template>
         </el-table-column>
         <el-table-column fixed="right" width="100" label="操作">

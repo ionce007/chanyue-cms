@@ -16,8 +16,8 @@
     >
       <el-table-column type="selection"></el-table-column>
       <el-table-column prop="id" label="编号" width="60"></el-table-column>
-      <el-table-column prop="title" label="标题"></el-table-column>
-      <el-table-column prop="mark" label="标识"></el-table-column>
+      <el-table-column prop="title" label="标题" width="120"></el-table-column>
+      <el-table-column prop="mark" label="标识" width="180"></el-table-column>
       <el-table-column prop="platform" label="平台">
         <template #default="scope">
           <span v-if="scope.row.platform.includes('1')">PC</span>
@@ -46,7 +46,7 @@
         >
       </el-table-column>
 
-      <el-table-column fixed="right" label="操作">
+      <el-table-column fixed="right" width="92" label="操作">
         <template #default="scope">
           <el-button :icon="Edit" circle @click="toEdit(scope.row)"></el-button>
           <el-button

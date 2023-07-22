@@ -13,14 +13,14 @@
     @selection-change="handleSelectionChange"
   >
     <el-table-column type="selection"></el-table-column>
-    <el-table-column prop="id" label="编号"></el-table-column>
-    <el-table-column prop="name" label="标题"></el-table-column>
+    <el-table-column prop="id" width="50" label="编号"></el-table-column>
+    <el-table-column prop="name" width="300" label="标题"></el-table-column>
     <el-table-column prop="tel" label="手机号"></el-table-column>
     <el-table-column prop="wx" label="微信"></el-table-column>
     <el-table-column prop="createdAt" label="发布时间">
       <template #default="scope">{{ scope.row.createdAt }}</template>
     </el-table-column>
-    <el-table-column fixed="right" label="操作">
+    <el-table-column fixed="right" width="92" label="操作">
       <template #default="scope">
         <el-button :icon="Edit" circle @click="toEdit(scope.row)"></el-button>
         <el-button

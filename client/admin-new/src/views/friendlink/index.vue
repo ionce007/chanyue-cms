@@ -14,14 +14,14 @@
     @selection-change="handleSelectionChange"
   >
     <el-table-column type="selection"></el-table-column>
-    <el-table-column prop="id" label="编号"></el-table-column>
-    <el-table-column prop="title" label="标题"></el-table-column>
-    <el-table-column prop="link" label="链接"></el-table-column>
+    <el-table-column prop="id" width="60" label="编号"></el-table-column>
+    <el-table-column prop="title" width="120" label="标题"></el-table-column>
+    <el-table-column prop="link" width="260" label="链接"></el-table-column>
     <el-table-column prop="sort" label="排序"></el-table-column>
     <el-table-column prop="createdAt" label="发布时间">
       <template #default="scope">{{ scope.row.createdAt }}</template>
     </el-table-column>
-    <el-table-column fixed="right" label="操作">
+    <el-table-column fixed="right" width="92" label="操作">
       <template #default="scope">
         <el-button :icon="Edit" circle @click="toEdit(scope.row)"></el-button>
         <el-button
