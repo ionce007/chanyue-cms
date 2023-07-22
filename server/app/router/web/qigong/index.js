@@ -36,6 +36,6 @@ router.get([
   '/search/:keywords/index.html',
   '/search/:keywords/index:id.html'], init(), HomeController.search);
 
-router.get('/page/:id', init(), HomeController.page);
+// router.get('/page/:id', init(), HomeController.page);
 
 module.exports = router;

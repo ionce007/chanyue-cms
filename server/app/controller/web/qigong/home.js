@@ -4,7 +4,6 @@ const { template } = require('../../../config/config.js');
 const HomeService = require(`../../../service/web/${template}/home.js`);
 const { getChildrenId, treeById } = require('../../../extend/helper.js');
 const ArticleService = require('../../../service/api/article.js');
-const PageService = require('../../../service/api/page.js');
 
 class HomeController {
 constructor(){
@@ -278,41 +277,41 @@ constructor(){
   }
 
   // 单页
-  static async page(req, res, next) {
-    try {
-      const id = req.params.id;
-      if (!id) {
-        res.redirect('/');
-        return;
-      }
-      // 广告
-      let ad = await HomeService.ad(1, 3);
-      const obj = {};
-      ad.forEach(item => {
-        obj[item.mark] = item;
-      });
-      ad = obj;
+  // static async page(req, res, next) {
+  //   try {
+  //     const id = req.params.id;
+  //     if (!id) {
+  //       res.redirect('/');
+  //       return;
+  //     }
+  //     // 广告
+  //     let ad = await HomeService.ad(1, 3);
+  //     const obj = {};
+  //     ad.forEach(item => {
+  //       obj[item.mark] = item;
+  //     });
+  //     ad = obj;
 
-      // 文章列表
-      const article = await PageService.article(id);
-      article.createdAt = dayjs(article.createdAt).format('YYYY-MM-DD HH:mm:ss');
-      article.updatedAt = dayjs(article.updatedAt).format('YYYY-MM-DD HH:mm:ss');
+  //     // 文章列表
+  //     const article = await PageService.article(id);
+  //     article.createdAt = dayjs(article.createdAt).format('YYYY-MM-DD HH:mm:ss');
+  //     article.updatedAt = dayjs(article.updatedAt).format('YYYY-MM-DD HH:mm:ss');
 
-      // 当前栏目和当前栏目下所有子导航
-      const navSub = getChildrenId(article.cid, res.locals.category);
+  //     // 当前栏目和当前栏目下所有子导航
+  //     const navSub = getChildrenId(article.cid, res.locals.category);
 
-      // 当前位置
-      const position = treeById(article.cid, res.locals.category);
+  //     // 当前位置
+  //     const position = treeById(article.cid, res.locals.category);
 
-      // 点击数量
-      await PageService.count(id);
+  //     // 点击数量
+      
 
-      await res.render(`web/${template}/page.html`, { article, navSub, ad, position });
+  //     await res.render(`web/${template}/page.html`, { article, navSub, ad, position });
 
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
 
   // 搜索页
