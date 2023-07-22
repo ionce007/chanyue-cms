@@ -36,7 +36,7 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button size="large" type="primary" @click="login"
+            <el-button type="primary" size="large" @click="login"
               >登录</el-button
             >
           </el-form-item>

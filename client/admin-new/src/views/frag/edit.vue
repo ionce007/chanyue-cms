@@ -54,12 +54,13 @@ export default {
   data: () => {
     return {
       setting: tinymceSet,
+      loading: true,
       params: {
         //接口入参
         id: 0,
         name: 0,
         mark: "",
-        createdAt: new Date(),
+        updatedAt: new Date(),
         content: "禅悦",
       },
       dialogVisible: false,

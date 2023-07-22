@@ -57,7 +57,7 @@ export default {
         id: 0,
         name: "",
         tel: "",
-        wx: 0,
+        wx: "",
         content: "",
         createdAt: new Date(),
       },
