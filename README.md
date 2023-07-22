@@ -46,6 +46,17 @@
 * **问：为啥不选择`Sequelize`、`typeorm`或者`prisma`作为`orm`框架？**
 * 答：`knex`易用，友好，强大，`objection.js`都是基于`knex`开发的。
 
+## 🍒 chanyue-cms历史
+
+* 第四次重构（`chanyue-cms`）2022/6/12
+* 基于`express` `mysql` `knex`开发第三版，经过多年开发和线上运营，回归最稳定的`express`。
+* 第三次重构（`eggcms`） 2020/10/1
+* 基于`egg` `mysql` `Sequelize`重构
+* 第二次重构（`koacms`）2018/4/2
+* 基于`koa2` `mysql`重构
+* 第一次构想 2015/6/2
+* 基于`express` `mongoDB`开发第一版cms
+
 ## 🚧功能介绍
 
 * 站点信息
@@ -132,20 +143,6 @@
 * github: <https://github.com/yanyutao/chanyue-cms>
 
  **走过路过的老铁,帮忙点个小 ⭐⭐⭐⭐⭐,🤝🤝🤝🤝🤝,🙏🙏🙏🙏🙏**
-
-## 禅悦cms历史进程
-
-* 第四次重构（chanyuecms）2022/6/12
-基于express mysql knex开发第三版，经过多年开发，回归最稳定的express。
-
-* 第三次重构（eggcms） 2020/10/1
-基于egg mysql Sequelize重构
-
-* 第二次重构（koacms）2018/4/2
-基于koa2 mysql重构
-
-* 第一次构想 2015/6/2
-基于express mongoDB开发第一版cms
 
 ## 👈待开发功能表
 
