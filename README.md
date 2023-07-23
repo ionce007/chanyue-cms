@@ -49,13 +49,14 @@
 ## 🍒 chanyue-cms历史
 
 **1.第一次构想 2015/6/2**
- 基于`express` `mongoDB`开发第一版cms
+
+* 基于`express` `mongoDB`开发第一版cms
 **2.第二次重构（`koacms`）2018/4/2**
- 基于`koa2` `mysql`重构
+* 基于`koa2` `mysql`重构
 **3.第三次重构（`eggcms`） 2020/10/1**
- 基于`egg` `mysql` `Sequelize`重构
+* 基于`egg` `mysql` `Sequelize`重构
 **4.第四次重构（`chanyue-cms`）2022/6/12**
- 基于`express` `mysql` `knex`开发第三版，经过多年开发和线上运营，回归最稳定的`express`。
+* 基于`express` `mysql` `knex`开发第三版，经过多年开发和线上运营，回归最稳定的`express`。
 
 ## 🚧功能介绍
 
