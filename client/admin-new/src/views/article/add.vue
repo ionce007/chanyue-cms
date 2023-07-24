@@ -21,6 +21,7 @@
               ></el-cascader>
             </el-form-item>
           </el-col>
+
           <el-col :sm="24" :md="12">
             <el-form-item
               label="文章标题"
@@ -76,8 +77,10 @@
                 :default-value="new Date()"
                 type="datetime"
                 placeholder="选择日期时间"
-              ></el-date-picker> </el-form-item
-          ></el-col>
+              >
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
 
           <el-col :sm="24" :md="12">
             <el-form-item class="row" label="缩略图">
@@ -136,6 +139,7 @@
             v-model="params.description"
           ></el-input>
         </el-form-item>
+
         <el-form-item label="文章内容">
           <vue3-tinymce
             v-model="params.content"
@@ -159,18 +163,19 @@
               </el-checkbox>
             </el-form-item>
           </el-col>
+
           <el-col :sm="24" :md="12" :lg="8">
             <el-form-item label="提取描述">
               <el-checkbox v-model="autoDes">提取文章描述</el-checkbox>
             </el-form-item>
           </el-col>
 
-          <el-col :sm="24" :md="12" :lg="8"
-            ><el-form-item label="是否显示">
+          <el-col :sm="24" :md="12" :lg="8">
+            <el-form-item label="是否显示">
               <el-radio v-model="params.status" label="0">发布</el-radio>
               <el-radio v-model="params.status" label="1">不发布</el-radio>
-            </el-form-item></el-col
-          >
+            </el-form-item>
+          </el-col>
         </el-row>
       </div>
 
@@ -198,6 +203,7 @@
               <el-input v-model="params.seo_description"></el-input>
             </el-form-item>
           </el-col>
+
           <el-col :sm="24" :md="12">
             <el-form-item label="来源">
               <el-input v-model="params.source"></el-input>
@@ -262,8 +268,9 @@
 
           <el-col :sm="24" :md="12">
             <el-form-item label="浏览数">
-              <el-input v-model="params.pv"></el-input> </el-form-item
-          ></el-col>
+              <el-input v-model="params.pv"></el-input>
+            </el-form-item>
+          </el-col>
         </el-row>
       </div>
 

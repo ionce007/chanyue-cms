@@ -1,13 +1,17 @@
 <template>
   <div class="mr-10 ml-10 mb-20">
-    <el-form
-      ref="params"
-      :model="params"
-      :rules="paramsRules"
-      label-width="84px"
-      class="mt-20"
-    >
-      <el-form-item label="留言标题" prop="name">
+    <el-form ref="params" :model="params" label-width="84px" class="mt-20">
+      <el-form-item
+        label="留言标题"
+        :rules="[
+          {
+            required: true,
+            message: '请输入标题',
+            trigger: 'blur',
+          },
+        ]"
+        prop="name"
+      >
         <el-input v-model="params.name"></el-input>
       </el-form-item>
 
@@ -19,7 +23,17 @@
         <el-input v-model="params.wx"></el-input>
       </el-form-item>
 
-      <el-form-item label="留言内容">
+      <el-form-item
+        label="留言内容"
+        prop="content"
+        :rules="[
+          {
+            required: true,
+            message: '请输入内容',
+            trigger: 'blur',
+          },
+        ]"
+      >
         <el-input
           type="textarea"
           :rows="3"

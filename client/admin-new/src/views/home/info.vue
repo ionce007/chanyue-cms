@@ -3,48 +3,70 @@
     <el-row :gutter="20">
       <el-col class="mb-20" :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
         <el-card>
-          <h1 class="mb-20">禅悦cms历史进程</h1>
+          <template #header>
+            <div class="card-header">
+              <h1>历史进程</h1>
+            </div>
+          </template>
           <el-timeline>
-            <el-timeline-item center timestamp="2022/6/12" placement="top">
-              <h4>第四次重构（chanyuecms）</h4>
-              <p>基于express mysql knex开发第三版</p>
+            <el-timeline-item
+              type="primary"
+              :hollow="true"
+              timestamp="2022/6/12"
+            >
+              <p>第四次重构（chanyuecms）基于express mysql knex开发第三版</p>
             </el-timeline-item>
-            <el-timeline-item timestamp="2020/10/1" placement="top">
-              <h4>第三次重构（eggcms）</h4>
-              <p>基于egg mysql Sequelize重构</p>
+            <el-timeline-item
+              type="primary"
+              :hollow="true"
+              timestamp="2020/10/1"
+            >
+              <p>第三次重构（eggcms） 基于egg mysql Sequelize重构</p>
             </el-timeline-item>
-            <el-timeline-item center timestamp="2018/4/2" placement="top">
-              <h4>第二次重构（koacms）</h4>
-              <p>基于koa2 mysql重构</p>
+            <el-timeline-item
+              type="primary"
+              :hollow="true"
+              timestamp="2018/4/2"
+            >
+              <p>第二次重构（koacms）基于koa2 mysql重构</p>
             </el-timeline-item>
-            <el-timeline-item timestamp="2015/6/2" placement="top">
-              <h4>第一次构想</h4>
-              <p>基于express mongoDB开发第一版cms</p>
+            <el-timeline-item
+              type="primary"
+              :hollow="true"
+              timestamp="2015/6/2"
+            >
+              <p>第一次构想 基于express mongoDB开发第一版cms</p>
             </el-timeline-item>
           </el-timeline>
         </el-card>
       </el-col>
 
       <el-col class="mb-20" :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-        <div class="info c-9ca4bf">
-          <p class="f-16 mb-5">
-            技术架构：nodejs v18.16.0 express4+ mysql-5.6/5.7
+        <el-card class="box-card">
+          <template #header>
+            <div class="card-header">
+              <h1>技术架构</h1>
+            </div>
+          </template>
+          <p class="f-14 mb-6">
+            <strong>技术架构：</strong>nodejs v18.16.0 express4+ mysql-5.6/5.7
           </p>
-          <p class="f-16 mb-5">
-            前端架构：vite4.0 vue3 element-plus pinia axios
+          <p class="f-14 mb-6">
+            <strong>前端架构：</strong>vite4.0 vue3 element-plus pinia axios
           </p>
-          <p class="f-16 mb-5">程序版本：v.1.0.2</p>
-          <p class="f-16 mb-5">程序路径：{{ dirname }}</p>
-          <p class="f-16 mb-5">发布时间：2023-07-21</p>
-          <p class="f-16 mb-5">独立开发：明空</p>
-          <p class="f-16 mb-5">UI界面：16号</p>
-          <p class="f-16 mb-5 row">联系微信：yanyutao2014</p>
-          <p class="f-16 mb-5">
-            <a class="c-9ca4bf" href="http://www.chanyue.top" target="_blank"
-              >禅悦内容管理系统：&copy; www.chanyue.top</a
-            >
+          <p class="f-14 mb-6"><strong>程序版本：</strong>v.1.0.2</p>
+          <p class="f-14 mb-6"><strong>程序路径：</strong>{{ dirname }}</p>
+          <p class="f-14 mb-6"><strong>发布时间：</strong>2023-07-21</p>
+          <p class="f-14 mb-6"><strong>独立开发：</strong>明空</p>
+          <p class="f-14 mb-6"><strong>UI界面：</strong>16号</p>
+          <p class="f-14 mb-6 row"><strong>联系微信：</strong>yanyutao2014</p>
+          <p class="f-14 mb-6">
+            <strong>禅悦内容管理系统：</strong>
+            <a class="c-9ca4bf" href="http://www.chanyue.top" target="_blank">
+              &copy; www.chanyue.top
+            </a>
           </p>
-        </div>
+        </el-card>
       </el-col>
     </el-row>
   </div>

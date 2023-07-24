@@ -134,6 +134,8 @@ export default defineComponent({
               duration: 800,
               type: "success",
             });
+
+            setCookie("username", username);
             this.$router.push({
               path: this.$route.query.redirect || "/",
             });

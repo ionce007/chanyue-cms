@@ -2,7 +2,6 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const favicon = require('serve-favicon');
 const morgan = require('morgan');
-const ejs = require('ejs');
 const { setPath } = require('../utils/utils');
 const { logger, appRoot, cookieKey } = require('../config/config.js');
 module.exports = function (app) {
@@ -21,9 +20,12 @@ module.exports = function (app) {
     app.use(express.urlencoded({ extended: false }));
 
     //配置模板引擎
+	app.set('view options', {
+		debug: process.env.NODE_ENV !== 'prd'
+	});
     app.set('view engine', 'html');
     app.set('views', setPath(appRoot, 'view'));
-    app.engine('.html', ejs.__express);
+    app.engine('.html', require('express-art-template'));
 
     //使用静态资源
     app.use('/public', express.static(setPath(appRoot, 'public')));

@@ -35,10 +35,6 @@
           </el-checkbox-group>
         </el-form-item>
 
-        <el-form-item label="图片链接">
-          <el-input v-model="params.imgUrl"></el-input>
-        </el-form-item>
-
         <el-form-item class="row" label="广告图片">
           <el-upload
             class="avatar-uploader"
