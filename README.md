@@ -24,7 +24,7 @@
 * vue-router
 * pina
 * element-plus
-* vite3
+* vite4
 * tinymce
   
 **服务端技术栈**
@@ -32,7 +32,7 @@
 * nodejs v18.14.2+
 * express 4.18+
 * mysql v5.7.26
-* art-tempate
+* art-tempate v4.13.2+
 * pm2   v5.2.2
 * jwt
 * pm2 (prd)
@@ -134,7 +134,6 @@
 ## ❤️项目关注
 
 * 码云：   <https://gitee.com/yanyutao0402/chanyue-cms>
-* github: <https://github.com/yanyutao/chanyue-cms>
 
  **走过路过的老铁,帮忙点个小 ⭐⭐⭐⭐⭐,🤝🤝🤝🤝🤝,🙏🙏🙏🙏🙏**
 
