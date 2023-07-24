@@ -425,10 +425,8 @@ const router = createRouter({
  * 2.通过路由和角色过滤出对应角色的路由，然后动态添加到路由上面
  * router.beforeEach(async (to, from, next)
  */
-
 import { userStore } from "@/stores/user";
 router.beforeEach(async (to, from) => {
-  console.log("to-->", to.path);
   const user = userStore();
   if (user.token) {
     //已登录
