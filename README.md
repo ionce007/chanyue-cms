@@ -44,6 +44,24 @@
 * 答：`express`全球下载量第一，功能超级稳定，相关依赖包众多（所以不选`koa2`,洋葱皮模型）,依赖包大部分基于`JavaScript`写的，相对于`nest`,`express`更加灵活，轻量。至于为啥不选择`eggjs`/`Midway`，怕了，你懂得。
 * **问：为啥不选择`Sequelize`、`typeorm`或者`prisma`作为`orm`框架？**
 * 答：`knex`易用，友好，强大，`objection.js`都是基于`knex`开发的。
+  
+## 🍒 chanyue-cms历史
+
+**1.第一次构想 2015/6/2**
+
+* 基于`express` `mongoDB`开发第一版cms
+  
+**2.第二次重构（`koacms`）2018/4/2**
+
+* 基于`koa2` `mysql`重构
+
+**3.第三次重构（`eggcms`） 2020/10/1**
+
+* 基于`egg` `mysql` `Sequelize`重构
+
+**4.第四次重构（`chanyue-cms`）2022/6/12**
+
+* 基于`express` `mysql` `knex`开发第三版，经过多年开发和线上运营，回归最稳定的`express`。
 
 ## 🚧功能介绍
 
