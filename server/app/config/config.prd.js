@@ -13,7 +13,7 @@ config.port = '7004';
 
 // add mysql config
 config.mysql = {
-    host: 'mysql.sqlpub.com:',
+    host: 'mysql.sqlpub.com',
     port: '3306',
     user: 'ioncehm',
     password: '0b1a6c1aa061f05b',
